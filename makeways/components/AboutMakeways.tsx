@@ -16,12 +16,11 @@ export default function AboutMakeways() {
       <section id="about" className="about-section">
         <div className="container">
           <div className="welcome-section">
-            <h2 className="section-title fade-in-up">WELCOME TO MAKEWAYS</h2>
+            <h2 className="section-title fade-in-up">ABOU MAKEWAYS</h2>
             <p className="welcome-text fade-in-up">
-              We are a full-service creative agency dedicated to transforming brands 
-              through innovative storytelling, strategic marketing, and exceptional design. 
-              Our team of passionate creatives brings your vision to life with 
-              unparalleled expertise and dedication.
+              MAKEWAYS Pvt. Ltd is a quality-obsessed communication partner, 
+              combining fresh ideas and strategic thinking to build strong brand identities, 
+              lasting relationships, and measurable business success.
             </p>
           </div>
 
@@ -35,15 +34,6 @@ export default function AboutMakeways() {
                   <p>{award.category}</p>
                 </div>
               ))}
-            </div>
-          </div>
-
-          <div className="murals-section">
-            <h3 className="murals-title">OUR CREATIVE MURALS</h3>
-            <div className="mural-showcase">
-              <div className="mural-placeholder">
-                <span>Featured Mural Artwork</span>
-              </div>
             </div>
           </div>
         </div>
@@ -125,42 +115,13 @@ export default function AboutMakeways() {
           color: var(--gray);
         }
 
-        .murals-section {
-          margin-top: 80px;
-        }
-
-        .murals-title {
-          font-size: 36px;
-          color: var(--dark);
-          text-align: center;
-          margin-bottom: 50px;
-          letter-spacing: 2px;
-        }
-
-        .mural-showcase {
-          max-width: 1000px;
-          margin: 0 auto;
-        }
-
-        .mural-placeholder {
-          background: linear-gradient(135deg, var(--orange) 0%, #FFA500 100%);
-          height: 400px;
-          border-radius: 20px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          font-size: 24px;
-          font-weight: bold;
-          box-shadow: 0 15px 40px rgba(255,140,0,0.3);
-        }
 
         @media (max-width: 768px) {
           .section-title {
             font-size: 32px;
           }
           
-          .awards-title, .murals-title {
+          .awards-title{
             font-size: 28px;
           }
         }

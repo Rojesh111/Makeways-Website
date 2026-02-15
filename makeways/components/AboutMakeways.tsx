@@ -16,7 +16,7 @@ export default function AboutMakeways() {
       <section id="about" className="about-section">
         <div className="container">
           <div className="welcome-section">
-            <h2 className="section-title fade-in-up">ABOU MAKEWAYS</h2>
+            <h2 className="section-title fade-in-up">ABOUT MAKEWAYS</h2>
             <p className="welcome-text fade-in-up">
               MAKEWAYS Pvt. Ltd is a quality-obsessed communication partner, 
               combining fresh ideas and strategic thinking to build strong brand identities, 

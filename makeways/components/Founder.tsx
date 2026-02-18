@@ -1,144 +1,170 @@
 'use client';
 
-export default function Founder() {
+export default function FounderSection() {
   return (
     <>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Russo+One&family=Barlow:wght@400;500;600&display=swap"
+        rel="stylesheet"
+      />
+
       <section className="founder-section">
-        <div className="container">
-          <div className="founder-content">
-            <div className="founder-image-wrapper">
-              <div className="founder-image">
-                <div className="image-placeholder"></div>
-              </div>
-            </div>
-            <div className="founder-info">
-              <h2 className="founder-label">FOUNDER</h2>
-              <h3 className="founder-name">BIDHAN RAJBHANDARI</h3>
-              <p className="founder-quote">
-                &quot;At MAKEWAYS, we take our work too seriously without taking ourselves seriously.&quot;
-              </p>
-              <p className="founder-bio">
-                With over a decade of experience in creative marketing and brand strategy, 
-                Bidhan founded MAKEWAYS with a vision to revolutionize how brands connect 
-                with their audiences. His innovative approach combines data-driven insights 
-                with artistic excellence to deliver campaigns that truly resonate.
-              </p>
-            </div>
-          </div>
+
+        {/* FOUNDER — full width behind everything */}
+        <h1 className="founder-title">FOUNDER</h1>
+
+        {/* PHOTO — absolute, bottom-left, overlaps the FOUNDER text */}
+        <div className="founder-photo">
+          <img
+           src="/images/images.jpeg"
+            alt="Bidhan Rajbhandari"
+          />
         </div>
+
+        {/* NAME + QUOTE — absolute, right side, vertically centered in lower half */}
+        <div className="founder-right">
+          <h2 className="founder-name">
+            BIDHAN<br />RAJBHANDARI
+          </h2>
+          <p className="founder-quote">
+            At MAKEWAYS, we take our<br />
+            work too seriously without<br />
+            taking ourselves seriously.
+          </p>
+        </div>
+
       </section>
 
       <style jsx>{`
+        /* ── SECTION: positioning context ── */
         .founder-section {
-          background: linear-gradient(135deg, var(--orange) 0%, #FFA500 100%);
-          padding: 120px 20px;
           position: relative;
+          background: #d4d4d0;
+          width: 100%;
+          height: 520px;
           overflow: hidden;
+          font-family: 'Russo One', 'Eurostile', 'Arial Narrow', sans-serif;
         }
 
-        .founder-section::before {
-          content: '';
+        /* ── FOUNDER: full-width, top, behind photo ── */
+        .founder-title {
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
-          bottom: 0;
-          background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-          opacity: 0.5;
-        }
-
-        .founder-content {
-          display: grid;
-          grid-template-columns: 1fr 1.5fr;
-          gap: 80px;
-          align-items: center;
-          max-width: 1200px;
-          margin: 0 auto;
-          position: relative;
+          font-family: 'Russo One', 'Eurostile', sans-serif;
+          font-size: clamp(100px, 15vw, 185px);
+          font-weight: 900;
+          color: #f07c00;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          line-height: 1;
+          margin: 0;
+          padding: 28px 0 0 40px;
           z-index: 1;
+          white-space: nowrap;
         }
 
-        .founder-image-wrapper {
-          animation: slideInLeft 1s ease-out forwards;
-        }
-
-        .founder-image {
-          position: relative;
-        }
-
-        .image-placeholder {
-          width: 100%;
-          aspect-ratio: 3/4;
-          background: white;
-          border-radius: 20px;
-          box-shadow: 0 25px 60px rgba(0,0,0,0.3);
-          position: relative;
-          overflow: hidden;
-        }
-
-        .image-placeholder::after {
-          content: 'FOUNDER PHOTO';
+        /* ── PHOTO: bottom-left, overlaps FOUNDER text ── */
+        .founder-photo {
           position: absolute;
+          bottom: 0;
+          left: 40px;
+          z-index: 2; /* in front of FOUNDER text */
+          width: clamp(220px, 32%, 400px);
+        }
+
+        .founder-photo img {
+          display: block;
+          width: 100%;
+          height: auto;
+          object-fit: contain;
+          object-position: bottom;
+          filter: grayscale(100%);
+          /* Remove any white/checkered box — image must be PNG with transparent bg */
+        }
+
+        /* ── RIGHT SIDE: name + quote ── */
+        .founder-right {
+          position: absolute;
+          right: 60px;
+          /* vertically: start around middle of section, just below FOUNDER text */
           top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          color: var(--gray);
-          font-size: 18px;
-          font-weight: bold;
-        }
-
-        .founder-info {
-          color: white;
-          animation: slideInRight 1s ease-out forwards;
-        }
-
-        .founder-label {
-          font-size: 72px;
-          font-weight: bold;
-          margin-bottom: 20px;
-          letter-spacing: 4px;
-          opacity: 0.95;
+          transform: translateY(-20%);
+          z-index: 3;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          max-width: 420px;
         }
 
         .founder-name {
-          font-size: 36px;
-          margin-bottom: 30px;
+          font-family: 'Russo One', 'Eurostile', sans-serif;
+          font-size: clamp(28px, 3.5vw, 50px);
+          font-weight: 900;
+          color: #888;
           letter-spacing: 2px;
-          font-weight: 500;
+          text-transform: uppercase;
+          line-height: 1.1;
+          margin: 0;
         }
 
         .founder-quote {
-          font-size: 22px;
-          font-style: italic;
-          margin-bottom: 30px;
-          padding-left: 20px;
-          border-left: 4px solid white;
-          line-height: 1.6;
-          opacity: 0.95;
+          font-family: 'Barlow', sans-serif;
+          font-size: clamp(13px, 1.1vw, 15px);
+          color: #555;
+          line-height: 1.9;
+          letter-spacing: 0.4px;
+          margin: 0;
         }
 
-        .founder-bio {
-          font-size: 18px;
-          line-height: 1.8;
-          opacity: 0.9;
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+          .founder-section {
+            height: auto;
+            min-height: 460px;
+          }
+
+          .founder-title {
+            font-size: clamp(72px, 18vw, 130px);
+          }
+
+          .founder-right {
+            right: 24px;
+            top: 45%;
+            max-width: 50%;
+          }
         }
 
-        @media (max-width: 968px) {
-          .founder-content {
-            grid-template-columns: 1fr;
-            gap: 50px;
+        @media (max-width: 600px) {
+          .founder-section {
+            min-height: 520px;
           }
-          
-          .founder-label {
-            font-size: 48px;
+
+          .founder-title {
+            font-size: 72px;
+            padding: 20px 0 0 20px;
           }
-          
+
+          .founder-photo {
+            left: 16px;
+            width: 55vw;
+          }
+
+          .founder-right {
+            right: 16px;
+            top: auto;
+            bottom: 32px;
+            transform: none;
+            max-width: 48%;
+          }
+
           .founder-name {
-            font-size: 28px;
+            font-size: 22px;
           }
-          
+
           .founder-quote {
-            font-size: 18px;
+            font-size: 12px;
           }
         }
       `}</style>

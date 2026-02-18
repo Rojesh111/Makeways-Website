@@ -8,6 +8,7 @@ import Testimonials from '@/components/Testimonials';
 import Founder from '@/components/Founder';
 import Portfolio from '@/components/Portfolio';
 import Footer from '@/components/Footer';
+import Awards from '@/components/Awards';
 
 export default function Home() {
   return (
@@ -16,11 +17,12 @@ export default function Home() {
       <main>
         <HeroSlider />
         <AboutMakeways />
-        <Clientele />
-        <Services />
         <CoreValues />
+        <Services />
         <Testimonials />
         <Founder />
+        <Awards />
+        <Clientele />
         <Portfolio />
       </main>
       <Footer />

@@ -1,8 +1,50 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const navItems = [
+type NavLabel = 'INTRO' | 'WHAT WE DO' | 'PORTFOLIO' | 'GALLERY' | 'CAREER';
+
+const icons: Record<NavLabel, React.ReactElement> = {
+  INTRO: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" y1="8" x2="12" y2="8.5" strokeWidth="3" strokeLinecap="round"/>
+      <line x1="12" y1="12" x2="12" y2="16" />
+    </svg>
+  ),
+  'WHAT WE DO': (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+      <path d="M4.93 4.93a10 10 0 0 0 0 14.14" />
+      <path d="M16.24 7.76a6 6 0 0 1 0 8.49" />
+      <path d="M7.76 7.76a6 6 0 0 0 0 8.49" />
+    </svg>
+  ),
+  PORTFOLIO: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="7" width="20" height="14" rx="2" />
+      <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+      <line x1="12" y1="12" x2="12" y2="16" />
+      <line x1="10" y1="14" x2="14" y2="14" />
+    </svg>
+  ),
+  GALLERY: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <circle cx="8.5" cy="8.5" r="1.5" />
+      <polyline points="21 15 16 10 5 21" />
+    </svg>
+  ),
+  CAREER: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  ),
+};
+
+const navItems: { label: NavLabel; href: string }[] = [
   { label: 'INTRO', href: '#intro' },
   { label: 'WHAT WE DO', href: '#services' },
   { label: 'PORTFOLIO', href: '#portfolio' },
@@ -26,7 +68,9 @@ export default function Header() {
           <nav className="nav-desktop">
             {navItems.map((item) => (
               <a key={item.label} href={item.href} className="nav-item">
-                <span className="nav-circle" />
+                <span className="nav-circle">
+                  <span className="nav-icon">{icons[item.label]}</span>
+                </span>
                 <span className="nav-label">{item.label}</span>
               </a>
             ))}
@@ -53,7 +97,9 @@ export default function Header() {
               className="mobile-nav-item"
               onClick={() => setMenuOpen(false)}
             >
-              <span className="mobile-circle" />
+              <span className="mobile-circle">
+                <span className="mobile-icon">{icons[item.label]}</span>
+              </span>
               {item.label}
             </a>
           ))}
@@ -67,7 +113,7 @@ export default function Header() {
           left: 0;
           right: 0;
           background: #ffffff;
-          border-bottom: 1px solid #e5e5e5;
+          border-bottom: 2px solid #f0f0f0;
           z-index: 1000;
         }
 
@@ -75,20 +121,21 @@ export default function Header() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 25px 32px;
+          padding: 16px 40px;
           max-width: 1400px;
           margin: 0 auto;
         }
 
+        /* Logo */
         .logo-link {
           display: flex;
           align-items: center;
           flex-shrink: 0;
+          margin-right: 40px;
         }
 
-        /* Smaller logo */
         .logo-img {
-          height: 60px;
+          height: 72px;
           width: auto;
           object-fit: contain;
         }
@@ -97,48 +144,59 @@ export default function Header() {
         .nav-desktop {
           display: flex;
           align-items: center;
-          gap: 24px;
+          gap: 20px;
+          margin-left: auto;
         }
 
         .nav-item {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 4px;
+          gap: 7px;
           text-decoration: none;
           cursor: pointer;
         }
 
-        /* Smaller circles */
+        /* Circle: white bg + orange border by default */
         .nav-circle {
-          display: block;
-          width: 52px;
-          height: 52px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 58px;
+          height: 58px;
           border-radius: 50%;
-          background: #F5A623;
-          transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-          box-shadow: 0 2px 6px rgba(245, 166, 35, 0.3);
+          background: #ffffff;
+          border: 2.5px solid #F5A623;
+          transition: background 0.25s ease, border-color 0.25s ease;
         }
 
         .nav-item:hover .nav-circle {
-          background: #d4891a;
-          transform: scale(1.1);
-          box-shadow: 0 4px 14px rgba(245, 166, 35, 0.5);
+          background: #F5A623;
+          border-color: #ffffff;
         }
 
-        .nav-label {
-          font-family: 'Arial Black', Arial, sans-serif;
-          font-size: 11px;
-          font-weight: 800;
-          letter-spacing: 0.07em;
-          color: #2b2b2b;
-          text-transform: uppercase;
-          white-space: nowrap;
+        /* Icon: orange by default, white on hover */
+        .nav-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #F5A623;
           transition: color 0.25s ease;
         }
 
-        .nav-item:hover .nav-label {
-          color: #F5A623;
+        .nav-item:hover .nav-icon {
+          color: #ffffff;
+        }
+
+        /* Label: always black, no color change */
+        .nav-label {
+          font-family: 'Eurostile', 'Arial Black', Arial, sans-serif;
+          font-size: 10.5px;
+          font-weight: 800;
+          letter-spacing: 0.09em;
+          color: #2b2b2b;
+          text-transform: uppercase;
+          white-space: nowrap;
         }
 
         /* Hamburger */
@@ -147,8 +205,8 @@ export default function Header() {
           flex-direction: column;
           justify-content: center;
           gap: 5px;
-          width: 34px;
-          height: 34px;
+          width: 36px;
+          height: 36px;
           background: none;
           border: none;
           cursor: pointer;
@@ -181,40 +239,64 @@ export default function Header() {
           transition: max-height 0.4s ease;
         }
 
-        .mobile-menu.visible { max-height: 500px; }
+        .mobile-menu.visible { max-height: 600px; }
 
         .mobile-nav-item {
           display: flex;
           align-items: center;
-          gap: 14px;
-          padding: 12px 32px;
-          font-family: 'Arial Black', Arial, sans-serif;
+          gap: 16px;
+          padding: 14px 32px;
+          font-family: 'Eurostile', 'Arial Black', Arial, sans-serif;
           font-size: 12px;
           font-weight: 800;
-          letter-spacing: 0.08em;
+          letter-spacing: 0.09em;
           color: #2b2b2b;
           text-decoration: none;
           text-transform: uppercase;
           border-bottom: 1px solid #f0f0f0;
-          transition: background 0.2s ease, color 0.2s ease;
+          transition: background 0.2s ease;
         }
 
-        .mobile-nav-item:hover { background: #fff8ef; color: #F5A623; }
+        .mobile-nav-item:hover {
+          background: #fff8ef;
+        }
 
         .mobile-circle {
-          display: inline-block;
-          width: 30px;
-          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
-          background: #F5A623;
+          background: #ffffff;
+          border: 2.5px solid #F5A623;
           flex-shrink: 0;
+          transition: background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .mobile-nav-item:hover .mobile-circle {
+          background: #F5A623;
+          border-color: #ffffff;
+        }
+
+        .mobile-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #F5A623;
+          transition: color 0.25s ease;
+        }
+
+        .mobile-nav-item:hover .mobile-icon {
+          color: #ffffff;
         }
 
         @media (max-width: 900px) {
           .nav-desktop { display: none; }
           .hamburger { display: flex; }
           .mobile-menu { display: flex; }
-          .header-inner { padding: 8px 20px; }
+          .header-inner { padding: 10px 20px; }
+          .logo-img { height: 54px; }
         }
       `}</style>
     </>

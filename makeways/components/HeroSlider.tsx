@@ -13,14 +13,15 @@ export default function HeroSlider() {
   
   // 👇 REPLACE THESE PATHS WITH YOUR ACTUAL IMAGE PATHS
   const slides: Slide[] = [
+     {
+      image: '/images/Hero2.jpeg',  // Put your second image in public/images/slide2.jpg
+      alt: 'MAKEWAYS Creative Work 2'
+    },
     {
       image: '/images/Hero1.jpeg',  // Put your first image in public/images/slide1.jpg
       alt: 'MAKEWAYS Creative Work 1'
-    },
-    {
-      image: '/images/Hero2.jpeg',  // Put your second image in public/images/slide2.jpg
-      alt: 'MAKEWAYS Creative Work 2'
     }
+   
   ];
 
   useEffect(() => {

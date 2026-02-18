@@ -45,6 +45,7 @@ export default function HeroSlider() {
                 fill
                 priority={index === 0}
                 quality={100}
+                style={{ objectFit: 'contain' }}
                 className="slide-image"
               />
               <div className="overlay"></div>
@@ -66,16 +67,17 @@ export default function HeroSlider() {
 
       <style jsx>{`
         .hero {
-          min-height: 100vh;
           position: relative;
           overflow: hidden;
-          margin-top: 80px;
+          margin-top: 55px;
         }
 
         .hero-slider {
           position: relative;
           width: 100%;
-          height: 100vh;
+          aspect-ratio: 16 / 9;
+          max-height: 80vh;
+          margin: 0 auto;
         }
 
         .slide {
@@ -95,8 +97,13 @@ export default function HeroSlider() {
         }
 
         :global(.slide-image) {
-          object-fit: cover;
           object-position: center;
+          width: 100%;
+          height: 100%;
+        }
+        :global(body) {
+          margin: 0;
+          padding: 0;
         }
 
         .overlay {
@@ -152,7 +159,8 @@ export default function HeroSlider() {
           }
           
           .hero-slider {
-            height: 60vh;
+            height: auto;
+            aspect-ratio: 4 / 3;
           }
           
           .slide-indicators {

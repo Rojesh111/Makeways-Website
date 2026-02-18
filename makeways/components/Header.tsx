@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 type NavLabel = 'INTRO' | 'WHAT WE DO' | 'PORTFOLIO' | 'GALLERY' | 'CAREER';
 
@@ -44,30 +45,48 @@ const icons: Record<NavLabel, React.ReactElement> = {
   ),
 };
 
-const navItems: { label: NavLabel; href: string }[] = [
-  { label: 'INTRO', href: '#intro' },
+// On the home page, nav items scroll to sections.
+// On any other page (e.g. /career), they link back to home + section.
+const homeNavItems: { label: NavLabel; href: string }[] = [
+  { label: 'INTRO',      href: '#intro' },
   { label: 'WHAT WE DO', href: '#services' },
-  { label: 'PORTFOLIO', href: '#portfolio' },
-  { label: 'GALLERY', href: '#gallery' },
-  { label: 'CAREER', href: '#career' },
+  { label: 'PORTFOLIO',  href: '#portfolio' },
+  { label: 'GALLERY',    href: '#gallery' },
+  { label: 'CAREER',     href: '/career' },
+];
+
+const awayNavItems: { label: NavLabel; href: string }[] = [
+  { label: 'INTRO',      href: '/#intro' },
+  { label: 'WHAT WE DO', href: '/#services' },
+  { label: 'PORTFOLIO',  href: '/#portfolio' },
+  { label: 'GALLERY',    href: '/#gallery' },
+  { label: 'CAREER',     href: '/career' },
 ];
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+  const navItems = isHome ? homeNavItems : awayNavItems;
 
   return (
     <>
       <header className="header">
         <div className="header-inner">
-          {/* Logo */}
-          <a href="#" className="logo-link">
+
+          {/* Logo — always goes back to home */}
+          <a href="/" className="logo-link" aria-label="Go to home">
             <img src="/images/logo.jpg" alt="MAKEWAYS Logo" className="logo-img" />
           </a>
 
           {/* Desktop Nav */}
           <nav className="nav-desktop">
             {navItems.map((item) => (
-              <a key={item.label} href={item.href} className="nav-item">
+              <a
+                key={item.label}
+                href={item.href}
+                className={`nav-item ${pathname === '/career' && item.label === 'CAREER' ? 'active' : ''}`}
+              >
                 <span className="nav-circle">
                   <span className="nav-icon">{icons[item.label]}</span>
                 </span>
@@ -94,7 +113,7 @@ export default function Header() {
             <a
               key={item.label}
               href={item.href}
-              className="mobile-nav-item"
+              className={`mobile-nav-item ${pathname === '/career' && item.label === 'CAREER' ? 'active' : ''}`}
               onClick={() => setMenuOpen(false)}
             >
               <span className="mobile-circle">
@@ -170,12 +189,22 @@ export default function Header() {
           transition: background 0.25s ease, border-color 0.25s ease;
         }
 
+        /* Active state (current page) */
+        .nav-item.active .nav-circle {
+          background: #F5A623;
+          border-color: #F5A623;
+        }
+
+        .nav-item.active .nav-icon {
+          color: #ffffff;
+        }
+
         .nav-item:hover .nav-circle {
           background: #F5A623;
           border-color: #ffffff;
         }
 
-        /* Icon: orange by default, white on hover */
+        /* Icon: orange by default, white on hover/active */
         .nav-icon {
           display: flex;
           align-items: center;
@@ -188,7 +217,7 @@ export default function Header() {
           color: #ffffff;
         }
 
-        /* Label: always black, no color change */
+        /* Label */
         .nav-label {
           font-family: 'Eurostile', 'Arial Black', Arial, sans-serif;
           font-size: 10.5px;
@@ -257,7 +286,8 @@ export default function Header() {
           transition: background 0.2s ease;
         }
 
-        .mobile-nav-item:hover {
+        .mobile-nav-item:hover,
+        .mobile-nav-item.active {
           background: #fff8ef;
         }
 
@@ -274,6 +304,7 @@ export default function Header() {
           transition: background 0.25s ease, border-color 0.25s ease;
         }
 
+        .mobile-nav-item.active .mobile-circle,
         .mobile-nav-item:hover .mobile-circle {
           background: #F5A623;
           border-color: #ffffff;
@@ -287,6 +318,7 @@ export default function Header() {
           transition: color 0.25s ease;
         }
 
+        .mobile-nav-item.active .mobile-icon,
         .mobile-nav-item:hover .mobile-icon {
           color: #ffffff;
         }

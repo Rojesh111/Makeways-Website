@@ -296,10 +296,6 @@ export default function Clientele() {
             </div>
           </div>
 
-          <p className="tagline">
-            Hover over any logo to learn more —{' '}
-            <span>scroll pauses automatically.</span>
-          </p>
         </div>
 
         <div className="marquee-section">

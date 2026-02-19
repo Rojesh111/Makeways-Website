@@ -1,374 +1,510 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 interface Testimonial {
   id: number;
   name: string;
   role: string;
   quote: string;
-  image: string; // path e.g. '/images/testimonials/nirvana.png'
+  image: string;
 }
 
-const testimonials: Testimonial[] = [
+const TESTIMONIALS: Testimonial[] = [
   {
     id: 1,
     name: 'NIRVANA CHAUDHARY',
-    role: 'MD - CHAUDHARY GROUP',
-    quote: 'At MAKEWAYS, we take our work too seriously without taking ourselves seriously.',
-    image: '/images/n.jpeg', // ← replace with actual path
+    role: 'MD – CHAUDHARY GROUP',
+    quote:
+      'At MAKEWAYS, we take our work too seriously without taking ourselves seriously.',
+    image: '/images/n.jpeg',
   },
   {
     id: 2,
-    name: 'Shrinkhala Khatiwada',
+    name: 'SHRINKHALA KHATIWADA',
     role: 'MISS NEPAL WORLD 2018',
-    quote: 'MAKEWAYS has consistently delivered exceptional results that exceed our expectations.',
-    image: '/images/s.jpeg', 
+    quote:
+      'MAKEWAYS has consistently delivered exceptional results that exceed our expectations.',
+    image: '/images/s.jpeg',
   },
   {
     id: 3,
     name: 'ANIL KUMAR',
-    role: 'MD - ANIL GROUP',
-    quote: 'MAKEWAYS has been instrumental in helping us achieve our marketing goals.',
+    role: 'MD – ANIL GROUP',
+    quote:
+      'MAKEWAYS has been instrumental in helping us achieve our marketing goals.',
     image: '/images/anil.jpg',
-  }
+  },
 ];
 
 export default function Testimonials() {
-  const [current, setCurrent] = useState(0);
-  const [animating, setAnimating] = useState(false);
-  const [visible, setVisible] = useState(true);
+  const [current, setCurrent] = useState<number>(0);
+  const [animating, setAnimating] = useState<boolean>(false);
+  const [visible, setVisible] = useState<boolean>(true);
+  const timerRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
 
-  const goTo = useCallback((index: number) => {
-    if (animating || index === current) return;
-    setAnimating(true);
-    setVisible(false);
-    setTimeout(() => {
-      setCurrent(index);
-      setVisible(true);
-      setAnimating(false);
-    }, 320);
-  }, [animating, current]);
+  const navigate = useCallback(
+    (next: number) => {
+      if (animating || next === current) return;
+      setAnimating(true);
+      setVisible(false);
+      clearInterval(timerRef.current);
+      setTimeout(() => {
+        setCurrent(next);
+        setVisible(true);
+        setAnimating(false);
+      }, 380);
+    },
+    [animating, current]
+  );
 
-  const next = useCallback(() => {
-    goTo((current + 1) % testimonials.length);
-  }, [current, goTo]);
+  const goNext = useCallback(
+    () => navigate((current + 1) % TESTIMONIALS.length),
+    [current, navigate]
+  );
 
-  // Auto-advance
+  const goPrev = useCallback(
+    () => navigate((current - 1 + TESTIMONIALS.length) % TESTIMONIALS.length),
+    [current, navigate]
+  );
+
   useEffect(() => {
-    const timer = setInterval(next, 5000);
-    return () => clearInterval(timer);
-  }, [next]);
+    timerRef.current = setInterval(goNext, 6000);
+    return () => clearInterval(timerRef.current);
+  }, [goNext]);
 
-  const t = testimonials[current];
+  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const parent = e.currentTarget.parentElement;
+    e.currentTarget.style.display = 'none';
+    if (parent) parent.setAttribute('data-empty', 'true');
+  };
+
+  const t = TESTIMONIALS[current];
 
   return (
-    <>
-      <section className="testi">
-        <div className="testi__inner">
+    <section className="testi" aria-label="Client Testimonials">
 
-          {/* ── LEFT CONTENT ──────────────────────────────────────────── */}
-          <div className="testi__left">
+      {/* ════════════════ DESKTOP / TABLET ════════════════ */}
+      <div className="testi__shell">
 
-            {/* Name + role — animates out/in */}
-            <div className={`testi__meta ${visible ? 'testi__meta--in' : 'testi__meta--out'}`}>
-              <h3 className="testi__name">{t.name}</h3>
-              <p className="testi__role">{t.role}</p>
-            </div>
+        {/* ─── LEFT PANEL ─── */}
+        <div className="testi__left">
 
-            {/* SAYS — FIXED, never moves */}
-            <div className="testi__says-wrap">
-              <span className="testi__says">SAYS</span>
-              <span className="testi__about">ABOUT MAKEWAYS</span>
-            </div>
-
-            {/* Quote — animates out/in */}
-            <p className={`testi__quote ${visible ? 'testi__quote--in' : 'testi__quote--out'}`}>
-              {t.quote}
-            </p>
-
-            {/* Dot navigation */}
-            <div className="testi__dots">
-              {testimonials.map((_, i) => (
-                <button
-                  key={i}
-                  className={`testi__dot ${i === current ? 'testi__dot--active' : ''}`}
-                  onClick={() => goTo(i)}
-                  aria-label={`Go to testimonial ${i + 1}`}
-                />
-              ))}
-            </div>
+          {/* Name + Role — animates */}
+          <div className={`testi__meta ${visible ? 'meta--in' : 'meta--out'}`}>
+            <h3 className="testi__name">{t.name}</h3>
+            <p  className="testi__role">{t.role}</p>
           </div>
 
-          {/* ── RIGHT IMAGE ───────────────────────────────────────────── */}
-          <div className="testi__right">
-            <div className={`testi__img-wrap ${visible ? 'testi__img-wrap--in' : 'testi__img-wrap--out'}`}>
-              <img
-                src={t.image}
-                alt={t.name}
-                className="testi__img"
-                onError={e => {
-                  // Show placeholder silhouette if image missing
-                  (e.target as HTMLImageElement).style.opacity = '0.15';
-                }}
+          {/* SAYS — absolutely STATIC, zero animation */}
+          <div className="testi__says-block" aria-hidden="true">
+            <span className="testi__says">SAYS</span>
+            <span className="testi__about">ABOUT MAKEWAYS</span>
+          </div>
+
+          {/* Quote — animates */}
+          <p className={`testi__quote ${visible ? 'quote--in' : 'quote--out'}`}>
+            {t.quote}
+          </p>
+
+          {/* Desktop dot navigation */}
+          <nav className="testi__dots" aria-label="Testimonial navigation">
+            {TESTIMONIALS.map((_, i) => (
+              <button
+                key={i}
+                aria-label={`Go to testimonial ${i + 1}`}
+                aria-current={i === current ? 'true' : 'false'}
+                className={`testi__dot ${i === current ? 'dot--on' : ''}`}
+                onClick={() => navigate(i)}
               />
-            </div>
+            ))}
+          </nav>
+        </div>
 
-            {/* Orange play arrow — fixed on right edge */}
-            <button className="testi__play" onClick={next} aria-label="Next testimonial">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" stroke="none">
-                <polygon points="5 3 19 12 5 21 5 3"/>
-              </svg>
-            </button>
+        {/* ─── RIGHT PANEL — full bleed photo ─── */}
+        <div className="testi__right">
+
+          {/* Prev — mobile only */}
+          <button
+            className="testi__arrow testi__arrow--prev"
+            onClick={goPrev}
+            aria-label="Previous testimonial"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"
+              strokeLinecap="round" strokeLinejoin="round" width="14" height="14">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+
+          {/* Photo — full-bleed cover */}
+          <div
+            className={`testi__imgpanel ${visible ? 'img--in' : 'img--out'}`}
+            role="img"
+            aria-label={t.name}
+          >
+            <img
+              key={t.id}
+              src={t.image}
+              alt={t.name}
+              className="testi__img"
+              onError={handleImgError}
+            />
           </div>
 
+          {/* Next arrow — pokes out right edge */}
+          <button
+            className="testi__arrow testi__arrow--next"
+            onClick={goNext}
+            aria-label="Next testimonial"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"
+              strokeLinecap="round" strokeLinejoin="round" width="14" height="14">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
         </div>
-      </section>
+      </div>
+
+      {/* Mobile-only dots row */}
+      <nav className="testi__mobile-dots" aria-label="Testimonial navigation">
+        {TESTIMONIALS.map((_, i) => (
+          <button
+            key={i}
+            aria-label={`Go to testimonial ${i + 1}`}
+            className={`testi__dot ${i === current ? 'dot--on' : ''}`}
+            onClick={() => navigate(i)}
+          />
+        ))}
+      </nav>
 
       <style jsx>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap');
 
-        /* ── SECTION ────────────────────────────────────────────────────── */
+        /* ══════════════════════════════════════════════
+           EUROSTILE — Adobe Fonts / Typekit
+           The font-family name 'eurostile' works if you have
+           added the Typekit kit to your layout (see README).
+           Barlow Condensed is the web fallback.
+        ══════════════════════════════════════════════ */
+
         .testi {
-          background: #c8c8c8;
-          width: 100%;
-          overflow: hidden;
-          font-family: 'Eurostile', 'Barlow', -apple-system, sans-serif;
+          --orange : #F5A623;
+          --bg     : #CACACA;
+          --dark   : #2A2A2A;
+          --grey   : #6B6B6B;
+          --subgrey: #5C5C5C;
+
+          /* Section height — aspect ratio locked */
+          --section-h: clamp(400px, 50vw, 600px);
+
+          background  : var(--bg);
+          width       : 100%;
+          overflow    : hidden;
+          position    : relative;
+
+          /*
+            Eurostile from Adobe Fonts (Typekit).
+            In your layout.tsx / _document.tsx add:
+              <link rel="stylesheet" href="https://use.typekit.net/YOUR_KIT_ID.css" />
+            Then this font-family stack picks it up automatically.
+          */
+          font-family : 'eurostile', 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
         }
 
-        .testi__inner {
-          display: flex;
-          align-items: stretch;
-          min-height: 420px;
-          max-width: 100%;
-          position: relative;
+        /* ── Shell ── */
+        .testi__shell {
+          display      : flex;
+          align-items  : stretch;
+          height       : var(--section-h);
+          width        : 100%;
+          position     : relative;
         }
 
-        /* ── LEFT ───────────────────────────────────────────────────────── */
+        /* ════════════════════════════════════
+           LEFT PANEL
+        ════════════════════════════════════ */
         .testi__left {
-          flex: 1;
-          padding: 48px 40px 40px 60px;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          gap: 0;
-          position: relative;
-          z-index: 2;
+          flex           : 1 1 0;
+          min-width      : 0;
+          display        : flex;
+          flex-direction : column;
+          justify-content: center;
+          /* padding: top right bottom left — left padding is generous */
+          padding        : 0 clamp(24px, 3vw, 52px) 0 clamp(36px, 6.5vw, 96px);
+          position       : relative;
+          z-index        : 2;
         }
 
-        /* Name */
-        .testi__meta {
-          margin-bottom: 8px;
-          transition: opacity 0.3s ease, transform 0.3s ease;
+        /* Hairline divider — left/right separator */
+        .testi__left::after {
+          content    : '';
+          position   : absolute;
+          right      : 0;
+          top        : 10%;
+          height     : 80%;
+          width      : 1px;
+          background : rgba(0, 0, 0, 0.13);
         }
-        .testi__meta--in  { opacity: 1; transform: translateY(0); }
-        .testi__meta--out { opacity: 0; transform: translateY(-8px); }
 
+        /* ── Name ── */
         .testi__name {
-          font-family: 'Eurostile', 'Barlow', sans-serif;
-          font-size: clamp(18px, 2.6vw, 30px);
-          font-weight: 700;
-          color: #6b6b6b;
-          letter-spacing: 1px;
+          font-family   : 'eurostile', 'Barlow Condensed', Arial, sans-serif;
+          font-size     : clamp(15px, 1.85vw, 25px);
+          font-weight   : 700;
+          color         : var(--grey);
+          letter-spacing: 1.8px;
           text-transform: uppercase;
-          line-height: 1.1;
-          margin: 0;
+          line-height   : 1.1;
+          margin        : 0;
         }
 
+        /* ── Role ── */
         .testi__role {
-          font-family: 'Eurostile', 'Barlow', sans-serif;
-          font-size: clamp(9px, 1.1vw, 13px);
-          font-weight: 700;
-          color: #5a5a5a;
-          letter-spacing: 2px;
+          font-family   : 'eurostile', 'Barlow Condensed', Arial, sans-serif;
+          font-size     : clamp(8px, 0.78vw, 10.5px);
+          font-weight   : 700;
+          color         : var(--subgrey);
+          letter-spacing: 3px;
           text-transform: uppercase;
-          margin: 4px 0 0 0;
+          margin-top    : 6px;
         }
 
-        /* SAYS block — never animates */
-        .testi__says-wrap {
-          display: flex;
+        /* ── SAYS — never animates ── */
+        .testi__says-block {
+          display       : flex;
           flex-direction: column;
-          margin-bottom: 12px;
-          line-height: 1;
+          margin-top    : 0px;
+          line-height   : 1;
         }
 
         .testi__says {
-          font-family: 'Eurostile', 'Barlow', sans-serif;
-          font-size: clamp(72px, 12vw, 140px);
-          font-weight: 900;
-          color: #F5A623;
-          letter-spacing: -2px;
-          line-height: 0.88;
+          font-family   : 'eurostile', 'Barlow Condensed', Arial, sans-serif;
+          font-size     : clamp(86px, 13.8vw, 176px);
+          font-weight   : 900;
+          color         : var(--orange);
+          letter-spacing: -6px;
+          line-height   : 0.80;
           text-transform: uppercase;
-          display: block;
+          display       : block;
+          margin-left   : -6px; /* optical alignment to left edge */
         }
 
         .testi__about {
-          font-family: 'Eurostile', 'Barlow', sans-serif;
-          font-size: clamp(8px, 1vw, 11px);
-          font-weight: 700;
-          color: #7a7a7a;
-          letter-spacing: 3px;
+          font-family   : 'eurostile', 'Barlow Condensed', Arial, sans-serif;
+          font-size     : clamp(7px, 0.65vw, 9px);
+          font-weight   : 700;
+          color         : #888;
+          letter-spacing: 4.5px;
           text-transform: uppercase;
-          margin-top: 6px;
-          padding-left: 4px;
-          display: block;
+          margin-top    : 10px;
+          padding-left  : 4px;
+          display       : block;
         }
 
-        /* Quote */
+        /* ── Quote ── */
         .testi__quote {
-          font-family: 'Barlow', sans-serif;
-          font-size: clamp(13px, 1.5vw, 18px);
-          color: #3a3a3a;
-          line-height: 1.55;
-          max-width: 520px;
-          margin: 0 0 28px 0;
-          transition: opacity 0.3s ease, transform 0.3s ease;
-          transition-delay: 0.05s;
+          font-family: 'Barlow', 'Arial', sans-serif;
+          font-size  : clamp(12.5px, 1.1vw, 15.5px);
+          font-weight: 400;
+          color      : #303030;
+          line-height: 1.72;
+          max-width  : 480px;
+          margin-top : 18px;
+          margin-bottom: 26px;
         }
-        .testi__quote--in  { opacity: 1; transform: translateY(0); }
-        .testi__quote--out { opacity: 0; transform: translateY(8px); }
 
-        /* Dots */
+        /* ── Desktop dots ── */
         .testi__dots {
-          display: flex;
+          display    : flex;
           align-items: center;
-          gap: 8px;
-          margin-top: auto;
+          gap        : 9px;
         }
 
-        .testi__dot {
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          background: #8a8a8a;
-          border: none;
-          cursor: pointer;
-          padding: 0;
-          transition: background 0.2s, transform 0.2s;
-        }
-
-        .testi__dot--active {
-          background: #2a2a2a;
-          transform: scale(1.2);
-        }
-
-        .testi__dot:hover:not(.testi__dot--active) {
-          background: #555;
-        }
-
-        /* ── RIGHT ──────────────────────────────────────────────────────── */
-        .testi__right {
-          position: relative;
-          width: clamp(260px, 38%, 480px);
-          flex-shrink: 0;
-          display: flex;
-          align-items: flex-end;
-          overflow: visible;
-        }
-
-        .testi__img-wrap {
-          width: 100%;
-          height: 100%;
-          display: flex;
-          align-items: flex-end;
+        /* ── Mobile dots ── */
+        .testi__mobile-dots {
+          display        : none;
           justify-content: center;
-          transition: opacity 0.3s ease;
+          align-items    : center;
+          gap            : 9px;
+          padding        : 16px 0 22px;
         }
-        .testi__img-wrap--in  { opacity: 1; }
-        .testi__img-wrap--out { opacity: 0; }
+
+        /* Shared dot style */
+        .testi__dot {
+          width        : 9px;
+          height       : 9px;
+          border-radius: 50%;
+          border       : none;
+          background   : #999;
+          cursor       : pointer;
+          padding      : 0;
+          transition   : background 0.22s, transform 0.22s;
+        }
+
+        .dot--on {
+          background: var(--dark);
+          transform : scale(1.35);
+        }
+
+        .testi__dot:hover:not(.dot--on) { background: #555; }
+
+        /* ════════════════════════════════════
+           RIGHT PANEL — full bleed photo
+        ════════════════════════════════════ */
+        .testi__right {
+          position   : relative;
+          width      : clamp(280px, 40%, 520px);
+          flex-shrink: 0;
+          overflow   : hidden; /* clips image cleanly to panel */
+        }
+
+        /* ── Image panel — fills right panel 100% ── */
+        .testi__imgpanel {
+          position: absolute;
+          inset   : 0; /* top:0 right:0 bottom:0 left:0 */
+          z-index : 1;
+        }
 
         .testi__img {
-          width: 100%;
-          max-height: 420px;
-          object-fit: contain;
-          object-position: bottom center;
-          display: block;
-          filter: grayscale(100%);
+          width          : 100%;
+          height         : 100%;
+          object-fit     : cover;        /* fills panel completely — no gaps */
+          object-position: center top;   /* keep face visible */
+          display        : block;
+          filter         : grayscale(100%) contrast(1.06) brightness(0.97);
         }
 
-        /* Orange play arrow on right edge */
-        .testi__play {
-          position: absolute;
-          right: -24px;
-          top: 50%;
-          transform: translateY(-50%);
-          background: #F5A623;
-          border: none;
-          width: 48px;
-          height: 48px;
-          display: flex;
-          align-items: center;
+        /* ════════════════════════════════════
+           ARROWS
+        ════════════════════════════════════ */
+        .testi__arrow {
+          position       : absolute;
+          top            : 50%;
+          transform      : translateY(-50%);
+          width          : 46px;
+          height         : 46px;
+          background     : var(--orange);
+          border         : none;
+          cursor         : pointer;
+          display        : flex;
+          align-items    : center;
           justify-content: center;
-          cursor: pointer;
-          z-index: 10;
-          clip-path: polygon(0 0, 100% 50%, 0 100%);
-          padding-left: 6px;
-          transition: background 0.2s;
+          z-index        : 20;
+          transition     : background 0.18s, opacity 0.18s;
         }
-        .testi__play:hover { background: #e07b00; }
 
-        /* ── MOBILE ─────────────────────────────────────────────────────── */
-        @media (max-width: 768px) {
-          .testi__inner {
-            flex-direction: column;
-            min-height: unset;
-          }
+        .testi__arrow:hover  { background: #D98A10; }
+        .testi__arrow:active { opacity: 0.8; }
 
+        /* Next — right edge, chevron pointing right */
+        .testi__arrow--next {
+          right      : 0;
+          clip-path  : polygon(0 0, 100% 50%, 0 100%);
+          padding-left: 10px;
+        }
+
+        /* Prev — hidden desktop, shown mobile */
+        .testi__arrow--prev {
+          left         : 0;
+          clip-path    : polygon(100% 0, 0 50%, 100% 100%);
+          padding-right: 10px;
+          display      : none;
+        }
+
+        /* ════════════════════════════════════
+           ANIMATION STATES
+        ════════════════════════════════════ */
+        .testi__meta {
+          transition: opacity 0.34s ease, transform 0.34s ease;
+        }
+        .meta--in  { opacity: 1; transform: translateY(0px); }
+        .meta--out { opacity: 0; transform: translateY(-10px); }
+
+        .testi__quote {
+          transition: opacity 0.34s ease 0.07s, transform 0.34s ease 0.07s;
+        }
+        .quote--in  { opacity: 1; transform: translateY(0px); }
+        .quote--out { opacity: 0; transform: translateY(10px); }
+
+        .testi__imgpanel {
+          transition: opacity 0.34s ease;
+        }
+        .img--in  { opacity: 1; }
+        .img--out { opacity: 0; }
+
+        /* ════════════════════════════════════
+           ACCESSIBILITY
+        ════════════════════════════════════ */
+        .testi__arrow:focus-visible,
+        .testi__dot:focus-visible {
+          outline       : 2px solid var(--orange);
+          outline-offset: 3px;
+        }
+
+        /* ════════════════════════════════════
+           TABLET  ≤ 960px
+        ════════════════════════════════════ */
+        @media (max-width: 960px) {
           .testi__left {
-            padding: 36px 24px 24px 24px;
-            order: 2;
+            padding: 0 20px 0 5vw;
           }
-
-          .testi__right {
-            width: 100%;
-            order: 1;
-            height: 280px;
-            justify-content: center;
-          }
-
-          .testi__img {
-            max-height: 280px;
-            width: auto;
-            max-width: 60%;
-            margin: 0 auto;
-          }
-
-          .testi__play {
-            right: 0;
-            top: 50%;
-          }
-
           .testi__says {
-            font-size: clamp(56px, 18vw, 90px);
-          }
-
-          .testi__name {
-            font-size: clamp(16px, 4vw, 24px);
+            font-size: clamp(76px, 15vw, 132px);
           }
         }
 
-        @media (max-width: 480px) {
-          .testi__left {
-            padding: 28px 20px 28px 20px;
+        /* ════════════════════════════════════
+           MOBILE  ≤ 700px — stacked layout
+        ════════════════════════════════════ */
+        @media (max-width: 700px) {
+          .testi__shell {
+            flex-direction: column;
+            height        : auto;
           }
 
+          /* Photo on top */
           .testi__right {
-            height: 220px;
+            width     : 100%;
+            height    : 55vw;
+            min-height: 230px;
+            max-height: 340px;
+            order     : 1;
           }
 
-          .testi__img {
-            max-height: 220px;
-            max-width: 70%;
-          }
+          /* Center face for portrait crops */
+          .testi__img { object-position: center 10%; }
 
-          .testi__play {
-            width: 38px;
-            height: 38px;
+          /* Show both nav arrows */
+          .testi__arrow--prev { display: flex; }
+
+          /* Text below */
+          .testi__left {
+            order     : 2;
+            padding   : 28px 24px 10px 24px;
           }
+          .testi__left::after { display: none; }
+
+          /* Swap dots */
+          .testi__dots        { display: none; }
+          .testi__mobile-dots { display: flex; }
+
+          .testi__says  { font-size: clamp(68px, 22vw, 106px); }
+          .testi__name  { font-size: clamp(14px, 4.5vw, 22px); }
+          .testi__quote { font-size: 14px; margin-bottom: 0; }
+          .testi__about { margin-top: 6px; }
+        }
+
+        /* ════════════════════════════════════
+           SMALL PHONE  ≤ 420px
+        ════════════════════════════════════ */
+        @media (max-width: 420px) {
+          .testi__right  { height: 60vw; }
+          .testi__left   { padding: 22px 18px 8px 18px; }
+          .testi__arrow  { width: 38px; height: 38px; }
+          .testi__says   { font-size: clamp(54px, 25vw, 84px); }
+          .testi__name   { font-size: clamp(13px, 5vw, 19px); }
+          .testi__quote  { font-size: 13px; }
         }
       `}</style>
-    </>
+    </section>
   );
 }

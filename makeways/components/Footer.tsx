@@ -62,7 +62,6 @@ export default function Footer() {
             <span className="pipe">|</span>
             <a href="/gallery" className="nav-link">GALLERY</a>
           </nav>
-          <p className="new-pages-note">NEW PAGES NEED TO BE ADDED: LINKEDIN / YOUTUBE</p>
         </div>
 
         {/* MIDDLE ROW */}

@@ -6,9 +6,9 @@ import Services from '@/components/Services';
 import CoreValues from '@/components/CoreValues';
 import Testimonials from '@/components/Testimonials';
 import Founder from '@/components/Founder';
-import Portfolio from '@/components/Portfolio';
 import Footer from '@/components/Footer';
 import Awards from '@/components/Awards';
+import Portfolio from '@/components/Portfolio';
 
 export default function Home() {
   return (

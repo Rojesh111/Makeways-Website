@@ -25,7 +25,7 @@ export default function AboutMakeways(): ReactElement {
 
   return (
     <>
-      <section className="about" ref={sectionRef}>
+      <section className="about" id="about" ref={sectionRef}>
         <div className="about__inner">
 
           {/* Title */}

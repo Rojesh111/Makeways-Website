@@ -1,213 +1,194 @@
 'use client';
 
-import { useState } from 'react';
+import Link from 'next/link';
 
-interface Category {
-  id: string;
-  name: string;
-  icon: string;
-}
-
-interface PortfolioItem {
-  id: number;
-  title: string;
-  category: string;
-}
+const categories = [
+  {
+    label: 'TVC',
+    href: '/portfolio/tvc',
+    icon: (
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="7" width="20" height="13" rx="2" ry="2" />
+        <polyline points="17 2 12 7 7 2" />
+      </svg>
+    ),
+  },
+  {
+    label: 'PRINT',
+    href: '/portfolio/print',
+    icon: (
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="6 9 6 2 18 2 18 9" />
+        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+        <rect x="6" y="14" width="12" height="8" />
+      </svg>
+    ),
+  },
+  {
+    label: 'DIGITAL',
+    href: '/portfolio/digital',
+    icon: (
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+        <line x1="8" y1="21" x2="16" y2="21" />
+        <line x1="12" y1="17" x2="12" y2="21" />
+      </svg>
+    ),
+  },
+  {
+    label: 'EVENT',
+    href: '/portfolio/eventss',
+    icon: (
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    ),
+  },
+  {
+    label: 'JINGLE',
+    href: '/portfolio/jingle',
+    icon: (
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 18V5l12-2v13" />
+        <circle cx="6" cy="18" r="3" />
+        <circle cx="18" cy="16" r="3" />
+      </svg>
+    ),
+  },
+];
 
 export default function Portfolio() {
-  const [activeCategory, setActiveCategory] = useState('all');
-
-  const categories: Category[] = [
-    { id: 'all', name: 'ALL', icon: '📋' },
-    { id: 'tvc', name: 'TVC', icon: '📺' },
-    { id: 'print', name: 'PRINT', icon: '📰' },
-    { id: 'digital', name: 'DIGITAL', icon: '💻' },
-    { id: 'event', name: 'EVENT', icon: '🎯' },
-    { id: 'jingle', name: 'JINGLE', icon: '🎵' }
-  ];
-
-  const portfolioItems: PortfolioItem[] = Array.from({ length: 12 }, (_, i) => ({
-    id: i + 1,
-    title: `Project ${i + 1}`,
-    category: categories[(i % 5) + 1].id
-  }));
-
-  const filteredItems = activeCategory === 'all' 
-    ? portfolioItems 
-    : portfolioItems.filter(item => item.category === activeCategory);
-
   return (
     <>
-      <section id="portfolio" className="portfolio-section">
-        <div className="container">
-          <h2 className="section-title">PORTFOLIO</h2>
-          
-          <div className="category-filters">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                className={`filter-btn ${activeCategory === category.id ? 'active' : ''}`}
-                onClick={() => setActiveCategory(category.id)}
-              >
-                <span className="filter-icon">{category.icon}</span>
-                <span className="filter-name">{category.name}</span>
-              </button>
+      <section id="portfolio" className="portfolio">
+        <div className="portfolio__inner">
+
+          {/* Big title */}
+          <h2 className="portfolio__title">PORTFOLIO</h2>
+
+          {/* Circle buttons */}
+          <div className="portfolio__circles">
+            {categories.map((cat) => (
+              <Link key={cat.label} href={cat.href} className="portfolio__item">
+                <div className="portfolio__circle">
+                  <span className="portfolio__icon">{cat.icon}</span>
+                </div>
+                <span className="portfolio__label">{cat.label}</span>
+              </Link>
             ))}
           </div>
 
-          <div className="portfolio-grid">
-            {filteredItems.map((item, index) => (
-              <div 
-                key={item.id} 
-                className="portfolio-item"
-                style={{animationDelay: `${index * 0.1}s`}}
-              >
-                <div className="portfolio-image">
-                  <div className="image-placeholder">
-                    <span>{item.title}</span>
-                  </div>
-                  <div className="portfolio-overlay">
-                    <h4>{item.title}</h4>
-                    <p>{categories.find(c => c.id === item.category)?.name}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
       <style jsx>{`
-        .portfolio-section {
-          background: white;
-          padding: 100px 20px;
-        }
-
-        .section-title {
-          font-size: 64px;
-          color: var(--orange);
-          text-align: center;
-          margin-bottom: 60px;
-          letter-spacing: 4px;
-          font-weight: bold;
-        }
-
-        .category-filters {
-          display: flex;
-          justify-content: center;
-          flex-wrap: wrap;
-          gap: 20px;
-          margin-bottom: 60px;
-        }
-
-        .filter-btn {
-          background: white;
-          border: 2px solid var(--orange);
-          color: var(--orange);
-          padding: 15px 30px;
-          border-radius: 50px;
-          font-size: 16px;
-          font-weight: bold;
-          letter-spacing: 1px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
-
-        .filter-btn:hover {
-          background: var(--orange);
-          color: white;
-          transform: translateY(-3px);
-          box-shadow: 0 10px 20px rgba(255,140,0,0.3);
-        }
-
-        .filter-btn.active {
-          background: var(--orange);
-          color: white;
-          box-shadow: 0 10px 20px rgba(255,140,0,0.3);
-        }
-
-        .filter-icon {
-          font-size: 20px;
-        }
-
-        .portfolio-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-          gap: 40px;
-        }
-
-        .portfolio-item {
-          animation: fadeInUp 0.6s ease-out forwards;
-          opacity: 0;
-        }
-
-        .portfolio-image {
-          position: relative;
-          border-radius: 15px;
-          overflow: hidden;
-          cursor: pointer;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-          transition: all 0.4s ease;
-        }
-
-        .portfolio-image:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 20px 40px rgba(255,140,0,0.3);
-        }
-
-        .image-placeholder {
+        .portfolio {
+          background: #FF8C00;
           width: 100%;
-          aspect-ratio: 16/10;
-          background: linear-gradient(135deg, var(--light) 0%, #f0f0f0 100%);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--gray);
-          font-weight: bold;
+          padding: 60px 40px 70px;
+          font-family: 'Eurostile', 'Arial Black', Arial, sans-serif;
         }
 
-        .portfolio-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(135deg, rgba(255,140,0,0.95) 0%, rgba(255,165,0,0.95) 100%);
+        .portfolio__inner {
+          max-width: 1200px;
+          margin: 0 auto;
           display: flex;
           flex-direction: column;
           align-items: center;
+          gap: 0;
+        }
+
+        /* PORTFOLIO heading */
+        .portfolio__title {
+          font-family: 'Eurostile', 'Arial Black', Arial, sans-serif;
+          font-size: clamp(60px, 13vw, 160px);
+          font-weight: 900;
+          color: #ffffff;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          line-height: 1;
+          margin: 0 0 8px 0;
+          text-align: center;
+        }
+
+        /* Row of circles */
+        .portfolio__circles {
+          display: flex;
+          align-items: flex-start;
           justify-content: center;
-          color: white;
-          opacity: 0;
-          transition: opacity 0.4s ease;
-          padding: 20px;
+          gap: clamp(16px, 3vw, 40px);
+          flex-wrap: wrap;
+          width: 100%;
         }
 
-        .portfolio-image:hover .portfolio-overlay {
-          opacity: 1;
+        /* Each item = circle + label */
+        .portfolio__item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+          text-decoration: none;
+          cursor: pointer;
         }
 
-        .portfolio-overlay h4 {
-          font-size: 24px;
-          margin-bottom: 10px;
-          letter-spacing: 1px;
+        /* Circle — dark charcoal by default */
+        .portfolio__circle {
+          width: clamp(110px, 14vw, 180px);
+          height: clamp(110px, 14vw, 180px);
+          border-radius: 50%;
+          background: #1c1c1c;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: background 0.25s ease;
+          color: #ffffff;
         }
 
-        .portfolio-overlay p {
-          font-size: 16px;
-          opacity: 0.9;
+        /* Icon inherits color from circle */
+        .portfolio__icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: inherit;
+          transition: color 0.25s ease;
         }
 
-        @media (max-width: 768px) {
-          .section-title {
-            font-size: 48px;
+        /* Hover: circle turns white, icon turns orange */
+        .portfolio__item:hover .portfolio__circle {
+          background: #ffffff;
+        }
+        .portfolio__item:hover .portfolio__icon {
+          color: #FF8C00;
+        }
+
+        /* Label */
+        .portfolio__label {
+          font-family: 'Eurostile', 'Arial Black', Arial, sans-serif;
+          font-size: clamp(11px, 1.4vw, 16px);
+          font-weight: 900;
+          color: #ffffff;
+          text-transform: uppercase;
+          letter-spacing: 0.15em;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+          .portfolio {
+            padding: 48px 20px 56px;
           }
-          
-          .portfolio-grid {
-            grid-template-columns: 1fr;
+          .portfolio__circles {
+            gap: 14px;
+          }
+          .portfolio__circle {
+            width: 90px;
+            height: 90px;
+          }
+          .portfolio__icon :global(svg) {
+            width: 36px;
+            height: 36px;
           }
         }
       `}</style>

@@ -48,18 +48,18 @@ const icons: Record<NavLabel, React.ReactElement> = {
 // On the home page, nav items scroll to sections.
 // On any other page (e.g. /career), they link back to home + section.
 const homeNavItems: { label: NavLabel; href: string }[] = [
-  { label: 'INTRO',      href: '#intro' },
+  { label: 'INTRO',      href: '#about' },
   { label: 'WHAT WE DO', href: '#services' },
   { label: 'PORTFOLIO',  href: '#portfolio' },
-  { label: 'GALLERY',    href: '#gallery' },
+  { label: 'GALLERY',    href: '/gallery' },
   { label: 'CAREER',     href: '/career' },
 ];
 
 const awayNavItems: { label: NavLabel; href: string }[] = [
-  { label: 'INTRO',      href: '/#intro' },
+  { label: 'INTRO',      href: '/#about' },
   { label: 'WHAT WE DO', href: '/#services' },
   { label: 'PORTFOLIO',  href: '/#portfolio' },
-  { label: 'GALLERY',    href: '/#gallery' },
+  { label: 'GALLERY',    href: '/gallery' },
   { label: 'CAREER',     href: '/career' },
 ];
 

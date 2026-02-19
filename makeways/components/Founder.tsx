@@ -1,173 +1,220 @@
 'use client';
 
-export default function FounderSection() {
+export default function Founder() {
   return (
-    <>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Russo+One&family=Barlow:wght@400;500;600&display=swap"
-        rel="stylesheet"
-      />
+    <section className="founder-section">
+      {/* Large FOUNDER text in background */}
+      <h1 className="founder-title">FOUNDER</h1>
 
-      <section className="founder-section">
-
-        {/* FOUNDER — full width behind everything */}
-        <h1 className="founder-title">FOUNDER</h1>
-
-        {/* PHOTO — absolute, bottom-left, overlaps the FOUNDER text */}
-        <div className="founder-photo">
-          <img
-           src="/images/images.jpeg"
-            alt="Bidhan Rajbhandari"
-          />
+      {/* Content container with photo and info side by side */}
+      <div className="founder-content">
+        {/* Left side: Photo */}
+        <div className="founder-photo-wrapper">
+          <div className="founder-photo">
+            <img
+              src="/images/download.jpeg"
+              alt="Bidhan Rajbhandari"
+            />
+          </div>
         </div>
 
-        {/* NAME + QUOTE — absolute, right side, vertically centered in lower half */}
-        <div className="founder-right">
+        {/* Right side: Name and Quote */}
+        <div className="founder-info">
           <h2 className="founder-name">
-            BIDHAN<br />RAJBHANDARI
+            BIDHAN<br />
+            RAJBHANDARI
           </h2>
+          <div className="founder-title-role">
+            <span className="role-label">FOUNDER & CREATIVE DIRECTOR</span>
+          </div>
           <p className="founder-quote">
-            At MAKEWAYS, we take our<br />
-            work too seriously without<br />
-            taking ourselves seriously.
+            "At MAKEWAYS, we take our work too seriously without taking ourselves seriously."
           </p>
         </div>
-
-      </section>
+      </div>
 
       <style jsx>{`
-        /* ── SECTION: positioning context ── */
+        /* ── SECTION ── */
         .founder-section {
           position: relative;
-          background: #d4d4d0;
+          background: #D4D4D0;
           width: 100%;
-          height: 520px;
+          min-height: 700px;
           overflow: hidden;
-          font-family: 'Russo One', 'Eurostile', 'Arial Narrow', sans-serif;
+          padding: 60px 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
-        /* ── FOUNDER: full-width, top, behind photo ── */
+        /* ── FOUNDER TITLE (Background) ── */
         .founder-title {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          font-family: 'Russo One', 'Eurostile', sans-serif;
-          font-size: clamp(100px, 15vw, 185px);
+          top: 20px;
+          left: 40px;
+          font-family: 'Eurostile', 'Arial Black', sans-serif;
+          font-size: clamp(80px, 14vw, 200px);
           font-weight: 900;
-          color: #f07c00;
-          letter-spacing: 2px;
+          color: #FF8C00;
+          letter-spacing: 0.05em;
           text-transform: uppercase;
           line-height: 1;
           margin: 0;
-          padding: 28px 0 0 40px;
           z-index: 1;
-          white-space: nowrap;
+          opacity: 0.95;
         }
 
-        /* ── PHOTO: bottom-left, overlaps FOUNDER text ── */
+        /* ── CONTENT CONTAINER ── */
+        .founder-content {
+          position: relative;
+          z-index: 2;
+          display: flex;
+          align-items: flex-end;
+          gap: 60px;
+          max-width: 1200px;
+          width: 100%;
+          margin-top: 180px;
+        }
+
+        /* ── PHOTO ── */
+        .founder-photo-wrapper {
+          flex-shrink: 0;
+        }
+
         .founder-photo {
-          position: absolute;
-          bottom: 0;
-          left: 40px;
-          z-index: 2; /* in front of FOUNDER text */
-          width: clamp(220px, 32%, 400px);
+          width: clamp(300px, 35vw, 450px);
+          height: auto;
+          position: relative;
         }
 
         .founder-photo img {
           display: block;
           width: 100%;
           height: auto;
-          object-fit: contain;
-          object-position: bottom;
+          object-fit: cover;
           filter: grayscale(100%);
-          /* Remove any white/checkered box — image must be PNG with transparent bg */
         }
 
-        /* ── RIGHT SIDE: name + quote ── */
-        .founder-right {
-          position: absolute;
-          right: 60px;
-          /* vertically: start around middle of section, just below FOUNDER text */
-          top: 50%;
-          transform: translateY(-20%);
-          z-index: 3;
+        /* ── INFO (Name + Quote) ── */
+        .founder-info {
+          flex: 1;
           display: flex;
           flex-direction: column;
-          gap: 20px;
-          max-width: 420px;
+          gap: 16px;
+          padding-bottom: 40px;
         }
 
         .founder-name {
-          font-family: 'Russo One', 'Eurostile', sans-serif;
-          font-size: clamp(28px, 3.5vw, 50px);
+          font-family: 'Eurostile', 'Arial Black', sans-serif;
+          font-size: clamp(32px, 4vw, 56px);
           font-weight: 900;
-          color: #888;
-          letter-spacing: 2px;
+          color: #333333;
+          letter-spacing: 0.08em;
           text-transform: uppercase;
           line-height: 1.1;
           margin: 0;
         }
 
+        .founder-title-role {
+          margin-bottom: 20px;
+        }
+
+        .role-label {
+          font-family: 'Eurostile', 'Arial', sans-serif;
+          font-size: clamp(12px, 1.2vw, 16px);
+          font-weight: 600;
+          color: #FF8C00;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+        }
+
         .founder-quote {
-          font-family: 'Barlow', sans-serif;
-          font-size: clamp(13px, 1.1vw, 15px);
-          color: #555;
-          line-height: 1.9;
-          letter-spacing: 0.4px;
+          font-family: 'Eurostile', 'Arial', sans-serif;
+          font-size: clamp(16px, 1.8vw, 22px);
+          font-weight: 400;
+          color: #555555;
+          line-height: 1.6;
+          letter-spacing: 0.02em;
           margin: 0;
+          font-style: italic;
+          padding-left: 20px;
+          border-left: 4px solid #FF8C00;
         }
 
         /* ── RESPONSIVE ── */
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
           .founder-section {
-            height: auto;
-            min-height: 460px;
+            padding: 40px 30px;
+            min-height: 600px;
           }
 
           .founder-title {
-            font-size: clamp(72px, 18vw, 130px);
+            font-size: clamp(60px, 12vw, 140px);
+            left: 30px;
           }
 
-          .founder-right {
-            right: 24px;
-            top: 45%;
-            max-width: 50%;
+          .founder-content {
+            gap: 40px;
+            margin-top: 160px;
           }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
           .founder-section {
-            min-height: 520px;
+            padding: 40px 20px;
+            min-height: auto;
           }
 
           .founder-title {
-            font-size: 72px;
-            padding: 20px 0 0 20px;
+            font-size: clamp(50px, 15vw, 100px);
+            left: 20px;
+            top: 10px;
+          }
+
+          .founder-content {
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin-top: 120px;
           }
 
           .founder-photo {
-            left: 16px;
-            width: 55vw;
+            width: 70vw;
+            max-width: 350px;
           }
 
-          .founder-right {
-            right: 16px;
-            top: auto;
-            bottom: 32px;
-            transform: none;
-            max-width: 48%;
-          }
-
-          .founder-name {
-            font-size: 22px;
+          .founder-info {
+            padding-bottom: 0;
+            text-align: center;
+            align-items: center;
           }
 
           .founder-quote {
-            font-size: 12px;
+            border-left: none;
+            border-top: 4px solid #FF8C00;
+            padding-left: 0;
+            padding-top: 20px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .founder-title {
+            font-size: 50px;
+          }
+
+          .founder-name {
+            font-size: 28px;
+          }
+
+          .role-label {
+            font-size: 11px;
+          }
+
+          .founder-quote {
+            font-size: 14px;
           }
         }
       `}</style>
-    </>
+    </section>
   );
 }

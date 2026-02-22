@@ -9,17 +9,14 @@ export default function AboutMakeways(): ReactElement {
     const observer = new IntersectionObserver(
       (entries: IntersectionObserverEntry[]) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
+          if (entry.isIntersecting) entry.target.classList.add('visible');
         });
       },
       { threshold: 0.1 }
     );
 
-    const animatedEls = sectionRef.current?.querySelectorAll<HTMLElement>('.animate');
-    animatedEls?.forEach((el) => observer.observe(el));
-
+    const els = sectionRef.current?.querySelectorAll<HTMLElement>('.animate');
+    els?.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
@@ -28,13 +25,12 @@ export default function AboutMakeways(): ReactElement {
       <section className="about" id="about" ref={sectionRef}>
         <div className="about__inner">
 
-          {/* Title */}
-          <h2 className="about__title animate">
-            <span className="about__title--black">MAKE</span>
-            <span className="about__title--orange">WAYS</span>
+          {/* Section heading — same Eurostile 800 / 54px / 6px ls as CoreValues & Services */}
+          <h2 className="about__heading animate">
+            <span className="about__heading--black">MAKE</span>
+            <span className="about__heading--orange">WAYS</span>
           </h2>
 
-          {/* Content block */}
           <div className="about__content">
 
             <p
@@ -62,7 +58,7 @@ export default function AboutMakeways(): ReactElement {
               style={{ '--delay': '0.3s' } as React.CSSProperties}
             >
               We continuously explore new disciplines and refine our offerings to stay ahead of
-              everchanging trends and platforms.
+              ever-changing trends and platforms.
             </p>
 
             <p
@@ -77,74 +73,93 @@ export default function AboutMakeways(): ReactElement {
       </section>
 
       <style jsx>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap');
+        /* ── @font-face — local Eurostile (same as CoreValues & Services) ── */
+        @font-face {
+          font-family: 'Eurostile';
+          src: url('/fonts/EurostileBold.ttf') format('truetype');
+          font-weight: 700; font-style: normal; font-display: swap;
+        }
+        @font-face {
+          font-family: 'Eurostile';
+          src: url('/fonts/EurostileExt-Normal Regular.ttf') format('truetype');
+          font-weight: 400; font-style: normal; font-display: swap;
+        }
+        @font-face {
+          font-family: 'Eurostile';
+          src: url('/fonts/EurostileExt-Bold Regular.ttf') format('truetype');
+          font-weight: 900; font-style: normal; font-display: swap;
+        }
+        @font-face {
+          font-family: 'Eurostile';
+          src: url('/fonts/EurostileTBold.ttf') format('truetype');
+          font-weight: 800; font-style: normal; font-display: swap;
+        }
 
-        /* ── CSS Variables ───────────────────────────────────────────── */
+        /* ── Design tokens — kept identical to CoreValues & Services ──── */
         .about {
-          --orange : #ff8c00;
+          --eu     : 'Eurostile', 'Arial Narrow', sans-serif;
+          --orange : #f47c20;
           --black  : #000000;
           --dark   : #1a1a1a;
           --muted  : #666666;
           --white  : #ffffff;
-          --font   : 'Eurostile', 'Barlow', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        /* ── Global reset scoped ─────────────────────────────────────── */
-        .about *,
-        .about *::before,
-        .about *::after {
-          box-sizing: border-box;
-        }
+        .about *, .about *::before, .about *::after { box-sizing: border-box; }
 
-        /* ── Section — Desktop base ──────────────────────────────────── */
+        /* ── Section ─────────────────────────────────────────────────── */
         .about {
-          background      : var(--white);
-          border-top      : 5px solid var(--orange);
-          padding         : 100px 48px;
-          font-family     : var(--font);
-          width           : 100%;
-          overflow-x      : hidden;
+          background   : var(--white);
+          border-top   : 5px solid var(--orange);
+          padding      : 80px 60px;            /* matches CoreValues & Services top padding */
+          font-family  : var(--eu);
+          width        : 100%;
+          overflow-x   : hidden;
         }
 
         .about__inner {
-          max-width : 920px;
+          max-width : 1280px;                  /* matches CoreValues & Services max-width */
           margin    : 0 auto;
           width     : 100%;
         }
 
-        /* ── Title ───────────────────────────────────────────────────── */
-        .about__title {
-          font-size      : clamp(28px, 5vw, 52px);
-          font-weight    : 700;
-          letter-spacing : 3px;
+        /* ── Heading — IDENTICAL spec to .cv__heading & .svc__heading ── */
+        .about__heading {
+          font-family    : var(--eu);
+          font-weight    : 800;
+          font-size      : 54px;               /* same as CoreValues & Services */
+          letter-spacing : 6px;               /* same as CoreValues & Services */
+          text-transform : uppercase;
           line-height    : 1;
-          margin         : 0 0 52px 0;
-          font-family    : var(--font);
+          margin         : 0 0 64px 0;         /* same bottom margin as CoreValues & Services */
           display        : block;
         }
+        .about__heading--black  { color: var(--black); }
+        .about__heading--orange { color: var(--orange); }
 
-        .about__title--black  { color: var(--black); }
-        .about__title--orange { color: var(--orange); }
-
-        /* ── Indented content block ──────────────────────────────────── */
+        /* ── Content block — indented to align with card content ──────── */
         .about__content {
           padding-left   : 80px;
           display        : flex;
           flex-direction : column;
           gap            : 36px;
+          max-width      : 860px;
         }
 
-        /* ── Body paragraphs ─────────────────────────────────────────── */
+        /* ── Body paragraphs ──────────────────────────────────────────── */
+        /* font-size 15px aligns with .svc-label (13–14px) scaled up for
+           long-form reading — maintains same Eurostile typeface feel      */
         .about__body {
-          font-size      : 15.5px;
+          font-family    : var(--eu);
+          font-weight    : 400;
+          font-size      : 14px;               /* aligns with cv__desc (13px) + 1px for readability */
           color          : var(--muted);
-          line-height    : 1.85;
-          letter-spacing : 0.2px;
+          line-height    : 1.9;
+          letter-spacing : 0.3px;
           margin         : 0;
-          font-family    : var(--font);
         }
 
-        /* ── Pull quote ──────────────────────────────────────────────── */
+        /* ── Pull quote ───────────────────────────────────────────────── */
         .about__quote {
           display     : flex;
           gap         : 22px;
@@ -162,28 +177,29 @@ export default function AboutMakeways(): ReactElement {
           border-radius : 2px;
         }
 
+        /* Quote text — matches cv__title weight (700) scaled up for impact */
         .about__quote p {
-          font-size      : clamp(17px, 2.4vw, 26px);
+          font-family    : var(--eu);
           font-weight    : 700;
+          font-size      : clamp(17px, 2.2vw, 24px);
           color          : var(--dark);
-          line-height    : 1.5;
-          letter-spacing : 0.3px;
+          line-height    : 1.55;
+          letter-spacing : 0.4px;
           margin         : 0;
-          font-family    : var(--font);
         }
 
-        /* ── Award statement ─────────────────────────────────────────── */
+        /* ── Award line — same weight/size as quote for visual parity ─── */
         .about__award {
-          font-size      : clamp(17px, 2.4vw, 26px);
+          font-family    : var(--eu);
           font-weight    : 700;
+          font-size      : clamp(17px, 2.2vw, 24px);
           color          : var(--dark);
-          line-height    : 1.5;
-          letter-spacing : 0.3px;
+          line-height    : 1.55;
+          letter-spacing : 0.4px;
           margin         : 0;
-          font-family    : var(--font);
         }
 
-        /* ── Scroll-triggered fade-up animation ──────────────────────── */
+        /* ── Scroll-triggered fade-up ─────────────────────────────────── */
         .animate {
           opacity   : 0;
           transform : translateY(22px);
@@ -191,132 +207,69 @@ export default function AboutMakeways(): ReactElement {
             opacity   0.65s ease calc(var(--delay, 0s)),
             transform 0.65s ease calc(var(--delay, 0s));
         }
-
         .animate.visible {
           opacity   : 1;
           transform : translateY(0);
         }
 
-        /* ── Tablet landscape — max 1280px ───────────────────────────── */
-        @media (max-width: 1280px) {
-          .about {
-            padding: 88px 40px;
-          }
-          .about__content {
-            padding-left: 64px;
-          }
-        }
-
-        /* ── Tablet portrait — max 1024px ────────────────────────────── */
+        /* ── Tablet landscape — 1024px (matches CoreValues breakpoint) ── */
         @media (max-width: 1024px) {
-          .about {
-            padding: 80px 32px;
-          }
-          .about__title {
-            margin-bottom: 44px;
-          }
-          .about__content {
-            padding-left: 48px;
-            gap: 32px;
-          }
-          .about__body {
-            font-size: 15px;
-          }
+          .about { padding: 70px 40px; }        /* matches cv 1024px padding */
+          .about__heading { font-size: 46px; margin-bottom: 52px; }
+          .about__content { padding-left: 48px; gap: 30px; }
         }
 
-        /* ── Large phone — max 768px ─────────────────────────────────── */
+        /* ── Tablet portrait — 768px ─────────────────────────────────── */
         @media (max-width: 768px) {
           .about {
-            padding         : 64px 24px;
-            border-top-width: 4px;
+            padding          : 56px 24px;       /* matches cv 768px padding */
+            border-top-width : 4px;
           }
-          .about__inner {
-            max-width: 100%;
+          .about__heading {
+            font-size      : 40px;              /* matches cv 768px heading */
+            letter-spacing : 4px;
+            margin-bottom  : 44px;
           }
-          .about__title {
-            font-size      : 38px;
-            letter-spacing : 2px;
+          .about__content { padding-left: 0; gap: 26px; }
+          .about__body { font-size: 13px; line-height: 1.82; }
+          .about__quote { gap: 16px; padding: 6px 0; }
+          .about__quote p,
+          .about__award  { font-size: 19px; line-height: 1.5; }
+        }
+
+        /* ── Mobile — 520px (matches cv smallest grid breakpoint) ──────── */
+        @media (max-width: 520px) {
+          .about { padding: 48px 20px; }        /* matches cv 520px padding */
+          .about__heading {
+            font-size      : 32px;
+            letter-spacing : 3px;
             margin-bottom  : 36px;
           }
-          .about__content {
-            padding-left: 0;
-            gap: 28px;
-          }
-          .about__body {
-            font-size  : 15px;
-            line-height: 1.8;
-          }
-          .about__quote {
-            gap    : 18px;
-            padding: 6px 0;
-          }
+          .about__content { gap: 22px; }
+          .about__body { font-size: 13px; line-height: 1.78; }
+          .about__quote { gap: 14px; }
+          .about__quote-bar { width: 4px; }
           .about__quote p,
-          .about__award {
-            font-size  : 20px;
-            line-height: 1.5;
-          }
+          .about__award  { font-size: 17px; line-height: 1.52; }
         }
 
-        /* ── Mobile portrait — max 480px ─────────────────────────────── */
-        @media (max-width: 480px) {
-          .about {
-            padding         : 52px 20px;
-            border-top-width: 4px;
-          }
-          .about__title {
-            font-size      : 32px;
-            letter-spacing : 1.5px;
-            margin-bottom  : 28px;
-          }
-          .about__content {
-            gap: 24px;
-          }
-          .about__body {
-            font-size  : 14.5px;
-            line-height: 1.78;
-          }
-          .about__quote {
-            gap: 14px;
-          }
-          .about__quote-bar {
-            width: 4px;
-          }
-          .about__quote p,
-          .about__award {
-            font-size  : 18px;
-            line-height: 1.55;
-          }
-        }
-
-        /* ── Small mobile — max 360px ────────────────────────────────── */
+        /* ── Small mobile — 360px ────────────────────────────────────── */
         @media (max-width: 360px) {
           .about {
-            padding         : 44px 16px;
-            border-top-width: 3px;
+            padding          : 44px 16px;
+            border-top-width : 3px;
           }
-          .about__title {
+          .about__heading {
             font-size      : 27px;
-            letter-spacing : 1px;
-            margin-bottom  : 24px;
+            letter-spacing : 2px;
+            margin-bottom  : 28px;
           }
-          .about__content {
-            gap: 20px;
-          }
-          .about__body {
-            font-size  : 14px;
-            line-height: 1.75;
-          }
-          .about__quote {
-            gap: 12px;
-          }
-          .about__quote-bar {
-            width: 3px;
-          }
+          .about__content { gap: 18px; }
+          .about__body { font-size: 12.5px; }
+          .about__quote { gap: 12px; }
+          .about__quote-bar { width: 3px; }
           .about__quote p,
-          .about__award {
-            font-size  : 16px;
-            line-height: 1.55;
-          }
+          .about__award  { font-size: 15px; }
         }
       `}</style>
     </>

@@ -16,74 +16,72 @@ const services: Service[] = [
     title: "Integrated\nCampaign",
     description: "Seamless brand storytelling across every channel — TV, digital, print, and beyond — unified under one powerful strategy.",
     details: ["Multi-channel planning", "Unified brand messaging", "Cross-platform execution", "Campaign ROI tracking"],
-    row: 1
+    row: 1,
   },
   {
     id: 2,
     title: "Brand Strategy\nand Consulting",
     description: "We define who you are, what you stand for, and how the world sees you — turning brand into competitive advantage.",
     details: ["Brand identity & positioning", "Market & competitor analysis", "Brand architecture", "Tone of voice development"],
-    row: 1
+    row: 1,
   },
   {
     id: 3,
     title: "A/V\nProductions",
     description: "Cinematic-quality video and audio content that commands attention and moves audiences to action.",
     details: ["TVC & commercial production", "Corporate & documentary video", "Post-production & editing", "Sound design & voiceover"],
-    row: 1
+    row: 1,
   },
   {
     id: 4,
     title: "Events &\nActivations",
     description: "Live brand experiences that create genuine emotional connections and lasting memories with your audience.",
     details: ["Brand activation events", "Product launches", "Experiential marketing", "End-to-end event production"],
-    row: 1
+    row: 1,
   },
   {
     id: 5,
     title: "Digital\nMarketing",
     description: "Data-driven digital strategies that grow your presence, engage your audience, and convert at scale.",
     details: ["Social media management", "SEO & paid media", "Content strategy", "Analytics & reporting"],
-    row: 2
+    row: 2,
   },
   {
     id: 6,
     title: "Influencer\nCampaign",
     description: "Authentic creator partnerships that extend your brand's reach and build trust through genuine voices.",
     details: ["Influencer identification", "Campaign strategy & briefing", "Content collaboration", "Performance measurement"],
-    row: 2
+    row: 2,
   },
   {
     id: 7,
     title: "Media\nRelease",
     description: "Strategic PR and media buying that keeps your brand prominent, credible, and in the conversation.",
     details: ["Press release writing", "Media buying & planning", "PR strategy", "Crisis communications"],
-    row: 2
+    row: 2,
   },
   {
     id: 8,
     title: "Design &\nFabrication",
     description: "Bold visual craft — from concept to physical production — that makes your brand impossible to ignore.",
     details: ["Graphic & print design", "Exhibition & booth design", "Signage & wayfinding", "Physical fabrication"],
-    row: 2
+    row: 2,
   },
   {
     id: 9,
     title: "OOH",
     description: "Out-of-home advertising at scale — billboards, transit, and digital screens that dominate the landscape.",
     details: ["Billboard & transit ads", "DOOH strategy", "Site selection & booking", "Creative adaptation"],
-    row: 2
-  }
+    row: 2,
+  },
 ];
 
-/* ─── Popup position helper (desktop only) ─── */
 function getPopupPos(id: number) {
   if (id === 1 || id === 5) return 'popup-left';
   if (id === 4 || id === 9) return 'popup-right';
   return 'popup-center';
 }
 
-/* ─── Individual card ─── */
 function ServiceCard({
   service,
   index,
@@ -97,30 +95,25 @@ function ServiceCard({
   isOpen: boolean;
   onToggle: () => void;
 }) {
-  const popupPos = getPopupPos(service.id);
   const label = service.title.replace('\n', ' ');
 
-  /* Mobile: tap expands inline accordion */
   if (isMobile) {
     return (
-      <div className={`mob-card ${isOpen ? 'mob-card--open' : ''}`} onClick={onToggle}>
-        <div className="mob-circle-wrap">
-          <div className="mob-circle">
-            <div className="mob-circle-inner" />
-          </div>
-          {isOpen && <div className="mob-open-indicator" />}
+      <div className={`mob-card${isOpen ? ' mob-card--open' : ''}`} onClick={onToggle}>
+        <div className="mob-ring-wrap">
+          <div className="mob-ring"><div className="mob-ring-inner" /></div>
+          {isOpen && <div className="mob-open-dot" />}
         </div>
         <p className="mob-label">{service.title}</p>
 
-        {/* Expanded panel */}
-        <div className={`mob-panel ${isOpen ? 'mob-panel--visible' : ''}`}>
-          <div className="popup-eyebrow">Our Service</div>
-          <h3 className="popup-title">{label}</h3>
-          <p className="popup-desc">{service.description}</p>
-          <div className="popup-divider" />
-          <ul className="popup-items">
+        <div className={`mob-panel${isOpen ? ' mob-panel--visible' : ''}`}>
+          <div className="pop-eyebrow">Our Service</div>
+          <h3 className="pop-title">{label}</h3>
+          <p className="pop-desc">{service.description}</p>
+          <div className="pop-rule" />
+          <ul className="pop-list">
             {service.details.map((d, i) => (
-              <li key={i}><span className="popup-dot" />{d}</li>
+              <li key={i}><span className="pop-dot" />{d}</li>
             ))}
           </ul>
         </div>
@@ -128,25 +121,21 @@ function ServiceCard({
     );
   }
 
-  /* Desktop: hover popup */
+  const popupPos = getPopupPos(service.id);
+
   return (
-    <div
-      className="svc-card"
-      style={{ animationDelay: `${index * 0.08}s` }}
-    >
-      <div className="svc-circle">
-        <div className="svc-circle-inner" />
-      </div>
+    <div className="svc-card" style={{ animationDelay: `${index * 0.08}s` }}>
+      <div className="svc-ring"><div className="svc-ring-inner" /></div>
       <p className="svc-label">{service.title}</p>
 
       <div className={`svc-popup ${popupPos}`}>
-        <div className="popup-eyebrow">Our Service</div>
-        <h3 className="popup-title">{label}</h3>
-        <p className="popup-desc">{service.description}</p>
-        <div className="popup-divider" />
-        <ul className="popup-items">
+        <div className="pop-eyebrow">Our Service</div>
+        <h3 className="pop-title">{label}</h3>
+        <p className="pop-desc">{service.description}</p>
+        <div className="pop-rule" />
+        <ul className="pop-list">
           {service.details.map((d, i) => (
-            <li key={i}><span className="popup-dot" />{d}</li>
+            <li key={i}><span className="pop-dot" />{d}</li>
           ))}
         </ul>
       </div>
@@ -154,10 +143,9 @@ function ServiceCard({
   );
 }
 
-/* ─── Main component ─── */
 export default function Services() {
   const [isMobile, setIsMobile] = useState(false);
-  const [openId, setOpenId] = useState<number | null>(null);
+  const [openId, setOpenId]     = useState<number | null>(null);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -167,55 +155,34 @@ export default function Services() {
   }, []);
 
   const toggle = (id: number) => setOpenId(prev => prev === id ? null : id);
-
   const row1 = services.filter(s => s.row === 1);
   const row2 = services.filter(s => s.row === 2);
 
   return (
     <>
-      <section id="services" className="services-section">
-        <div className="svc-container">
-          <h2 className="section-title">SERVICES</h2>
+      <section id="services" className="svc">
+        <div className="svc__inner">
+          <h2 className="svc__heading">SERVICES</h2>
 
           {isMobile ? (
-            /* ── MOBILE GRID: 3 columns ── */
             <div className="mob-grid">
-              {services.map((service, i) => (
-                <ServiceCard
-                  key={service.id}
-                  service={service}
-                  index={i}
-                  isMobile={true}
-                  isOpen={openId === service.id}
-                  onToggle={() => toggle(service.id)}
-                />
+              {services.map((s, i) => (
+                <ServiceCard key={s.id} service={s} index={i}
+                  isMobile isOpen={openId === s.id} onToggle={() => toggle(s.id)} />
               ))}
             </div>
           ) : (
-            /* ── DESKTOP: 2 rows ── */
             <>
-              <div className="svc-row row-1">
-                {row1.map((service, i) => (
-                  <ServiceCard
-                    key={service.id}
-                    service={service}
-                    index={i}
-                    isMobile={false}
-                    isOpen={false}
-                    onToggle={() => {}}
-                  />
+              <div className="svc-row svc-row--1">
+                {row1.map((s, i) => (
+                  <ServiceCard key={s.id} service={s} index={i}
+                    isMobile={false} isOpen={false} onToggle={() => {}} />
                 ))}
               </div>
-              <div className="svc-row row-2">
-                {row2.map((service, i) => (
-                  <ServiceCard
-                    key={service.id}
-                    service={service}
-                    index={i + 4}
-                    isMobile={false}
-                    isOpen={false}
-                    onToggle={() => {}}
-                  />
+              <div className="svc-row svc-row--2">
+                {row2.map((s, i) => (
+                  <ServiceCard key={s.id} service={s} index={i + 4}
+                    isMobile={false} isOpen={false} onToggle={() => {}} />
                 ))}
               </div>
             </>
@@ -223,44 +190,69 @@ export default function Services() {
         </div>
       </section>
 
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+      {/* Backdrop for mobile panel */}
+      {isMobile && openId !== null && (
+        <div
+          onClick={() => setOpenId(null)}
+          style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.42)', zIndex:499 }}
+        />
+      )}
 
-        /* ════════════════════════════════
-           SECTION BASE
-        ════════════════════════════════ */
-        .services-section {
-          background: linear-gradient(135deg, #F47B20 0%, #FFA500 100%);
-          padding: 80px 60px 100px;
-          font-family: 'DM Sans', sans-serif;
+      <style jsx global>{`
+        @font-face {
+          font-family: 'Eurostile';
+          src: url('/fonts/FONTS/EurostileExt-Normal Regular.ttf') format('truetype');
+          font-weight: 400; font-style: normal; font-display: swap;
+        }
+        @font-face {
+          font-family: 'Eurostile';
+          src: url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
+          font-weight: 700; font-style: normal; font-display: swap;
+        }
+        @font-face {
+          font-family: 'Eurostile';
+          src: url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
+          font-weight: 800; font-style: normal; font-display: swap;
+        }
+        @font-face {
+          font-family: 'Eurostile';
+          src: url('/fonts/FONTS/EurostileExt-Bold Regular.ttf') format('truetype');
+          font-weight: 900; font-style: normal; font-display: swap;
+        }
+
+        /* ── Section ─────────────────────────────────────────── */
+        .svc {
+          background: linear-gradient(135deg, #f47c20 0%, #ffa500 100%);
+          padding: 80px 60px 100px;        /* matches CoreValues top padding */
+          font-family: 'Eurostile', 'Arial Narrow', sans-serif;
           position: relative;
           overflow: visible;
         }
-
-        .svc-container {
-          max-width: 1080px;
+        .svc__inner {
+          max-width: 1280px;               /* matches CoreValues max-width */
           margin: 0 auto;
         }
 
-        .section-title {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 54px;
-          color: white;
-          letter-spacing: 6px;
-          margin: 0 0 64px 0;
+        /* ── Section heading — IDENTICAL to CoreValues ───────── */
+        .svc__heading {
+          font-family: 'Eurostile', 'Arial Narrow', sans-serif;
+          font-weight: 800;
+          font-size: 54px;                 /* same as cv__heading */
+          letter-spacing: 6px;             /* same as cv__heading */
+          text-transform: uppercase;
+          color: #fff;                     /* white on orange vs dark on grey */
+          margin: 0 0 64px 0;              /* same as cv__heading */
           line-height: 1;
         }
 
-        /* ════════════════════════════════
-           DESKTOP — ROWS
-        ════════════════════════════════ */
+        /* ── Desktop rows ────────────────────────────────────── */
         .svc-row {
           display: flex;
           justify-content: center;
         }
-        .row-1 { margin-bottom: 40px; }
+        .svc-row--1 { margin-bottom: 40px; }
 
-        /* ── Card ── */
+        /* ── Desktop card ────────────────────────────────────── */
         .svc-card {
           position: relative;
           display: flex;
@@ -269,73 +261,67 @@ export default function Services() {
           width: 190px;
           padding: 0 12px;
           cursor: pointer;
-          animation: fadeUp 0.55s ease both;
+          animation: svcUp 0.55s ease both;
         }
-
-        @keyframes fadeUp {
+        @keyframes svcUp {
           from { opacity: 0; transform: translateY(18px); }
           to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── Circle ── */
-        .svc-circle {
+        /* ── Desktop circle ──────────────────────────────────── */
+        .svc-ring {
           width: 100px;
           height: 100px;
           border-radius: 50%;
-          border: 2px solid rgba(255,255,255,0.7);
-          background: transparent;
+          border: 2px solid rgba(255,255,255,0.65);
           display: flex;
           align-items: center;
           justify-content: center;
           margin-bottom: 18px;
-          transition: border-color 0.3s ease, background 0.3s ease,
-                      transform 0.3s ease, box-shadow 0.3s ease;
+          transition: border-color 0.3s, background 0.3s,
+                      transform 0.3s, box-shadow 0.3s;
         }
-        .svc-card:hover .svc-circle {
-          border-color: white;
+        .svc-card:hover .svc-ring {
+          border-color: #fff;
           background: rgba(255,255,255,0.15);
           transform: scale(1.07);
           box-shadow: 0 0 0 6px rgba(255,255,255,0.12);
         }
-
-        .svc-circle-inner {
+        .svc-ring-inner {
           width: 60px;
           height: 60px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.1);
-          transition: background 0.3s ease;
+          background: rgba(255,255,255,0.10);
+          transition: background 0.3s;
         }
-        .svc-card:hover .svc-circle-inner {
-          background: rgba(255,255,255,0.22);
-        }
+        .svc-card:hover .svc-ring-inner { background: rgba(255,255,255,0.22); }
 
-        /* ── Label ── */
+        /* ── Desktop label ───────────────────────────────────── */
         .svc-label {
-          font-size: 14px;
-          font-weight: 500;
-          color: #2C1000;
+          font-family: 'Eurostile', 'Arial Narrow', sans-serif;
+          font-weight: 400;
+          font-size: 13px;                 /* matches cv__desc body size */
+          letter-spacing: 0.5px;
+          color: #2c1000;
           text-align: center;
-          line-height: 1.4;
+          line-height: 1.45;
           white-space: pre-line;
           margin: 0;
-          transition: color 0.25s ease;
+          transition: color 0.25s;
         }
-        .svc-card:hover .svc-label { color: white; }
+        .svc-card:hover .svc-label { color: #fff; }
 
-        /* ════════════════════════════════
-           DESKTOP POPUP
-        ════════════════════════════════ */
+        /* ── Desktop popup ───────────────────────────────────── */
         .svc-popup {
           position: absolute;
           bottom: calc(100% + 16px);
           width: 260px;
           background: #fff;
-          border-radius: 16px;
+          border-radius: 14px;
           padding: 22px 22px 18px;
-          box-shadow:
-            0 2px 4px rgba(0,0,0,0.04),
-            0 8px 24px rgba(0,0,0,0.10),
-            0 24px 56px rgba(0,0,0,0.14);
+          box-shadow: 0 2px 4px rgba(0,0,0,0.04),
+                      0 8px 24px rgba(0,0,0,0.10),
+                      0 24px 56px rgba(0,0,0,0.14);
           opacity: 0;
           pointer-events: none;
           transition: opacity 0.2s ease, transform 0.2s ease;
@@ -348,8 +334,6 @@ export default function Services() {
           border: 9px solid transparent;
           border-top-color: #fff;
         }
-
-        /* Center */
         .popup-center {
           left: 50%;
           transform: translateX(-50%) translateY(8px);
@@ -361,248 +345,183 @@ export default function Services() {
         }
         .popup-center::after { left: 50%; transform: translateX(-50%); }
 
-        /* Left-anchored */
         .popup-left { left: 0; transform: translateY(8px); }
-        .svc-card:hover .popup-left {
-          opacity: 1; transform: translateY(0); pointer-events: auto;
-        }
+        .svc-card:hover .popup-left { opacity: 1; transform: translateY(0); pointer-events: auto; }
         .popup-left::after { left: 46px; }
 
-        /* Right-anchored */
         .popup-right { right: 0; transform: translateY(8px); }
-        .svc-card:hover .popup-right {
-          opacity: 1; transform: translateY(0); pointer-events: auto;
-        }
+        .svc-card:hover .popup-right { opacity: 1; transform: translateY(0); pointer-events: auto; }
         .popup-right::after { right: 46px; }
 
-        /* ════════════════════════════════
-           SHARED POPUP CONTENT STYLES
-           (used in both desktop & mobile)
-        ════════════════════════════════ */
-        .popup-eyebrow {
+        /* ── Shared popup content ─────────────────────────────
+           ALL font sizes and spacing below are aligned with
+           cv__title (14px/700) and cv__desc (13px/400)         */
+        .pop-eyebrow {
+          font-family: 'Eurostile', 'Arial Narrow', sans-serif;
+          font-weight: 700;
           font-size: 10px;
-          font-weight: 600;
           letter-spacing: 3px;
           text-transform: uppercase;
-          color: #F47B20;
+          color: #f47c20;
           margin-bottom: 6px;
         }
-        .popup-title {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 20px;
-          letter-spacing: 1px;
-          color: #111;
+        .pop-title {
+          font-family: 'Eurostile', 'Arial Narrow', sans-serif;
+          font-weight: 800;
+          font-size: 16px;                 /* slightly larger than cv__title for popup context */
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: #1a1a1a;
           margin: 0 0 10px 0;
-          line-height: 1.1;
+          line-height: 1.2;
         }
-        .popup-desc {
-          font-size: 12px;
+        .pop-desc {
+          font-family: 'Eurostile', 'Arial Narrow', sans-serif;
+          font-weight: 400;
+          font-size: 12px;                 /* slightly smaller for compact popup */
           color: #666;
-          line-height: 1.65;
+          line-height: 1.75;
           margin: 0 0 12px 0;
+          letter-spacing: 0.2px;
         }
-        .popup-divider {
+        .pop-rule {
           height: 1px;
-          background: #F0F0F0;
+          background: #ebebeb;
           margin-bottom: 10px;
         }
-        .popup-items {
+        .pop-list {
           list-style: none;
-          padding: 0;
-          margin: 0;
+          padding: 0; margin: 0;
         }
-        .popup-items li {
+        .pop-list li {
+          font-family: 'Eurostile', 'Arial Narrow', sans-serif;
+          font-weight: 400;
           font-size: 12px;
           color: #444;
           padding: 4px 0;
           display: flex;
           align-items: center;
-          gap: 9px;
+          gap: 10px;
+          letter-spacing: 0.2px;
+          line-height: 1.5;
         }
-        .popup-dot {
-          width: 5px;
-          height: 5px;
+        .pop-dot {
+          width: 5px; height: 5px;
           min-width: 5px;
           border-radius: 50%;
-          background: #F47B20;
+          background: #f47c20;
         }
 
-        /* ════════════════════════════════
-           MOBILE GRID
-        ════════════════════════════════ */
+        /* ── Mobile grid ──────────────────────────────────────── */
         .mob-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 28px 12px;
         }
 
-        /* ── Mobile card ── */
         .mob-card {
-          position: relative;
           display: flex;
           flex-direction: column;
           align-items: center;
           cursor: pointer;
           -webkit-tap-highlight-color: transparent;
         }
-
-        .mob-circle-wrap {
-          position: relative;
-          margin-bottom: 12px;
-        }
-
-        .mob-circle {
-          width: 72px;
-          height: 72px;
+        .mob-ring-wrap { position: relative; margin-bottom: 12px; }
+        .mob-ring {
+          width: 72px; height: 72px;
           border-radius: 50%;
           border: 2px solid rgba(255,255,255,0.65);
-          background: transparent;
           display: flex;
           align-items: center;
           justify-content: center;
           transition: border-color 0.25s, background 0.25s, transform 0.25s;
         }
-        .mob-card--open .mob-circle {
-          border-color: white;
+        .mob-card--open .mob-ring {
+          border-color: #fff;
           background: rgba(255,255,255,0.18);
           transform: scale(1.06);
         }
-
-        .mob-circle-inner {
-          width: 42px;
-          height: 42px;
+        .mob-ring-inner {
+          width: 42px; height: 42px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.1);
+          background: rgba(255,255,255,0.10);
           transition: background 0.25s;
         }
-        .mob-card--open .mob-circle-inner {
-          background: rgba(255,255,255,0.22);
-        }
+        .mob-card--open .mob-ring-inner { background: rgba(255,255,255,0.22); }
 
-        /* Small open indicator dot */
-        .mob-open-indicator {
+        .mob-open-dot {
           position: absolute;
-          bottom: -4px;
-          left: 50%;
+          bottom: -4px; left: 50%;
           transform: translateX(-50%);
-          width: 6px;
-          height: 6px;
+          width: 6px; height: 6px;
           border-radius: 50%;
-          background: white;
+          background: #fff;
         }
 
         .mob-label {
+          font-family: 'Eurostile', 'Arial Narrow', sans-serif;
+          font-weight: 400;
           font-size: 11px;
-          font-weight: 500;
-          color: #2C1000;
+          letter-spacing: 0.3px;
+          color: #2c1000;
           text-align: center;
-          line-height: 1.35;
+          line-height: 1.4;
           white-space: pre-line;
           margin: 0;
           transition: color 0.2s;
         }
-        .mob-card--open .mob-label { color: white; }
+        .mob-card--open .mob-label { color: #fff; }
 
-        /* ── Mobile expanded panel ── */
-        /* 
-          The expanded panel spans across the full grid width
-          by using a full-width absolute row that pushes down via margin.
-          We achieve this by making the panel a grid-column-spanning sibling
-          via the "mob-panel-row" technique using display:contents + a full-span div.
-          Simpler approach: each card is in a wrapper that is grid-column: span 1,
-          but the panel is placed AFTER the grid as a separate styled element when open.
-          
-          Cleanest reliable approach for React: the panel is inside the card, 
-          full viewport width, positioned to overflow outside the card 
-          and sit below the row. We use a bottom-anchored sheet style.
-        */
+        /* ── Mobile bottom sheet panel ───────────────────────── */
         .mob-panel {
           display: none;
           position: fixed;
-          bottom: 0;
-          left: 0;
-          right: 0;
+          bottom: 0; left: 0; right: 0;
           background: #fff;
           border-radius: 20px 20px 0 0;
-          padding: 24px 24px 36px;
+          padding: 28px 28px 40px;
           box-shadow: 0 -8px 40px rgba(0,0,0,0.18);
           z-index: 500;
-          animation: slideUp 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+          animation: sheetUp 0.28s cubic-bezier(0.25,0.46,0.45,0.94) both;
         }
-        .mob-panel--visible {
-          display: block;
-        }
+        .mob-panel--visible { display: block; }
 
-        @keyframes slideUp {
+        @keyframes sheetUp {
           from { transform: translateY(100%); opacity: 0; }
           to   { transform: translateY(0);    opacity: 1; }
         }
-
-        /* Close hint bar */
         .mob-panel::before {
           content: '';
           display: block;
-          width: 40px;
-          height: 4px;
-          background: #E0E0E0;
+          width: 40px; height: 4px;
+          background: #e0e0e0;
           border-radius: 2px;
-          margin: 0 auto 20px;
+          margin: 0 auto 22px;
         }
 
-        /* Backdrop overlay when panel is open */
-        .mob-panel--visible ~ * {
-          pointer-events: none;
-        }
-
-        /* ════════════════════════════════
-           TABLET (768–1024px) — 2-row layout
-           but slightly smaller cards
-        ════════════════════════════════ */
+        /* ── Responsive ──────────────────────────────────────── */
         @media (min-width: 768px) and (max-width: 1024px) {
-          .services-section { padding: 70px 40px 90px; }
+          .svc { padding: 70px 40px 90px; }
+          .svc__heading { font-size: 46px; margin-bottom: 52px; }
           .svc-card { width: 155px; padding: 0 8px; }
-          .svc-circle { width: 86px; height: 86px; }
-          .svc-circle-inner { width: 52px; height: 52px; }
-          .svc-label { font-size: 13px; }
+          .svc-ring { width: 86px; height: 86px; }
+          .svc-ring-inner { width: 52px; height: 52px; }
+          .svc-label { font-size: 12px; }
           .svc-popup { width: 240px; }
         }
 
-        /* ════════════════════════════════
-           MOBILE BASE (< 768px)
-        ════════════════════════════════ */
         @media (max-width: 767px) {
-          .services-section {
-            padding: 52px 20px 80px;
-            overflow: hidden; /* clip any stray overflow */
-          }
-          .section-title {
-            font-size: 40px;
-            margin-bottom: 44px;
-            letter-spacing: 4px;
-          }
+          .svc { padding: 52px 20px 80px; overflow: hidden; }
+          .svc__heading { font-size: 40px; letter-spacing: 4px; margin-bottom: 44px; }
         }
 
-        /* Smaller phones */
         @media (max-width: 380px) {
           .mob-grid { gap: 22px 8px; }
-          .mob-circle { width: 60px; height: 60px; }
-          .mob-circle-inner { width: 36px; height: 36px; }
+          .mob-ring { width: 60px; height: 60px; }
+          .mob-ring-inner { width: 36px; height: 36px; }
           .mob-label { font-size: 10px; }
         }
       `}</style>
-
-      {/* Backdrop for mobile panel — close on tap outside */}
-      {isMobile && openId !== null && (
-        <div
-          onClick={() => setOpenId(null)}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background: 'rgba(0,0,0,0.4)',
-            zIndex: 499,
-          }}
-        />
-      )}
     </>
   );
 }

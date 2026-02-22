@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -213,34 +213,31 @@ function Card({ item, onClick }: { item: PortfolioItem; onClick: () => void }) {
           </div>
         )}
 
-        <div className={`card__ov ${hov ? 'card__ov--on' : ''}`}>
-          <span className="card__ov-title">{item.title}</span>
-          <span className="card__ov-meta">{item.client} · {item.year}</span>
+        <div className="card__overlay" style={{ opacity: hov ? 1 : 0 }}>
+          <span className="card__label">View</span>
         </div>
       </div>
 
-      <div className="card__foot">
-        <span className="card__foot-title">{item.title}</span>
-        <span className="card__foot-year">{item.year}</span>
+      <div className="card__content">
+        <h3 className="card__title">{item.title}</h3>
+        <p className="card__meta">{item.client} · {item.year}</p>
       </div>
 
       <style jsx>{`
         .card {
           cursor: pointer;
-          border: 1px solid #eee;
+          position: relative;
           overflow: hidden;
-          transition: box-shadow .2s, transform .2s;
+          transition: transform .3s ease;
         }
-        .card:hover {
-          box-shadow: 0 8px 32px rgba(255,140,0,0.18);
-          transform: translateY(-3px);
-        }
+        .card:hover { transform: translateY(-4px); }
 
         .card__media {
+          width: 100%; aspect-ratio: 4/3;
+          background: #f0f0f0;
           position: relative;
-          aspect-ratio: 4/3;
-          background: #f4f4f4;
           overflow: hidden;
+          display: flex; align-items: center; justify-content: center;
         }
 
         .card__img {
@@ -249,55 +246,51 @@ function Card({ item, onClick }: { item: PortfolioItem; onClick: () => void }) {
         }
 
         .card__ph {
-          width: 100%; height: 100%;
           display: flex; align-items: center; justify-content: center;
-          background: #f4f4f4;
+          color: #ddd;
         }
 
         .card__play-badge {
-          position: absolute; top: 10px; right: 10px;
-          background: rgba(0,0,0,0.5);
-          width: 26px; height: 26px;
+          position: absolute; bottom: 8px; right: 8px;
+          background: #FF8C00; color: #fff;
+          width: 28px; height: 28px;
           display: flex; align-items: center; justify-content: center;
+          border-radius: 50%;
+          z-index: 2;
         }
 
-        .card__ov {
+        .card__overlay {
           position: absolute; inset: 0;
-          background: rgba(255,140,0,0.88);
-          display: flex; flex-direction: column;
-          align-items: center; justify-content: center;
-          gap: 6px; padding: 16px;
-          opacity: 0; transition: opacity .22s ease;
-        }
-        .card__ov--on { opacity: 1; }
-
-        .card__ov-title {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 13px; font-weight: 700;
-          color: #fff; text-transform: uppercase;
-          letter-spacing: 0.5px; text-align: center;
-        }
-        .card__ov-meta {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 9px; font-weight: 700;
-          color: rgba(255,255,255,0.8);
-          text-transform: uppercase; letter-spacing: 2px;
+          background: rgba(0,0,0,0.5);
+          display: flex; align-items: center; justify-content: center;
+          transition: opacity .2s ease;
+          z-index: 1;
         }
 
-        .card__foot {
-          padding: 12px 14px;
-          background: #fff;
-          display: flex; align-items: center; justify-content: space-between;
+        .card__label {
+          color: #fff;
+          font-family: 'Eurostile', sans-serif;
+          font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+          text-transform: uppercase;
+        }
+
+        .card__content {
+          padding: 12px 0;
           border-top: 2px solid #FF8C00;
+          background: #fff;
         }
-        .card__foot-title {
+
+        .card__title {
           font-family: 'Eurostile', sans-serif;
-          font-size: 11px; font-weight: 700;
-          color: #111; text-transform: uppercase; letter-spacing: 0.5px;
+          font-size: 13px; font-weight: 700; color: #111;
+          text-transform: uppercase; letter-spacing: 0.5px;
+          margin: 0 0 2px 0; padding: 0 14px;
         }
-        .card__foot-year {
+
+        .card__meta {
           font-family: 'Eurostile', sans-serif;
-          font-size: 9px; color: #aaa; letter-spacing: 1px;
+          font-size: 9px; color: #999; letter-spacing: 0.8px;
+          text-transform: uppercase; margin: 0; padding: 0 14px;
         }
       `}</style>
     </div>
@@ -306,6 +299,7 @@ function Card({ item, onClick }: { item: PortfolioItem; onClick: () => void }) {
 
 // ─── Main Category Page ───────────────────────────────────────────────────────
 export default function PortfolioCategory({ title, subtitle, accent, items }: Props) {
+  const router = useRouter();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const prevItem = () => setActiveIndex(i => (i === null || i === 0 ? items.length - 1 : i - 1));
@@ -320,12 +314,12 @@ export default function PortfolioCategory({ title, subtitle, accent, items }: Pr
         {/* ── HERO ───────────────────────────────────────────────────────── */}
         <section className="hero" style={{ '--accent': accent } as React.CSSProperties}>
           <div className="hero__in">
-            <Link href="/#portfolio" className="hero__back">
+            <button onClick={() => router.back()} className="hero__back">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="15 18 9 12 15 6"/>
               </svg>
               PORTFOLIO
-            </Link>
+            </button>
             <h1 className="hero__title">{title}</h1>
             <p className="hero__sub">{subtitle}</p>
           </div>
@@ -380,13 +374,17 @@ export default function PortfolioCategory({ title, subtitle, accent, items }: Pr
         .hero__in {
           max-width: 1100px; margin: 0 auto;
         }
+
+        /* BACK BUTTON */
         .hero__back {
           display: inline-flex; align-items: center; gap: 6px;
           font-family: 'Eurostile', sans-serif;
           font-size: 9px; font-weight: 700; letter-spacing: 3px;
-          color: rgba(255,255,255,0.7); text-decoration: none;
+          color: rgba(255,255,255,0.7);
           text-transform: uppercase; margin-bottom: 20px;
           transition: color .2s;
+          background: none; border: none; padding: 0;
+          cursor: pointer;
         }
         .hero__back:hover { color: #fff; }
 

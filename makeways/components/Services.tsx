@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface Service {
   id: number;
@@ -11,89 +11,38 @@ interface Service {
 }
 
 const services: Service[] = [
-  { id: 1, title: 'Integrated\nCampaign', description: 'Seamless brand storytelling across every channel — TV, digital, print, and beyond — unified under one powerful strategy.', details: ['Multi-channel planning', 'Unified brand messaging', 'Cross-platform execution', 'Campaign ROI tracking'], row: 1 },
-  { id: 2, title: 'Brand Strategy\nand Consulting', description: 'We define who you are, what you stand for, and how the world sees you — turning brand into competitive advantage.', details: ['Brand identity & positioning', 'Market & competitor analysis', 'Brand architecture', 'Tone of voice development'], row: 1 },
-  { id: 3, title: 'A/V\nProductions', description: 'Cinematic-quality video and audio content that commands attention and moves audiences to action.', details: ['TVC & commercial production', 'Corporate & documentary video', 'Post-production & editing', 'Sound design & voiceover'], row: 1 },
-  { id: 4, title: 'Events &\nActivations', description: 'Live brand experiences that create genuine emotional connections and lasting memories with your audience.', details: ['Brand activation events', 'Product launches', 'Experiential marketing', 'End-to-end event production'], row: 1 },
-  { id: 5, title: 'Digital\nMarketing', description: 'Data-driven digital strategies that grow your presence, engage your audience, and convert at scale.', details: ['Social media management', 'SEO & paid media', 'Content strategy', 'Analytics & reporting'], row: 2 },
-  { id: 6, title: 'Influencer\nCampaign', description: "Authentic creator partnerships that extend your brand's reach and build trust through genuine voices.", details: ['Influencer identification', 'Campaign strategy & briefing', 'Content collaboration', 'Performance measurement'], row: 2 },
-  { id: 7, title: 'Media\nRelease', description: 'Strategic PR and media buying that keeps your brand prominent, credible, and in the conversation.', details: ['Press release writing', 'Media buying & planning', 'PR strategy', 'Crisis communications'], row: 2 },
-  { id: 8, title: 'Design &\nFabrication', description: 'Bold visual craft — from concept to physical production — that makes your brand impossible to ignore.', details: ['Graphic & print design', 'Exhibition & booth design', 'Signage & wayfinding', 'Physical fabrication'], row: 2 },
-  { id: 9, title: 'OOH', description: 'Out-of-home advertising at scale — billboards, transit, and digital screens that dominate the landscape.', details: ['Billboard & transit ads', 'DOOH strategy', 'Site selection & booking', 'Creative adaptation'], row: 2 },
+  { id: 1, title: 'Integrated Campaign',   description: 'Seamless brand storytelling across every channel — TV, digital, print, and beyond — unified under one powerful strategy.',       details: ['Multi-channel planning', 'Unified brand messaging', 'Cross-platform execution', 'Campaign ROI tracking'],        row: 1 },
+  { id: 2, title: 'Brand Strategy',        description: 'We define who you are, what you stand for, and how the world sees you — turning brand into competitive advantage.',              details: ['Brand identity & positioning', 'Market & competitor analysis', 'Brand architecture', 'Tone of voice'],           row: 1 },
+  { id: 3, title: 'A/V Productions',       description: 'Cinematic-quality video and audio content that commands attention and moves audiences to action.',                               details: ['TVC & commercial production', 'Corporate & documentary video', 'Post-production & editing', 'Sound design'],     row: 1 },
+  { id: 4, title: 'Events & Activations',  description: 'Live brand experiences that create genuine emotional connections and lasting memories with your audience.',                      details: ['Brand activation events', 'Product launches', 'Experiential marketing', 'End-to-end production'],               row: 1 },
+  { id: 5, title: 'Digital Marketing',     description: 'Data-driven digital strategies that grow your presence, engage your audience, and convert at scale.',                           details: ['Social media management', 'SEO & paid media', 'Content strategy', 'Analytics & reporting'],                    row: 2 },
+  { id: 6, title: 'Influencer Campaign',   description: "Authentic creator partnerships that extend your brand's reach and build trust through genuine voices.",                         details: ['Influencer identification', 'Campaign strategy', 'Content collaboration', 'Performance measurement'],           row: 2 },
+  { id: 7, title: 'Media Release',         description: 'Strategic PR and media buying that keeps your brand prominent, credible, and in the conversation.',                             details: ['Press release writing', 'Media buying & planning', 'PR strategy', 'Crisis communications'],                    row: 2 },
+  { id: 8, title: 'Design & Fabrication',  description: 'Bold visual craft — from concept to physical production — that makes your brand impossible to ignore.',                         details: ['Graphic & print design', 'Exhibition & booth design', 'Signage & wayfinding', 'Physical fabrication'],         row: 2 },
+  { id: 9, title: 'OOH',                   description: 'Out-of-home advertising at scale — billboards, transit, and digital screens that dominate the landscape.',                      details: ['Billboard & transit ads', 'DOOH strategy', 'Site selection & booking', 'Creative adaptation'],                 row: 2 },
 ];
 
 const icons: Record<number, React.ReactNode> = {
-  1: <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>,
-  2: <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>,
-  3: <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>,
-  4: <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
-  5: <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>,
-  6: <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>,
-  7: <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
-  8: <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>,
-  9: <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>,
+  1: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>,
+  2: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>,
+  3: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>,
+  4: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+  5: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>,
+  6: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>,
+  7: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
+  8: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>,
+  9: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>,
 };
-
-function getPopupPos(id: number) {
-  if (id === 1 || id === 5) return 'popup-left';
-  if (id === 4 || id === 9) return 'popup-right';
-  return 'popup-center';
-}
-
-function ServiceCard({ service, index, isMobile, isOpen, onToggle }: {
-  service: Service; index: number; isMobile: boolean; isOpen: boolean; onToggle: () => void;
-}) {
-  const label = service.title.replace('\n', ' ');
-
-  if (isMobile) {
-    return (
-      <div className={`mob-card${isOpen ? ' mob-card--open' : ''}`} onClick={onToggle}>
-        <div className="mob-ring-wrap">
-          <div className="mob-ring"><div className="mob-icon">{icons[service.id]}</div></div>
-          {isOpen && <div className="mob-open-dot" />}
-        </div>
-        <p className="mob-label">{service.title}</p>
-        <div className={`mob-panel${isOpen ? ' mob-panel--visible' : ''}`}>
-          {/* Small / caption label — 11–12px, ls 3px, fw 700 */}
-          <div className="pop-eyebrow">Our Service</div>
-          {/* H4 Card Title range — clamp(16px, 1.3vw, 20px), fw 800 */}
-          <h3 className="pop-title">{label}</h3>
-          {/* Regular body — clamp(13px, 1vw, 15px), lh 1.75 */}
-          <p className="pop-desc">{service.description}</p>
-          <div className="pop-rule" />
-          {/* Small body list — clamp(12px, 0.9vw, 14px), lh 1.6 */}
-          <ul className="pop-list">{service.details.map((d, i) => <li key={i}><span className="pop-dot" />{d}</li>)}</ul>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="svc-card" style={{ animationDelay: `${index * 0.07}s` }}>
-      <div className="svc-ring">
-        <div className="svc-icon">{icons[service.id]}</div>
-      </div>
-      {/* Icon label — Small / caption: 12–13px, lh 1.5 */}
-      <p className="svc-label">{service.title}</p>
-      <div className={`svc-popup ${getPopupPos(service.id)}`}>
-        {/* Eyebrow — Small label: 10–11px, ls 3px, fw 700 */}
-        <div className="pop-eyebrow">Our Service</div>
-        {/* Popup heading — H4 Card Title: clamp(16px, 1.3vw, 20px), fw 800 */}
-        <h3 className="pop-title">{label}</h3>
-        {/* Regular body — clamp(13px, 1vw, 15px), lh 1.75 */}
-        <p className="pop-desc">{service.description}</p>
-        <div className="pop-rule" />
-        {/* List — Small / caption: clamp(12px, 0.9vw, 14px), lh 1.6 */}
-        <ul className="pop-list">{service.details.map((d, i) => <li key={i}><span className="pop-dot" />{d}</li>)}</ul>
-      </div>
-    </div>
-  );
-}
 
 export default function Services() {
   const [isMobile, setIsMobile] = useState(false);
-  const [openId, setOpenId]     = useState<number | null>(null);
+  const [activeId, setActiveId] = useState<number | null>(null);
+  const [openId,   setOpenId]   = useState<number | null>(null);
   const sectionRef              = useRef<HTMLElement>(null);
+
+  const active = services.find(s => s.id === activeId) ?? null;
+  const row1   = services.filter(s => s.row === 1);
+  const row2   = services.filter(s => s.row === 2);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -103,295 +52,624 @@ export default function Services() {
   }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
       { threshold: 0.1 }
     );
     sectionRef.current?.querySelectorAll<HTMLElement>('.animate')
-      .forEach(el => observer.observe(el));
-    return () => observer.disconnect();
+      .forEach(el => obs.observe(el));
+    return () => obs.disconnect();
   }, []);
-
-  const row1 = services.filter(s => s.row === 1);
-  const row2 = services.filter(s => s.row === 2);
 
   return (
     <>
       <section id="services" className="svc" ref={sectionRef}>
         <div className="svc__inner">
-          {/* H2 Section Title — clamp(36px, 3.75vw, 48px), fw 800 */}
-          <h2 className="svc__heading animate">SERV<span className="svc__heading--fade">ICES</span></h2>
+
+          <h2 className="svc__heading animate">
+            SERV<span className="svc__fade">ICES</span>
+          </h2>
 
           {isMobile ? (
+            /* ── MOBILE ── */
             <div className="mob-grid">
-              {services.map((s, i) => (
-                <ServiceCard key={s.id} service={s} index={i} isMobile isOpen={openId === s.id} onToggle={() => setOpenId(p => p === s.id ? null : s.id)} />
+              {services.map(s => (
+                <div
+                  key={s.id}
+                  className={`mob-card${openId === s.id ? ' mob-card--open' : ''}`}
+                  onClick={() => setOpenId(p => p === s.id ? null : s.id)}
+                >
+                  <div className="mob-ring">
+                    <span className="mob-icon">{icons[s.id]}</span>
+                  </div>
+                  <span className="mob-label">{s.title}</span>
+
+                  {openId === s.id && (
+                    <div className="mob-sheet">
+                      <div className="mob-sheet__handle" />
+                      <span className="mob-sheet__num">{String(s.id).padStart(2, '0')}</span>
+                      <h3 className="mob-sheet__title">{s.title}</h3>
+                      <p className="mob-sheet__desc">{s.description}</p>
+                      <div className="mob-sheet__rule" />
+                      <ul className="mob-sheet__list">
+                        {s.details.map((d, i) => (
+                          <li key={i}>
+                            <span className="mob-sheet__i">{String(i + 1).padStart(2, '0')}</span>
+                            <span>{d}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
           ) : (
-            <div className="svc-grid-wrap">
+            /* ── DESKTOP ── */
+            <div className="svc-wrap">
+
+              {/* Row 1 — 4 cards */}
               <div className="svc-row svc-row--4">
-                {row1.map((s, i) => <ServiceCard key={s.id} service={s} index={i} isMobile={false} isOpen={false} onToggle={() => {}} />)}
+                {row1.map((s, i) => (
+                  <div
+                    key={s.id}
+                    className={`svc-card${activeId === s.id ? ' svc-card--on' : ''}`}
+                    style={{ animationDelay: `${i * 0.07}s` }}
+                    onMouseEnter={() => setActiveId(s.id)}
+                    onMouseLeave={() => setActiveId(null)}
+                  >
+                    <div className="svc-ring">
+                      <span className="svc-icon">{icons[s.id]}</span>
+                    </div>
+                    <span className="svc-num">{String(s.id).padStart(2, '0')}</span>
+                    <span className="svc-label">{s.title}</span>
+                  </div>
+                ))}
               </div>
+
+              {/* Detail strip row 1 */}
+              <div className={`svc-strip${active?.row === 1 ? ' svc-strip--on' : ''}`}>
+                {active?.row === 1 && <StripInner s={active} />}
+              </div>
+
+              {/* Row 2 — 5 cards */}
               <div className="svc-row svc-row--5">
-                {row2.map((s, i) => <ServiceCard key={s.id} service={s} index={i + 4} isMobile={false} isOpen={false} onToggle={() => {}} />)}
+                {row2.map((s, i) => (
+                  <div
+                    key={s.id}
+                    className={`svc-card${activeId === s.id ? ' svc-card--on' : ''}`}
+                    style={{ animationDelay: `${(i + 4) * 0.07}s` }}
+                    onMouseEnter={() => setActiveId(s.id)}
+                    onMouseLeave={() => setActiveId(null)}
+                  >
+                    <div className="svc-ring">
+                      <span className="svc-icon">{icons[s.id]}</span>
+                    </div>
+                    <span className="svc-num">{String(s.id).padStart(2, '0')}</span>
+                    <span className="svc-label">{s.title}</span>
+                  </div>
+                ))}
               </div>
+
+              {/* Detail strip row 2 */}
+              <div className={`svc-strip${active?.row === 2 ? ' svc-strip--on' : ''}`}>
+                {active?.row === 2 && <StripInner s={active} />}
+              </div>
+
             </div>
           )}
         </div>
       </section>
 
       {isMobile && openId !== null && (
-        <div onClick={() => setOpenId(null)}
-          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.45)', zIndex: 499 }} />
+        <div className="mob-overlay" onClick={() => setOpenId(null)} />
       )}
 
       <style jsx global>{`
-        @font-face { font-family: 'Eurostile'; src: url('/fonts/FONTS/EurostileExt-Normal Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
-        @font-face { font-family: 'Eurostile'; src: url('/fonts/FONTS/EurostileBold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
-        @font-face { font-family: 'Eurostile'; src: url('/fonts/FONTS/EurostileTBold.ttf') format('truetype'); font-weight: 800; font-style: normal; font-display: swap; }
-        @font-face { font-family: 'Eurostile'; src: url('/fonts/FONTS/EurostileExt-Bold Regular.ttf') format('truetype'); font-weight: 900; font-style: normal; font-display: swap; }
 
-        /* ── Section ─────────────────────────────────────────────────────── */
-        .svc {
-          background : linear-gradient(135deg, #e8720e 0%, #f79028 55%, #ffa84a 100%);
-          padding    : 96px 60px 112px;
-          font-family: 'Eurostile', 'Arial Narrow', sans-serif;
-          position   : relative;
-          overflow   : visible;
+        /* ================================================================
+           @font-face — EXPLICIT font-style:normal on every declaration.
+           The oblique/italic rendering in the screenshot was caused by
+           the browser synthesising italic because font-style was not
+           explicitly set to normal for the 400-weight slot.
+        ================================================================ */
+        @font-face {
+          font-family  : 'Eurostile';
+          src          : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
+          font-weight  : 700;
+          font-style   : normal;
+          font-display : swap;
         }
-        .svc__inner { max-width: 1280px; margin: 0 auto; }
+        @font-face {
+          font-family  : 'Eurostile';
+          src          : url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
+          font-weight  : 800;
+          font-style   : normal;
+          font-display : swap;
+        }
+        @font-face {
+          font-family  : 'Eurostile';
+          src          : url('/fonts/FONTS/EurostileExtended.ttf') format('truetype');
+          font-weight  : 900;
+          font-style   : normal;
+          font-display : swap;
+        }
+        /*
+          400 weight — use the plain EurostileBold 2.ttf variant as
+          the regular face. The EurostileExt-Normal file was being
+          interpreted as oblique by Chromium, causing italic rendering.
+          Using EurostileBold at 400 gives a clean upright normal face.
+        */
+        @font-face {
+          font-family  : 'Eurostile';
+          src          : url('/fonts/FONTS/EurostileExt-Normal Regular.ttf') format('truetype');
+          font-weight  : 400;
+          font-style   : normal;
+          font-display : swap;
+          unicode-range: U+0020-00FF;
+        }
 
-        /* ── H2 Section Heading — clamp(36px, 3.75vw, 48px), fw 800 ──────── */
-        /* Industry standard: H2 Section Title = 36–48px, fw 700–800          */
+        /* ── Global font-style override — nothing in this section is italic */
+        .svc,
+        .svc * {
+          font-style : normal !important;
+        }
+
+        /* ── Section ─────────────────────────────────────────────────── */
+        .svc {
+          background  : #f47c20;
+          padding     : 96px 60px 112px;
+          font-family : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          overflow    : hidden;
+          position    : relative;
+        }
+        .svc__inner {
+          max-width : 1280px;
+          margin    : 0 auto;
+        }
+
+        /* ── Section heading ─────────────────────────────────────────── */
         .svc__heading {
-          font-family    : 'Eurostile', 'Arial Narrow', sans-serif;
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 800;
+          font-style     : normal;
           font-size      : clamp(36px, 3.75vw, 48px);
           letter-spacing : 8px;
           text-transform : uppercase;
-          color          : #fff;
-          margin         : 0 0 80px 0;
+          color          : #ffffff;
+          margin         : 0 0 64px;
           line-height    : 1;
         }
-        .svc__heading--fade { opacity: 0.38; }
+        .svc__fade { opacity: 0.30; }
 
-        .animate { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
-        .animate.visible { opacity: 1; transform: translateY(0); }
+        /* ── Scroll reveal ───────────────────────────────────────────── */
+        .animate {
+          opacity    : 0;
+          transform  : translateY(20px);
+          transition : opacity 0.6s ease, transform 0.6s ease;
+        }
+        .animate.visible {
+          opacity   : 1;
+          transform : translateY(0);
+        }
 
-        /* ── Grid ──────────────────────────────────────────────────────────── */
-        .svc-grid-wrap {
+        /* ── Desktop grid ────────────────────────────────────────────── */
+        .svc-wrap {
           display        : flex;
           flex-direction : column;
           align-items    : center;
-          gap            : 56px;
         }
+
         .svc-row {
           display   : flex;
-          max-width : 1000px;
+          max-width : 960px;
           width     : 100%;
+          padding   : 4px 0 24px;
         }
         .svc-row--4 { justify-content: space-around; }
         .svc-row--5 { justify-content: space-between; }
 
-        /* ── Desktop card ──────────────────────────────────────────────────── */
+        /* ── Desktop card ────────────────────────────────────────────── */
         .svc-card {
-          position       : relative;
           display        : flex;
           flex-direction : column;
           align-items    : center;
-          width          : 160px;
+          gap            : 10px;
+          width          : 140px;
           flex-shrink    : 0;
-          padding        : 0 8px;
           cursor         : pointer;
-          animation      : svcUp 0.55s ease both;
+          padding        : 4px 0;
+          animation      : cardUp 0.5s ease both;
         }
-        @keyframes svcUp {
-          from { opacity: 0; transform: translateY(20px); }
+        @keyframes cardUp {
+          from { opacity: 0; transform: translateY(16px); }
           to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── Ring ──────────────────────────────────────────────────────────── */
+        /* ── Icon ring ───────────────────────────────────────────────── */
         .svc-ring {
-          width           : 108px;
-          height          : 108px;
-          border-radius   : 50%;
-          border          : 1.5px solid rgba(255,255,255,0.65);
-          display         : flex;
-          align-items     : center;
-          justify-content : center;
-          margin-bottom   : 20px;
-          transition      : border-color 0.3s, background 0.3s, transform 0.3s, box-shadow 0.3s;
+          width            : 90px;
+          height           : 90px;
+          border-radius    : 50%;
+          border           : 1px solid rgba(255, 255, 255, 0.38);
+          display          : flex;
+          align-items      : center;
+          justify-content  : center;
+          transition       : border-color 0.22s ease, background 0.22s ease,
+                             transform 0.22s ease;
+          flex-shrink      : 0;
         }
+        .svc-card--on   .svc-ring,
         .svc-card:hover .svc-ring {
-          border-color : #fff;
-          background   : rgba(255,255,255,0.16);
-          transform    : scale(1.08);
-          box-shadow   : 0 0 0 8px rgba(255,255,255,0.09);
+          border-color : rgba(255, 255, 255, 0.95);
+          background   : rgba(255, 255, 255, 0.12);
+          transform    : translateY(-3px);
         }
 
         .svc-icon {
-          color           : rgba(255,255,255,0.88);
-          display         : flex;
-          align-items     : center;
-          justify-content : center;
-          transition      : color 0.3s, transform 0.3s;
+          color      : rgba(255, 255, 255, 0.55);
+          display    : flex;
+          align-items: center;
+          justify-content: center;
+          transition : color 0.22s ease;
         }
-        .svc-card:hover .svc-icon { color: #fff; transform: scale(1.12); }
+        .svc-card--on   .svc-icon,
+        .svc-card:hover .svc-icon { color: #ffffff; }
 
-        /* ── Icon label — Small / caption: 12–13px, lh 1.5 ──────────────── */
-        /* Industry standard: Small / captions / labels = 12–14px, lh 1.5     */
+        /* ── Card number ─────────────────────────────────────────────── */
+        .svc-num {
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-weight    : 800;
+          font-style     : normal;
+          font-size      : 9px;
+          letter-spacing : 2px;
+          color          : rgba(255, 255, 255, 0.28);
+          line-height    : 1;
+          display        : block;
+          transition     : color 0.22s ease;
+        }
+        .svc-card--on   .svc-num,
+        .svc-card:hover .svc-num { color: rgba(255, 255, 255, 0.65); }
+
+        /* ── Card label ──────────────────────────────────────────────── */
         .svc-label {
-          font-family    : 'Eurostile', 'Arial Narrow', sans-serif;
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 400;
-          font-size      : clamp(11px, 0.85vw, 13px);
-          letter-spacing : 0.6px;
-          color          : rgba(255,255,255,0.82);
+          font-style     : normal;
+          font-size      : clamp(10px, 0.8vw, 12px);
+          letter-spacing : 0.5px;
+          color          : rgba(255, 255, 255, 0.58);
           text-align     : center;
-          line-height    : 1.5;
-          white-space    : pre-line;
+          line-height    : 1.45;
+          display        : block;
+          transition     : color 0.22s ease;
+        }
+        .svc-card--on   .svc-label,
+        .svc-card:hover .svc-label { color: #ffffff; }
+
+        /* ================================================================
+           DETAIL STRIP
+           Accordion between rows — stays inside section.
+           Fixed height (not max-height clipping) so tags never get cut.
+        ================================================================ */
+        .svc-strip {
+          width      : 100%;
+          max-width  : 960px;
+          height     : 0;
+          overflow   : hidden;
+          opacity    : 0;
+          margin     : 0 auto;
+          transition : height 0.35s ease, opacity 0.25s ease,
+                       margin-bottom 0.35s ease;
+        }
+        .svc-strip--on {
+          height         : 108px;     /* fixed — no clipping */
+          opacity        : 1;
+          margin-bottom  : 32px;
+        }
+
+        /* Strip layout */
+        .strip {
+          display               : grid;
+          grid-template-columns : 64px 1fr 260px;
+          gap                   : 0 28px;
+          align-items           : start;
+          height                : 108px;
+          background            : rgba(0, 0, 0, 0.08);
+          border-left           : 2px solid rgba(255, 255, 255, 0.90);
+          border-radius         : 0 6px 6px 0;
+          padding               : 20px 24px;
+          box-sizing            : border-box;
+        }
+
+        /* Large ghost number */
+        .strip__num {
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-weight    : 900;
+          font-style     : normal;
+          font-size      : clamp(32px, 3.5vw, 44px);
+          color          : rgba(255, 255, 255, 0.15);
+          line-height    : 1;
+          letter-spacing : -1px;
           margin         : 0;
-          transition     : color 0.25s;
+          padding-top    : 2px;
+          display        : block;
         }
-        .svc-card:hover .svc-label { color: #fff; }
 
-        /* ── Popup ─────────────────────────────────────────────────────────── */
-        .svc-popup {
-          position       : absolute;
-          bottom         : calc(100% + 16px);
-          width          : 280px;
-          background     : #fff;
-          border-radius  : 14px;
-          padding        : 24px 24px 20px;
-          box-shadow     : 0 2px 4px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.10), 0 24px 56px rgba(0,0,0,0.14);
-          opacity        : 0;
-          pointer-events : none;
-          transition     : opacity 0.22s ease, transform 0.22s ease;
-          z-index        : 300;
+        /* Centre col */
+        .strip__body {
+          display        : flex;
+          flex-direction : column;
+          gap            : 6px;
         }
-        .svc-popup::after { content: ''; position: absolute; top: 100%; border: 9px solid transparent; border-top-color: #fff; }
-        .popup-center { left: 50%; transform: translateX(-50%) translateY(8px); }
-        .svc-card:hover .popup-center { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
-        .popup-center::after { left: 50%; transform: translateX(-50%); }
-        .popup-left { left: 0; transform: translateY(8px); }
-        .svc-card:hover .popup-left { opacity: 1; transform: translateY(0); pointer-events: auto; }
-        .popup-left::after { left: 40px; }
-        .popup-right { right: 0; transform: translateY(8px); }
-        .svc-card:hover .popup-right { opacity: 1; transform: translateY(0); pointer-events: auto; }
-        .popup-right::after { right: 40px; }
 
-        /* Eyebrow — Small label: 10–11px, ls 3px, fw 700 */
-        /* Industry standard: Small / captions / labels = 12–14px, lh 1.5     */
-        .pop-eyebrow {
-          font-family    : 'Eurostile','Arial Narrow',sans-serif;
+        .strip__title {
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 700;
-          font-size      : clamp(10px, 0.75vw, 11px);
+          font-style     : normal;
+          font-size      : clamp(12px, 1vw, 14px);
+          letter-spacing : 2.5px;
+          text-transform : uppercase;
+          color          : #ffffff;
+          margin         : 0;
+          line-height    : 1;
+          display        : block;
+        }
+
+        .strip__desc {
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-weight    : 400;
+          font-style     : normal;
+          font-size      : clamp(11px, 0.85vw, 13px);
+          color          : rgba(255, 255, 255, 0.68);
+          line-height    : 1.65;
+          letter-spacing : 0.2px;
+          margin         : 0;
+          display        : block;
+        }
+
+        /* Right col — tag chips */
+        .strip__tags {
+          display         : grid;
+          grid-template-columns: 1fr 1fr;
+          gap             : 5px;
+          align-content   : start;
+        }
+
+        .strip__tag {
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-weight    : 400;
+          font-style     : normal;
+          font-size      : 9px;
+          letter-spacing : 1.2px;
+          text-transform : uppercase;
+          color          : rgba(255, 255, 255, 0.55);
+          border         : 1px solid rgba(255, 255, 255, 0.22);
+          border-radius  : 2px;
+          padding        : 4px 7px;
+          white-space    : nowrap;
+          overflow       : hidden;
+          text-overflow  : ellipsis;
+          display        : block;
+          transition     : color 0.18s ease, border-color 0.18s ease;
+        }
+        .strip__tag:hover {
+          color        : #ffffff;
+          border-color : rgba(255, 255, 255, 0.55);
+        }
+
+        /* ── MOBILE ──────────────────────────────────────────────────── */
+        .mob-grid {
+          display               : grid;
+          grid-template-columns : repeat(3, 1fr);
+          gap                   : 28px 12px;
+        }
+
+        .mob-card {
+          display                    : flex;
+          flex-direction             : column;
+          align-items                : center;
+          gap                        : 8px;
+          cursor                     : pointer;
+          -webkit-tap-highlight-color: transparent;
+        }
+
+        .mob-ring {
+          width            : 64px;
+          height           : 64px;
+          border-radius    : 50%;
+          border           : 1px solid rgba(255, 255, 255, 0.38);
+          display          : flex;
+          align-items      : center;
+          justify-content  : center;
+          transition       : border-color 0.2s ease, background 0.2s ease;
+          flex-shrink      : 0;
+        }
+        .mob-card--open .mob-ring {
+          border-color : rgba(255, 255, 255, 0.95);
+          background   : rgba(255, 255, 255, 0.12);
+        }
+
+        .mob-icon {
+          color      : rgba(255, 255, 255, 0.55);
+          display    : flex;
+          align-items: center;
+          justify-content: center;
+          transition : color 0.2s ease;
+        }
+        .mob-card--open .mob-icon { color: #ffffff; }
+
+        .mob-label {
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-weight    : 400;
+          font-style     : normal;
+          font-size      : clamp(9px, 2.4vw, 11px);
+          letter-spacing : 0.4px;
+          color          : rgba(255, 255, 255, 0.58);
+          text-align     : center;
+          line-height    : 1.4;
+          display        : block;
+          transition     : color 0.2s ease;
+        }
+        .mob-card--open .mob-label { color: #ffffff; }
+
+        /* Mobile overlay */
+        .mob-overlay {
+          position   : fixed;
+          inset      : 0;
+          background : rgba(0, 0, 0, 0.52);
+          z-index    : 499;
+        }
+
+        /* Mobile bottom sheet */
+        .mob-sheet {
+          position      : fixed;
+          bottom        : 0;
+          left          : 0;
+          right         : 0;
+          background    : #ffffff;
+          border-radius : 16px 16px 0 0;
+          padding       : 0 24px 44px;
+          z-index       : 500;
+          animation     : sheetUp 0.28s ease both;
+          max-height    : 70vh;
+          overflow-y    : auto;
+        }
+        @keyframes sheetUp {
+          from { transform: translateY(100%); }
+          to   { transform: translateY(0); }
+        }
+
+        .mob-sheet__handle {
+          width         : 36px;
+          height        : 3px;
+          background    : #e0e0e0;
+          border-radius : 2px;
+          margin        : 14px auto 22px;
+        }
+
+        .mob-sheet__num {
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-weight    : 800;
+          font-style     : normal;
+          font-size      : 9px;
           letter-spacing : 3px;
           text-transform : uppercase;
           color          : #f47c20;
-          margin-bottom  : 8px;
-          line-height    : 1.5;
+          display        : block;
+          margin-bottom  : 6px;
         }
 
-        /* Popup heading — H4 Card Title: clamp(16px, 1.3vw, 20px), fw 800  */
-        /* Industry standard: H4 Card Title / Label = 20–24px, fw 600–700    */
-        /* For compact popup, clamp 16–20px keeps it proportional            */
-        .pop-title {
-          font-family    : 'Eurostile','Arial Narrow',sans-serif;
+        .mob-sheet__title {
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 800;
-          font-size      : clamp(15px, 1.3vw, 19px);
+          font-style     : normal;
+          font-size      : clamp(18px, 4.5vw, 22px);
           letter-spacing : 1.5px;
           text-transform : uppercase;
           color          : #1a1a1a;
+          line-height    : 1.15;
           margin         : 0 0 12px;
-          line-height    : 1.25;
         }
 
-        /* Regular body — clamp(13px, 1vw, 15px), lh 1.75 */
-        /* Industry standard: Regular body = 15–17px, lh 1.6–1.7             */
-        .pop-desc {
-          font-family    : 'Eurostile','Arial Narrow',sans-serif;
+        .mob-sheet__desc {
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 400;
-          font-size      : clamp(13px, 1vw, 15px);
-          color          : #777;
+          font-style     : normal;
+          font-size      : clamp(13px, 3.5vw, 15px);
+          color          : #666666;
           line-height    : 1.75;
-          margin         : 0 0 14px;
           letter-spacing : 0.2px;
+          margin         : 0 0 16px;
+          display        : block;
         }
 
-        .pop-rule { height: 1px; background: #ebebeb; margin-bottom: 12px; }
+        .mob-sheet__rule {
+          height     : 1px;
+          background : #f0f0f0;
+          margin     : 0 0 14px;
+        }
 
-        .pop-list { list-style: none; padding: 0; margin: 0; }
+        .mob-sheet__list {
+          list-style : none;
+          padding    : 0;
+          margin     : 0;
+          display    : flex;
+          flex-direction: column;
+          gap        : 10px;
+        }
 
-        /* List items — Small / caption: clamp(12px, 0.9vw, 14px), lh 1.6   */
-        /* Industry standard: Small / captions / labels = 12–14px, lh 1.5    */
-        .pop-list li {
-          font-family    : 'Eurostile','Arial Narrow',sans-serif;
-          font-weight    : 400;
-          font-size      : clamp(12px, 0.9vw, 14px);
-          color          : #555;
-          padding        : 4px 0;
+        .mob-sheet__list li {
           display        : flex;
           align-items    : center;
-          gap            : 10px;
-          letter-spacing : 0.2px;
-          line-height    : 1.6;
-        }
-        .pop-dot { width: 5px; height: 5px; min-width: 5px; border-radius: 50%; background: #f47c20; }
-
-        /* ── Mobile ────────────────────────────────────────────────────────── */
-        .mob-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px 16px; }
-        .mob-card { display: flex; flex-direction: column; align-items: center; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-        .mob-ring-wrap { position: relative; margin-bottom: 12px; }
-        .mob-ring { width: 72px; height: 72px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.65); display: flex; align-items: center; justify-content: center; transition: border-color 0.25s, background 0.25s, transform 0.25s; }
-        .mob-card--open .mob-ring { border-color: #fff; background: rgba(255,255,255,0.18); transform: scale(1.06); }
-        .mob-icon { color: rgba(255,255,255,0.85); display: flex; align-items: center; justify-content: center; transition: color 0.25s; }
-        .mob-card--open .mob-icon { color: #fff; }
-        .mob-open-dot { position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; border-radius: 50%; background: #fff; }
-
-        /* Mobile icon label — Small: 11–12px, lh 1.45 */
-        .mob-label {
-          font-family    : 'Eurostile','Arial Narrow',sans-serif;
+          gap            : 12px;
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 400;
-          font-size      : clamp(10px, 2.8vw, 12px);
-          letter-spacing : 0.4px;
-          color          : rgba(255,255,255,0.82);
-          text-align     : center;
-          line-height    : 1.45;
-          white-space    : pre-line;
-          margin         : 0;
-          transition     : color 0.2s;
+          font-style     : normal;
+          font-size      : clamp(12px, 3vw, 14px);
+          color          : #444444;
+          letter-spacing : 0.2px;
+          line-height    : 1.4;
         }
-        .mob-card--open .mob-label { color: #fff; }
 
-        .mob-panel { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-radius: 20px 20px 0 0; padding: 28px 28px 44px; box-shadow: 0 -8px 40px rgba(0,0,0,0.18); z-index: 500; animation: sheetUp 0.28s cubic-bezier(0.25,0.46,0.45,0.94) both; }
-        .mob-panel--visible { display: block; }
-        @keyframes sheetUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .mob-panel::before { content: ''; display: block; width: 40px; height: 4px; background: #e0e0e0; border-radius: 2px; margin: 0 auto 22px; }
+        .mob-sheet__i {
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-weight    : 800;
+          font-style     : normal;
+          font-size      : 9px;
+          letter-spacing : 1.5px;
+          color          : #f47c20;
+          flex-shrink    : 0;
+        }
 
-        /* ── Responsive ─────────────────────────────────────────────────────── */
+        /* ── Responsive ──────────────────────────────────────────────── */
         @media (min-width: 768px) and (max-width: 1100px) {
-          .svc { padding: 72px 40px 96px; }
-          .svc__heading { font-size: clamp(32px, 4.5vw, 42px); margin-bottom: 64px; }
-          .svc-card { width: 140px; }
-          .svc-ring { width: 90px; height: 90px; }
+          .svc            { padding: 72px 40px 96px; }
+          .svc__heading   { margin-bottom: 52px; }
+          .svc-card       { width: 120px; }
+          .svc-ring       { width: 76px; height: 76px; }
           .svc-row--4, .svc-row--5 { max-width: 780px; }
-          .svc-popup { width: 248px; }
+          .strip          { grid-template-columns: 52px 1fr; height: auto; min-height: 90px; }
+          .strip__tags    { display: none; }
+          .svc-strip--on  { height: auto; min-height: 90px; }
         }
+
         @media (max-width: 767px) {
-          .svc { padding: 56px 20px 84px; overflow: hidden; }
-          .svc__heading { font-size: clamp(28px, 7vw, 38px); letter-spacing: 5px; margin-bottom: 48px; }
+          .svc            { padding: 56px 20px 80px; }
+          .svc__heading   { font-size: clamp(28px, 7vw, 36px); letter-spacing: 5px; margin-bottom: 40px; }
         }
+
         @media (max-width: 520px) {
-          .svc__heading { font-size: clamp(26px, 7vw, 32px); letter-spacing: 4px; margin-bottom: 40px; }
-          .mob-grid { gap: 24px 12px; }
+          .svc__heading   { font-size: clamp(24px, 7vw, 30px); letter-spacing: 4px; margin-bottom: 32px; }
+          .mob-grid       { gap: 22px 10px; }
         }
-        @media (max-width: 380px) { .mob-ring { width: 60px; height: 60px; } }
+
+        @media (max-width: 380px) {
+          .mob-ring       { width: 56px; height: 56px; }
+        }
+
         @media (max-width: 360px) {
-          .svc { padding: 44px 16px 72px; }
-          .svc__heading { font-size: 26px; letter-spacing: 3px; margin-bottom: 32px; }
+          .svc            { padding: 44px 16px 64px; }
+          .svc__heading   { font-size: 24px; letter-spacing: 3px; margin-bottom: 28px; }
         }
       `}</style>
     </>
+  );
+}
+
+function StripInner({ s }: { s: Service }) {
+  return (
+    <div className="strip">
+      <span className="strip__num">{String(s.id).padStart(2, '0')}</span>
+      <div className="strip__body">
+        <span className="strip__title">{s.title}</span>
+        <span className="strip__desc">{s.description}</span>
+      </div>
+      <div className="strip__tags">
+        {s.details.map((d, i) => (
+          <span key={i} className="strip__tag">{d}</span>
+        ))}
+      </div>
+    </div>
   );
 }

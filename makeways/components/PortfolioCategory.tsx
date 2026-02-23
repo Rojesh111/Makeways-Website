@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -12,6 +12,7 @@ interface PortfolioItem {
   year: string;
   isVideo?: boolean;
   src?: string;
+  cover?: string; // ← poster/thumbnail image for videos e.g. '/portfolio/tvc/super-cover.jpg'
 }
 
 interface Props {
@@ -33,6 +34,17 @@ function Lightbox({
   onPrev: () => void;
   onNext: () => void;
 }) {
+  // Close on Escape key
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowLeft') onPrev();
+      if (e.key === 'ArrowRight') onNext();
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [onClose, onPrev, onNext]);
+
   return (
     <div className="lb-bg" onClick={onClose}>
       <div className="lb" onClick={e => e.stopPropagation()}>
@@ -52,18 +64,36 @@ function Lightbox({
         <div className="lb__media">
           {item.src ? (
             item.isVideo ? (
-              <video src={item.src} controls style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              /*
+                KEY FIX 1: key={item.src} forces React to fully remount the
+                <video> element whenever the src changes (e.g. prev/next).
+                Without this, React reuses the same DOM node and the video
+                never reloads.
+
+                KEY FIX 2: muted + playsInline are required for autoPlay
+                to work in all browsers (Chrome, Safari, iOS).
+              */
+              <video
+                key={item.src}
+                src={item.src}
+                poster={item.cover}
+                controls
+                autoPlay
+                muted
+                playsInline
+                style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#000' }}
+              />
             ) : (
               <img src={item.src} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             )
           ) : (
             <div className="lb__ph">
               {item.isVideo ? (
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#555" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
                   <polygon points="5 3 19 12 5 21 5 3"/>
                 </svg>
               ) : (
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#555" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="3" width="18" height="18" rx="2"/>
                   <circle cx="8.5" cy="8.5" r="1.5"/>
                   <polyline points="21 15 16 10 5 21"/>
@@ -85,9 +115,7 @@ function Lightbox({
             <h3 className="lb__title">{item.title}</h3>
             <p className="lb__meta">{item.client} · {item.year}</p>
           </div>
-          {item.isVideo && (
-            <span className="lb__badge">VIDEO</span>
-          )}
+          {item.isVideo && <span className="lb__badge">VIDEO</span>}
         </div>
       </div>
 
@@ -105,7 +133,7 @@ function Lightbox({
         .lb {
           position: relative;
           width: 100%; max-width: 900px;
-          background: #fff;
+          background: #111;
           display: flex; flex-direction: column;
           animation: lbpop .22s ease;
           max-height: 92vh;
@@ -123,7 +151,7 @@ function Lightbox({
 
         .lb__arrow {
           position: absolute; top: 50%; transform: translateY(-50%);
-          background: rgba(0,0,0,0.45); border: none;
+          background: rgba(0,0,0,0.55); border: none;
           color: #fff; width: 42px; height: 42px;
           display: flex; align-items: center; justify-content: center;
           cursor: pointer; z-index: 10; transition: background .2s;
@@ -134,20 +162,22 @@ function Lightbox({
 
         .lb__media {
           width: 100%; aspect-ratio: 16/9;
-          background: #f0f0f0;
+          background: #000;
           display: flex; align-items: center; justify-content: center;
+          overflow: hidden;
         }
 
         .lb__ph {
           display: flex; flex-direction: column; align-items: center; gap: 12px;
-          color: #bbb;
+          color: #555;
           font-family: 'Eurostile', sans-serif;
           font-size: 8px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
         }
 
         .lb__caption {
-          padding: 16px 22px;
+          padding: 14px 20px;
           border-top: 3px solid #FF8C00;
+          background: #fff;
           display: flex; align-items: center; justify-content: space-between; gap: 12px;
         }
         .lb__title {
@@ -185,10 +215,25 @@ function Card({ item, onClick }: { item: PortfolioItem; onClick: () => void }) {
       <div className="card__media">
         {item.src ? (
           item.isVideo ? (
-            <video src={item.src} muted playsInline className="card__img" />
+            /*
+              poster={item.cover} shows your cover image as the thumbnail.
+              preload="metadata" loads just enough to show the first frame
+              if no cover is provided — avoids downloading the whole video.
+            */
+            <video
+              src={item.src}
+              poster={item.cover}
+              muted
+              playsInline
+              preload="metadata"
+              className="card__img"
+            />
           ) : (
             <img src={item.src} alt={item.title} className="card__img" />
           )
+        ) : item.cover ? (
+          /* No video src yet but cover image provided — show it as a static thumb */
+          <img src={item.cover} alt={item.title} className="card__img" />
         ) : (
           <div className="card__ph">
             {item.isVideo ? (
@@ -252,7 +297,7 @@ function Card({ item, onClick }: { item: PortfolioItem; onClick: () => void }) {
 
         .card__play-badge {
           position: absolute; bottom: 8px; right: 8px;
-          background: #FF8C00; color: #fff;
+          background: #FF8C00;
           width: 28px; height: 28px;
           display: flex; align-items: center; justify-content: center;
           border-radius: 50%;
@@ -311,7 +356,7 @@ export default function PortfolioCategory({ title, subtitle, accent, items }: Pr
 
       <main className="page">
 
-        {/* ── HERO ───────────────────────────────────────────────────────── */}
+        {/* ── HERO ── */}
         <section className="hero" style={{ '--accent': accent } as React.CSSProperties}>
           <div className="hero__in">
             <button onClick={() => router.back()} className="hero__back">
@@ -325,7 +370,7 @@ export default function PortfolioCategory({ title, subtitle, accent, items }: Pr
           </div>
         </section>
 
-        {/* ── GRID ───────────────────────────────────────────────────────── */}
+        {/* ── GRID ── */}
         <div className="grid-wrap">
           <div className="count-bar">
             <span className="count-num">{items.length} PROJECTS</span>
@@ -339,7 +384,6 @@ export default function PortfolioCategory({ title, subtitle, accent, items }: Pr
             ))}
           </div>
         </div>
-
       </main>
 
       {activeIndex !== null && (
@@ -366,7 +410,6 @@ export default function PortfolioCategory({ title, subtitle, accent, items }: Pr
           background: #fff;
         }
 
-        /* HERO */
         .hero {
           background: #FF8C00;
           padding: 48px 40px 52px;
@@ -375,7 +418,6 @@ export default function PortfolioCategory({ title, subtitle, accent, items }: Pr
           max-width: 1100px; margin: 0 auto;
         }
 
-        /* BACK BUTTON */
         .hero__back {
           display: inline-flex; align-items: center; gap: 6px;
           font-family: 'Eurostile', sans-serif;
@@ -402,7 +444,6 @@ export default function PortfolioCategory({ title, subtitle, accent, items }: Pr
           text-transform: uppercase; letter-spacing: 3px;
         }
 
-        /* COUNT BAR */
         .grid-wrap {
           max-width: 1100px; margin: 0 auto;
           padding: 0 24px 80px;
@@ -423,7 +464,6 @@ export default function PortfolioCategory({ title, subtitle, accent, items }: Pr
           font-size: 12px; font-weight: 700; letter-spacing: 2px; color: #bbb;
         }
 
-        /* GRID */
         .grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);

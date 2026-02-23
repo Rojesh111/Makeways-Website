@@ -13,9 +13,9 @@ const items = [
   { id: 1,  title: 'Brand Campaign',      client: 'CLIENT NAME', year: '2024', isVideo: true,  src: '' },
   { id: 2,  title: 'Corporate TVC',       client: 'CLIENT NAME', year: '2024', isVideo: true,  src: '' },
   { id: 3,  title: 'Product Launch',      client: 'CLIENT NAME', year: '2023', isVideo: true,  src: '' },
-  { id: 4,  title: 'Festive Campaign',    client: 'CLIENT NAME', year: '2023', isVideo: true,  src: '' },
+  { id: 4,  title: 'Festive Campaign',    client: 'CLIENT NAME', year: '2023', isVideo: true,  src: '/images/super.mp4#t=1' },
   { id: 5,  title: 'Brand Film',          client: 'CLIENT NAME', year: '2024', isVideo: true,  src: '' },
-  { id: 6,  title: 'TV Advertisement',    client: 'CLIENT NAME', year: '2022', isVideo: true,  src: '' },
+  { id: 6,  title: 'TV Advertisement',    client: 'CLIENT NAME', year: '2022', isVideo: true,  src: '/images/neta.mp4#t=1' },
 ];
 
 export default function TVCPage() {

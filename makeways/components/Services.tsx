@@ -11,15 +11,15 @@ interface Service {
 }
 
 const services: Service[] = [
-  { id: 1, title: 'Integrated Campaign',   description: 'Seamless brand storytelling across every channel — TV, digital, print, and beyond — unified under one powerful strategy.',       details: ['Multi-channel planning', 'Unified brand messaging', 'Cross-platform execution', 'Campaign ROI tracking'],        row: 1 },
+  { id: 1, title: 'Integrated Campaign',   description: 'Seamless brand storytelling across every channel — TV, digital, print, and beyond — unified under one powerful strategy.',        details: ['Multi-channel planning', 'Unified brand messaging', 'Cross-platform execution', 'Campaign ROI tracking'],        row: 1 },
   { id: 2, title: 'Brand Strategy',        description: 'We define who you are, what you stand for, and how the world sees you — turning brand into competitive advantage.',              details: ['Brand identity & positioning', 'Market & competitor analysis', 'Brand architecture', 'Tone of voice'],           row: 1 },
   { id: 3, title: 'A/V Productions',       description: 'Cinematic-quality video and audio content that commands attention and moves audiences to action.',                               details: ['TVC & commercial production', 'Corporate & documentary video', 'Post-production & editing', 'Sound design'],     row: 1 },
-  { id: 4, title: 'Events & Activations',  description: 'Live brand experiences that create genuine emotional connections and lasting memories with your audience.',                      details: ['Brand activation events', 'Product launches', 'Experiential marketing', 'End-to-end production'],               row: 1 },
-  { id: 5, title: 'Digital Marketing',     description: 'Data-driven digital strategies that grow your presence, engage your audience, and convert at scale.',                           details: ['Social media management', 'SEO & paid media', 'Content strategy', 'Analytics & reporting'],                    row: 2 },
-  { id: 6, title: 'Influencer Campaign',   description: "Authentic creator partnerships that extend your brand's reach and build trust through genuine voices.",                         details: ['Influencer identification', 'Campaign strategy', 'Content collaboration', 'Performance measurement'],           row: 2 },
-  { id: 7, title: 'Media Release',         description: 'Strategic PR and media buying that keeps your brand prominent, credible, and in the conversation.',                             details: ['Press release writing', 'Media buying & planning', 'PR strategy', 'Crisis communications'],                    row: 2 },
-  { id: 8, title: 'Design & Fabrication',  description: 'Bold visual craft — from concept to physical production — that makes your brand impossible to ignore.',                         details: ['Graphic & print design', 'Exhibition & booth design', 'Signage & wayfinding', 'Physical fabrication'],         row: 2 },
-  { id: 9, title: 'OOH',                   description: 'Out-of-home advertising at scale — billboards, transit, and digital screens that dominate the landscape.',                      details: ['Billboard & transit ads', 'DOOH strategy', 'Site selection & booking', 'Creative adaptation'],                 row: 2 },
+  { id: 4, title: 'Events & Activations',  description: 'Live brand experiences that create genuine emotional connections and lasting memories with your audience.',                      details: ['Brand activation events', 'Product launches', 'Experiential marketing', 'End-to-end production'],                row: 1 },
+  { id: 5, title: 'Digital Marketing',     description: 'Data-driven digital strategies that grow your presence, engage your audience, and convert at scale.',                            details: ['Social media management', 'SEO & paid media', 'Content strategy', 'Analytics & reporting'],                    row: 2 },
+  { id: 6, title: 'Influencer Campaign',   description: "Authentic creator partnerships that extend your brand's reach and build trust through genuine voices.",                          details: ['Influencer identification', 'Campaign strategy', 'Content collaboration', 'Performance measurement'],            row: 2 },
+  { id: 7, title: 'Media Release',         description: 'Strategic PR and media buying that keeps your brand prominent, credible, and in the conversation.',                              details: ['Press release writing', 'Media buying & planning', 'PR strategy', 'Crisis communications'],                    row: 2 },
+  { id: 8, title: 'Design & Fabrication',  description: 'Bold visual craft — from concept to physical production — that makes your brand impossible to ignore.',                          details: ['Graphic & print design', 'Exhibition & booth design', 'Signage & wayfinding', 'Physical fabrication'],         row: 2 },
+  { id: 9, title: 'OOH',                   description: 'Out-of-home advertising at scale — billboards, transit, and digital screens that dominate the landscape.',                       details: ['Billboard & transit ads', 'DOOH strategy', 'Site selection & booking', 'Creative adaptation'],                 row: 2 },
 ];
 
 const icons: Record<number, React.ReactNode> = {
@@ -167,12 +167,6 @@ export default function Services() {
 
       <style jsx global>{`
 
-        /* ================================================================
-           @font-face — EXPLICIT font-style:normal on every declaration.
-           The oblique/italic rendering in the screenshot was caused by
-           the browser synthesising italic because font-style was not
-           explicitly set to normal for the 400-weight slot.
-        ================================================================ */
         @font-face {
           font-family  : 'Eurostile';
           src          : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
@@ -194,12 +188,6 @@ export default function Services() {
           font-style   : normal;
           font-display : swap;
         }
-        /*
-          400 weight — use the plain EurostileBold 2.ttf variant as
-          the regular face. The EurostileExt-Normal file was being
-          interpreted as oblique by Chromium, causing italic rendering.
-          Using EurostileBold at 400 gives a clean upright normal face.
-        */
         @font-face {
           font-family  : 'Eurostile';
           src          : url('/fonts/FONTS/EurostileExt-Normal Regular.ttf') format('truetype');
@@ -209,7 +197,6 @@ export default function Services() {
           unicode-range: U+0020-00FF;
         }
 
-        /* ── Global font-style override — nothing in this section is italic */
         .svc,
         .svc * {
           font-style : normal !important;
@@ -217,7 +204,7 @@ export default function Services() {
 
         /* ── Section ─────────────────────────────────────────────────── */
         .svc {
-          background  : #f47c20;
+          background  : #0d0d0d; /* Changed to Black */
           padding     : 96px 60px 112px;
           font-family : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           overflow    : hidden;
@@ -240,7 +227,10 @@ export default function Services() {
           margin         : 0 0 64px;
           line-height    : 1;
         }
-        .svc__fade { opacity: 0.30; }
+        .svc__fade { 
+          color: #f47c20; /* Made the second half of the word Orange */
+          opacity: 1; 
+        }
 
         /* ── Scroll reveal ───────────────────────────────────────────── */
         .animate {
@@ -291,30 +281,29 @@ export default function Services() {
           width            : 90px;
           height           : 90px;
           border-radius    : 50%;
-          border           : 1px solid rgba(255, 255, 255, 0.38);
+          border           : 1px solid rgba(255, 255, 255, 0.15); /* Subtle white border */
           display          : flex;
           align-items      : center;
           justify-content  : center;
-          transition       : border-color 0.22s ease, background 0.22s ease,
-                             transform 0.22s ease;
+          transition       : border-color 0.22s ease, background 0.22s ease, transform 0.22s ease;
           flex-shrink      : 0;
         }
         .svc-card--on   .svc-ring,
         .svc-card:hover .svc-ring {
-          border-color : rgba(255, 255, 255, 0.95);
-          background   : rgba(255, 255, 255, 0.12);
+          border-color : #f47c20; /* Orange border on hover */
+          background   : rgba(244, 124, 32, 0.1); /* Subtle orange background */
           transform    : translateY(-3px);
         }
 
         .svc-icon {
-          color      : rgba(255, 255, 255, 0.55);
+          color      : rgba(255, 255, 255, 0.6);
           display    : flex;
           align-items: center;
           justify-content: center;
           transition : color 0.22s ease;
         }
         .svc-card--on   .svc-icon,
-        .svc-card:hover .svc-icon { color: #ffffff; }
+        .svc-card:hover .svc-icon { color: #f47c20; } /* Orange icon on hover */
 
         /* ── Card number ─────────────────────────────────────────────── */
         .svc-num {
@@ -323,13 +312,13 @@ export default function Services() {
           font-style     : normal;
           font-size      : 9px;
           letter-spacing : 2px;
-          color          : rgba(255, 255, 255, 0.28);
+          color          : rgba(255, 255, 255, 0.3);
           line-height    : 1;
           display        : block;
           transition     : color 0.22s ease;
         }
         .svc-card--on   .svc-num,
-        .svc-card:hover .svc-num { color: rgba(255, 255, 255, 0.65); }
+        .svc-card:hover .svc-num { color: #f47c20; } /* Orange number on hover */
 
         /* ── Card label ──────────────────────────────────────────────── */
         .svc-label {
@@ -338,7 +327,7 @@ export default function Services() {
           font-style     : normal;
           font-size      : clamp(10px, 0.8vw, 12px);
           letter-spacing : 0.5px;
-          color          : rgba(255, 255, 255, 0.58);
+          color          : rgba(255, 255, 255, 0.6);
           text-align     : center;
           line-height    : 1.45;
           display        : block;
@@ -347,11 +336,7 @@ export default function Services() {
         .svc-card--on   .svc-label,
         .svc-card:hover .svc-label { color: #ffffff; }
 
-        /* ================================================================
-           DETAIL STRIP
-           Accordion between rows — stays inside section.
-           Fixed height (not max-height clipping) so tags never get cut.
-        ================================================================ */
+        /* ── Detail Strip ────────────────────────────────────────────── */
         .svc-strip {
           width      : 100%;
           max-width  : 960px;
@@ -359,36 +344,33 @@ export default function Services() {
           overflow   : hidden;
           opacity    : 0;
           margin     : 0 auto;
-          transition : height 0.35s ease, opacity 0.25s ease,
-                       margin-bottom 0.35s ease;
+          transition : height 0.35s ease, opacity 0.25s ease, margin-bottom 0.35s ease;
         }
         .svc-strip--on {
-          height         : 108px;     /* fixed — no clipping */
+          height         : 108px;
           opacity        : 1;
           margin-bottom  : 32px;
         }
 
-        /* Strip layout */
         .strip {
           display               : grid;
           grid-template-columns : 64px 1fr 260px;
           gap                   : 0 28px;
           align-items           : start;
           height                : 108px;
-          background            : rgba(0, 0, 0, 0.08);
-          border-left           : 2px solid rgba(255, 255, 255, 0.90);
+          background            : #1a1a1a; /* Dark gray/black strip */
+          border-left           : 2px solid #f47c20; /* Orange accent line */
           border-radius         : 0 6px 6px 0;
           padding               : 20px 24px;
           box-sizing            : border-box;
         }
 
-        /* Large ghost number */
         .strip__num {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 900;
           font-style     : normal;
           font-size      : clamp(32px, 3.5vw, 44px);
-          color          : rgba(255, 255, 255, 0.15);
+          color          : rgba(244, 124, 32, 0.15); /* Ghost Orange */
           line-height    : 1;
           letter-spacing : -1px;
           margin         : 0;
@@ -396,7 +378,6 @@ export default function Services() {
           display        : block;
         }
 
-        /* Centre col */
         .strip__body {
           display        : flex;
           flex-direction : column;
@@ -410,7 +391,7 @@ export default function Services() {
           font-size      : clamp(12px, 1vw, 14px);
           letter-spacing : 2.5px;
           text-transform : uppercase;
-          color          : #ffffff;
+          color          : #f47c20; /* Orange title */
           margin         : 0;
           line-height    : 1;
           display        : block;
@@ -421,19 +402,18 @@ export default function Services() {
           font-weight    : 400;
           font-style     : normal;
           font-size      : clamp(11px, 0.85vw, 13px);
-          color          : rgba(255, 255, 255, 0.68);
+          color          : #dddddd; /* Light grey text */
           line-height    : 1.65;
           letter-spacing : 0.2px;
           margin         : 0;
           display        : block;
         }
 
-        /* Right col — tag chips */
         .strip__tags {
-          display         : grid;
-          grid-template-columns: 1fr 1fr;
-          gap             : 5px;
-          align-content   : start;
+          display               : grid;
+          grid-template-columns : 1fr 1fr;
+          gap                   : 5px;
+          align-content         : start;
         }
 
         .strip__tag {
@@ -443,8 +423,8 @@ export default function Services() {
           font-size      : 9px;
           letter-spacing : 1.2px;
           text-transform : uppercase;
-          color          : rgba(255, 255, 255, 0.55);
-          border         : 1px solid rgba(255, 255, 255, 0.22);
+          color          : #aaaaaa;
+          border         : 1px solid rgba(255, 255, 255, 0.15);
           border-radius  : 2px;
           padding        : 4px 7px;
           white-space    : nowrap;
@@ -454,8 +434,8 @@ export default function Services() {
           transition     : color 0.18s ease, border-color 0.18s ease;
         }
         .strip__tag:hover {
-          color        : #ffffff;
-          border-color : rgba(255, 255, 255, 0.55);
+          color        : #f47c20;
+          border-color : #f47c20;
         }
 
         /* ── MOBILE ──────────────────────────────────────────────────── */
@@ -478,7 +458,7 @@ export default function Services() {
           width            : 64px;
           height           : 64px;
           border-radius    : 50%;
-          border           : 1px solid rgba(255, 255, 255, 0.38);
+          border           : 1px solid rgba(255, 255, 255, 0.15);
           display          : flex;
           align-items      : center;
           justify-content  : center;
@@ -486,18 +466,18 @@ export default function Services() {
           flex-shrink      : 0;
         }
         .mob-card--open .mob-ring {
-          border-color : rgba(255, 255, 255, 0.95);
-          background   : rgba(255, 255, 255, 0.12);
+          border-color : #f47c20;
+          background   : rgba(244, 124, 32, 0.1);
         }
 
         .mob-icon {
-          color      : rgba(255, 255, 255, 0.55);
-          display    : flex;
-          align-items: center;
+          color          : rgba(255, 255, 255, 0.6);
+          display        : flex;
+          align-items    : center;
           justify-content: center;
-          transition : color 0.2s ease;
+          transition     : color 0.2s ease;
         }
-        .mob-card--open .mob-icon { color: #ffffff; }
+        .mob-card--open .mob-icon { color: #f47c20; }
 
         .mob-label {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
@@ -505,7 +485,7 @@ export default function Services() {
           font-style     : normal;
           font-size      : clamp(9px, 2.4vw, 11px);
           letter-spacing : 0.4px;
-          color          : rgba(255, 255, 255, 0.58);
+          color          : rgba(255, 255, 255, 0.6);
           text-align     : center;
           line-height    : 1.4;
           display        : block;
@@ -513,21 +493,19 @@ export default function Services() {
         }
         .mob-card--open .mob-label { color: #ffffff; }
 
-        /* Mobile overlay */
         .mob-overlay {
           position   : fixed;
           inset      : 0;
-          background : rgba(0, 0, 0, 0.52);
+          background : rgba(0, 0, 0, 0.7);
           z-index    : 499;
         }
 
-        /* Mobile bottom sheet */
         .mob-sheet {
           position      : fixed;
           bottom        : 0;
           left          : 0;
           right         : 0;
-          background    : #ffffff;
+          background    : #1a1a1a; /* Dark sheet */
           border-radius : 16px 16px 0 0;
           padding       : 0 24px 44px;
           z-index       : 500;
@@ -543,7 +521,7 @@ export default function Services() {
         .mob-sheet__handle {
           width         : 36px;
           height        : 3px;
-          background    : #e0e0e0;
+          background    : #333333;
           border-radius : 2px;
           margin        : 14px auto 22px;
         }
@@ -567,7 +545,7 @@ export default function Services() {
           font-size      : clamp(18px, 4.5vw, 22px);
           letter-spacing : 1.5px;
           text-transform : uppercase;
-          color          : #1a1a1a;
+          color          : #ffffff;
           line-height    : 1.15;
           margin         : 0 0 12px;
         }
@@ -577,7 +555,7 @@ export default function Services() {
           font-weight    : 400;
           font-style     : normal;
           font-size      : clamp(13px, 3.5vw, 15px);
-          color          : #666666;
+          color          : #aaaaaa;
           line-height    : 1.75;
           letter-spacing : 0.2px;
           margin         : 0 0 16px;
@@ -586,17 +564,17 @@ export default function Services() {
 
         .mob-sheet__rule {
           height     : 1px;
-          background : #f0f0f0;
+          background : #333333;
           margin     : 0 0 14px;
         }
 
         .mob-sheet__list {
-          list-style : none;
-          padding    : 0;
-          margin     : 0;
-          display    : flex;
-          flex-direction: column;
-          gap        : 10px;
+          list-style     : none;
+          padding        : 0;
+          margin         : 0;
+          display        : flex;
+          flex-direction : column;
+          gap            : 10px;
         }
 
         .mob-sheet__list li {
@@ -607,7 +585,7 @@ export default function Services() {
           font-weight    : 400;
           font-style     : normal;
           font-size      : clamp(12px, 3vw, 14px);
-          color          : #444444;
+          color          : #cccccc;
           letter-spacing : 0.2px;
           line-height    : 1.4;
         }

@@ -124,13 +124,13 @@ export default function CoreValues() {
           font-weight: 900; font-style: normal; font-display: swap;
         }
 
-        /* ── Tokens ──────────────────────────────────────────────────────── */
+        /* ── Design Tokens ───────────────────────────────────────────────── */
         .cv {
           --eu     : 'Eurostile', 'Arial Narrow', sans-serif;
           --orange : #f47c20;
           --dark   : #1a1a1a;
-          --muted  : #888888;
-          --rule   : #e0e0e0;
+          --muted  : #666666;
+          --rule   : #d8d8d8;
           --bg     : #f0f0f0;
         }
         .cv *, .cv *::before, .cv *::after { box-sizing: border-box; }
@@ -138,7 +138,7 @@ export default function CoreValues() {
         /* ── Section ─────────────────────────────────────────────────────── */
         .cv {
           background  : var(--bg);
-          padding     : 80px 60px;
+          padding     : 96px 60px;
           font-family : var(--eu);
           width       : 100%;
           overflow-x  : hidden;
@@ -148,15 +148,16 @@ export default function CoreValues() {
           margin    : 0 auto;
         }
 
-        /* ── Heading ─────────────────────────────────────────────────────── */
+        /* ── H2 Section Heading — 36px–48px, weight 800 ─────────────────── */
+        /* Industry standard: H2 Section Title = 36–48px, fw 700–800        */
         .cv__heading {
           font-family    : var(--eu);
           font-weight    : 800;
-          font-size      : 54px;
-          letter-spacing : 6px;
+          font-size      : clamp(36px, 3.75vw, 48px);
+          letter-spacing : 8px;
           text-transform : uppercase;
           color          : var(--dark);
-          margin         : 0 0 64px 0;
+          margin         : 0 0 72px 0;
           line-height    : 1;
         }
         .cv__heading--orange { color: var(--orange); }
@@ -165,7 +166,7 @@ export default function CoreValues() {
         .cv__grid {
           display               : grid;
           grid-template-columns : repeat(4, 1fr);
-          gap                   : 48px 36px;
+          gap                   : 48px 40px;
         }
 
         /* ── Card ────────────────────────────────────────────────────────── */
@@ -180,18 +181,18 @@ export default function CoreValues() {
 
         /* ── Icon ring ───────────────────────────────────────────────────── */
         .cv__icon-ring {
-          width         : 120px;
-          height        : 120px;
-          border        : 1.5px solid var(--orange);
-          border-radius : 50%;
-          display       : flex;
-          align-items   : center;
+          width          : 120px;
+          height         : 120px;
+          border         : 1.5px solid var(--orange);
+          border-radius  : 50%;
+          display        : flex;
+          align-items    : center;
           justify-content: center;
-          margin-bottom : 28px;
-          flex-shrink   : 0;
-          transition    : background 0.35s cubic-bezier(0.68,-0.55,0.265,1.55),
-                          transform  0.35s cubic-bezier(0.68,-0.55,0.265,1.55),
-                          box-shadow 0.35s ease;
+          margin-bottom  : 28px;
+          flex-shrink    : 0;
+          transition     : background 0.35s cubic-bezier(0.68,-0.55,0.265,1.55),
+                           transform  0.35s cubic-bezier(0.68,-0.55,0.265,1.55),
+                           box-shadow 0.35s ease;
         }
         .cv__card:hover .cv__icon-ring {
           background : var(--orange);
@@ -200,24 +201,26 @@ export default function CoreValues() {
         }
 
         .cv__icon {
-          color      : var(--orange);
-          display    : flex;
-          align-items: center;
+          color          : var(--orange);
+          display        : flex;
+          align-items    : center;
           justify-content: center;
-          transition : color 0.3s ease, transform 0.3s ease;
+          transition     : color 0.3s ease, transform 0.3s ease;
         }
         .cv__card:hover .cv__icon { color: #fff; transform: scale(1.1); }
 
-        /* ── Title ───────────────────────────────────────────────────────── */
+        /* ── H3/H4 Card Title — 18px–22px, weight 700 ───────────────────── */
+        /* Industry standard: H3 Sub-section = 28–36px, H4 Card = 20–24px   */
+        /* For compact 4-col card layout, clamp(16px–20px) fits well         */
         .cv__title {
           font-family    : var(--eu);
           font-weight    : 700;
-          font-size      : 13px;
-          letter-spacing : 1.5px;
+          font-size      : clamp(15px, 1.3vw, 20px);
+          letter-spacing : 2px;
           text-transform : uppercase;
           color          : var(--dark);
-          margin         : 0 0 14px 0;
-          line-height    : 1.35;
+          margin         : 0 0 16px 0;
+          line-height    : 1.3;
           transition     : color 0.25s ease;
         }
         .cv__card:hover .cv__title { color: var(--orange); }
@@ -227,18 +230,19 @@ export default function CoreValues() {
           width      : 36px;
           height     : 2px;
           background : var(--rule);
-          margin     : 0 auto 18px;
+          margin     : 0 auto 20px;
           transition : width 0.3s ease, background 0.3s ease;
         }
         .cv__card:hover .cv__rule { width: 52px; background: var(--orange); }
 
-        /* ── Description ─────────────────────────────────────────────────── */
+        /* ── Regular body — 15–16px, lh 1.7 ────────────────────────────── */
+        /* Industry standard: Regular body = 15–17px, lh 1.6–1.7            */
         .cv__desc {
           font-family    : var(--eu);
           font-weight    : 400;
-          font-size      : 13px;
+          font-size      : clamp(13px, 1vw, 15px);
           color          : var(--muted);
-          line-height    : 1.85;
+          line-height    : 1.8;
           letter-spacing : 0.2px;
           margin         : 0;
         }
@@ -246,43 +250,54 @@ export default function CoreValues() {
         /* ── Scroll animation ────────────────────────────────────────────── */
         .animate {
           opacity   : 0;
-          transform : translateY(22px);
+          transform : translateY(24px);
           transition:
             opacity   0.65s ease calc(var(--delay, 0s)),
             transform 0.65s ease calc(var(--delay, 0s));
         }
         .animate.visible { opacity: 1; transform: translateY(0); }
 
+        /* ── 1280px ──────────────────────────────────────────────────────── */
+        @media (max-width: 1280px) {
+          .cv { padding: 80px 48px; }
+          .cv__grid { gap: 44px 32px; }
+        }
+
         /* ── 1024px ──────────────────────────────────────────────────────── */
         @media (max-width: 1024px) {
-          .cv { padding: 70px 40px; }
-          .cv__heading { font-size: 46px; margin-bottom: 52px; }
-          .cv__grid { grid-template-columns: repeat(2, 1fr); gap: 44px 36px; }
-          .cv__icon-ring { width: 100px; height: 100px; margin-bottom: 22px; }
+          .cv { padding: 72px 40px; }
+          .cv__heading { font-size: clamp(32px, 4vw, 42px); margin-bottom: 56px; }
+          .cv__grid { grid-template-columns: repeat(2, 1fr); gap: 48px 36px; }
+          .cv__icon-ring { width: 104px; height: 104px; margin-bottom: 24px; }
+          .cv__title { font-size: clamp(14px, 1.6vw, 18px); }
         }
 
         /* ── 768px ───────────────────────────────────────────────────────── */
         @media (max-width: 768px) {
-          .cv { padding: 56px 24px; }
-          .cv__heading { font-size: 40px; letter-spacing: 4px; margin-bottom: 44px; }
-          .cv__grid { grid-template-columns: repeat(2, 1fr); gap: 36px 24px; }
-          .cv__icon-ring { width: 88px; height: 88px; }
-          .cv__title { font-size: 12px; }
-          .cv__desc { font-size: 12px; line-height: 1.75; }
+          .cv { padding: 60px 24px; }
+          .cv__heading { font-size: clamp(28px, 5vw, 36px); letter-spacing: 5px; margin-bottom: 48px; }
+          .cv__grid { grid-template-columns: repeat(2, 1fr); gap: 40px 24px; }
+          .cv__icon-ring { width: 90px; height: 90px; }
+          .cv__title { font-size: 15px; letter-spacing: 1.5px; }
+          .cv__desc { font-size: 14px; line-height: 1.75; }
         }
 
         /* ── 520px ───────────────────────────────────────────────────────── */
         @media (max-width: 520px) {
-          .cv { padding: 48px 20px; }
-          .cv__heading { font-size: 32px; letter-spacing: 3px; margin-bottom: 36px; }
-          .cv__grid { grid-template-columns: 1fr; gap: 36px; }
-          .cv__icon-ring { width: 80px; height: 80px; margin-bottom: 18px; }
+          .cv { padding: 52px 20px; }
+          .cv__heading { font-size: clamp(26px, 7vw, 32px); letter-spacing: 4px; margin-bottom: 40px; }
+          .cv__grid { grid-template-columns: 1fr; gap: 40px; }
+          .cv__icon-ring { width: 84px; height: 84px; margin-bottom: 20px; }
+          .cv__title { font-size: 14px; }
+          .cv__desc { font-size: 14px; line-height: 1.75; }
         }
 
         /* ── 360px ───────────────────────────────────────────────────────── */
         @media (max-width: 360px) {
           .cv { padding: 44px 16px; }
-          .cv__heading { font-size: 27px; letter-spacing: 2px; margin-bottom: 28px; }
+          .cv__heading { font-size: 26px; letter-spacing: 3px; margin-bottom: 32px; }
+          .cv__title { font-size: 13px; }
+          .cv__desc { font-size: 13px; }
         }
       `}</style>
     </>

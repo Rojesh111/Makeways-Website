@@ -41,8 +41,8 @@ type Phase = 'idle' | 'exit' | 'enter';
 
 export default function Testimonials() {
   const [current, setCurrent] = useState<number>(0);
-  const [phase, setPhase] = useState<Phase>('idle');
-  const timerRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+  const [phase, setPhase]     = useState<Phase>('idle');
+  const timerRef              = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
 
   const startTransition = useCallback(
     (next: number) => {
@@ -68,7 +68,6 @@ export default function Testimonials() {
     [current, startTransition]
   );
 
-  /* ── keyboard navigation ── */
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goNext();
@@ -78,7 +77,6 @@ export default function Testimonials() {
     return () => window.removeEventListener('keydown', onKey);
   }, [goNext, goPrev]);
 
-  /* ── auto-advance ── */
   useEffect(() => {
     timerRef.current = setInterval(goNext, 6000);
     return () => clearInterval(timerRef.current);
@@ -88,11 +86,9 @@ export default function Testimonials() {
     e.currentTarget.style.display = 'none';
   };
 
-  const t          = TESTIMONIALS[current];
-  const isExit     = phase === 'exit';
-  const isEnter    = phase === 'enter';
+  const t      = TESTIMONIALS[current];
+  const isExit = phase === 'exit';
 
-  /* shared animation styles */
   const fadeUp = (delay = '0s') => ({
     opacity   : isExit ? 0 : 1,
     transform : isExit ? 'translateY(10px)' : 'translateY(0px)',
@@ -105,7 +101,6 @@ export default function Testimonials() {
     <section
       className="testi"
       aria-label="Client Testimonials"
-      /* make section focusable so keyboard hint is meaningful */
       tabIndex={-1}
     >
 
@@ -117,17 +112,26 @@ export default function Testimonials() {
 
           {/* Name + Role */}
           <div className="testi__meta" style={fadeUp('0s')}>
+            {/* H4/Name — clamp(15px, 1.55vw, 20px), fw 700, ls 2.4px */}
+            {/* Industry standard: H4 Card Label = 20–24px. Here used as  */}
+            {/* a compact name-plate so clamped 15–20px fits the layout.   */}
             <h3 className="testi__name">{t.name}</h3>
-            <p  className="testi__role">{t.role}</p>
+
+            {/* Role sub-label — clamp(9px, 0.65vw, 11px), fw 700, ls 3.5px */}
+            {/* Industry standard: Small / captions / labels = 12–14px.      */}
+            {/* Clamped tighter here to sit below the large "SAYS" display.  */}
+            <p className="testi__role">{t.role}</p>
           </div>
 
-          {/* SAYS — absolutely static, never animates */}
+          {/* SAYS — decorative display element, never animates */}
           <div className="testi__says-block" aria-hidden="true">
             <span className="testi__says">SAYS</span>
             <span className="testi__about">ABOUT MAKEWAYS</span>
           </div>
 
-          {/* Quote */}
+          {/* Quote — Regular body: clamp(15px, 1.2vw, 18px), lh 1.75 */}
+          {/* Industry standard: Regular body = 15–17px, lh 1.6–1.7    */}
+          {/* Was: clamp(12px, 1vw, 14.5px) — too small for body copy   */}
           <p className="testi__quote" style={fadeUp('0.07s')}>
             {t.quote}
           </p>
@@ -149,7 +153,6 @@ export default function Testimonials() {
         {/* ─── RIGHT PANEL ─── */}
         <div className="testi__right">
 
-          {/* Prev arrow — mobile only, rendered via CSS */}
           <button
             className="testi__arrow testi__arrow--prev"
             onClick={goPrev}
@@ -159,7 +162,6 @@ export default function Testimonials() {
             <ChevronLeft />
           </button>
 
-          {/* Photo */}
           <div
             className="testi__imgpanel"
             role="img"
@@ -181,7 +183,6 @@ export default function Testimonials() {
             />
           </div>
 
-          {/* Next arrow */}
           <button
             className="testi__arrow testi__arrow--next"
             onClick={goNext}
@@ -206,7 +207,14 @@ export default function Testimonials() {
 
       <style jsx>{`
 
-        /* ══ FONT FACES — mirror these in globals.css if preferred ══ */
+        /* ══ FONT FACES ══ */
+        @font-face {
+          font-family : 'Eurostile';
+          src         : url('/fonts/FONTS/EurostileExt-Normal Regular.ttf') format('truetype');
+          font-weight : 400;
+          font-style  : normal;
+          font-display: swap;
+        }
         @font-face {
           font-family : 'Eurostile';
           src         : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
@@ -216,14 +224,14 @@ export default function Testimonials() {
         }
         @font-face {
           font-family : 'Eurostile';
-          src         : url('/fonts/FONTS/EurostileBold 2.ttf') format('truetype');
+          src         : url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
           font-weight : 800;
           font-style  : normal;
           font-display: swap;
         }
         @font-face {
           font-family : 'Eurostile';
-          src         : url('/fonts/FONTS/EurostileExtended.ttf') format('truetype');
+          src         : url('/fonts/FONTS/EurostileExt-Bold Regular.ttf') format('truetype');
           font-weight : 900;
           font-style  : normal;
           font-display: swap;
@@ -238,19 +246,19 @@ export default function Testimonials() {
 
         /* ══ TOKENS ══ */
         .testi {
-          --orange   : #F5A623;
-          --bg       : #C8C8C8;
-          --dark     : #2A2A2A;
-          --grey     : #5A5A5A;
-          --subgrey  : #707070;
-          --divider  : rgba(0,0,0,0.13);
-          --h        : clamp(360px, 46vw, 560px);
+          --orange  : #F5A623;
+          --bg      : #C8C8C8;
+          --dark    : #2A2A2A;
+          --grey    : #5A5A5A;
+          --subgrey : #707070;
+          --divider : rgba(0,0,0,0.13);
+          --h       : clamp(360px, 46vw, 560px);
 
           background : var(--bg);
           width      : 100%;
           overflow   : hidden;
-          outline    : none; /* suppress focus ring on section */
-          font-family: 'Eurostile', 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+          outline    : none;
+          font-family: 'Eurostile', 'Arial Narrow', Arial, sans-serif;
         }
 
         /* ══ SHELL ══ */
@@ -268,15 +276,12 @@ export default function Testimonials() {
           display        : flex;
           flex-direction : column;
           justify-content: center;
-
-          /* tight, intentional padding — left breathes more than right */
           padding        : 0 clamp(24px, 2.8vw, 44px) 0 clamp(36px, 6vw, 96px);
           gap            : 0;
           position       : relative;
           z-index        : 2;
         }
 
-        /* hairline divider */
         .testi__left::after {
           content   : '';
           position  : absolute;
@@ -287,7 +292,6 @@ export default function Testimonials() {
           background: var(--divider);
         }
 
-        /* ── Name ── */
         .testi__meta {
           display       : flex;
           flex-direction: column;
@@ -295,9 +299,12 @@ export default function Testimonials() {
           margin-bottom : 2px;
         }
 
+        /* ── Name — clamp(15px, 1.55vw, 20px), fw 700, ls 2.4px ─────────── */
+        /* Was: clamp(13px, 1.55vw, 21px) — min was too small at 13px         */
+        /* H4-range label in a compact sidebar context: 15–20px is right      */
         .testi__name {
-          font-family   : 'Eurostile', 'Barlow Condensed', Arial, sans-serif;
-          font-size     : clamp(13px, 1.55vw, 21px);
+          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size     : clamp(15px, 1.55vw, 20px);
           font-weight   : 700;
           color         : var(--grey);
           letter-spacing: 2.4px;
@@ -306,9 +313,12 @@ export default function Testimonials() {
           margin        : 0;
         }
 
+        /* ── Role sub-label — clamp(9px, 0.65vw, 11px), fw 700, ls 3.5px ── */
+        /* Was: clamp(7px, 0.65vw, 9.5px) — 7px minimum is illegibly small   */
+        /* Small / caption tier: min bumped to 9px for legibility             */
         .testi__role {
-          font-family   : 'EurostileCnd', 'Eurostile', 'Barlow Condensed', Arial, sans-serif;
-          font-size     : clamp(7px, 0.65vw, 9.5px);
+          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size     : clamp(9px, 0.65vw, 11px);
           font-weight   : 700;
           color         : var(--subgrey);
           letter-spacing: 3.5px;
@@ -317,17 +327,19 @@ export default function Testimonials() {
           line-height   : 1;
         }
 
-        /* ══ SAYS BLOCK — STATIC ══ */
+        /* ══ SAYS BLOCK — decorative display, static & frozen ══ */
+        /* Industry standard: H1 / Display = 48–72px. Here used as             */
+        /* a giant decorative word-mark at clamp(82px, 13vw, 172px) — fine     */
+        /* since it is NOT body copy but a graphic element.                     */
         .testi__says-block {
-          display        : flex;
-          flex-direction : column;
-          line-height    : 1;
-          /* zero gap — SAYS hugs role label optically */
-          margin-top     : -2px;
+          display       : flex;
+          flex-direction: column;
+          line-height   : 1;
+          margin-top    : -2px;
         }
 
         .testi__says {
-          font-family   : 'Eurostile', 'Barlow Condensed', Arial, sans-serif;
+          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-size     : clamp(82px, 13vw, 172px);
           font-weight   : 900;
           color         : var(--orange);
@@ -335,19 +347,21 @@ export default function Testimonials() {
           line-height   : 0.80;
           text-transform: uppercase;
           display       : block;
-          /* optical left-flush */
           margin-left   : -3px;
-
-          /* frozen — absolutely no animation */
+          /* Frozen — absolutely no animation on the display word-mark */
           transform     : none !important;
           opacity       : 1   !important;
           transition    : none !important;
           animation     : none !important;
         }
 
+        /* "ABOUT MAKEWAYS" tag under SAYS — Small label: 8–10px */
+        /* Industry standard: Small / captions = 12–14px.         */
+        /* This sits beneath a 172px display word, so 8–10px      */
+        /* is intentionally micro-sized for graphic contrast.      */
         .testi__about {
-          font-family   : 'EurostileCnd', 'Eurostile', 'Barlow Condensed', Arial, sans-serif;
-          font-size     : clamp(6px, 0.55vw, 8px);
+          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size     : clamp(8px, 0.55vw, 10px);
           font-weight   : 700;
           color         : #8C8C8C;
           letter-spacing: 5.5px;
@@ -355,20 +369,22 @@ export default function Testimonials() {
           display       : block;
           margin-top    : 11px;
           padding-left  : 3px;
-
-          /* frozen */
+          /* Frozen */
           transform     : none !important;
           opacity       : 1   !important;
           transition    : none !important;
         }
 
-        /* ── Quote ── */
+        /* ── Quote — Regular body: clamp(15px, 1.2vw, 18px), lh 1.75 ───── */
+        /* WAS: clamp(12px, 1vw, 14.5px) — below 15px minimum for body copy  */
+        /* Industry standard: Regular body = 15–17px, lh 1.6–1.7             */
         .testi__quote {
-          font-family  : 'Barlow', Georgia, serif;
-          font-size    : clamp(12px, 1vw, 14.5px);
+          font-family  : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size    : clamp(15px, 1.2vw, 18px);
           font-weight  : 400;
           color        : #2C2C2C;
-          line-height  : 1.8;
+          line-height  : 1.75;
+          letter-spacing: 0.2px;
           max-width    : 440px;
           margin-top   : 18px;
           margin-bottom: 26px;
@@ -401,19 +417,9 @@ export default function Testimonials() {
           transition   : background 0.22s, transform 0.22s;
         }
 
-        .dot--on {
-          background: var(--dark);
-          transform : scale(1.45);
-        }
-
-        .testi__dot:hover:not(.dot--on) {
-          background: #666;
-        }
-
-        .testi__dot:focus-visible {
-          outline       : 2px solid var(--orange);
-          outline-offset: 3px;
-        }
+        .dot--on { background: var(--dark); transform: scale(1.45); }
+        .testi__dot:hover:not(.dot--on) { background: #666; }
+        .testi__dot:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
 
         /* ══ RIGHT PANEL ══ */
         .testi__right {
@@ -423,11 +429,7 @@ export default function Testimonials() {
           overflow   : hidden;
         }
 
-        .testi__imgpanel {
-          position: absolute;
-          inset   : 0;
-          z-index : 1;
-        }
+        .testi__imgpanel { position: absolute; inset: 0; z-index: 1; }
 
         .testi__img {
           width          : 100%;
@@ -455,28 +457,17 @@ export default function Testimonials() {
           transition     : background 0.18s, opacity 0.18s;
         }
 
-        .testi__arrow svg {
-          width : 14px;
-          height: 14px;
-          flex-shrink: 0;
-        }
-
+        .testi__arrow svg { width: 14px; height: 14px; flex-shrink: 0; }
         .testi__arrow:hover  { background: #D98A10; }
         .testi__arrow:active { opacity: 0.72; }
+        .testi__arrow:focus-visible { outline: 2px solid var(--dark); outline-offset: 2px; }
 
-        .testi__arrow:focus-visible {
-          outline       : 2px solid var(--dark);
-          outline-offset: 2px;
-        }
-
-        /* Next — right edge triangle clip */
         .testi__arrow--next {
           right       : 0;
           clip-path   : polygon(0 0, 100% 50%, 0 100%);
           padding-left: 10px;
         }
 
-        /* Prev — completely hidden on desktop (visibility + pointer-events) */
         .testi__arrow--prev {
           left          : 0;
           clip-path     : polygon(100% 0, 0 50%, 100% 100%);
@@ -490,39 +481,29 @@ export default function Testimonials() {
         @media (max-width: 960px) {
           .testi__left { padding: 0 20px 0 5vw; }
           .testi__says { font-size: clamp(72px, 14vw, 130px); }
+          .testi__quote { font-size: clamp(14px, 1.5vw, 17px); }
         }
 
         /* ══ MOBILE ≤ 700px ══ */
         @media (max-width: 700px) {
-          .testi__shell {
-            flex-direction: column;
-            height        : auto;
-          }
-
+          .testi__shell { flex-direction: column; height: auto; }
           .testi__right {
-            width     : 100%;
-            height    : 56vw;
-            min-height: 210px;
-            max-height: 320px;
-            order     : 1;
+            width: 100%; height: 56vw;
+            min-height: 210px; max-height: 320px; order: 1;
           }
+          .testi__img { object-position: center 12%; }
+          .testi__arrow--prev { visibility: visible; opacity: 1; pointer-events: auto; display: flex; }
+          .testi__left { order: 2; padding: 28px 24px 12px; }
+          .testi__left::after { display: none; }
+          .testi__dots { display: none; }
+          .testi__mobile-dots { display: flex; }
 
-          .testi__img           { object-position: center 12%; }
-          .testi__arrow--prev   { visibility: visible; opacity: 1; pointer-events: auto; display: flex; }
-
-          .testi__left {
-            order  : 2;
-            padding: 28px 24px 12px;
-          }
-
-          .testi__left::after   { display: none; }
-          .testi__dots          { display: none; }
-          .testi__mobile-dots   { display: flex; }
-
-          .testi__says          { font-size: clamp(64px, 22vw, 106px); }
-          .testi__name          { font-size: clamp(13px, 4.5vw, 20px); }
-          .testi__quote         { font-size: 13.5px; margin-bottom: 0; }
-          .testi__about         { margin-top: 8px; }
+          .testi__says { font-size: clamp(64px, 22vw, 106px); }
+          /* Mobile name — clamp(14px, 4.5vw, 20px) */
+          .testi__name { font-size: clamp(14px, 4.5vw, 20px); }
+          /* Mobile quote — Regular body: 15px min on mobile */
+          .testi__quote { font-size: 15px; line-height: 1.7; margin-bottom: 0; }
+          .testi__about { margin-top: 8px; }
         }
 
         /* ══ SMALL PHONE ≤ 420px ══ */
@@ -531,15 +512,16 @@ export default function Testimonials() {
           .testi__left  { padding: 22px 18px 10px; }
           .testi__arrow { width: 38px; height: 38px; }
           .testi__says  { font-size: clamp(50px, 25vw, 80px); }
-          .testi__name  { font-size: clamp(11px, 5.2vw, 17px); }
-          .testi__quote { font-size: 13px; line-height: 1.7; }
+          .testi__name  { font-size: clamp(13px, 5.2vw, 17px); }
+          .testi__quote { font-size: 14px; line-height: 1.7; }
+          .testi__role  { font-size: clamp(9px, 2.8vw, 11px); }
         }
       `}</style>
     </section>
   );
 }
 
-/* ── Inline SVG helpers — no extra dependency ── */
+/* ── Inline SVG helpers ── */
 function ChevronRight() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="#fff"

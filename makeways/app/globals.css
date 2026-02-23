@@ -1,159 +1,614 @@
-/* globals.css or your font stylesheet */
+/* ============================================================
+   MAKEWAYS — GLOBAL DESIGN SYSTEM
+   globals.css
+   
+   TABLE OF CONTENTS
+   1. @font-face   — All Eurostile variants from /fonts/FONTS/
+   2. CSS Tokens   — Colors, typography scale, spacing, radius
+   3. Reset        — Minimal, opinionated reset
+   4. Base         — html, body, root font settings
+   5. Typography   — h1–h6, p, lead, small, label, blockquote
+   6. Utilities    — Spacing helpers, text utilities
+   7. Scroll / Motion — Reveal animation base class
+   ============================================================ */
 
+
+/* ============================================================
+   1. @FONT-FACE — EUROSTILE FONT FAMILY
+   All variants mapped to their correct weight & style slots.
+   Paths assume fonts live at: /public/fonts/FONTS/
+   ============================================================ */
+
+/* ── Weight 400 — Normal (Extended) ── */
 @font-face {
-  font-family: 'Eurostile';
-  src: url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
+  font-family  : 'Eurostile';
+  src          : url('/fonts/FONTS/EurostileExt-Normal Regular.ttf') format('truetype');
+  font-weight  : 400;
+  font-style   : normal;
+  font-display : swap;
 }
 
+/* ── Weight 400 — Oblique / Italic (Extended Normal) ── */
 @font-face {
-  font-family: 'Eurostile';
-  src: url('/fonts/FONTS/EurostileExt-Bold%20Regular.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-stretch: expanded;
+  font-family  : 'Eurostile';
+  src          : url('/fonts/FONTS/EurostileExtObl-Normal Regular.ttf') format('truetype');
+  font-weight  : 400;
+  font-style   : oblique;
+  font-display : swap;
 }
 
+/* ── Weight 700 — Bold ── */
 @font-face {
-  font-family: 'Eurostile';
-  src: url('/fonts/FONTS/EurostileExt-Normal%20Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-stretch: expanded;
+  font-family  : 'Eurostile';
+  src          : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
+  font-weight  : 700;
+  font-style   : normal;
+  font-display : swap;
 }
 
+/* ── Weight 700 — Bold Oblique / Italic ── */
 @font-face {
-  font-family: 'Eurostile';
-  src: url('/fonts/FONTS/EurostileExtended.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-stretch: expanded;
+  font-family  : 'Eurostile';
+  src          : url('/fonts/FONTS/EurostileExtObl-Bold Regular.ttf') format('truetype');
+  font-weight  : 700;
+  font-style   : oblique;
+  font-display : swap;
 }
+
+/* ── Weight 800 — Extra Bold (T-Bold) ── */
+@font-face {
+  font-family  : 'Eurostile';
+  src          : url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
+  font-weight  : 800;
+  font-style   : normal;
+  font-display : swap;
+}
+
+/* ── Weight 900 — Black / Extended Bold ── */
+@font-face {
+  font-family  : 'Eurostile';
+  src          : url('/fonts/FONTS/EurostileExtended.ttf') format('truetype');
+  font-weight  : 900;
+  font-style   : normal;
+  font-display : swap;
+}
+
+/* ── Extended Bold variant (used for section headings) ── */
+@font-face {
+  font-family  : 'EurostileExt';
+  src          : url('/fonts/FONTS/EurostileExt-Bold Regular.ttf') format('truetype');
+  font-weight  : 700;
+  font-style   : normal;
+  font-display : swap;
+}
+
+/* ── Condensed Bold (used for sub-labels, tight spaces) ── */
+@font-face {
+  font-family  : 'EurostileCnd';
+  src          : url('/fonts/FONTS/EurostileCnd-Bold Regular.ttf') format('truetype');
+  font-weight  : 700;
+  font-style   : normal;
+  font-display : swap;
+}
+
+
+/* ============================================================
+   2. DESIGN TOKENS — CSS CUSTOM PROPERTIES
+   All tokens prefixed with --mw- (makeways).
+   Override per-section by scoping on a parent element.
+   ============================================================ */
 
 :root {
-  /* MAKEWAYS Brand Colors */
-  --orange: #FF8C00;
-  --dark: #2B2B2B;
-  --gray: #757575;
-  --light: #F5F5F5;
-  --white: #FFFFFF;
-  --black: #000000;
-  
-  /* Legacy aliases for compatibility */
-  --primary-orange: var(--orange);
-  --dark-gray: var(--dark);
-  --medium-gray: var(--gray);
-  --light-gray: var(--light);
+
+  /* ── Brand Colors ── */
+  --mw-orange        : #f47c20;
+  --mw-orange-light  : #ffa84a;
+  --mw-orange-dark   : #d96910;
+  --mw-orange-muted  : rgba(244, 124, 32, 0.15);
+
+  --mw-black         : #000000;
+  --mw-dark          : #1a1a1a;
+  --mw-dark-2        : #2a2a2a;
+  --mw-grey-1        : #5a5a5a;     /* headings on grey bg */
+  --mw-grey-2        : #707070;     /* sub-labels          */
+  --mw-grey-3        : #888888;     /* body copy (muted)   */
+  --mw-grey-4        : #aaaaaa;     /* placeholders, dots  */
+  --mw-rule          : #e0e0e0;     /* horizontal rules    */
+  --mw-border        : rgba(0, 0, 0, 0.10);
+
+  --mw-white         : #ffffff;
+  --mw-bg-light      : #f0f0f0;     /* Core Values bg      */
+  --mw-bg-grey       : #c8c8c8;     /* Testimonials bg     */
+
+  /* ── Font Families ── */
+  --font-primary     : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+  --font-condensed   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+  --font-extended    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+
+  /* ── Typography Scale — fluid via clamp() ──────────────────────────
+     Based on the industry standard system:
+       H1  Display     : 48–72px  fw 800–900  ls 6–10px
+       H2  Section     : 36–48px  fw 800      ls 6–8px
+       H3  Sub-section : 28–36px  fw 700      ls 2–4px
+       H4  Card Title  : 18–22px  fw 700      ls 1.5–2px
+       H5  Label-head  : 16–20px  fw 700      ls 1–2px
+       H6  Micro-head  : 14–18px  fw 700      ls 0.5–1px
+       Lead body       : 16–18px  fw 400      lh 1.7
+       Regular body    : 14–16px  fw 400      lh 1.7
+       Small / caption : 11–13px  fw 400/700  lh 1.5
+       Eyebrow / tag   : 10–12px  fw 700      ls 2–3px   uppercase
+  ─────────────────────────────────────────────────────────────── */
+
+  /* Font sizes */
+  --text-display     : clamp(48px, 6vw,   72px);   /* Hero / page title  */
+  --text-h1          : clamp(42px, 5vw,   64px);   /* H1 in content      */
+  --text-h2          : clamp(36px, 3.75vw, 48px);  /* Section title      */
+  --text-h3          : clamp(24px, 2.5vw,  36px);  /* Sub-section        */
+  --text-h4          : clamp(18px, 1.5vw,  22px);  /* Card title / label */
+  --text-h5          : clamp(15px, 1.3vw,  20px);  /* H5                 */
+  --text-h6          : clamp(13px, 1.1vw,  17px);  /* H6                 */
+  --text-lead        : clamp(16px, 1.4vw,  18px);  /* Intro / lead body  */
+  --text-body        : clamp(14px, 1.1vw,  16px);  /* Regular body       */
+  --text-small       : clamp(12px, 0.9vw,  14px);  /* Small / caption    */
+  --text-xs          : clamp(10px, 0.75vw, 12px);  /* Eyebrow / tag      */
+
+  /* Font weights */
+  --fw-regular       : 400;
+  --fw-bold          : 700;
+  --fw-extrabold     : 800;
+  --fw-black         : 900;
+
+  /* Line heights */
+  --lh-tight         : 1;
+  --lh-heading       : 1.15;
+  --lh-snug          : 1.35;
+  --lh-normal        : 1.5;
+  --lh-relaxed       : 1.65;
+  --lh-body          : 1.75;
+  --lh-loose         : 1.85;
+
+  /* Letter spacing */
+  --ls-display       : 8px;    /* Display word-marks, section headings */
+  --ls-heading       : 4px;    /* H3 sub-sections                      */
+  --ls-card          : 2px;    /* H4 card titles                       */
+  --ls-label         : 3px;    /* Eyebrow / tag uppercase labels       */
+  --ls-body          : 0.25px; /* Body copy — subtle optical spacing   */
+  --ls-none          : 0px;
+
+  /* ── Spacing Scale — 4px base unit ─────────────────────────────────
+     Used for padding, margin, gap. Follow 4–8–12–16–24–32–48–64–80–96
+  ─────────────────────────────────────────────────────────────── */
+  --space-1          :  4px;
+  --space-2          :  8px;
+  --space-3          : 12px;
+  --space-4          : 16px;
+  --space-5          : 20px;
+  --space-6          : 24px;
+  --space-7          : 28px;
+  --space-8          : 32px;
+  --space-10         : 40px;
+  --space-12         : 48px;
+  --space-14         : 56px;
+  --space-16         : 64px;
+  --space-18         : 72px;
+  --space-20         : 80px;
+  --space-24         : 96px;
+  --space-28         : 112px;
+
+  /* ── Section Padding ─────────────────────────────────────────────── */
+  /* Consistent vertical rhythm across all sections                     */
+  --section-py       : clamp(64px, 8vw, 96px);   /* top & bottom pad   */
+  --section-px       : clamp(20px, 5vw, 60px);   /* left & right pad   */
+  --section-max-w    : 1280px;                    /* content max-width  */
+  --section-gap      : clamp(48px, 6vw, 72px);   /* heading → content  */
+
+  /* ── Border Radius ── */
+  --radius-sm        :  4px;
+  --radius-md        :  8px;
+  --radius-lg        : 14px;
+  --radius-xl        : 20px;
+  --radius-full      : 9999px;
+
+  /* ── Shadows ── */
+  --shadow-sm        : 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md        : 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg        : 0 8px 32px rgba(0,0,0,0.12), 0 24px 56px rgba(0,0,0,0.10);
+  --shadow-orange    : 0 8px 28px rgba(244,124,32,0.28);
+
+  /* ── Transitions ── */
+  --ease-default     : 0.25s ease;
+  --ease-reveal      : 0.65s ease;
+  --ease-spring      : 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ── Z-index ladder ── */
+  --z-base           :   1;
+  --z-card           :  10;
+  --z-popup          : 300;
+  --z-overlay        : 499;
+  --z-sheet          : 500;
+  --z-nav            : 600;
+  --z-modal          : 900;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+
+/* ============================================================
+   3. RESET — Minimal opinionated reset
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing  : border-box;
+  margin      : 0;
+  padding     : 0;
+}
+
+/* Remove list styling when lists have a role */
+ul[role='list'],
+ol[role='list'] {
+  list-style : none;
+}
+
+/* Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display    : block;
+  max-width  : 100%;
+}
+
+/* Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+  font        : inherit;
+  color       : inherit;
+}
+
+/* Remove default button styles */
+button {
+  background  : none;
+  border      : none;
+  cursor      : pointer;
+  padding     : 0;
+}
+
+/* Prevent text size adjustment on orientation change */
+html {
+  -webkit-text-size-adjust : 100%;
+  text-size-adjust         : 100%;
+}
+
+/* Smooth scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+
+/* ============================================================
+   4. BASE — html, body, root settings
+   ============================================================ */
+
+html {
+  font-size   : 100%;        /* 16px browser default — do NOT change */
+  line-height : var(--lh-body);
 }
 
 body {
-  font-family: 'Eurostile', sans-serif;
-  color: var(--dark);
-  overflow-x: hidden;
-  background: var(--white);
+  font-family              : var(--font-primary);
+  font-weight              : var(--fw-regular);
+  font-size                : var(--text-body);
+  color                    : var(--mw-dark);
+  background-color         : var(--mw-white);
+  line-height              : var(--lh-body);
+  letter-spacing           : var(--ls-body);
+  -webkit-font-smoothing   : antialiased;
+  -moz-osx-font-smoothing  : grayscale;
+  text-rendering           : optimizeLegibility;
+  overflow-x               : hidden;
+  min-height               : 100dvh;
 }
 
-html {
-  scroll-behavior: smooth;
+
+/* ============================================================
+   5. TYPOGRAPHY — Global heading & body defaults
+   All headings use Eurostile. Override per-section as needed.
+   ============================================================ */
+
+/* ── H1 — Hero / Page Title ─────────────────────────────────── */
+/* 48–72px  fw 900  ls 8–10px  lh 1                             */
+h1 {
+  font-family    : var(--font-primary);
+  font-weight    : var(--fw-black);
+  font-size      : var(--text-h1);
+  line-height    : var(--lh-tight);
+  letter-spacing : var(--ls-display);
+  text-transform : uppercase;
+  color          : var(--mw-dark);
 }
 
+/* ── H2 — Section Title ─────────────────────────────────────── */
+/* 36–48px  fw 800  ls 6–8px  lh 1                              */
+h2 {
+  font-family    : var(--font-primary);
+  font-weight    : var(--fw-extrabold);
+  font-size      : var(--text-h2);
+  line-height    : var(--lh-tight);
+  letter-spacing : var(--ls-display);
+  text-transform : uppercase;
+  color          : var(--mw-dark);
+}
+
+/* ── H3 — Sub-section ───────────────────────────────────────── */
+/* 24–36px  fw 700  ls 2–4px  lh 1.15                           */
+h3 {
+  font-family    : var(--font-primary);
+  font-weight    : var(--fw-bold);
+  font-size      : var(--text-h3);
+  line-height    : var(--lh-heading);
+  letter-spacing : var(--ls-heading);
+  text-transform : uppercase;
+  color          : var(--mw-dark);
+}
+
+/* ── H4 — Card Title / Label ────────────────────────────────── */
+/* 18–22px  fw 700  ls 1.5–2px  lh 1.3                          */
+h4 {
+  font-family    : var(--font-primary);
+  font-weight    : var(--fw-bold);
+  font-size      : var(--text-h4);
+  line-height    : var(--lh-snug);
+  letter-spacing : var(--ls-card);
+  text-transform : uppercase;
+  color          : var(--mw-dark);
+}
+
+/* ── H5 ─────────────────────────────────────────────────────── */
+/* 15–20px  fw 700  ls 1–2px  lh 1.35                           */
+h5 {
+  font-family    : var(--font-primary);
+  font-weight    : var(--fw-bold);
+  font-size      : var(--text-h5);
+  line-height    : var(--lh-snug);
+  letter-spacing : var(--ls-card);
+  text-transform : uppercase;
+  color          : var(--mw-dark);
+}
+
+/* ── H6 ─────────────────────────────────────────────────────── */
+/* 13–17px  fw 700  ls 0.5–1px  lh 1.35                         */
+h6 {
+  font-family    : var(--font-primary);
+  font-weight    : var(--fw-bold);
+  font-size      : var(--text-h6);
+  line-height    : var(--lh-snug);
+  letter-spacing : 1px;
+  text-transform : uppercase;
+  color          : var(--mw-dark);
+}
+
+/* ── Paragraph — Regular body ───────────────────────────────── */
+/* 14–16px  fw 400  lh 1.75  ls 0.25px                          */
+p {
+  font-family    : var(--font-primary);
+  font-weight    : var(--fw-regular);
+  font-size      : var(--text-body);
+  line-height    : var(--lh-body);
+  letter-spacing : var(--ls-body);
+  color          : var(--mw-grey-3);
+}
+
+/* ── Lead / Intro paragraph ─────────────────────────────────── */
+/* 16–18px  fw 400  lh 1.75  color: dark                        */
+/* Usage: <p class="lead"> or first-child intro copy            */
+p.lead,
+.lead {
+  font-size      : var(--text-lead);
+  line-height    : var(--lh-body);
+  color          : var(--mw-dark-2);
+  letter-spacing : var(--ls-body);
+}
+
+/* ── Small / Caption ─────────────────────────────────────────── */
+/* 12–14px  fw 400  lh 1.5                                       */
+small,
+.text-small {
+  font-family    : var(--font-primary);
+  font-weight    : var(--fw-regular);
+  font-size      : var(--text-small);
+  line-height    : var(--lh-normal);
+  letter-spacing : var(--ls-body);
+  color          : var(--mw-grey-3);
+}
+
+/* ── Eyebrow / Tag Label ─────────────────────────────────────── */
+/* 10–12px  fw 700  ls 3px  uppercase  color: orange             */
+/* Usage: <span class="eyebrow"> above a heading                 */
+.eyebrow {
+  font-family    : var(--font-primary);
+  font-weight    : var(--fw-bold);
+  font-size      : var(--text-xs);
+  line-height    : var(--lh-normal);
+  letter-spacing : var(--ls-label);
+  text-transform : uppercase;
+  color          : var(--mw-orange);
+}
+
+/* ── Blockquote ──────────────────────────────────────────────── */
+/* Pull-quote style: 18–22px fw 700 lh 1.65                      */
+blockquote {
+  font-family    : var(--font-primary);
+  font-weight    : var(--fw-bold);
+  font-size      : clamp(18px, 1.6vw, 22px);
+  line-height    : var(--lh-relaxed);
+  letter-spacing : 0.3px;
+  color          : var(--mw-dark);
+  padding        : 0;
+  margin         : 0;
+  border         : none;
+}
+
+/* ── Anchor ──────────────────────────────────────────────────── */
 a {
-  text-decoration: none;
-  color: inherit;
+  color           : var(--mw-orange);
+  text-decoration : none;
+  transition      : color var(--ease-default);
+}
+a:hover { color: var(--mw-orange-dark); }
+a:focus-visible {
+  outline        : 2px solid var(--mw-orange);
+  outline-offset : 3px;
+  border-radius  : var(--radius-sm);
 }
 
-button {
-  font-family: 'Eurostile', sans-serif;
-  cursor: pointer;
-  border: none;
-  outline: none;
+
+/* ============================================================
+   6. UTILITIES — Spacing, text, layout helpers
+   ============================================================ */
+
+/* ── Section wrapper ── */
+.section-inner {
+  max-width  : var(--section-max-w);
+  margin     : 0 auto;
+  padding    : 0;
+  width      : 100%;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+/* ── Standard section padding ── */
+.section {
+  padding    : var(--section-py) var(--section-px);
+  width      : 100%;
+  overflow-x : hidden;
 }
 
-section {
-  padding: 80px 20px;
+/* ── Section heading margin (heading → content gap) ── */
+.section-heading {
+  margin-bottom : var(--section-gap);
 }
 
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 20px;
+/* ── Text color utilities ── */
+.text-orange   { color: var(--mw-orange)  !important; }
+.text-dark     { color: var(--mw-dark)    !important; }
+.text-muted    { color: var(--mw-grey-3)  !important; }
+.text-white    { color: var(--mw-white)   !important; }
+
+/* ── Font weight utilities ── */
+.fw-regular    { font-weight: var(--fw-regular);   }
+.fw-bold       { font-weight: var(--fw-bold);      }
+.fw-extrabold  { font-weight: var(--fw-extrabold); }
+.fw-black      { font-weight: var(--fw-black);     }
+
+/* ── Text transform ── */
+.uppercase     { text-transform: uppercase; }
+.normal-case   { text-transform: none;      }
+
+/* ── Orange accent on heading spans ── */
+/* Usage: <h2>MAKE<span class="accent">WAYS</span></h2> */
+.accent { color: var(--mw-orange); }
+
+/* ── Orange border-top rule (used by About, Cards) ── */
+.border-top-orange {
+  border-top : 5px solid var(--mw-orange);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-weight: bold;
-  line-height: 1.2;
+/* ── Horizontal rule ── */
+hr {
+  border       : none;
+  border-top   : 1px solid var(--mw-rule);
+  margin       : var(--space-8) 0;
 }
 
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
+
+/* ============================================================
+   7. SCROLL / MOTION — Base reveal animation class
+   Applied to any element that should animate in on scroll.
+   JavaScript (IntersectionObserver) adds .visible to trigger.
+   Components set --delay via inline style for stagger.
+   ============================================================ */
+
+.animate {
+  opacity    : 0;
+  transform  : translateY(24px);
+  transition :
+    opacity   var(--ease-reveal) calc(var(--delay, 0s)),
+    transform var(--ease-reveal) calc(var(--delay, 0s));
+}
+
+.animate.visible {
+  opacity   : 1;
+  transform : translateY(0);
+}
+
+/* Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate {
+    opacity   : 1;
+    transform : none;
+    transition: none;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+}
+
+
+/* ============================================================
+   8. RESPONSIVE BREAKPOINTS — Section-level adjustments
+   Components handle their own internal breakpoints.
+   These globals tune the shared section padding/spacing.
+   ============================================================ */
+
+/* ── ≤ 1280px ── */
+@media (max-width: 1280px) {
+  :root {
+    --section-py : clamp(56px, 7vw, 80px);
+    --section-px : clamp(20px, 4vw, 48px);
+    --section-gap: clamp(40px, 5vw, 60px);
   }
 }
 
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+/* ── ≤ 1024px ── */
+@media (max-width: 1024px) {
+  :root {
+    --section-py : clamp(52px, 7vw, 72px);
+    --section-px : clamp(20px, 4vw, 40px);
+    --section-gap: clamp(36px, 5vw, 52px);
   }
 }
 
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
+/* ── ≤ 768px ── */
+@media (max-width: 768px) {
+  :root {
+    --section-py : clamp(48px, 8vw, 64px);
+    --section-px : 24px;
+    --section-gap: clamp(32px, 6vw, 48px);
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+
+  h1 { letter-spacing: 6px; }
+  h2 { letter-spacing: 5px; }
+  h3 { letter-spacing: 2px; }
+}
+
+/* ── ≤ 520px ── */
+@media (max-width: 520px) {
+  :root {
+    --section-py : clamp(44px, 9vw, 56px);
+    --section-px : 20px;
+    --section-gap: clamp(28px, 7vw, 40px);
   }
+
+  h1 { letter-spacing: 4px; }
+  h2 { letter-spacing: 4px; }
 }
 
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
+/* ── ≤ 360px ── */
+@media (max-width: 360px) {
+  :root {
+    --section-py : 44px;
+    --section-px : 16px;
+    --section-gap: 28px;
   }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
 
-.fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.slide-in-left {
-  animation: slideInLeft 0.8s ease-out forwards;
-}
-
-.slide-in-right {
-  animation: slideInRight 0.8s ease-out forwards;
-}
-
-.scale-in {
-  animation: scaleIn 0.6s ease-out forwards;
+  h1 { letter-spacing: 3px; }
+  h2 { letter-spacing: 3px; }
 }

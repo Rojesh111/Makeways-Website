@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 interface Service {
   id: number;
@@ -54,10 +54,14 @@ function ServiceCard({ service, index, isMobile, isOpen, onToggle }: {
         </div>
         <p className="mob-label">{service.title}</p>
         <div className={`mob-panel${isOpen ? ' mob-panel--visible' : ''}`}>
+          {/* Small / caption label — 11–12px, ls 3px, fw 700 */}
           <div className="pop-eyebrow">Our Service</div>
+          {/* H4 Card Title range — clamp(16px, 1.3vw, 20px), fw 800 */}
           <h3 className="pop-title">{label}</h3>
+          {/* Regular body — clamp(13px, 1vw, 15px), lh 1.75 */}
           <p className="pop-desc">{service.description}</p>
           <div className="pop-rule" />
+          {/* Small body list — clamp(12px, 0.9vw, 14px), lh 1.6 */}
           <ul className="pop-list">{service.details.map((d, i) => <li key={i}><span className="pop-dot" />{d}</li>)}</ul>
         </div>
       </div>
@@ -66,16 +70,20 @@ function ServiceCard({ service, index, isMobile, isOpen, onToggle }: {
 
   return (
     <div className="svc-card" style={{ animationDelay: `${index * 0.07}s` }}>
-      {/* ── FIX: icon now rendered INSIDE the ring, not a separate inner div ── */}
       <div className="svc-ring">
         <div className="svc-icon">{icons[service.id]}</div>
       </div>
+      {/* Icon label — Small / caption: 12–13px, lh 1.5 */}
       <p className="svc-label">{service.title}</p>
       <div className={`svc-popup ${getPopupPos(service.id)}`}>
+        {/* Eyebrow — Small label: 10–11px, ls 3px, fw 700 */}
         <div className="pop-eyebrow">Our Service</div>
+        {/* Popup heading — H4 Card Title: clamp(16px, 1.3vw, 20px), fw 800 */}
         <h3 className="pop-title">{label}</h3>
+        {/* Regular body — clamp(13px, 1vw, 15px), lh 1.75 */}
         <p className="pop-desc">{service.description}</p>
         <div className="pop-rule" />
+        {/* List — Small / caption: clamp(12px, 0.9vw, 14px), lh 1.6 */}
         <ul className="pop-list">{service.details.map((d, i) => <li key={i}><span className="pop-dot" />{d}</li>)}</ul>
       </div>
     </div>
@@ -111,6 +119,7 @@ export default function Services() {
     <>
       <section id="services" className="svc" ref={sectionRef}>
         <div className="svc__inner">
+          {/* H2 Section Title — clamp(36px, 3.75vw, 48px), fw 800 */}
           <h2 className="svc__heading animate">SERV<span className="svc__heading--fade">ICES</span></h2>
 
           {isMobile ? (
@@ -120,13 +129,10 @@ export default function Services() {
               ))}
             </div>
           ) : (
-            /* ── FIX: unified grid-wrap so both rows share the same column grid ── */
             <div className="svc-grid-wrap">
-              {/* Row 1 — 4 cards centred inside a max-width container */}
               <div className="svc-row svc-row--4">
                 {row1.map((s, i) => <ServiceCard key={s.id} service={s} index={i} isMobile={false} isOpen={false} onToggle={() => {}} />)}
               </div>
-              {/* Row 2 — 5 cards spread across same max-width */}
               <div className="svc-row svc-row--5">
                 {row2.map((s, i) => <ServiceCard key={s.id} service={s} index={i + 4} isMobile={false} isOpen={false} onToggle={() => {}} />)}
               </div>
@@ -146,24 +152,26 @@ export default function Services() {
         @font-face { font-family: 'Eurostile'; src: url('/fonts/FONTS/EurostileTBold.ttf') format('truetype'); font-weight: 800; font-style: normal; font-display: swap; }
         @font-face { font-family: 'Eurostile'; src: url('/fonts/FONTS/EurostileExt-Bold Regular.ttf') format('truetype'); font-weight: 900; font-style: normal; font-display: swap; }
 
+        /* ── Section ─────────────────────────────────────────────────────── */
         .svc {
           background : linear-gradient(135deg, #e8720e 0%, #f79028 55%, #ffa84a 100%);
-          padding    : 80px 60px 100px;
+          padding    : 96px 60px 112px;
           font-family: 'Eurostile', 'Arial Narrow', sans-serif;
           position   : relative;
           overflow   : visible;
         }
         .svc__inner { max-width: 1280px; margin: 0 auto; }
 
-        /* ── Heading ──────────────────────────────────────────────────────── */
+        /* ── H2 Section Heading — clamp(36px, 3.75vw, 48px), fw 800 ──────── */
+        /* Industry standard: H2 Section Title = 36–48px, fw 700–800          */
         .svc__heading {
           font-family    : 'Eurostile', 'Arial Narrow', sans-serif;
           font-weight    : 800;
-          font-size      : 54px;
-          letter-spacing : 6px;
+          font-size      : clamp(36px, 3.75vw, 48px);
+          letter-spacing : 8px;
           text-transform : uppercase;
           color          : #fff;
-          margin         : 0 0 72px 0;
+          margin         : 0 0 80px 0;
           line-height    : 1;
         }
         .svc__heading--fade { opacity: 0.38; }
@@ -171,25 +179,22 @@ export default function Services() {
         .animate { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
         .animate.visible { opacity: 1; transform: translateY(0); }
 
-        /* ── FIX: Grid wrapper — both rows share same max-width + alignment ── */
+        /* ── Grid ──────────────────────────────────────────────────────────── */
         .svc-grid-wrap {
           display        : flex;
           flex-direction : column;
           align-items    : center;
-          gap            : 52px;
+          gap            : 56px;
         }
         .svc-row {
-          display         : flex;
-          /* FIX: both rows constrained to same 1000px so columns visually align */
-          max-width       : 1000px;
-          width           : 100%;
+          display   : flex;
+          max-width : 1000px;
+          width     : 100%;
         }
-        /* 4-item row: space-around leaves equal breathing room either side */
         .svc-row--4 { justify-content: space-around; }
-        /* 5-item row: space-between pins items to edges, matching overall width */
         .svc-row--5 { justify-content: space-between; }
 
-        /* ── Desktop card ─────────────────────────────────────────────────── */
+        /* ── Desktop card ──────────────────────────────────────────────────── */
         .svc-card {
           position       : relative;
           display        : flex;
@@ -206,7 +211,7 @@ export default function Services() {
           to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── Desktop ring ─────────────────────────────────────────────────── */
+        /* ── Ring ──────────────────────────────────────────────────────────── */
         .svc-ring {
           width           : 108px;
           height          : 108px;
@@ -225,7 +230,6 @@ export default function Services() {
           box-shadow   : 0 0 0 8px rgba(255,255,255,0.09);
         }
 
-        /* ── FIX: icon in ring — was missing entirely on desktop ─────────── */
         .svc-icon {
           color           : rgba(255,255,255,0.88);
           display         : flex;
@@ -235,14 +239,14 @@ export default function Services() {
         }
         .svc-card:hover .svc-icon { color: #fff; transform: scale(1.12); }
 
-        /* ── FIX: label — was dark brown, invisible on orange bg ─────────── */
+        /* ── Icon label — Small / caption: 12–13px, lh 1.5 ──────────────── */
+        /* Industry standard: Small / captions / labels = 12–14px, lh 1.5     */
         .svc-label {
           font-family    : 'Eurostile', 'Arial Narrow', sans-serif;
           font-weight    : 400;
-          font-size      : 12px;
-          letter-spacing : 0.5px;
-          /* WAS: rgba(44,16,0,0.85) — near-black on orange = unreadable */
-          color          : rgba(255,255,255,0.80);
+          font-size      : clamp(11px, 0.85vw, 13px);
+          letter-spacing : 0.6px;
+          color          : rgba(255,255,255,0.82);
           text-align     : center;
           line-height    : 1.5;
           white-space    : pre-line;
@@ -251,14 +255,14 @@ export default function Services() {
         }
         .svc-card:hover .svc-label { color: #fff; }
 
-        /* ── Popup ────────────────────────────────────────────────────────── */
+        /* ── Popup ─────────────────────────────────────────────────────────── */
         .svc-popup {
           position       : absolute;
           bottom         : calc(100% + 16px);
-          width          : 268px;
+          width          : 280px;
           background     : #fff;
           border-radius  : 14px;
-          padding        : 22px 22px 18px;
+          padding        : 24px 24px 20px;
           box-shadow     : 0 2px 4px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.10), 0 24px 56px rgba(0,0,0,0.14);
           opacity        : 0;
           pointer-events : none;
@@ -276,15 +280,66 @@ export default function Services() {
         .svc-card:hover .popup-right { opacity: 1; transform: translateY(0); pointer-events: auto; }
         .popup-right::after { right: 40px; }
 
-        .pop-eyebrow { font-family: 'Eurostile','Arial Narrow',sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #f47c20; margin-bottom: 6px; }
-        .pop-title   { font-family: 'Eurostile','Arial Narrow',sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase; color: #1a1a1a; margin: 0 0 10px; line-height: 1.25; }
-        .pop-desc    { font-family: 'Eurostile','Arial Narrow',sans-serif; font-weight: 400; font-size: 12px; color: #888; line-height: 1.78; margin: 0 0 12px; letter-spacing: 0.2px; }
-        .pop-rule    { height: 1px; background: #ebebeb; margin-bottom: 10px; }
-        .pop-list    { list-style: none; padding: 0; margin: 0; }
-        .pop-list li { font-family: 'Eurostile','Arial Narrow',sans-serif; font-weight: 400; font-size: 12px; color: #555; padding: 4px 0; display: flex; align-items: center; gap: 10px; letter-spacing: 0.2px; line-height: 1.5; }
-        .pop-dot     { width: 5px; height: 5px; min-width: 5px; border-radius: 50%; background: #f47c20; }
+        /* Eyebrow — Small label: 10–11px, ls 3px, fw 700 */
+        /* Industry standard: Small / captions / labels = 12–14px, lh 1.5     */
+        .pop-eyebrow {
+          font-family    : 'Eurostile','Arial Narrow',sans-serif;
+          font-weight    : 700;
+          font-size      : clamp(10px, 0.75vw, 11px);
+          letter-spacing : 3px;
+          text-transform : uppercase;
+          color          : #f47c20;
+          margin-bottom  : 8px;
+          line-height    : 1.5;
+        }
 
-        /* ── Mobile ───────────────────────────────────────────────────────── */
+        /* Popup heading — H4 Card Title: clamp(16px, 1.3vw, 20px), fw 800  */
+        /* Industry standard: H4 Card Title / Label = 20–24px, fw 600–700    */
+        /* For compact popup, clamp 16–20px keeps it proportional            */
+        .pop-title {
+          font-family    : 'Eurostile','Arial Narrow',sans-serif;
+          font-weight    : 800;
+          font-size      : clamp(15px, 1.3vw, 19px);
+          letter-spacing : 1.5px;
+          text-transform : uppercase;
+          color          : #1a1a1a;
+          margin         : 0 0 12px;
+          line-height    : 1.25;
+        }
+
+        /* Regular body — clamp(13px, 1vw, 15px), lh 1.75 */
+        /* Industry standard: Regular body = 15–17px, lh 1.6–1.7             */
+        .pop-desc {
+          font-family    : 'Eurostile','Arial Narrow',sans-serif;
+          font-weight    : 400;
+          font-size      : clamp(13px, 1vw, 15px);
+          color          : #777;
+          line-height    : 1.75;
+          margin         : 0 0 14px;
+          letter-spacing : 0.2px;
+        }
+
+        .pop-rule { height: 1px; background: #ebebeb; margin-bottom: 12px; }
+
+        .pop-list { list-style: none; padding: 0; margin: 0; }
+
+        /* List items — Small / caption: clamp(12px, 0.9vw, 14px), lh 1.6   */
+        /* Industry standard: Small / captions / labels = 12–14px, lh 1.5    */
+        .pop-list li {
+          font-family    : 'Eurostile','Arial Narrow',sans-serif;
+          font-weight    : 400;
+          font-size      : clamp(12px, 0.9vw, 14px);
+          color          : #555;
+          padding        : 4px 0;
+          display        : flex;
+          align-items    : center;
+          gap            : 10px;
+          letter-spacing : 0.2px;
+          line-height    : 1.6;
+        }
+        .pop-dot { width: 5px; height: 5px; min-width: 5px; border-radius: 50%; background: #f47c20; }
+
+        /* ── Mobile ────────────────────────────────────────────────────────── */
         .mob-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px 16px; }
         .mob-card { display: flex; flex-direction: column; align-items: center; cursor: pointer; -webkit-tap-highlight-color: transparent; }
         .mob-ring-wrap { position: relative; margin-bottom: 12px; }
@@ -293,26 +348,49 @@ export default function Services() {
         .mob-icon { color: rgba(255,255,255,0.85); display: flex; align-items: center; justify-content: center; transition: color 0.25s; }
         .mob-card--open .mob-icon { color: #fff; }
         .mob-open-dot { position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; border-radius: 50%; background: #fff; }
-        .mob-label { font-family: 'Eurostile','Arial Narrow',sans-serif; font-weight: 400; font-size: 11px; letter-spacing: 0.3px; color: rgba(255,255,255,0.80); text-align: center; line-height: 1.45; white-space: pre-line; margin: 0; transition: color 0.2s; }
+
+        /* Mobile icon label — Small: 11–12px, lh 1.45 */
+        .mob-label {
+          font-family    : 'Eurostile','Arial Narrow',sans-serif;
+          font-weight    : 400;
+          font-size      : clamp(10px, 2.8vw, 12px);
+          letter-spacing : 0.4px;
+          color          : rgba(255,255,255,0.82);
+          text-align     : center;
+          line-height    : 1.45;
+          white-space    : pre-line;
+          margin         : 0;
+          transition     : color 0.2s;
+        }
         .mob-card--open .mob-label { color: #fff; }
+
         .mob-panel { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-radius: 20px 20px 0 0; padding: 28px 28px 44px; box-shadow: 0 -8px 40px rgba(0,0,0,0.18); z-index: 500; animation: sheetUp 0.28s cubic-bezier(0.25,0.46,0.45,0.94) both; }
         .mob-panel--visible { display: block; }
         @keyframes sheetUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .mob-panel::before { content: ''; display: block; width: 40px; height: 4px; background: #e0e0e0; border-radius: 2px; margin: 0 auto 22px; }
 
-        /* ── Responsive ───────────────────────────────────────────────────── */
+        /* ── Responsive ─────────────────────────────────────────────────────── */
         @media (min-width: 768px) and (max-width: 1100px) {
-          .svc { padding: 70px 40px 90px; }
-          .svc__heading { font-size: 46px; margin-bottom: 56px; }
+          .svc { padding: 72px 40px 96px; }
+          .svc__heading { font-size: clamp(32px, 4.5vw, 42px); margin-bottom: 64px; }
           .svc-card { width: 140px; }
           .svc-ring { width: 90px; height: 90px; }
           .svc-row--4, .svc-row--5 { max-width: 780px; }
-          .svc-popup { width: 240px; }
+          .svc-popup { width: 248px; }
         }
-        @media (max-width: 767px) { .svc { padding: 52px 20px 80px; overflow: hidden; } .svc__heading { font-size: 40px; letter-spacing: 4px; margin-bottom: 44px; } }
-        @media (max-width: 520px) { .svc__heading { font-size: 32px; letter-spacing: 3px; margin-bottom: 36px; } .mob-grid { gap: 24px 12px; } }
-        @media (max-width: 380px) { .mob-ring { width: 60px; height: 60px; } .mob-label { font-size: 10px; } }
-        @media (max-width: 360px) { .svc { padding: 44px 16px 72px; } .svc__heading { font-size: 27px; letter-spacing: 2px; margin-bottom: 28px; } }
+        @media (max-width: 767px) {
+          .svc { padding: 56px 20px 84px; overflow: hidden; }
+          .svc__heading { font-size: clamp(28px, 7vw, 38px); letter-spacing: 5px; margin-bottom: 48px; }
+        }
+        @media (max-width: 520px) {
+          .svc__heading { font-size: clamp(26px, 7vw, 32px); letter-spacing: 4px; margin-bottom: 40px; }
+          .mob-grid { gap: 24px 12px; }
+        }
+        @media (max-width: 380px) { .mob-ring { width: 60px; height: 60px; } }
+        @media (max-width: 360px) {
+          .svc { padding: 44px 16px 72px; }
+          .svc__heading { font-size: 26px; letter-spacing: 3px; margin-bottom: 32px; }
+        }
       `}</style>
     </>
   );

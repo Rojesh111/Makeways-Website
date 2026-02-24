@@ -13,12 +13,14 @@ type Slide = ImageSlide | VideoSlide;
 const SLIDES: Slide[] = [
   { type:'image', src:'/images/Hero1.jpeg',   alt:'MAKEWAYS – Data to Decision',  fit:'cover',   bg:'#0a0a0a' },
   { type:'image', src:'/images/Hero2.jpeg',   alt:'MAKEWAYS – Creative Vision',   fit:'cover',   bg:'#0a0a0a' },
-  { type:'video', src:'/images/Media1.mp4',   alt:'MAKEWAYS Showreel',            bg:'#0a0a0a',
+  { type:'video', src:'/images/neta2.mp4',   alt:'MAKEWAYS Showreel',            bg:'#0a0a0a',
     caption:{ eyebrow:'MAKEWAYS SHOWREEL', headline:'AWARD-WINNING ADS', sub:'Most Viewed Campaigns in Nepal' } },
-  { type:'video', src:'/images/Media2.mp4',   alt:'NSL League – by MAKEWAYS',     bg:'#0a0a0a',
+  { type:'video', src:'/images/super.mp4',   alt:'NSL League – by MAKEWAYS',     bg:'#0a0a0a',
     caption:{ eyebrow:'MAKEWAYS PRODUCTION', headline:'NSL LEAGUE', sub:'First NSL League Video by Makeways' } },
   { type:'image', src:'/images/Picture2.jpg', alt:'MAKEWAYS – Portfolio',         fit:'cover',   bg:'#0a0a0a' },
   { type:'image', src:'/images/Picture3.jpg', alt:'MAKEWAYS – Events',            fit:'cover',   bg:'#0a0a0a' },
+   { type:'video', src:'/images/nbank.mp4',   alt:'Nabilbank – by MAKEWAYS',     bg:'#0a0a0a',
+    caption:{ eyebrow:'MAKEWAYS PRODUCTION', headline:'Bank of Nepal', sub:'Nabil Bank Campaign by Makeways' } },
   { type:'image', src:'/images/awards1.jpg',  alt:'MAKEWAYS – Crity Awards',      fit:'contain', bg:'#fff', raw:true },
 ];
 

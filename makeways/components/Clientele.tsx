@@ -8,16 +8,16 @@ const CARD_GAP = 16;
 
 const clients = [
   { id: 1,  name: 'Yamaha',     category: 'Automotive',  logo: '/images/yamaha.jpg'  },
-  { id: 2,  name: 'Skoda',      category: 'Automotive',  logo: '/images/skoda.jpg'   },
+  { id: 2,  name: 'Skoda',      category: 'Automotive',  logo: '/images/skoda.png'   },
   { id: 3,  name: 'JCB',        category: 'Industrial',  logo: '/images/jcb.jpg'     },
-  { id: 4,  name: 'Czech Rep.', category: 'Government',  logo: '/images/czech.jpg'   },
+  { id: 4,  name: 'Czech Rep.', category: 'Government',  logo: '/images/czech.png'   },
   { id: 5,  name: 'Epson',      category: 'Technology',  logo: '/images/epson.jpg'   },
-  { id: 6,  name: 'Acer',       category: 'Technology',  logo: '/images/acer.jpg'    },
-  { id: 7,  name: 'FHI 360',    category: 'Non-Profit',  logo: '/images/fhi360.jpg'  },
-  { id: 8,  name: 'Toshiba',    category: 'Technology',  logo: '/images/toshiba.jpg' },
+  { id: 6,  name: 'Acer',       category: 'Technology',  logo: '/images/acer.png'    },
+  { id: 7,  name: 'Save the Children',    category: 'Non-Profit',  logo: '/images/save the children.png'  },
+  { id: 8,  name: 'Toshiba',    category: 'Technology',  logo: '/images/toshiba.png' },
   { id: 9,  name: 'BMW',        category: 'Automotive',  logo: '/images/bmw.jpg'     },
-  { id: 10, name: 'Client 10',  category: 'Industry',    logo: '/images/client10.jpg'},
-  { id: 11, name: 'Client 11',  category: 'Industry',    logo: '/images/client11.jpg'},
+  { id: 10, name: 'CG',  category: 'Industry',    logo: '/images/cg.png'      },
+  { id: 11, name: 'Nabil Bank',  category: 'Industry',    logo: '/images/nabil bank.jpg'},
   { id: 12, name: 'Client 12',  category: 'Industry',    logo: '/images/client12.jpg'},
 ];
 

@@ -17,23 +17,47 @@ const TESTIMONIALS: Testimonial[] = [
     role: 'MD – CHAUDHARY GROUP',
     quote:
       'At MAKEWAYS, we take our work too seriously without taking ourselves seriously.',
-    image: '/images/n.jpeg',
+    image: '/images/testimonial/NIRVANACHAUDHARY.png',
   },
   {
     id: 2,
-    name: 'SHRINKHALA KHATIWADA',
-    role: 'MISS NEPAL WORLD 2018',
+    name: 'BHUSAN DAHAL',
+    role: 'Music Director',
     quote:
       'MAKEWAYS has consistently delivered exceptional results that exceed our expectations.',
-    image: '/images/s.jpeg',
+    image: '/images/testimonial/BHUSANDAHAL.png',
   },
   {
     id: 3,
-    name: 'ANIL KUMAR',
-    role: 'MD – ANIL GROUP',
+    name: 'HIMANSHU GOLCHA',
+    role: 'MD-HULAS GROUP',
     quote:
       'MAKEWAYS has been instrumental in helping us achieve our marketing goals.',
-    image: '/images/anil.jpg',
+    image: '/images/testimonial/HIMANSHUGOLCHA.png',
+  },
+  {
+    id: 4,
+    name: 'IRAJ SHRESTHA',
+    role: 'CEO – SHRESTHA GROUP',
+    quote:
+      'At MAKEWAYS, we take our work too seriously without taking ourselves seriously.',
+    image: '/images/testimonial/IRAJSHRESTHA.png',
+  },
+  {
+    id: 5,
+    name: 'MALVIKA SUBBA',
+    role: 'MD – SUBBA GROUP',
+    quote:
+      'At MAKEWAYS, we take our work too seriously without taking ourselves seriously.',
+    image: '/images/testimonial/MalvikaSubba.png',
+  },
+  {
+    id: 6,
+    name: 'SUDIP THAPA',
+    role: 'MD – THAPA GROUP',
+    quote:
+      'At MAKEWAYS, we take our work too seriously without taking ourselves seriously.',
+    image: '/images/testimonial/SUDIPTHAPA.png',
   },
 ];
 
@@ -437,7 +461,6 @@ export default function Testimonials() {
           object-fit     : cover;
           object-position: center top;
           display        : block;
-          filter         : grayscale(100%) contrast(1.06) brightness(0.93);
         }
 
         /* ══ ARROWS ══ */

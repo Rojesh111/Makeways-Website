@@ -13,18 +13,16 @@ const clients = [
   { id: 4,  name: 'Czech Rep.', category: 'Government',  logo: '/images/czech.png'   },
   { id: 5,  name: 'Epson',      category: 'Technology',  logo: '/images/epson.jpg'   },
   { id: 6,  name: 'Acer',       category: 'Technology',  logo: '/images/acer.png'    },
-  { id: 7,  name: 'Save the Children',    category: 'Non-Profit',  logo: '/images/save the children.png'  },
+  { id: 7,  name: 'Save the Children', category: 'Non-Profit', logo: '/images/save the children.png' },
   { id: 8,  name: 'Toshiba',    category: 'Technology',  logo: '/images/toshiba.png' },
   { id: 9,  name: 'BMW',        category: 'Automotive',  logo: '/images/bmw.jpg'     },
-  { id: 10, name: 'CG',  category: 'Industry',    logo: '/images/cg.png'      },
-  { id: 11, name: 'Nabil Bank',  category: 'Industry',    logo: '/images/nabil bank.jpg'},
-  { id: 12, name: 'Client 12',  category: 'Industry',    logo: '/images/client12.jpg'},
+  { id: 10, name: 'CG',         category: 'Industry',    logo: '/images/cg.png'      },
+  { id: 11, name: 'Nabil Bank', category: 'Industry',    logo: '/images/nabil bank.jpg' },
+  { id: 12, name: 'Client 12',  category: 'Industry',    logo: '/images/client12.jpg' },
 ];
 
 const row1Base = clients.slice(0, 6);
 const row2Base = clients.slice(6);
-
-// Triple so the seamless loop works — animation shifts by exactly 1 base set
 const row1 = [...row1Base, ...row1Base, ...row1Base];
 const row2 = [...row2Base, ...row2Base, ...row2Base];
 
@@ -40,10 +38,10 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        <div className="scanline" />
-        <span className="corner corner--tl" />
-        <span className="corner corner--br" />
+        {/* Orange bottom bar — grows from left */}
+        <span className="accent-bar" />
 
+        {/* Logo */}
         <div className="logo-area">
           {errored ? (
             <span className="fallback">{client.name}</span>
@@ -54,17 +52,17 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
                 alt={client.name}
                 fill
                 sizes="180px"
-                style={{ objectFit: 'contain', padding: '20px' }}
+                style={{ objectFit: 'contain', padding: '22px' }}
                 onError={() => setErrored(true)}
               />
             </div>
           )}
         </div>
 
-        <div className="reveal">
-          <span className="reveal-cat">{client.category}</span>
-          <span className="reveal-name">{client.name}</span>
-          <span className="reveal-line" />
+        {/* Slide-up info panel from bottom */}
+        <div className="info-panel">
+          <span className="info-cat">{client.category}</span>
+          <span className="info-name">{client.name}</span>
         </div>
       </div>
 
@@ -73,88 +71,111 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
           flex: 0 0 ${CARD_W}px;
           height: 120px;
           position: relative;
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 6px;
+          background: #ffffff;
+          border: 1px solid #e8e8e8;
+          border-radius: 8px;
           overflow: hidden;
           cursor: pointer;
-          transition: background .3s, border-color .3s, transform .3s, box-shadow .3s;
+          transition:
+            border-color 0.25s ease,
+            box-shadow 0.25s ease,
+            transform 0.25s ease;
         }
         .card--hovered {
-          background: rgba(249,115,22,0.07);
-          border-color: rgba(249,115,22,0.55);
-          transform: translateY(-6px) scale(1.05);
-          box-shadow: 0 20px 50px rgba(249,115,22,0.22), 0 0 0 1px rgba(249,115,22,0.35);
-          z-index: 20;
+          border-color: #f97316;
+          box-shadow:
+            0 8px 28px rgba(249, 115, 22, 0.14),
+            0 2px 8px rgba(0, 0, 0, 0.05);
+          transform: translateY(-4px);
         }
-        .scanline {
+
+        /* Orange bar sweeps from left on hover */
+        .accent-bar {
           position: absolute;
-          inset: 0;
-          background: linear-gradient(180deg, transparent 0%, rgba(249,115,22,0.13) 50%, transparent 100%);
-          transform: translateY(-100%);
-          pointer-events: none;
-          z-index: 1;
-          transition: transform 0s;
+          bottom: 0;
+          left: 0;
+          height: 3px;
+          width: 0%;
+          background: #f97316;
+          transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: 4;
         }
-        .card--hovered .scanline {
-          transform: translateY(100%);
-          transition: transform .55s ease;
+        .card--hovered .accent-bar {
+          width: 100%;
         }
-        .corner {
-          position: absolute;
-          width: 12px; height: 12px;
-          border-style: solid;
-          border-color: transparent;
-          transition: border-color .3s, width .3s, height .3s;
-          z-index: 2;
-        }
-        .card--hovered .corner { border-color: #f97316; width: 16px; height: 16px; }
-        .corner--tl { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
-        .corner--br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+
+        /* Logo shifts up slightly, stays fully visible */
         .logo-area {
           position: absolute;
           inset: 0;
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: opacity .3s, transform .3s;
+          transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
           z-index: 2;
         }
-        .card--hovered .logo-area { opacity: 0.2; transform: scale(0.88); }
-        .img-wrap { position: relative; width: 100%; height: 100%; }
-        .fallback { font-size: 12px; color: #555; text-transform: uppercase; letter-spacing: 0.1em; }
-        .reveal {
+        .card--hovered .logo-area {
+          transform: translateY(-9px);
+        }
+        .img-wrap {
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
+        .fallback {
+          font-size: 11px;
+          color: #bbb;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          font-weight: 600;
+        }
+
+        /* Info panel: fades + slides up from bottom edge */
+        .info-panel {
           position: absolute;
-          inset: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 38px;
+          background: linear-gradient(
+            to top,
+            rgba(255,255,255,1) 0%,
+            rgba(255,255,255,0.95) 55%,
+            rgba(255,255,255,0) 100%
+          );
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
-          gap: 4px;
+          justify-content: flex-end;
+          padding-bottom: 8px;
+          gap: 2px;
           transform: translateY(100%);
-          transition: transform .32s cubic-bezier(0.22,1,0.36,1);
+          opacity: 0;
+          transition:
+            transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+            opacity 0.2s ease;
           z-index: 3;
         }
-        .card--hovered .reveal { transform: translateY(0); }
-        .reveal-cat {
-          font-size: 9px;
-          letter-spacing: 0.22em;
+        .card--hovered .info-panel {
+          transform: translateY(0);
+          opacity: 1;
+        }
+
+        .info-cat {
+          font-size: 8px;
+          letter-spacing: 0.24em;
           color: #f97316;
           text-transform: uppercase;
-          font-weight: 600;
-        }
-        .reveal-name {
-          font-size: 15px;
           font-weight: 700;
-          color: #fff;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
+          line-height: 1;
         }
-        .reveal-line {
-          width: 30px; height: 2px;
-          background: #f97316;
-          margin-top: 4px;
-          border-radius: 1px;
+        .info-name {
+          font-size: 11px;
+          font-weight: 800;
+          color: #222222;
+          letter-spacing: 0.07em;
+          text-transform: uppercase;
+          line-height: 1;
         }
       `}</style>
     </>
@@ -162,12 +183,6 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
 }
 
 // ─── Marquee Row ──────────────────────────────────────────────────────────────
-// ROOT CAUSE: styled-jsx scopes @keyframes by appending a hash to the name,
-// so `animation: marquee-left` never finds its own keyframe — the animation
-// simply does nothing. Fix: inject keyframes with a plain <style> tag via
-// dangerouslySetInnerHTML (bypasses styled-jsx scoping), then apply via
-// inline style on the track element.
-
 function MarqueeRow({
   items,
   baseCount,
@@ -182,11 +197,8 @@ function MarqueeRow({
   uid: string;
 }) {
   const [paused, setPaused] = useState(false);
-
-  // How far to shift = exactly one full copy of the original set
   const shiftPx = baseCount * (CARD_W + CARD_GAP);
   const animName = `marquee-${uid}`;
-
   const keyframes =
     direction === 'left'
       ? `@keyframes ${animName} { from { transform: translateX(0); } to { transform: translateX(-${shiftPx}px); } }`
@@ -198,9 +210,7 @@ function MarqueeRow({
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Injected outside styled-jsx so the keyframe name is NOT hashed */}
       <style dangerouslySetInnerHTML={{ __html: keyframes }} />
-
       <div
         className="track"
         style={{
@@ -215,12 +225,8 @@ function MarqueeRow({
           <LogoCard key={`${client.id}-${i}`} client={client} />
         ))}
       </div>
-
       <style jsx>{`
-        .outer {
-          overflow: hidden;
-          width: 100%;
-        }
+        .outer { overflow: hidden; width: 100%; }
         .track {
           display: flex;
           gap: ${CARD_GAP}px;
@@ -259,8 +265,20 @@ function Counter({ target, label }: { target: number; label: string }) {
       <span className="lbl">{label}</span>
       <style jsx>{`
         .counter { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-        .num { font-size: 42px; font-weight: 900; color: #f97316; letter-spacing: -0.02em; line-height: 1; }
-        .lbl { font-size: 10px; letter-spacing: 0.2em; color: #555; text-transform: uppercase; }
+        .num {
+          font-size: 38px;
+          font-weight: 900;
+          color: #f97316;
+          letter-spacing: -0.03em;
+          line-height: 1;
+        }
+        .lbl {
+          font-size: 9px;
+          letter-spacing: 0.2em;
+          color: #aaa;
+          text-transform: uppercase;
+          font-weight: 600;
+        }
       `}</style>
     </div>
   );
@@ -272,30 +290,23 @@ export default function Clientele() {
     <>
       <section className="section">
         <div className="bg-grid" />
-        <div className="bg-glow" />
 
         <div className="inner">
           <div className="header-row">
+
             <div className="title-block">
-              <span className="eyebrow">
-                <span className="eyebrow-line" />
-                Trusted Partners
-              </span>
-              <h2 className="title">
-                Brands That<br />
-                <em>Trust Us</em>
-              </h2>
+              <h2 className="title">The Clients</h2>
             </div>
 
             <div className="stats-row">
-              <Counter target={12} label="Global Clients" />
+              <Counter target={25} label="Multi National Brands" />
               <div className="divider" />
-              <Counter target={8}  label="Industries" />
+              <Counter target={20} label="Domestic Clients" />
               <div className="divider" />
-              <Counter target={15} label="Years Active" />
+              <Counter target={11} label="Industries" />
             </div>
-          </div>
 
+          </div>
         </div>
 
         <div className="marquee-section">
@@ -311,25 +322,21 @@ export default function Clientele() {
       <style jsx>{`
         .section {
           position: relative;
-          background: #0d0d0d;
-          padding: 90px 0 80px;
+          background: #f9f9f9;
+          padding: 60px 0 80px;
           overflow: hidden;
           font-family: 'Eurostile', 'Franklin Gothic Medium', 'Trebuchet MS', sans-serif;
         }
+
         .bg-grid {
           position: absolute;
           inset: 0;
-          background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
-          background-size: 28px 28px;
+          background-image: radial-gradient(circle, #d4d4d4 1px, transparent 1px);
+          background-size: 24px 24px;
+          opacity: 0.45;
           pointer-events: none;
         }
-        .bg-glow {
-          position: absolute;
-          top: -120px; left: -120px;
-          width: 500px; height: 500px;
-          background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%);
-          pointer-events: none;
-        }
+
         .inner {
           max-width: 1100px;
           margin: 0 auto;
@@ -337,71 +344,86 @@ export default function Clientele() {
           position: relative;
           z-index: 2;
         }
+
         .header-row {
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
-          margin-bottom: 20px;
+          margin-bottom: 48px;
           flex-wrap: wrap;
           gap: 32px;
         }
-        .title-block { display: flex; flex-direction: column; gap: 12px; }
+
+        .title-block {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
         .eyebrow {
           display: flex;
           align-items: center;
-          gap: 12px;
-          font-size: 11px;
-          letter-spacing: 0.28em;
-          color: #f97316;
-          text-transform: uppercase;
-          font-weight: 600;
+          gap: 10px;
         }
         .eyebrow-line {
           display: inline-block;
-          width: 32px; height: 2px;
+          width: 28px;
+          height: 2px;
           background: #f97316;
           border-radius: 1px;
         }
+        .eyebrow-text {
+          font-size: 10px;
+          letter-spacing: 0.3em;
+          color: #f97316;
+          text-transform: uppercase;
+          font-weight: 700;
+        }
+
         .title {
           font-size: clamp(36px, 5vw, 58px);
           font-weight: 900;
-          color: #fff;
+          color: #1a1a1a;
           letter-spacing: -0.02em;
-          line-height: 1.05;
+          line-height: 1;
           margin: 0;
+          text-transform: uppercase;
         }
-        .title em {
-          font-style: normal;
-          color: transparent;
-          -webkit-text-stroke: 1.5px rgba(249,115,22,0.7);
-        }
+
         .stats-row {
           display: flex;
           align-items: center;
-          gap: 32px;
-          padding-bottom: 8px;
+          gap: 36px;
+          padding-bottom: 4px;
         }
-        .divider { width: 1px; height: 40px; background: rgba(255,255,255,0.1); }
-        .tagline {
-          font-size: 12px;
-          color: #444;
-          letter-spacing: 0.06em;
-          margin: 0 0 44px;
-          text-transform: uppercase;
+
+        .divider {
+          width: 1px;
+          height: 36px;
+          background: #e0e0e0;
         }
-        .tagline span { color: #f97316; font-weight: 600; }
-        .marquee-section { position: relative; z-index: 2; }
-        .rows { display: flex; flex-direction: column; gap: 14px; }
+
+        .marquee-section {
+          position: relative;
+          z-index: 2;
+        }
+        .rows {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+
         .fade-left,
         .fade-right {
           position: absolute;
           top: 0; bottom: 0;
-          width: 120px;
+          width: 100px;
           z-index: 3;
           pointer-events: none;
         }
-        .fade-left  { left: 0;  background: linear-gradient(to right, #0d0d0d, transparent); }
-        .fade-right { right: 0; background: linear-gradient(to left,  #0d0d0d, transparent); }
+        .fade-left  { left: 0;  background: linear-gradient(to right, #f9f9f9, transparent); }
+        .fade-right { right: 0; background: linear-gradient(to left,  #f9f9f9, transparent); }
+
         @media (max-width: 700px) {
           .inner { padding: 0 20px; }
           .header-row { flex-direction: column; align-items: flex-start; }

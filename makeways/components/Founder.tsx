@@ -82,7 +82,6 @@ export default function Founder() {
           width: 100%;
           height: auto;
           object-fit: cover;
-          filter: grayscale(100%);
         }
 
         /* ── INFO — pushed to the right, vertically centred ── */

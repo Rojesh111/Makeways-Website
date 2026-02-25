@@ -203,7 +203,7 @@ export default function Footer() {
 
         /* CONTACT DETAIL — bold, black, bigger */
         .ft__sub {
-          font-size: 20px;
+          font-size: 22px;
           font-weight: 900;
           letter-spacing: 4px;
           color: #111;
@@ -213,7 +213,7 @@ export default function Footer() {
 
         /* Info lines — slightly smaller than CONTACT DETAIL */
         .ft__info p {
-          font-size: 16px; color: #555;
+          font-size: 20px; color: #555;
           margin: 0; line-height: 2;
         }
 

@@ -23,15 +23,15 @@ const services: Service[] = [
 ];
 
 const icons: Record<number, React.ReactNode> = {
-  1: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>,
-  2: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>,
-  3: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>,
-  4: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
-  5: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>,
-  6: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>,
-  7: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
-  8: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>,
-  9: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>,
+  1: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>,
+  2: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>,
+  3: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>,
+  4: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+  5: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>,
+  6: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>,
+  7: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
+  8: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>,
+  9: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>,
 };
 
 export default function Services() {
@@ -198,7 +198,7 @@ export default function Services() {
         .svc,
         .svc * { font-style: normal !important; }
 
-        /* ─── Section — light grey background ───────────────────────── */
+        /* ─── Section ───────────────────────────────────────────────── */
         .svc {
           background  : #f0f0f0;
           padding     : 96px 60px 112px;
@@ -208,19 +208,17 @@ export default function Services() {
         }
         .svc__inner { max-width: 1280px; margin: 0 auto; }
 
-        /* ─── Heading — dark on light bg ────────────────────────────── */
+        /* ─── Heading ───────────────────────────────────────────────── */
         .svc__heading {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 800;
           font-size      : clamp(36px, 3.75vw, 48px);
           letter-spacing : 8px;
           text-transform : uppercase;
-          color          : #1a1a1a;
+          color          : #f47c20;
           margin         : 0 0 64px;
           line-height    : 1;
         }
-        /* ICES stays orange */
-        .svc__fade { color: #f47c20; opacity: 1; }
 
         /* ─── Scroll reveal ─────────────────────────────────────────── */
         .animate { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -249,41 +247,36 @@ export default function Services() {
           to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ─── Icon ring — dark border on light bg ───────────────────── */
+        /* ─── Icon ring — outlined orange, fills solid on hover ─────── */
         .svc-ring {
           width           : 90px;
           height          : 90px;
           border-radius   : 50%;
-          border          : 1.5px solid rgba(0, 0, 0, 0.18);
-          background      : #ffffff;
+          border          : 2px solid #f47c20;
+          background      : transparent;
           display         : flex;
           align-items     : center;
           justify-content : center;
-          transition      : border-color 0.22s ease, background 0.22s ease,
-                            transform 0.22s ease, box-shadow 0.22s ease;
+          transition      : background 0.22s ease;
           flex-shrink     : 0;
         }
-        /* Hover: orange ring + orange glow + lift */
         .svc-card--on   .svc-ring,
         .svc-card:hover .svc-ring {
-          border-color : #f47c20;
-          background   : rgba(244, 124, 32, 0.08);
-          transform    : translateY(-4px);
-          box-shadow   : 0 6px 20px rgba(244, 124, 32, 0.28);
+          background : #f47c20;
         }
 
-        /* Icon — dark on light bg, orange on hover */
+        /* ─── Icon — orange at rest, white on hover ─────────────────── */
         .svc-icon {
-          color           : rgba(0, 0, 0, 0.5);
+          color           : #f47c20;
           display         : flex;
           align-items     : center;
           justify-content : center;
           transition      : color 0.22s ease;
         }
         .svc-card--on   .svc-icon,
-        .svc-card:hover .svc-icon { color: #f47c20; }
+        .svc-card:hover .svc-icon { color: #ffffff; }
 
-        /* Card number — subtle dark, orange on hover */
+        /* ─── Card number ───────────────────────────────────────────── */
         .svc-num {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 800;
@@ -297,7 +290,7 @@ export default function Services() {
         .svc-card--on   .svc-num,
         .svc-card:hover .svc-num { color: #f47c20; }
 
-        /* Card label — dark on light bg, darker on hover */
+        /* ─── Card label ────────────────────────────────────────────── */
         .svc-label {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 400;
@@ -326,7 +319,7 @@ export default function Services() {
         }
         .svc-strip--on { height: 116px; opacity: 1; margin-bottom: 32px; }
 
-        /* ─── Strip inner — FULL ORANGE bg, ALL WHITE text ──────────── */
+        /* ─── Strip inner — orange bg, white text ───────────────────── */
         .strip {
           display               : grid;
           grid-template-columns : 72px 1fr 280px;
@@ -345,7 +338,6 @@ export default function Services() {
           to   { opacity: 1; transform: translateY(0)     scaleY(1); }
         }
 
-        /* Ghost number */
         .strip__num {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 900;
@@ -358,7 +350,6 @@ export default function Services() {
 
         .strip__body { display: flex; flex-direction: column; gap: 7px; }
 
-        /* Title — white bold */
         .strip__title {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 800;
@@ -370,7 +361,6 @@ export default function Services() {
           display        : block;
         }
 
-        /* Description — white */
         .strip__desc {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 400;
@@ -381,7 +371,6 @@ export default function Services() {
           display        : block;
         }
 
-        /* Tags — white outlined */
         .strip__tags {
           display               : grid;
           grid-template-columns : 1fr 1fr;
@@ -417,33 +406,32 @@ export default function Services() {
           -webkit-tap-highlight-color: transparent;
         }
 
-        /* Mobile ring — white bg, dark border on grey page */
+        /* Mobile ring — outlined orange, fills on open */
         .mob-ring {
           width           : 64px;
           height          : 64px;
           border-radius   : 50%;
-          border          : 1.5px solid rgba(0, 0, 0, 0.18);
-          background      : #ffffff;
+          border          : 2px solid #f47c20;
+          background      : transparent;
           display         : flex;
           align-items     : center;
           justify-content : center;
-          transition      : border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+          transition      : background 0.22s ease;
           flex-shrink     : 0;
         }
         .mob-card--open .mob-ring {
-          border-color : #f47c20;
-          background   : rgba(244, 124, 32, 0.08);
-          box-shadow   : 0 0 16px rgba(244, 124, 32, 0.25);
+          background : #f47c20;
         }
 
+        /* Mobile icon — orange at rest, white when open */
         .mob-icon {
-          color           : rgba(0, 0, 0, 0.5);
+          color           : #f47c20;
           display         : flex;
           align-items     : center;
           justify-content : center;
-          transition      : color 0.2s ease;
+          transition      : color 0.22s ease;
         }
-        .mob-card--open .mob-icon { color: #f47c20; }
+        .mob-card--open .mob-icon { color: #ffffff; }
 
         .mob-label {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
@@ -460,7 +448,7 @@ export default function Services() {
 
         .mob-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 499; }
 
-        /* Mobile sheet — orange bg, white text */
+        /* Mobile sheet */
         .mob-sheet {
           position      : fixed;
           bottom        : 0; left: 0; right: 0;

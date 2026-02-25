@@ -35,7 +35,6 @@ const socials = [
   { name: 'TikTok',    Icon: TikTokIcon,    url: '#' },
 ];
 
-// Street view default, satellite as alternative
 const MAP_URLS = {
   street: 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d354.16245901485155!2d85.31081138610872!3d27.69536453178851!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18525635b42d%3A0x6048d789a442de0c!2sMAKEWAYS%20AdAgency!5e0!3m2!1sen!2snp!4v1771174914361!5m2!1sen!2snp',
   satellite: 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d354.16245901485155!2d85.31081138610872!3d27.69536453178851!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18525635b42d%3A0x6048d789a442de0c!2sMAKEWAYS%20AdAgency!5e1!3m2!1sen!2snp!4v1771174914361!5m2!1sen!2snp',
@@ -86,17 +85,16 @@ export default function Footer() {
             <h2 className="ft__name">MAKEWAYS</h2>
             <p className="ft__sub">CONTACT DETAIL</p>
             <div className="ft__info">
-              <p>Email: info@makeways.com</p>
-              <p>Phone: +977-1-4257753</p>
-              <p>Mobile: +977-9851077200</p>
-              <p>Address: Tripurshwor, Kathmandu, Nepal</p>
+              <p>info@makeways.com</p>
+              <p>+977-1-4257753</p>
+              <p>+977-9851077200</p>
+              <p>Tripureshwor, Kathmandu, Nepal</p>
             </div>
           </div>
 
           {/* RIGHT: SOCIALS heading + icons, then map */}
           <div className="ft__right">
 
-            {/* SOCIALS — same font size as MAKEWAYS */}
             <div className="ft__socials">
               <h2 className="ft__sl">SOCIALS</h2>
               <div className="ft__icons">
@@ -104,9 +102,7 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* MAP with street/satellite toggle */}
             <div className="ft__map">
-              {/* Toggle bar */}
               <div className="ft__toggle">
                 <button
                   className={`ft__tog${mapView === 'street' ? ' active' : ''}`}
@@ -122,7 +118,6 @@ export default function Footer() {
                 </button>
               </div>
 
-              {/* Map iframe */}
               <div className="ft__iframe-wrap">
                 <iframe
                   key={mapView}
@@ -134,7 +129,6 @@ export default function Footer() {
                 />
               </div>
 
-              {/* View on Google Maps */}
               <a href="https://maps.app.goo.gl/YXBh3PD7uxfEbF6C7"
                 target="_blank" rel="noopener noreferrer"
                 className="ft__mapbtn">
@@ -204,16 +198,23 @@ export default function Footer() {
           font-size: clamp(36px, 5vw, 68px);
           font-weight: 900; color: #111;
           letter-spacing: -1px; line-height: 1;
-          margin: 0 0 4px; text-transform: uppercase;
+          margin: 0 0 8px; text-transform: uppercase;
         }
+
+        /* CONTACT DETAIL — bold, black, bigger */
         .ft__sub {
-          font-size: 9px; font-weight: 700;
-          letter-spacing: 4px; color: #aaa;
-          text-transform: uppercase; margin: 0 0 14px;
+          font-size: 22px;
+          font-weight: 900;
+          letter-spacing: 4px;
+          color: #111;
+          text-transform: uppercase;
+          margin: 0 0 16px;
         }
+
+        /* Info lines — slightly smaller than CONTACT DETAIL */
         .ft__info p {
-          font-size: 12px; color: #555;
-          margin: 0; line-height: 1.9;
+          font-size: 20px; color: #555;
+          margin: 0; line-height: 2;
         }
 
         /* RIGHT COLUMN */
@@ -221,7 +222,7 @@ export default function Footer() {
           display: flex; flex-direction: column; gap: 14px;
         }
 
-        /* SOCIALS — same size as MAKEWAYS */
+        /* SOCIALS */
         .ft__socials {
           display: flex; align-items: center; gap: 16px;
         }
@@ -244,7 +245,6 @@ export default function Footer() {
           display: flex; flex-direction: column;
         }
 
-        /* Toggle buttons */
         .ft__toggle {
           display: flex;
           border-bottom: 1px solid #eee;
@@ -260,15 +260,9 @@ export default function Footer() {
           cursor: pointer;
           transition: background .2s, color .2s;
         }
-        .ft__tog:first-child {
-          border-right: 1px solid #eee;
-        }
-        .ft__tog.active {
-          background: #111; color: #fff;
-        }
-        .ft__tog:not(.active):hover {
-          background: #eee; color: #111;
-        }
+        .ft__tog:first-child { border-right: 1px solid #eee; }
+        .ft__tog.active { background: #111; color: #fff; }
+        .ft__tog:not(.active):hover { background: #eee; color: #111; }
 
         .ft__iframe-wrap {
           height: 185px; flex-shrink: 0;

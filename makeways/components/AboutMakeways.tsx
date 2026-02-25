@@ -29,35 +29,33 @@ export default function AboutMakeways(): ReactElement {
             <span className="about__heading--orange">WAYS</span>
           </h2>
 
+          {/* ── Award tag — moved below heading ── */}
+          <div className="about__award animate" style={{ '--delay': '0.05s' } as React.CSSProperties}>
+            <svg className="about__award-star" width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            Nepal&apos;s most awarded advertising agency
+          </div>
+
           <div className="about__content">
 
             {/* ── Left column ── */}
             <div className="about__left">
 
-              {/* Lead / intro paragraph — Large body: 18–20px, lh 1.7 */}
               <p className="about__lead animate" style={{ '--delay': '0.1s' } as React.CSSProperties}>
-                Makeways Pvt. Ltd. is an independent, full-service advertising agency based in
-                Kathmandu, Nepal, established in 2013. We deliver cutting-edge marcom solutions
-                through a wide range of professional services.
+                Makeways Pvt Ltd is an independent, full-service advertising agency based in
+                Kathmandu, Nepal, established in 2013 We deliver cutting-edge marcom solutions
+                through a wide range of professional services
               </p>
 
-              {/* Regular body paragraph — 15–17px, lh 1.7 */}
               <p className="about__body animate" style={{ '--delay': '0.2s' } as React.CSSProperties}>
                 We continuously explore new disciplines and refine our offerings to stay ahead of
-                ever-changing trends and platforms.
+                ever-changing trends and platforms
               </p>
-
-              {/* Award tag — Small / caption / label: 12–13px */}
-              <div className="about__award animate" style={{ '--delay': '0.3s' } as React.CSSProperties}>
-                <svg className="about__award-star" width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
-                Nepal&apos;s most awarded advertising agency.
-              </div>
 
             </div>
 
-            {/* ── Right column — pull quote — Large body / lead text: 18–22px ── */}
+            {/* ── Right column — pull quote ── */}
             <blockquote
               className="about__quote animate"
               style={{ '--delay': '0.15s' } as React.CSSProperties}
@@ -65,7 +63,7 @@ export default function AboutMakeways(): ReactElement {
               <span className="about__quote-bar" />
               <p>
                 Guided by strategic thinking and creative precision, we help brands connect
-                meaningfully with their audiences that translates into measurable results.
+                meaningfully with their audiences that translates into measurable results
               </p>
             </blockquote>
 
@@ -100,10 +98,9 @@ export default function AboutMakeways(): ReactElement {
           width       : 100%;
           overflow-x  : hidden;
         }
-        .about__inner { max-width: 1280px; margin: 0 auto; width: 100%; }
+        .about__inner { max-width: 1280px; margin: 0 auto; width: 100%; font-family: var(--eu); }
 
-        /* ── H2 Section Heading — 36px–48px, weight 800 ─────────────────── */
-        /* Industry standard: H2 Section Title = 36–48px, fw 700–800        */
+        /* ── H2 Section Heading ─────────────────────────────────────────── */
         .about__heading {
           font-family    : var(--eu);
           font-weight    : 800;
@@ -111,11 +108,31 @@ export default function AboutMakeways(): ReactElement {
           letter-spacing : 8px;
           text-transform : uppercase;
           line-height    : 1;
-          margin         : 0 0 72px 0;
+          margin         : 0 0 24px 0;
           display        : block;
         }
-        .about__heading--black  { color: var(--black); }
-        .about__heading--orange { color: var(--orange); }
+        .about__heading--black  { color: var(--black);  font-family: var(--eu); }
+        .about__heading--orange { color: var(--orange); font-family: var(--eu); }
+
+        /* ── Award tag — below heading ───────────────────────────────────── */
+        .about__award {
+          display        : inline-flex;
+          align-items    : center;
+          gap            : 9px;
+          font-family    : var(--eu);
+          font-weight    : 700;
+          font-size      : clamp(11px, 0.85vw, 13px);
+          letter-spacing : 2px;
+          text-transform : uppercase;
+          color          : var(--orange);
+          border         : 1px solid rgba(244,124,32,0.4);
+          border-radius  : 4px;
+          padding        : 10px 16px;
+          width          : fit-content;
+          line-height    : 1.5;
+          margin-bottom  : 56px;
+        }
+        .about__award-star { flex-shrink: 0; color: var(--orange); }
 
         /* ── Two-column grid ─────────────────────────────────────────────── */
         .about__content {
@@ -132,8 +149,7 @@ export default function AboutMakeways(): ReactElement {
           gap            : 32px;
         }
 
-        /* ── Lead / intro text — Large body: 18–20px, lh 1.7 ───────────── */
-        /* Industry standard: Intro / lead text = 18–20px, lh 1.7           */
+        /* ── Lead / intro text ───────────────────────────────────────────── */
         .about__lead {
           font-family    : var(--eu);
           font-weight    : 400;
@@ -142,10 +158,10 @@ export default function AboutMakeways(): ReactElement {
           line-height    : 1.75;
           letter-spacing : 0.25px;
           margin         : 0;
+          text-align     : justify;
         }
 
-        /* ── Regular body — 15–17px, lh 1.65–1.7 ───────────────────────── */
-        /* Industry standard: Regular body = 15–17px, lh 1.6–1.7            */
+        /* ── Regular body ────────────────────────────────────────────────── */
         .about__body {
           font-family    : var(--eu);
           font-weight    : 400;
@@ -154,30 +170,10 @@ export default function AboutMakeways(): ReactElement {
           line-height    : 1.7;
           letter-spacing : 0.2px;
           margin         : 0;
+          text-align     : justify;
         }
 
-        /* ── Award tag — Small / label: 12–13px, lh 1.5 ────────────────── */
-        /* Industry standard: Small / captions / labels = 12–14px, lh 1.5   */
-        .about__award {
-          display        : inline-flex;
-          align-items    : center;
-          gap            : 9px;
-          font-family    : var(--eu);
-          font-weight    : 700;
-          font-size      : clamp(11px, 0.85vw, 13px);
-          letter-spacing : 2px;
-          text-transform : uppercase;
-          color          : var(--orange);
-          border         : 1px solid rgba(244,124,32,0.4);
-          border-radius  : 4px;
-          padding        : 10px 16px;
-          width          : fit-content;
-          line-height    : 1.5;
-        }
-        .about__award-star { flex-shrink: 0; color: var(--orange); }
-
-        /* ── Pull quote — Large body / lead: clamp(18–22px), fw 700 ─────── */
-        /* Industry standard: Lead/intro text = 18–20px with impact weight   */
+        /* ── Pull quote ──────────────────────────────────────────────────── */
         .about__quote {
           display     : flex;
           gap         : 28px;
@@ -202,6 +198,7 @@ export default function AboutMakeways(): ReactElement {
           line-height    : 1.65;
           letter-spacing : 0.3px;
           margin         : 0;
+          text-align     : justify;
         }
 
         /* ── Scroll reveal ──────────────────────────────────────────────── */
@@ -223,7 +220,8 @@ export default function AboutMakeways(): ReactElement {
         /* ── 1024px ─────────────────────────────────────────────────────── */
         @media (max-width: 1024px) {
           .about { padding: 72px 40px; }
-          .about__heading { font-size: clamp(32px, 4vw, 42px); margin-bottom: 56px; }
+          .about__heading { font-size: clamp(32px, 4vw, 42px); margin-bottom: 20px; }
+          .about__award { margin-bottom: 44px; }
           .about__content { gap: 48px; }
           .about__quote p { font-size: clamp(17px, 2vw, 20px); }
         }
@@ -231,7 +229,8 @@ export default function AboutMakeways(): ReactElement {
         /* ── 768px — collapse to single column ──────────────────────────── */
         @media (max-width: 768px) {
           .about { padding: 60px 24px; border-top-width: 4px; }
-          .about__heading { font-size: clamp(28px, 5vw, 38px); letter-spacing: 5px; margin-bottom: 48px; }
+          .about__heading { font-size: clamp(28px, 5vw, 38px); letter-spacing: 5px; margin-bottom: 16px; }
+          .about__award { margin-bottom: 36px; }
           .about__content { grid-template-columns: 1fr; gap: 0; }
           .about__left { order: 2; margin-top: 36px; }
           .about__quote { order: 1; }
@@ -243,25 +242,25 @@ export default function AboutMakeways(): ReactElement {
         /* ── 520px ──────────────────────────────────────────────────────── */
         @media (max-width: 520px) {
           .about { padding: 52px 20px; }
-          .about__heading { font-size: clamp(26px, 7vw, 34px); letter-spacing: 4px; margin-bottom: 40px; }
+          .about__heading { font-size: clamp(26px, 7vw, 34px); letter-spacing: 4px; margin-bottom: 14px; }
+          .about__award { margin-bottom: 32px; font-size: 11px; padding: 9px 13px; letter-spacing: 1.6px; }
           .about__left { gap: 24px; }
           .about__lead { font-size: 15px; line-height: 1.7; }
           .about__body { font-size: 14px; line-height: 1.7; }
           .about__quote { gap: 18px; }
           .about__quote-bar { width: 3px; }
           .about__quote p { font-size: 16px; line-height: 1.6; }
-          .about__award { font-size: 11px; padding: 9px 13px; letter-spacing: 1.6px; }
         }
 
         /* ── 360px ──────────────────────────────────────────────────────── */
         @media (max-width: 360px) {
           .about { padding: 44px 16px; border-top-width: 3px; }
-          .about__heading { font-size: 26px; letter-spacing: 3px; margin-bottom: 32px; }
+          .about__heading { font-size: 26px; letter-spacing: 3px; margin-bottom: 12px; }
+          .about__award { margin-bottom: 28px; font-size: 10px; }
           .about__left { gap: 20px; }
           .about__lead { font-size: 14px; }
           .about__body { font-size: 13px; }
           .about__quote p { font-size: 15px; }
-          .about__award { font-size: 10px; }
         }
       `}</style>
     </>

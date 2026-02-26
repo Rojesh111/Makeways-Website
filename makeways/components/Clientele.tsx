@@ -18,7 +18,7 @@ const clients = [
   { id: 9,  name: 'BMW',        category: 'Automotive',  logo: '/images/bmw.jpg'     },
   { id: 10, name: 'CG',         category: 'Industry',    logo: '/images/cg.png'      },
   { id: 11, name: 'Nabil Bank', category: 'Industry',    logo: '/images/nabil bank.jpg' },
-  { id: 12, name: 'Client 12',  category: 'Industry',    logo: '/images/client12.jpg' },
+  { id: 12, name: 'Hulas Steel',  category: 'Industry',    logo: '/images/hulas_logo.jpeg' },
 ];
 
 const row1Base = clients.slice(0, 6);

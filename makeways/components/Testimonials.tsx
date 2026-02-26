@@ -102,9 +102,10 @@ export default function Testimonials() {
   }, [goNext, goPrev]);
 
   useEffect(() => {
+    if (current === TESTIMONIALS.length - 1) return; // stop at last slide
     timerRef.current = setInterval(goNext, 6000);
     return () => clearInterval(timerRef.current);
-  }, [goNext]);
+  }, [goNext, current]);
 
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.style.display = 'none';
@@ -169,13 +170,28 @@ export default function Testimonials() {
         {/* ─── RIGHT PANEL — photo ANIMATED ─── */}
         <div className="testi__right">
 
+          {/* ── PREV BUTTON — visible from slide 2 onwards ── */}
           <button
             className="testi__arrow testi__arrow--prev"
             onClick={goPrev}
             aria-label="Previous testimonial (← key)"
             tabIndex={-1}
+            style={{
+              visibility    : current === 0 ? 'hidden' : 'visible',
+              opacity       : current === 0 ? 0 : 1,
+              pointerEvents : current === 0 ? 'none' : 'auto',
+              transition    : 'opacity 0.30s ease',
+            }}
           >
-            <ChevronLeft />
+            <span className="arrow__ring">
+              <span className="arrow__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </span>
+            </span>
+            <span className="arrow__tail arrow__tail--left" />
           </button>
 
           <div
@@ -199,12 +215,27 @@ export default function Testimonials() {
             />
           </div>
 
+          {/* ── NEXT BUTTON — hidden on last slide ── */}
           <button
             className="testi__arrow testi__arrow--next"
             onClick={goNext}
             aria-label="Next testimonial (→ key)"
+            style={{
+              visibility    : current === TESTIMONIALS.length - 1 ? 'hidden' : 'visible',
+              opacity       : current === TESTIMONIALS.length - 1 ? 0 : 1,
+              pointerEvents : current === TESTIMONIALS.length - 1 ? 'none' : 'auto',
+              transition    : 'opacity 0.30s ease',
+            }}
           >
-            <ChevronRight />
+            <span className="arrow__tail arrow__tail--right" />
+            <span className="arrow__ring">
+              <span className="arrow__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </span>
+            </span>
           </button>
         </div>
       </div>
@@ -451,40 +482,90 @@ export default function Testimonials() {
           display        : block;
         }
 
-        /* ══ ARROWS ══ */
+        /* ══════════════════════════════════════════════
+           ARROW BUTTONS — redesigned cute pill style
+        ══════════════════════════════════════════════ */
         .testi__arrow {
           position       : absolute;
           top            : 50%;
           transform      : translateY(-50%);
-          width          : 46px;
-          height         : 46px;
-          background     : var(--orange);
+          display        : flex;
+          align-items    : center;
+          background     : none;
           border         : none;
           cursor         : pointer;
+          z-index        : 20;
+          padding        : 0;
+          gap            : 0;
+        }
+        .testi__arrow:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; border-radius: 999px; }
+
+        /* The circular ring badge */
+        .arrow__ring {
+          position       : relative;
+          width          : 52px;
+          height         : 52px;
+          border-radius  : 50%;
+          background     : var(--orange);
           display        : flex;
           align-items    : center;
           justify-content: center;
-          z-index        : 20;
-          transition     : background 0.18s, opacity 0.18s;
+          box-shadow     : 0 4px 18px rgba(245,166,35,0.45), 0 1px 4px rgba(0,0,0,0.18);
+          transition     : transform 0.22s cubic-bezier(.34,1.56,.64,1),
+                           box-shadow 0.22s ease,
+                           background 0.18s ease;
+          flex-shrink    : 0;
+          z-index        : 2;
         }
-        .testi__arrow svg { width: 15px; height: 15px; flex-shrink: 0; }
-        .testi__arrow:hover  { background: #D98A10; }
-        .testi__arrow:active { opacity: 0.72; }
-        .testi__arrow:focus-visible { outline: 2px solid var(--dark); outline-offset: 2px; }
 
+        .testi__arrow:hover .arrow__ring {
+          transform : scale(1.12);
+          background: #e8950f;
+          box-shadow: 0 6px 28px rgba(245,166,35,0.60), 0 2px 6px rgba(0,0,0,0.20);
+        }
+        .testi__arrow:active .arrow__ring {
+          transform : scale(0.94);
+          box-shadow: 0 2px 10px rgba(245,166,35,0.35);
+        }
+
+        /* Inner icon */
+        .arrow__icon {
+          display        : flex;
+          align-items    : center;
+          justify-content: center;
+          color          : #fff;
+          line-height    : 0;
+        }
+        .arrow__icon svg {
+          width : 18px;
+          height: 18px;
+        }
+
+        /* The decorative horizontal tail line */
+        .arrow__tail {
+          display   : block;
+          height    : 2px;
+          width     : 28px;
+          background: linear-gradient(to right, rgba(245,166,35,0.7), rgba(245,166,35,0));
+          flex-shrink: 0;
+          transition: width 0.22s ease, opacity 0.22s ease;
+        }
+        .arrow__tail--left {
+          background: linear-gradient(to left, rgba(245,166,35,0.7), rgba(245,166,35,0));
+        }
+        .testi__arrow:hover .arrow__tail { width: 38px; opacity: 1; }
+
+        /* NEXT — positioned on the right edge */
         .testi__arrow--next {
-          right       : 0;
-          clip-path   : polygon(0 0, 100% 50%, 0 100%);
-          padding-left: 11px;
+          right      : 0;
+          flex-direction: row-reverse;
+          padding-right: 0;
         }
 
+        /* PREV — positioned on the left edge */
         .testi__arrow--prev {
           left          : 0;
-          clip-path     : polygon(100% 0, 0 50%, 100% 100%);
-          padding-right : 11px;
-          visibility    : hidden;
-          pointer-events: none;
-          opacity       : 0;
+          flex-direction: row;
         }
 
         /* ══ TABLET ≤ 960px ══ */
@@ -508,9 +589,6 @@ export default function Testimonials() {
             padding: 28px 24px 14px;
           }
           .testi__img { object-position: center 10%; }
-          .testi__arrow--prev {
-            visibility: visible; opacity: 1; pointer-events: auto; display: flex;
-          }
           .testi__left::after { display: none; }
           .testi__dots        { display: none; }
           .testi__mobile-dots { display: flex; }
@@ -519,38 +597,27 @@ export default function Testimonials() {
           .testi__name  { font-size: clamp(16px, 5vw, 22px); }
           .testi__quote { font-size: 15px; line-height: 1.75; margin-bottom: 0; }
           .testi__about { margin-top: 10px; }
+
+          /* Slightly smaller arrows on mobile */
+          .arrow__ring  { width: 44px; height: 44px; }
+          .arrow__tail  { width: 18px; }
+          .testi__arrow:hover .arrow__tail { width: 24px; }
         }
 
         /* ══ SMALL PHONE ≤ 420px ══ */
         @media (max-width: 420px) {
           .testi__right { height: 64vw; }
           .testi__left  { padding: 22px 18px 10px; }
-          .testi__arrow { width: 38px; height: 38px; }
           .testi__says  { font-size: clamp(52px, 26vw, 84px); }
           .testi__name  { font-size: clamp(14px, 5.5vw, 18px); }
           .testi__quote { font-size: 14px; line-height: 1.7; }
           .testi__role  { font-size: clamp(8px, 2.8vw, 11px); }
+
+          .arrow__ring  { width: 38px; height: 38px; }
+          .arrow__icon svg { width: 15px; height: 15px; }
+          .arrow__tail  { width: 12px; }
         }
       `}</style>
     </section>
-  );
-}
-
-/* ── Inline SVG helpers ── */
-function ChevronRight() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="#fff"
-      strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="9 18 15 12 9 6" />
-    </svg>
-  );
-}
-
-function ChevronLeft() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="#fff"
-      strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="15 18 9 12 15 6" />
-    </svg>
   );
 }

@@ -14,50 +14,50 @@ const TESTIMONIALS: Testimonial[] = [
   {
     id: 1,
     name: 'NIRVANA CHAUDHARY',
-    role: 'MD – CHAUDHARY GROUP',
+    role: 'MD - CHAUDHARY GROUP',
     quote:
-      'At MAKEWAYS, we take our work too seriously without taking ourselves seriously.',
+      'Our association with Makeways goes beyond a typical client - agency relationship. Their strategic thinking and creativity make them one of the finest agencies in Nepal and my first choice.',
     image: '/images/testimonial/NIRVANACHAUDHARY.png',
   },
   {
     id: 2,
-    name: 'BHUSAN DAHAL',
-    role: 'Music Director',
-    quote:
-      'MAKEWAYS has consistently delivered exceptional results that exceed our expectations.',
-    image: '/images/testimonial/BHUSANDAHAL.png',
-  },
-  {
-    id: 3,
     name: 'HIMANSHU GOLCHA',
-    role: 'MD-HULAS GROUP',
+    role: 'EXECUTIVE DIRECTOR - HULAS STEEL',
     quote:
-      'MAKEWAYS has been instrumental in helping us achieve our marketing goals.',
+      'Our experience working with Makeways has been extremely rewarding. What I appreciate about Makeways is their ability to combine creativity with results-driven campaigns.',
     image: '/images/testimonial/HIMANSHUGOLCHA.png',
   },
   {
-    id: 4,
-    name: 'IRAJ SHRESTHA',
-    role: 'CEO – SHRESTHA GROUP',
-    quote:
-      'At MAKEWAYS, we take our work too seriously without taking ourselves seriously.',
-    image: '/images/testimonial/IRAJSHRESTHA.png',
-  },
-  {
-    id: 5,
+    id: 3,
     name: 'MALVIKA SUBBA',
-    role: 'MD – SUBBA GROUP',
+    role: 'MISS NEPAL / MEDIA PERSON',
     quote:
-      'At MAKEWAYS, we take our work too seriously without taking ourselves seriously.',
+      'Working with Makeways has been a smooth and collaborative experience. They are attentive to detail, responsive to feedback, and committed to delivering top-notch event solutions.',
     image: '/images/testimonial/MalvikaSubba.png',
   },
   {
-    id: 6,
-    name: 'SUDIP THAPA',
-    role: 'MD – THAPA GROUP',
+    id: 4,
+    name: 'BHUSAN DAHAL',
+    role: 'MEDIA LEADER',
     quote:
-      'At MAKEWAYS, we take our work too seriously without taking ourselves seriously.',
+      'What I admire about Makeways is their storytelling approach. Their campaigns are not just visually appealing but also culturally relevant and emotionally engaging.',
+    image: '/images/testimonial/BHUSANDAHAL.png',
+  },
+  {
+    id: 5,
+    name: 'SUDIP THAPA',
+    role: 'PRESIDENT - ADVERTISING ASSOCIATION OF NEPAL',
+    quote:
+      'Over the years, I have observed many campaigns from Makeways that have contributed positively to Nepal\'s advertising standards. Their work is thoughtful, well-executed, and impactful.',
     image: '/images/testimonial/SUDIPTHAPA.png',
+  },
+  {
+    id: 6,
+    name: 'IRAJ SHRESTHA',
+    role: 'SALES & MARKETING HEAD - GOLDSTAR SHOES',
+    quote:
+      'Makeways stands out because they approach branding with clarity and purpose. Their ideas are not only creative but also aligned with long-term brand positioning.',
+    image: '/images/testimonial/IRAJSHRESTHA.png',
   },
 ];
 
@@ -76,8 +76,8 @@ export default function Testimonials() {
       setTimeout(() => {
         setCurrent(next);
         setPhase('enter');
-        setTimeout(() => setPhase('idle'), 450);
-      }, 350);
+        setTimeout(() => setPhase('idle'), 500);
+      }, 380);
     },
     [phase, current]
   );
@@ -113,12 +113,13 @@ export default function Testimonials() {
   const t      = TESTIMONIALS[current];
   const isExit = phase === 'exit';
 
+  /* Animated elements slide up on enter, slide down on exit */
   const fadeUp = (delay = '0s') => ({
     opacity   : isExit ? 0 : 1,
-    transform : isExit ? 'translateY(10px)' : 'translateY(0px)',
+    transform : isExit ? 'translateY(14px)' : 'translateY(0px)',
     transition: isExit
-      ? 'opacity 0.28s ease, transform 0.28s ease'
-      : `opacity 0.38s ease ${delay}, transform 0.38s ease ${delay}`,
+      ? 'opacity 0.30s ease, transform 0.30s ease'
+      : `opacity 0.42s ease ${delay}, transform 0.42s ease ${delay}`,
   });
 
   return (
@@ -134,29 +135,20 @@ export default function Testimonials() {
         {/* ─── LEFT PANEL ─── */}
         <div className="testi__left">
 
-          {/* Name + Role */}
+          {/* Name + Role — ANIMATED */}
           <div className="testi__meta" style={fadeUp('0s')}>
-            {/* H4/Name — clamp(15px, 1.55vw, 20px), fw 700, ls 2.4px */}
-            {/* Industry standard: H4 Card Label = 20–24px. Here used as  */}
-            {/* a compact name-plate so clamped 15–20px fits the layout.   */}
             <h3 className="testi__name">{t.name}</h3>
-
-            {/* Role sub-label — clamp(9px, 0.65vw, 11px), fw 700, ls 3.5px */}
-            {/* Industry standard: Small / captions / labels = 12–14px.      */}
-            {/* Clamped tighter here to sit below the large "SAYS" display.  */}
-            <p className="testi__role">{t.role}</p>
+            <p  className="testi__role">{t.role}</p>
           </div>
 
-          {/* SAYS — decorative display element, never animates */}
+          {/* ══ SAYS BLOCK — 100% FROZEN, NEVER ANIMATES ══ */}
           <div className="testi__says-block" aria-hidden="true">
             <span className="testi__says">SAYS</span>
             <span className="testi__about">ABOUT MAKEWAYS</span>
           </div>
 
-          {/* Quote — Regular body: clamp(15px, 1.2vw, 18px), lh 1.75 */}
-          {/* Industry standard: Regular body = 15–17px, lh 1.6–1.7    */}
-          {/* Was: clamp(12px, 1vw, 14.5px) — too small for body copy   */}
-          <p className="testi__quote" style={fadeUp('0.07s')}>
+          {/* Quote — ANIMATED with slight delay after name */}
+          <p className="testi__quote" style={fadeUp('0.08s')}>
             {t.quote}
           </p>
 
@@ -174,7 +166,7 @@ export default function Testimonials() {
           </nav>
         </div>
 
-        {/* ─── RIGHT PANEL ─── */}
+        {/* ─── RIGHT PANEL — photo ANIMATED ─── */}
         <div className="testi__right">
 
           <button
@@ -192,10 +184,10 @@ export default function Testimonials() {
             aria-label={t.name}
             style={{
               opacity   : isExit ? 0 : 1,
-              transform : isExit ? 'scale(1.04)' : 'scale(1)',
+              transform : isExit ? 'scale(1.045)' : 'scale(1)',
               transition: isExit
-                ? 'opacity 0.30s ease, transform 0.30s ease'
-                : 'opacity 0.45s ease 0.04s, transform 0.45s ease 0.04s',
+                ? 'opacity 0.32s ease, transform 0.32s ease'
+                : 'opacity 0.50s ease 0.06s, transform 0.50s ease 0.06s',
             }}
           >
             <img
@@ -268,15 +260,15 @@ export default function Testimonials() {
           font-display: swap;
         }
 
-        /* ══ TOKENS ══ */
+        /* ══ DESIGN TOKENS ══ */
         .testi {
           --orange  : #F5A623;
           --bg      : #C8C8C8;
           --dark    : #2A2A2A;
-          --grey    : #5A5A5A;
-          --subgrey : #707070;
-          --divider : rgba(0,0,0,0.13);
-          --h       : clamp(360px, 46vw, 560px);
+          --grey    : #3A3A3A;
+          --subgrey : #555555;
+          --divider : rgba(0,0,0,0.10);
+          --h       : clamp(380px, 48vw, 580px);
 
           background : var(--bg);
           width      : 100%;
@@ -285,7 +277,7 @@ export default function Testimonials() {
           font-family: 'Eurostile', 'Arial Narrow', Arial, sans-serif;
         }
 
-        /* ══ SHELL ══ */
+        /* ══ SHELL — left ~45%, right ~55% ══ */
         .testi__shell {
           display    : flex;
           align-items: stretch;
@@ -293,126 +285,120 @@ export default function Testimonials() {
           width      : 100%;
         }
 
-        /* ══ LEFT ══ */
+        /* ══ LEFT PANEL ══ */
         .testi__left {
-          flex           : 1 1 0;
+          flex           : 0 0 45%;
           min-width      : 0;
           display        : flex;
           flex-direction : column;
           justify-content: center;
-          padding        : 0 clamp(24px, 2.8vw, 44px) 0 clamp(36px, 6vw, 96px);
+          padding        : 0 clamp(20px, 2.4vw, 40px) 0 clamp(32px, 5.5vw, 88px);
           gap            : 0;
           position       : relative;
           z-index        : 2;
         }
 
+        /* Subtle vertical divider */
         .testi__left::after {
           content   : '';
           position  : absolute;
           right     : 0;
-          top       : 10%;
-          height    : 80%;
+          top       : 8%;
+          height    : 84%;
           width     : 1px;
           background: var(--divider);
         }
 
+        /* ── Name + Role wrapper — animated together ── */
         .testi__meta {
           display       : flex;
           flex-direction: column;
-          gap           : 4px;
-          margin-bottom : 2px;
+          gap           : 5px;
+          margin-bottom : 0;
         }
 
-        /* ── Name — clamp(15px, 1.55vw, 20px), fw 700, ls 2.4px ─────────── */
-        /* Was: clamp(13px, 1.55vw, 21px) — min was too small at 13px         */
-        /* H4-range label in a compact sidebar context: 15–20px is right      */
+        /* Name: LARGE + ORANGE — matching PDF */
         .testi__name {
           font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-size     : clamp(15px, 1.55vw, 20px);
-          font-weight   : 700;
-          color         : var(--grey);
-          letter-spacing: 2.4px;
+          font-size     : clamp(18px, 2.2vw, 30px);
+          font-weight   : 800;
+          color         : var(--orange);
+          letter-spacing: 2px;
           text-transform: uppercase;
           line-height   : 1;
           margin        : 0;
         }
 
-        /* ── Role sub-label — clamp(9px, 0.65vw, 11px), fw 700, ls 3.5px ── */
-        /* Was: clamp(7px, 0.65vw, 9.5px) — 7px minimum is illegibly small   */
-        /* Small / caption tier: min bumped to 9px for legibility             */
+        /* Role: small, dark, condensed caps */
         .testi__role {
           font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-size     : clamp(9px, 0.65vw, 11px);
+          font-size     : clamp(8px, 0.72vw, 11.5px);
           font-weight   : 700;
-          color         : var(--subgrey);
-          letter-spacing: 3.5px;
+          color         : var(--grey);
+          letter-spacing: 3.8px;
           text-transform: uppercase;
           margin        : 0;
-          line-height   : 1;
+          line-height   : 1.2;
         }
 
-        /* ══ SAYS BLOCK — decorative display, static & frozen ══ */
-        /* Industry standard: H1 / Display = 48–72px. Here used as             */
-        /* a giant decorative word-mark at clamp(82px, 13vw, 172px) — fine     */
-        /* since it is NOT body copy but a graphic element.                     */
+        /* ══════════════════════════════════════════
+           SAYS BLOCK — COMPLETELY STATIC, FROZEN
+           No animation. No transition. Ever.
+        ══════════════════════════════════════════ */
         .testi__says-block {
           display       : flex;
           flex-direction: column;
           line-height   : 1;
-          margin-top    : -2px;
+          margin-top    : -4px;
+          isolation     : isolate;
         }
 
         .testi__says {
           font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-size     : clamp(82px, 13vw, 172px);
+          font-size     : clamp(90px, 14.5vw, 190px);
           font-weight   : 900;
           color         : var(--orange);
-          letter-spacing: -4px;
-          line-height   : 0.80;
+          letter-spacing: -6px;
+          line-height   : 0.78;
           text-transform: uppercase;
           display       : block;
-          margin-left   : -3px;
-          /* Frozen — absolutely no animation on the display word-mark */
+          margin-left   : -4px;
+          transform     : none !important;
+          opacity       : 1   !important;
+          transition    : none !important;
+          animation     : none !important;
+          will-change   : auto;
+        }
+
+        /* "ABOUT MAKEWAYS" — small tracking label, frozen */
+        .testi__about {
+          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size     : clamp(7px, 0.55vw, 9.5px);
+          font-weight   : 700;
+          color         : #3A3A3A;
+          letter-spacing: 6px;
+          text-transform: uppercase;
+          display       : block;
+          margin-top    : 14px;
+          padding-left  : 3px;
           transform     : none !important;
           opacity       : 1   !important;
           transition    : none !important;
           animation     : none !important;
         }
 
-        /* "ABOUT MAKEWAYS" tag under SAYS — Small label: 8–10px */
-        /* Industry standard: Small / captions = 12–14px.         */
-        /* This sits beneath a 172px display word, so 8–10px      */
-        /* is intentionally micro-sized for graphic contrast.      */
-        .testi__about {
-          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-size     : clamp(8px, 0.55vw, 10px);
-          font-weight   : 700;
-          color         : #8C8C8C;
-          letter-spacing: 5.5px;
-          text-transform: uppercase;
-          display       : block;
-          margin-top    : 11px;
-          padding-left  : 3px;
-          /* Frozen */
-          transform     : none !important;
-          opacity       : 1   !important;
-          transition    : none !important;
-        }
-
-        /* ── Quote — Regular body: clamp(15px, 1.2vw, 18px), lh 1.75 ───── */
-        /* WAS: clamp(12px, 1vw, 14.5px) — below 15px minimum for body copy  */
-        /* Industry standard: Regular body = 15–17px, lh 1.6–1.7             */
+        /* ── Quote — matches PDF body style ── */
         .testi__quote {
-          font-family  : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-size    : clamp(15px, 1.2vw, 18px);
-          font-weight  : 400;
-          color        : #2C2C2C;
-          line-height  : 1.75;
-          letter-spacing: 0.2px;
-          max-width    : 440px;
-          margin-top   : 18px;
-          margin-bottom: 26px;
-          padding      : 0;
+          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size     : clamp(13px, 1.05vw, 16px);
+          font-weight   : 400;
+          color         : #2C2C2C;
+          line-height   : 1.80;
+          letter-spacing: 0.15px;
+          max-width     : 420px;
+          margin-top    : 20px;
+          margin-bottom : 28px;
+          padding       : 0;
         }
 
         /* ══ DOTS ══ */
@@ -440,20 +426,22 @@ export default function Testimonials() {
           padding      : 0;
           transition   : background 0.22s, transform 0.22s;
         }
-
         .dot--on { background: var(--dark); transform: scale(1.45); }
         .testi__dot:hover:not(.dot--on) { background: #666; }
         .testi__dot:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
 
-        /* ══ RIGHT PANEL ══ */
+        /* ══ RIGHT PANEL — wider, full-bleed photo ══ */
         .testi__right {
           position   : relative;
-          width      : clamp(240px, 37%, 490px);
-          flex-shrink: 0;
+          flex       : 0 0 55%;
           overflow   : hidden;
         }
 
-        .testi__imgpanel { position: absolute; inset: 0; z-index: 1; }
+        .testi__imgpanel {
+          position: absolute;
+          inset   : 0;
+          z-index : 1;
+        }
 
         .testi__img {
           width          : 100%;
@@ -468,8 +456,8 @@ export default function Testimonials() {
           position       : absolute;
           top            : 50%;
           transform      : translateY(-50%);
-          width          : 44px;
-          height         : 44px;
+          width          : 46px;
+          height         : 46px;
           background     : var(--orange);
           border         : none;
           cursor         : pointer;
@@ -479,8 +467,7 @@ export default function Testimonials() {
           z-index        : 20;
           transition     : background 0.18s, opacity 0.18s;
         }
-
-        .testi__arrow svg { width: 14px; height: 14px; flex-shrink: 0; }
+        .testi__arrow svg { width: 15px; height: 15px; flex-shrink: 0; }
         .testi__arrow:hover  { background: #D98A10; }
         .testi__arrow:active { opacity: 0.72; }
         .testi__arrow:focus-visible { outline: 2px solid var(--dark); outline-offset: 2px; }
@@ -488,13 +475,13 @@ export default function Testimonials() {
         .testi__arrow--next {
           right       : 0;
           clip-path   : polygon(0 0, 100% 50%, 0 100%);
-          padding-left: 10px;
+          padding-left: 11px;
         }
 
         .testi__arrow--prev {
           left          : 0;
           clip-path     : polygon(100% 0, 0 50%, 100% 100%);
-          padding-right : 10px;
+          padding-right : 11px;
           visibility    : hidden;
           pointer-events: none;
           opacity       : 0;
@@ -502,42 +489,47 @@ export default function Testimonials() {
 
         /* ══ TABLET ≤ 960px ══ */
         @media (max-width: 960px) {
-          .testi__left { padding: 0 20px 0 5vw; }
-          .testi__says { font-size: clamp(72px, 14vw, 130px); }
-          .testi__quote { font-size: clamp(14px, 1.5vw, 17px); }
+          .testi__left  { padding: 0 18px 0 5vw; flex: 0 0 48%; }
+          .testi__right { flex: 0 0 52%; }
+          .testi__says  { font-size: clamp(80px, 15vw, 140px); }
+          .testi__name  { font-size: clamp(16px, 2.4vw, 26px); }
+          .testi__quote { font-size: clamp(12px, 1.3vw, 15px); }
         }
 
         /* ══ MOBILE ≤ 700px ══ */
         @media (max-width: 700px) {
           .testi__shell { flex-direction: column; height: auto; }
           .testi__right {
-            width: 100%; height: 56vw;
-            min-height: 210px; max-height: 320px; order: 1;
+            flex: none; width: 100%; height: 60vw;
+            min-height: 220px; max-height: 340px; order: 1;
           }
-          .testi__img { object-position: center 12%; }
-          .testi__arrow--prev { visibility: visible; opacity: 1; pointer-events: auto; display: flex; }
-          .testi__left { order: 2; padding: 28px 24px 12px; }
+          .testi__left {
+            flex: none; width: 100%; order: 2;
+            padding: 28px 24px 14px;
+          }
+          .testi__img { object-position: center 10%; }
+          .testi__arrow--prev {
+            visibility: visible; opacity: 1; pointer-events: auto; display: flex;
+          }
           .testi__left::after { display: none; }
-          .testi__dots { display: none; }
+          .testi__dots        { display: none; }
           .testi__mobile-dots { display: flex; }
 
-          .testi__says { font-size: clamp(64px, 22vw, 106px); }
-          /* Mobile name — clamp(14px, 4.5vw, 20px) */
-          .testi__name { font-size: clamp(14px, 4.5vw, 20px); }
-          /* Mobile quote — Regular body: 15px min on mobile */
-          .testi__quote { font-size: 15px; line-height: 1.7; margin-bottom: 0; }
-          .testi__about { margin-top: 8px; }
+          .testi__says  { font-size: clamp(68px, 23vw, 110px); }
+          .testi__name  { font-size: clamp(16px, 5vw, 22px); }
+          .testi__quote { font-size: 15px; line-height: 1.75; margin-bottom: 0; }
+          .testi__about { margin-top: 10px; }
         }
 
         /* ══ SMALL PHONE ≤ 420px ══ */
         @media (max-width: 420px) {
-          .testi__right { height: 62vw; }
+          .testi__right { height: 64vw; }
           .testi__left  { padding: 22px 18px 10px; }
           .testi__arrow { width: 38px; height: 38px; }
-          .testi__says  { font-size: clamp(50px, 25vw, 80px); }
-          .testi__name  { font-size: clamp(13px, 5.2vw, 17px); }
+          .testi__says  { font-size: clamp(52px, 26vw, 84px); }
+          .testi__name  { font-size: clamp(14px, 5.5vw, 18px); }
           .testi__quote { font-size: 14px; line-height: 1.7; }
-          .testi__role  { font-size: clamp(9px, 2.8vw, 11px); }
+          .testi__role  { font-size: clamp(8px, 2.8vw, 11px); }
         }
       `}</style>
     </section>

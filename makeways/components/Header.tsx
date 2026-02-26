@@ -140,7 +140,7 @@ export default function Header() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 16px 40px;
+          padding: 3px 40px;
           max-width: 1400px;
           margin: 0 auto;
         }

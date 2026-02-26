@@ -14,7 +14,7 @@ const values: Value[] = [
     id: 1,
     title: 'Creatively Led',
     description:
-      "Creativity is the oxygen we breathe. We're always evolving, and our creative, entrepreneurial spirit uniquely empowers us to offer our clients fresh & friendly ideas to add value in their sectors and at large.",
+      "Creativity is the oxygen we breathe. We're always evolving, and our creative, entrepreneurial spirit uniquely empowers us to offer our clients fresh & friendly ideas to add value in their sectors and at large",
     icon: (
       <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
         <path d="M9 18h6" /><path d="M10 22h4" />
@@ -26,7 +26,7 @@ const values: Value[] = [
     id: 2,
     title: 'Strategically Driven',
     description:
-      'Our creative eyes are always looking and breaking down the campaigns of companies who experience the results of a flourishing marketing strategy put into kinetic motion — to build business in both profile and profit.',
+      'Our creative eyes are always looking and breaking down the campaigns of companies who experience the results of a flourishing marketing strategy put into kinetic motion — to build business in both profile and profit',
     icon: (
       <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
         <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
@@ -37,7 +37,7 @@ const values: Value[] = [
     id: 3,
     title: 'Insightfully Social',
     description:
-      'Businesses come in all shapes and sizes. We infuse the latest trends and social insights to connect and build seamless relationships with your target group — available every day, built on a rock-solid foundation.',
+      'Businesses come in all shapes and sizes. We infuse the latest trends and social insights to connect and build seamless relationships with your target group available every day, built on a rock-solid foundation',
     icon: (
       <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
@@ -48,7 +48,7 @@ const values: Value[] = [
     id: 4,
     title: 'Quality Obsessed',
     description:
-      "What sets us apart is our obsession with quality — both in the work we carry out and in the care with which we serve our clients. At MAKEWAYS, we take our work too seriously without taking ourselves seriously.",
+      "What sets us apart is our obsession with quality both in the work we carry out and in the care with which we serve our clients. At MAKEWAYS, we take our work too seriously without taking ourselves seriously",
     icon: (
       <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
@@ -133,13 +133,20 @@ export default function CoreValues() {
           --rule   : #d8d8d8;
           --bg     : #f0f0f0;
         }
-        .cv *, .cv *::before, .cv *::after { box-sizing: border-box; }
+
+        /* Force Eurostile on every element inside .cv */
+        .cv,
+        .cv *,
+        .cv *::before,
+        .cv *::after {
+          box-sizing  : border-box;
+          font-family : 'Eurostile', 'Arial Narrow', sans-serif !important;
+        }
 
         /* ── Section ─────────────────────────────────────────────────────── */
         .cv {
           background  : var(--bg);
           padding     : 96px 60px;
-          font-family : var(--eu);
           width       : 100%;
           overflow-x  : hidden;
         }
@@ -148,10 +155,8 @@ export default function CoreValues() {
           margin    : 0 auto;
         }
 
-        /* ── H2 Section Heading — 36px–48px, weight 800 ─────────────────── */
-        /* Industry standard: H2 Section Title = 36–48px, fw 700–800        */
+        /* ── H2 Heading ──────────────────────────────────────────────────── */
         .cv__heading {
-          font-family    : var(--eu);
           font-weight    : 800;
           font-size      : clamp(36px, 3.75vw, 48px);
           letter-spacing : 8px;
@@ -209,11 +214,8 @@ export default function CoreValues() {
         }
         .cv__card:hover .cv__icon { color: #fff; transform: scale(1.1); }
 
-        /* ── H3/H4 Card Title — 18px–22px, weight 700 ───────────────────── */
-        /* Industry standard: H3 Sub-section = 28–36px, H4 Card = 20–24px   */
-        /* For compact 4-col card layout, clamp(16px–20px) fits well         */
+        /* ── Card Title ──────────────────────────────────────────────────── */
         .cv__title {
-          font-family    : var(--eu);
           font-weight    : 700;
           font-size      : clamp(15px, 1.3vw, 20px);
           letter-spacing : 2px;
@@ -235,16 +237,17 @@ export default function CoreValues() {
         }
         .cv__card:hover .cv__rule { width: 52px; background: var(--orange); }
 
-        /* ── Regular body — 15–16px, lh 1.7 ────────────────────────────── */
-        /* Industry standard: Regular body = 15–17px, lh 1.6–1.7            */
+        /* ── Description — justified ─────────────────────────────────────── */
         .cv__desc {
-          font-family    : var(--eu);
           font-weight    : 400;
           font-size      : clamp(13px, 1vw, 15px);
           color          : var(--muted);
           line-height    : 1.8;
           letter-spacing : 0.2px;
           margin         : 0;
+          text-align     : justify;
+          text-align-last: center;
+          hyphens        : auto;
         }
 
         /* ── Scroll animation ────────────────────────────────────────────── */

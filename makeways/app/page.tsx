@@ -9,6 +9,7 @@ import Founder from '@/components/Founder';
 import Footer from '@/components/Footer';
 import Awards from '@/components/Awards';
 import Portfolio from '@/components/Portfolio';
+import './globals.css';
 
 export default function Home() {
   return (

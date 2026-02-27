@@ -3,60 +3,54 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 interface Testimonial {
-  id: number;
-  name: string;
-  role: string;
-  quote: string;
-  image: string;
+  id    : number;
+  name  : string;
+  role  : string;
+  quote : string;
+  image : string;
 }
 
 const TESTIMONIALS: Testimonial[] = [
   {
-    id: 1,
-    name: 'NIRVANA CHAUDHARY',
-    role: 'MD - CHAUDHARY GROUP',
-    quote:
-      'Our association with Makeways goes beyond a typical client - agency relationship. Their strategic thinking and creativity make them one of the finest agencies in Nepal and my first choice.',
+    id   : 1,
+    name : 'NIRVANA CHAUDHARY',
+    role : 'MD - CHAUDHARY GROUP',
+    quote: 'Our association with Makeways goes beyond a typical client - agency relationship. Their strategic thinking and creativity make them one of the finest agencies in Nepal and my first choice.',
     image: '/images/testimonial/NIRVANACHAUDHARY.png',
   },
   {
-    id: 2,
-    name: 'HIMANSHU GOLCHA',
-    role: 'EXECUTIVE DIRECTOR - HULAS STEEL',
-    quote:
-      'Our experience working with Makeways has been extremely rewarding. What I appreciate about Makeways is their ability to combine creativity with results-driven campaigns.',
+    id   : 2,
+    name : 'HIMANSHU GOLCHA',
+    role : 'EXECUTIVE DIRECTOR - HULAS STEEL',
+    quote: 'Our experience working with Makeways has been extremely rewarding. What I appreciate about Makeways is their ability to combine creativity with results-driven campaigns.',
     image: '/images/testimonial/HIMANSHUGOLCHA.png',
   },
   {
-    id: 3,
-    name: 'MALVIKA SUBBA',
-    role: 'MISS NEPAL / MEDIA PERSON',
-    quote:
-      'Working with Makeways has been a smooth and collaborative experience. They are attentive to detail, responsive to feedback, and committed to delivering top-notch event solutions.',
+    id   : 3,
+    name : 'MALVIKA SUBBA',
+    role : 'MISS NEPAL / MEDIA PERSON',
+    quote: 'Working with Makeways has been a smooth and collaborative experience. They are attentive to detail, responsive to feedback, and committed to delivering top-notch event solutions.',
     image: '/images/testimonial/MalvikaSubba.png',
   },
   {
-    id: 4,
-    name: 'BHUSAN DAHAL',
-    role: 'MEDIA LEADER',
-    quote:
-      'What I admire about Makeways is their storytelling approach. Their campaigns are not just visually appealing but also culturally relevant and emotionally engaging.',
+    id   : 4,
+    name : 'BHUSAN DAHAL',
+    role : 'MEDIA LEADER',
+    quote: 'What I admire about Makeways is their storytelling approach. Their campaigns are not just visually appealing but also culturally relevant and emotionally engaging.',
     image: '/images/testimonial/BHUSANDAHAL.png',
   },
   {
-    id: 5,
-    name: 'SUDIP THAPA',
-    role: 'PRESIDENT - ADVERTISING ASSOCIATION OF NEPAL',
-    quote:
-      'Over the years, I have observed many campaigns from Makeways that have contributed positively to Nepal\'s advertising standards. Their work is thoughtful, well-executed, and impactful.',
+    id   : 5,
+    name : 'SUDIP THAPA',
+    role : 'PRESIDENT - ADVERTISING ASSOCIATION OF NEPAL',
+    quote: "Over the years, I have observed many campaigns from Makeways that have contributed positively to Nepal's advertising standards. Their work is thoughtful, well-executed, and impactful.",
     image: '/images/testimonial/SUDIPTHAPA.png',
   },
   {
-    id: 6,
-    name: 'IRAJ SHRESTHA',
-    role: 'SALES & MARKETING HEAD - GOLDSTAR SHOES',
-    quote:
-      'Makeways stands out because they approach branding with clarity and purpose. Their ideas are not only creative but also aligned with long-term brand positioning.',
+    id   : 6,
+    name : 'IRAJ SHRESTHA',
+    role : 'SALES & MARKETING HEAD - GOLDSTAR SHOES',
+    quote: 'Makeways stands out because they approach branding with clarity and purpose. Their ideas are not only creative but also aligned with long-term brand positioning.',
     image: '/images/testimonial/IRAJSHRESTHA.png',
   },
 ];
@@ -65,294 +59,276 @@ type Phase = 'idle' | 'exit' | 'enter';
 
 export default function Testimonials() {
   const [current, setCurrent] = useState<number>(0);
-  const [phase, setPhase]     = useState<Phase>('idle');
+  const [phase,   setPhase  ] = useState<Phase>('idle');
   const timerRef              = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
 
-  const startTransition = useCallback(
-    (next: number) => {
-      if (phase !== 'idle' || next === current) return;
-      clearInterval(timerRef.current);
-      setPhase('exit');
-      setTimeout(() => {
-        setCurrent(next);
-        setPhase('enter');
-        setTimeout(() => setPhase('idle'), 500);
-      }, 380);
-    },
-    [phase, current]
-  );
+  const startTransition = useCallback((next: number) => {
+    if (phase !== 'idle' || next === current) return;
+    clearInterval(timerRef.current);
+    setPhase('exit');
+    setTimeout(() => {
+      setCurrent(next);
+      setPhase('enter');
+      setTimeout(() => setPhase('idle'), 500);
+    }, 280);
+  }, [phase, current]);
 
   const goNext = useCallback(
     () => startTransition((current + 1) % TESTIMONIALS.length),
-    [current, startTransition]
+    [current, startTransition],
   );
-
   const goPrev = useCallback(
     () => startTransition((current - 1 + TESTIMONIALS.length) % TESTIMONIALS.length),
-    [current, startTransition]
+    [current, startTransition],
   );
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
+    const h = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goNext();
-      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goPrev();
+      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp'  ) goPrev();
     };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    window.addEventListener('keydown', h);
+    return () => window.removeEventListener('keydown', h);
   }, [goNext, goPrev]);
 
   useEffect(() => {
-    if (current === TESTIMONIALS.length - 1) return; // stop at last slide
     timerRef.current = setInterval(goNext, 6000);
     return () => clearInterval(timerRef.current);
-  }, [goNext, current]);
+  }, [goNext]);
 
-  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.style.display = 'none';
+  const onImgError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    (e.currentTarget as HTMLImageElement).style.display = 'none';
   };
 
   const t      = TESTIMONIALS[current];
   const isExit = phase === 'exit';
 
-  /* Animated elements slide up on enter, slide down on exit */
-  const fadeUp = (delay = '0s') => ({
+  const anim = (delay = '0ms'): React.CSSProperties => ({
     opacity   : isExit ? 0 : 1,
-    transform : isExit ? 'translateY(14px)' : 'translateY(0px)',
+    transform : isExit ? 'translateY(-8px)' : 'translateY(0)',
     transition: isExit
-      ? 'opacity 0.30s ease, transform 0.30s ease'
-      : `opacity 0.42s ease ${delay}, transform 0.42s ease ${delay}`,
+      ? 'opacity .20s ease-in, transform .20s ease-in'
+      : `opacity .40s ease-out ${delay}, transform .40s ease-out ${delay}`,
   });
 
+  const photoAnim: React.CSSProperties = {
+    opacity   : isExit ? 0 : 1,
+    transition: isExit ? 'opacity .20s ease-in' : 'opacity .46s ease-out .04s',
+  };
+
   return (
-    <section
-      className="testi"
-      aria-label="Client Testimonials"
-      tabIndex={-1}
-    >
+    <section className="tw" aria-label="Client Testimonials" tabIndex={-1}>
 
-      {/* ═══════════════════ DESKTOP / TABLET ═══════════════════ */}
-      <div className="testi__shell">
+      <div className="tw__shell">
 
-        {/* ─── LEFT PANEL ─── */}
-        <div className="testi__left">
+        {/* ═══ LEFT — text ═══ */}
+        <div className="tw__left">
 
-          {/* Name + Role — ANIMATED */}
-          <div className="testi__meta" style={fadeUp('0s')}>
-            <h3 className="testi__name">{t.name}</h3>
-            <p  className="testi__role">{t.role}</p>
+          {/* Name + Role */}
+          <div className="tw__meta" style={anim('0ms')}>
+            <h3 className="tw__name">{t.name}</h3>
+            <p  className="tw__role">{t.role}</p>
           </div>
 
-          {/* ══ SAYS BLOCK — 100% FROZEN, NEVER ANIMATES ══ */}
-          <div className="testi__says-block" aria-hidden="true">
-            <span className="testi__says">SAYS</span>
-            <span className="testi__about">ABOUT MAKEWAYS</span>
+          {/* SAYS — frozen static */}
+          <div className="tw__says-block" aria-hidden="true">
+            <span className="tw__says">SAYS</span>
+            <span className="tw__about">ABOUT MAKEWAYS</span>
           </div>
 
-          {/* Quote — ANIMATED with slight delay after name */}
-          <p className="testi__quote" style={fadeUp('0.08s')}>
-            {t.quote}
-          </p>
+          {/* Quote — hanging ❝ layout matching PDF exactly */}
+          <div className="tw__quote-wrap" style={anim('55ms')}>
+            {/*
+              PDF layout:
+                ❝  Quote text line 1
+                   Quote text line 2
+                                  ❞
+              The opening mark sits to the LEFT, the body text is
+              indented so it starts to the right of the mark.
+              We achieve this with CSS grid: [mark] [text body].
+            */}
+            <div className="tw__quote-inner">
+              <span className="tw__oq" aria-hidden="true">&ldquo;</span>
+              <div className="tw__quote-body">
+                <p className="tw__quote">{t.quote}</p>
+                <span className="tw__cq" aria-hidden="true">&rdquo;</span>
+              </div>
+            </div>
+          </div>
 
-          {/* Desktop dots */}
-          <nav className="testi__dots" aria-label="Testimonial navigation">
+          {/* Desktop nav dots */}
+          <nav className="tw__dots" aria-label="Testimonial navigation">
             {TESTIMONIALS.map((_, i) => (
               <button
                 key={i}
                 aria-label={`Go to testimonial ${i + 1}`}
                 aria-current={i === current ? 'true' : 'false'}
-                className={`testi__dot${i === current ? ' dot--on' : ''}`}
+                className={`tw__dot${i === current ? ' tw__dot--on' : ''}`}
                 onClick={() => startTransition(i)}
               />
             ))}
           </nav>
         </div>
 
-        {/* ─── RIGHT PANEL — photo ANIMATED ─── */}
-        <div className="testi__right">
+        {/* ═══ RIGHT — portrait ═══ */}
+        <div className="tw__right">
 
-          {/* ── PREV BUTTON — visible from slide 2 onwards ── */}
-          <button
-            className="testi__arrow testi__arrow--prev"
-            onClick={goPrev}
-            aria-label="Previous testimonial (← key)"
-            tabIndex={-1}
-            style={{
-              visibility    : current === 0 ? 'hidden' : 'visible',
-              opacity       : current === 0 ? 0 : 1,
-              pointerEvents : current === 0 ? 'none' : 'auto',
-              transition    : 'opacity 0.30s ease',
-            }}
-          >
-            <span className="arrow__ring">
-              <span className="arrow__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                  strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="15 18 9 12 15 6" />
-                </svg>
-              </span>
-            </span>
-            <span className="arrow__tail arrow__tail--left" />
+          <button className="tw__arrow tw__arrow--prev"
+            onClick={goPrev} aria-label="Previous testimonial" tabIndex={-1}>
+            <Chevron dir="left" />
           </button>
 
+          {/*
+            ── PORTRAIT IMAGE APPROACH ──────────────────────────────
+            These are tall transparent-background PNG cutouts.
+            Goal: person fills the FULL HEIGHT of the panel, centered
+            horizontally, feet anchored to the bottom — exactly as PDF.
+
+            Approach:
+              • Frame: flex, align-items:flex-end, justify:center, overflow:hidden
+              • img:  height:100%, width:auto  → fills panel height, natural width
+              • overflow:hidden clips any width excess cleanly
+
+            This produces the same visual as the Adobe mockup where the
+            full-body portrait stands edge-to-edge vertically in the right half.
+            ──────────────────────────────────────────────────────── */}
           <div
-            className="testi__imgpanel"
+            className="tw__frame"
             role="img"
-            aria-label={t.name}
-            style={{
-              opacity   : isExit ? 0 : 1,
-              transform : isExit ? 'scale(1.045)' : 'scale(1)',
-              transition: isExit
-                ? 'opacity 0.32s ease, transform 0.32s ease'
-                : 'opacity 0.50s ease 0.06s, transform 0.50s ease 0.06s',
-            }}
+            aria-label={`Photo of ${t.name}`}
+            style={photoAnim}
           >
             <img
               key={t.id}
               src={t.image}
               alt={t.name}
-              className="testi__img"
-              onError={handleImgError}
+              className="tw__img"
+              onError={onImgError}
             />
           </div>
 
-          {/* ── NEXT BUTTON — hidden on last slide ── */}
-          <button
-            className="testi__arrow testi__arrow--next"
-            onClick={goNext}
-            aria-label="Next testimonial (→ key)"
-            style={{
-              visibility    : current === TESTIMONIALS.length - 1 ? 'hidden' : 'visible',
-              opacity       : current === TESTIMONIALS.length - 1 ? 0 : 1,
-              pointerEvents : current === TESTIMONIALS.length - 1 ? 'none' : 'auto',
-              transition    : 'opacity 0.30s ease',
-            }}
-          >
-            <span className="arrow__tail arrow__tail--right" />
-            <span className="arrow__ring">
-              <span className="arrow__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                  strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
-              </span>
-            </span>
+          <button className="tw__arrow tw__arrow--next"
+            onClick={goNext} aria-label="Next testimonial">
+            <Chevron dir="right" />
           </button>
         </div>
       </div>
 
-      {/* ─── Mobile dots ─── */}
-      <nav className="testi__mobile-dots" aria-label="Testimonial navigation">
+      {/* Mobile dots */}
+      <nav className="tw__mobile-dots" aria-label="Testimonial navigation">
         {TESTIMONIALS.map((_, i) => (
-          <button
-            key={i}
-            aria-label={`Go to testimonial ${i + 1}`}
-            className={`testi__dot${i === current ? ' dot--on' : ''}`}
-            onClick={() => startTransition(i)}
-          />
+          <button key={i} aria-label={`Go to testimonial ${i + 1}`}
+            className={`tw__dot${i === current ? ' tw__dot--on' : ''}`}
+            onClick={() => startTransition(i)} />
         ))}
       </nav>
 
       <style jsx>{`
 
-        /* ══ FONT FACES ══ */
+        /* ══════════════════════════════════════
+           EUROSTILE FONT STACK
+           weight 400 = Regular
+           weight 700 = Bold
+           weight 800 = T-Bold  
+           weight 900 = Extended Bold  ← SAYS uses this
+           EurostileCnd = Condensed Bold  ← role + ABOUT uses this
+        ══════════════════════════════════════ */
         @font-face {
           font-family : 'Eurostile';
           src         : url('/fonts/FONTS/EurostileExt-Normal Regular.ttf') format('truetype');
-          font-weight : 400;
-          font-style  : normal;
-          font-display: swap;
+          font-weight : 400; font-style: normal; font-display: swap;
         }
         @font-face {
           font-family : 'Eurostile';
           src         : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
-          font-weight : 700;
-          font-style  : normal;
-          font-display: swap;
+          font-weight : 700; font-style: normal; font-display: swap;
         }
         @font-face {
           font-family : 'Eurostile';
           src         : url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
-          font-weight : 800;
-          font-style  : normal;
-          font-display: swap;
+          font-weight : 800; font-style: normal; font-display: swap;
         }
         @font-face {
           font-family : 'Eurostile';
           src         : url('/fonts/FONTS/EurostileExt-Bold Regular.ttf') format('truetype');
-          font-weight : 900;
-          font-style  : normal;
-          font-display: swap;
+          font-weight : 900; font-style: normal; font-display: swap;
         }
         @font-face {
           font-family : 'EurostileCnd';
           src         : url('/fonts/FONTS/EurostileCnd-Bold Regular.ttf') format('truetype');
-          font-weight : 700;
-          font-style  : normal;
-          font-display: swap;
+          font-weight : 700; font-style: normal; font-display: swap;
         }
 
-        /* ══ DESIGN TOKENS ══ */
-        .testi {
-          --orange  : #F5A623;
-          --bg      : #C8C8C8;
-          --dark    : #2A2A2A;
-          --grey    : #3A3A3A;
-          --subgrey : #555555;
-          --divider : rgba(0,0,0,0.10);
-          --h       : clamp(380px, 48vw, 580px);
+        /* ══════════════════════════════════════
+           DESIGN TOKENS — sampled from PDF
+        ══════════════════════════════════════ */
+        .tw {
+          --orange    : #F0A500;   /* brand amber — name, SAYS                  */
+          --bg        : #C8C8C8;   /* flat uniform grey                          */
+          --role-col  : #3C3C3C;   /* role dark charcoal                         */
+          --about-col : #8A8A8A;   /* ABOUT MAKEWAYS mid-grey                    */
+          --quote-col : #303030;   /* quote body                                 */
+          --oq-col    : #ADADAD;   /* ❝ ❞ light grey                            */
+          --dot-off   : rgba(0,0,0,.22);
+          --dot-on    : #1C1C1C;
+          --arrow-col : #F0A500;
+          --arrow-hov : #C88000;
+
+          /*
+           * SPLIT: left=46%, right=54%
+           * In the PDF the photo panel is WIDER than the text panel.
+           * This lets the person start near the horizontal center of
+           * the whole component — matching the PDF proportion exactly.
+           */
+          --split  : 46%;
+          --h      : clamp(420px, 48vw, 630px);
+          --pad-l  : clamp(36px, 5.5vw, 96px);
+          --pad-r  : clamp(16px, 2vw, 36px);
 
           background : var(--bg);
           width      : 100%;
           overflow   : hidden;
           outline    : none;
-          font-family: 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family: 'Eurostile', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
         }
 
-        /* ══ SHELL — left ~45%, right ~55% ══ */
-        .testi__shell {
+        .tw__shell {
           display    : flex;
           align-items: stretch;
           height     : var(--h);
           width      : 100%;
         }
 
-        /* ══ LEFT PANEL ══ */
-        .testi__left {
-          flex           : 0 0 45%;
+        /* ══════════════════════
+           LEFT — text panel
+        ══════════════════════ */
+        .tw__left {
+          flex           : 0 0 var(--split);
           min-width      : 0;
           display        : flex;
           flex-direction : column;
           justify-content: center;
-          padding        : 0 clamp(20px, 2.4vw, 40px) 0 clamp(32px, 5.5vw, 88px);
-          gap            : 0;
+          padding        : 0 var(--pad-r) 0 var(--pad-l);
           position       : relative;
           z-index        : 2;
         }
 
-        /* Subtle vertical divider */
-        .testi__left::after {
-          content   : '';
-          position  : absolute;
-          right     : 0;
-          top       : 8%;
-          height    : 84%;
-          width     : 1px;
-          background: var(--divider);
-        }
-
-        /* ── Name + Role wrapper — animated together ── */
-        .testi__meta {
+        /* ── Name ── */
+        .tw__meta {
           display       : flex;
           flex-direction: column;
-          gap           : 5px;
-          margin-bottom : 0;
+          gap           : 4px;
+          will-change   : opacity, transform;
         }
 
-        /* Name: LARGE + ORANGE — matching PDF */
-        .testi__name {
+        /*
+         * NAME — orange, Eurostile Bold, uppercase, tracked
+         * Matches the orange name text in every PDF slide exactly.
+         */
+        .tw__name {
           font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-size     : clamp(18px, 2.2vw, 30px);
-          font-weight   : 800;
+          font-size     : clamp(14px, 1.6vw, 22px);
+          font-weight   : 700;
           color         : var(--orange);
           letter-spacing: 2px;
           text-transform: uppercase;
@@ -360,264 +336,342 @@ export default function Testimonials() {
           margin        : 0;
         }
 
-        /* Role: small, dark, condensed caps */
-        .testi__role {
+        /*
+         * ROLE — dark, EurostileCnd, small caps tracking
+         * "MD - CHAUDHARY GROUP" style.
+         */
+        .tw__role {
           font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-size     : clamp(8px, 0.72vw, 11.5px);
+          font-size     : clamp(8px, 0.68vw, 11px);
           font-weight   : 700;
-          color         : var(--grey);
-          letter-spacing: 3.8px;
+          color         : var(--role-col);
+          letter-spacing: 3.2px;
           text-transform: uppercase;
           margin        : 0;
-          line-height   : 1.2;
+          line-height   : 1.1;
         }
 
-        /* ══════════════════════════════════════════
-           SAYS BLOCK — COMPLETELY STATIC, FROZEN
-           No animation. No transition. Ever.
-        ══════════════════════════════════════════ */
-        .testi__says-block {
+        /* ── SAYS block — absolutely frozen, zero animation ever ── */
+        .tw__says-block {
           display       : flex;
           flex-direction: column;
-          line-height   : 1;
-          margin-top    : -4px;
-          isolation     : isolate;
-        }
-
-        .testi__says {
-          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-size     : clamp(90px, 14.5vw, 190px);
-          font-weight   : 900;
-          color         : var(--orange);
-          letter-spacing: -6px;
-          line-height   : 0.78;
-          text-transform: uppercase;
-          display       : block;
-          margin-left   : -4px;
-          transform     : none !important;
-          opacity       : 1   !important;
+          pointer-events: none;
+          user-select   : none;
+          will-change   : auto;
           transition    : none !important;
           animation     : none !important;
-          will-change   : auto;
+          transform     : none !important;
+          opacity       : 1   !important;
         }
 
-        /* "ABOUT MAKEWAYS" — small tracking label, frozen */
-        .testi__about {
+        /*
+         * SAYS
+         * Eurostile Extended Bold (weight 900) — the widest, heaviest cut.
+         * Dominant visual element. Sized so it fills ~60% of left panel width.
+         * PDF shows no letter-spacing (Extended Bold glyphs are already very wide).
+         */
+        .tw__says {
+          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size     : clamp(90px, 14.5vw, 195px);
+          font-weight   : 900;
+          color         : var(--orange);
+          letter-spacing: -3px;
+          line-height   : 0.82;
+          text-transform: uppercase;
+          display       : block;
+          margin-left   : -3px;   /* optical glyph alignment */
+          transition    : none !important;
+          animation     : none !important;
+          transform     : none !important;
+          opacity       : 1   !important;
+        }
+
+        /*
+         * ABOUT MAKEWAYS
+         * EurostileCnd Bold, tiny, very wide letter-spacing.
+         * Sits below SAYS as a small label — identical to PDF.
+         */
+        .tw__about {
           font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-size     : clamp(7px, 0.55vw, 9.5px);
+          font-size     : clamp(7px, 0.56vw, 9.5px);
           font-weight   : 700;
-          color         : #3A3A3A;
+          color         : var(--about-col);
           letter-spacing: 6px;
           text-transform: uppercase;
           display       : block;
-          margin-top    : 14px;
+          margin-top    : 10px;
           padding-left  : 3px;
-          transform     : none !important;
-          opacity       : 1   !important;
           transition    : none !important;
           animation     : none !important;
+          transform     : none !important;
+          opacity       : 1   !important;
         }
 
-        /* ── Quote — matches PDF body style ── */
-        .testi__quote {
+        /* ── Quote block ── */
+        .tw__quote-wrap {
+          margin-top  : 14px;
+          margin-bottom: 20px;
+          max-width   : 470px;
+          will-change : opacity, transform;
+        }
+
+        /*
+         * HANGING QUOTE LAYOUT — matches PDF exactly
+         * PDF shows:  ❝  text text text text
+         *                text text text text
+         *                                 ❞
+         * The ❝ is to the LEFT of the text block.
+         * We use CSS grid with two columns: [mark] [body]
+         */
+        .tw__quote-inner {
+          display              : grid;
+          grid-template-columns: auto 1fr;
+          gap                  : 0 8px;
+          align-items          : start;
+        }
+
+        /* Opening ❝ — Eurostile, light grey, large */
+        .tw__oq {
           font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-size     : clamp(13px, 1.05vw, 16px);
+          font-size     : clamp(30px, 3.2vw, 46px);
+          font-weight   : 700;
+          color         : var(--oq-col);
+          line-height   : 1;
+          margin-top    : 0;
+          user-select   : none;
+          /* Align the mark top with first line of text */
+          padding-top   : 0.05em;
+        }
+
+        .tw__quote-body {
+          display       : flex;
+          flex-direction: column;
+        }
+
+        /* Quote body — Eurostile regular italic, dark grey */
+        .tw__quote {
+          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size     : clamp(12.5px, 1.05vw, 15px);
           font-weight   : 400;
-          color         : #2C2C2C;
-          line-height   : 1.80;
-          letter-spacing: 0.15px;
-          max-width     : 420px;
-          margin-top    : 20px;
-          margin-bottom : 28px;
+          font-style    : italic;
+          color         : var(--quote-col);
+          line-height   : 1.85;
+          letter-spacing: 0.1px;
+          margin        : 0;
           padding       : 0;
         }
 
-        /* ══ DOTS ══ */
-        .testi__dots {
-          display    : flex;
-          align-items: center;
-          gap        : 10px;
+        /* Closing ❞ — same Eurostile, light grey, right-aligned after body */
+        .tw__cq {
+          font-family : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size   : clamp(20px, 2.2vw, 30px);
+          font-weight : 700;
+          color       : var(--oq-col);
+          line-height : 1;
+          display     : inline-block;
+          margin-top  : 2px;
+          align-self  : flex-start;
+          user-select : none;
         }
 
-        .testi__mobile-dots {
+        /* ── Nav dots ── */
+        .tw__dots {
+          display    : flex;
+          align-items: center;
+          gap        : 9px;
+        }
+        .tw__mobile-dots {
           display        : none;
           justify-content: center;
           align-items    : center;
-          gap            : 10px;
-          padding        : 18px 0 24px;
+          gap            : 9px;
+          padding        : 16px 0 22px;
+          background     : var(--bg);
         }
-
-        .testi__dot {
+        .tw__dot {
           width        : 8px;
           height       : 8px;
           border-radius: 50%;
           border       : none;
-          background   : #A8A8A8;
+          background   : var(--dot-off);
           cursor       : pointer;
           padding      : 0;
-          transition   : background 0.22s, transform 0.22s;
+          flex-shrink  : 0;
+          transition   : background .20s, transform .20s;
         }
-        .dot--on { background: var(--dark); transform: scale(1.45); }
-        .testi__dot:hover:not(.dot--on) { background: #666; }
-        .testi__dot:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+        .tw__dot--on                     { background: var(--dot-on); transform: scale(1.5); }
+        .tw__dot:hover:not(.tw__dot--on) { background: rgba(0,0,0,.42); }
+        .tw__dot:focus-visible           { outline: 2px solid var(--orange); outline-offset: 3px; }
 
-        /* ══ RIGHT PANEL — wider, full-bleed photo ══ */
-        .testi__right {
-          position   : relative;
-          flex       : 0 0 55%;
-          overflow   : hidden;
-        }
-
-        .testi__imgpanel {
-          position: absolute;
-          inset   : 0;
-          z-index : 1;
-        }
-
-        .testi__img {
-          width          : 100%;
-          height         : 100%;
-          object-fit     : cover;
-          object-position: center top;
-          display        : block;
+        /* ══════════════════════
+           RIGHT — photo panel
+        ══════════════════════ */
+        .tw__right {
+          position  : relative;
+          flex      : 1 1 0;   /* fills remaining 54% */
+          min-width : 0;
+          overflow  : hidden;
+          background: var(--bg);
         }
 
-        /* ══════════════════════════════════════════════
-           ARROW BUTTONS — redesigned cute pill style
-        ══════════════════════════════════════════════ */
-        .testi__arrow {
+        /*
+         * FRAME
+         * flex, align-items:flex-end  → anchors feet to bottom
+         * justify-content:center      → horizontally centered
+         * overflow:hidden             → clips any width excess
+         *
+         * This matches the PDF precisely: person stands at bottom,
+         * fills full panel height, centered in the right half.
+         */
+        .tw__frame {
+          position       : absolute;
+          inset          : 0;
+          z-index        : 1;
+          display        : flex;
+          align-items    : flex-end;
+          justify-content: center;
+          overflow       : hidden;
+          will-change    : opacity;
+        }
+
+        /*
+         * IMG
+         * height:100%, width:auto
+         * → fills full panel height (no shrinking, no object-fit box issues)
+         * → width scales naturally from the PNG's aspect ratio
+         * → overflow:hidden on .tw__frame clips any horizontal excess
+         *
+         * This is the EXACT approach needed for tall portrait PNGs
+         * to display full-body as in the client's Adobe mockup.
+         */
+        .tw__img {
+          height     : 100%;
+          width      : auto;
+          display    : block;
+          flex-shrink: 0;
+        }
+
+        /* ── Orange triangle arrows ── */
+        .tw__arrow {
           position       : absolute;
           top            : 50%;
           transform      : translateY(-50%);
-          display        : flex;
-          align-items    : center;
-          background     : none;
+          width          : 46px;
+          height         : 46px;
+          background     : var(--arrow-col);
           border         : none;
           cursor         : pointer;
+          display        : flex;
+          align-items    : center;
+          justify-content: center;
           z-index        : 20;
-          padding        : 0;
-          gap            : 0;
+          transition     : background .15s, opacity .15s;
         }
-        .testi__arrow:focus-visible { outline: 2px solid var(--orange); outline-offset: 4px; border-radius: 999px; }
+        .tw__arrow svg    { width: 14px; height: 14px; flex-shrink: 0; }
+        .tw__arrow:hover  { background: var(--arrow-hov); }
+        .tw__arrow:active { opacity: .65; }
+        .tw__arrow:focus-visible { outline: 2px solid var(--dot-on); outline-offset: 2px; }
 
-        /* The circular ring badge */
-        .arrow__ring {
-          position       : relative;
-          width          : 52px;
-          height         : 52px;
-          border-radius  : 50%;
-          background     : var(--orange);
-          display        : flex;
-          align-items    : center;
-          justify-content: center;
-          box-shadow     : 0 4px 18px rgba(245,166,35,0.45), 0 1px 4px rgba(0,0,0,0.18);
-          transition     : transform 0.22s cubic-bezier(.34,1.56,.64,1),
-                           box-shadow 0.22s ease,
-                           background 0.18s ease;
-          flex-shrink    : 0;
-          z-index        : 2;
+        .tw__arrow--next {
+          right       : 0;
+          clip-path   : polygon(0 0, 100% 50%, 0 100%);
+          padding-left: 10px;
         }
-
-        .testi__arrow:hover .arrow__ring {
-          transform : scale(1.12);
-          background: #e8950f;
-          box-shadow: 0 6px 28px rgba(245,166,35,0.60), 0 2px 6px rgba(0,0,0,0.20);
-        }
-        .testi__arrow:active .arrow__ring {
-          transform : scale(0.94);
-          box-shadow: 0 2px 10px rgba(245,166,35,0.35);
-        }
-
-        /* Inner icon */
-        .arrow__icon {
-          display        : flex;
-          align-items    : center;
-          justify-content: center;
-          color          : #fff;
-          line-height    : 0;
-        }
-        .arrow__icon svg {
-          width : 18px;
-          height: 18px;
-        }
-
-        /* The decorative horizontal tail line */
-        .arrow__tail {
-          display   : block;
-          height    : 2px;
-          width     : 28px;
-          background: linear-gradient(to right, rgba(245,166,35,0.7), rgba(245,166,35,0));
-          flex-shrink: 0;
-          transition: width 0.22s ease, opacity 0.22s ease;
-        }
-        .arrow__tail--left {
-          background: linear-gradient(to left, rgba(245,166,35,0.7), rgba(245,166,35,0));
-        }
-        .testi__arrow:hover .arrow__tail { width: 38px; opacity: 1; }
-
-        /* NEXT — positioned on the right edge */
-        .testi__arrow--next {
-          right      : 0;
-          flex-direction: row-reverse;
-          padding-right: 0;
-        }
-
-        /* PREV — positioned on the left edge */
-        .testi__arrow--prev {
+        /* Prev hidden desktop */
+        .tw__arrow--prev {
           left          : 0;
-          flex-direction: row;
+          clip-path     : polygon(100% 0, 0 50%, 100% 100%);
+          padding-right : 10px;
+          visibility    : hidden;
+          pointer-events: none;
+          opacity       : 0;
         }
 
-        /* ══ TABLET ≤ 960px ══ */
+        /* ══════════════════════
+           TABLET ≤ 960px
+        ══════════════════════ */
         @media (max-width: 960px) {
-          .testi__left  { padding: 0 18px 0 5vw; flex: 0 0 48%; }
-          .testi__right { flex: 0 0 52%; }
-          .testi__says  { font-size: clamp(80px, 15vw, 140px); }
-          .testi__name  { font-size: clamp(16px, 2.4vw, 26px); }
-          .testi__quote { font-size: clamp(12px, 1.3vw, 15px); }
+          .tw { --split: 48%; }
+          .tw__left  { padding: 0 16px 0 5vw; }
+          .tw__says  { font-size: clamp(76px, 14.5vw, 150px); }
+          .tw__name  { font-size: clamp(13px, 1.65vw, 19px); }
+          .tw__quote { font-size: clamp(12px, 1.35vw, 14.5px); }
         }
 
-        /* ══ MOBILE ≤ 700px ══ */
+        /* ══════════════════════
+           MOBILE ≤ 700px
+        ══════════════════════ */
         @media (max-width: 700px) {
-          .testi__shell { flex-direction: column; height: auto; }
-          .testi__right {
-            flex: none; width: 100%; height: 60vw;
-            min-height: 220px; max-height: 340px; order: 1;
+          .tw__shell { flex-direction: column; height: auto; }
+
+          .tw__right {
+            order     : 1;
+            flex      : none;
+            width     : 100%;
+            height    : 78vw;
+            min-height: 280px;
+            max-height: 480px;
           }
-          .testi__left {
-            flex: none; width: 100%; order: 2;
+          /* On mobile centre vertically — head mustn't be cut */
+          .tw__frame  { align-items: center; }
+
+          .tw__arrow--prev {
+            visibility: visible; opacity: 1; pointer-events: auto;
+            display: flex; left: 0; width: 48px; height: 48px;
+          }
+          .tw__arrow--next { width: 48px; height: 48px; }
+
+          .tw__left {
+            order: 2; flex: none; width: 100%;
             padding: 28px 24px 14px;
           }
-          .testi__img { object-position: center 10%; }
-          .testi__left::after { display: none; }
-          .testi__dots        { display: none; }
-          .testi__mobile-dots { display: flex; }
+          .tw__dots        { display: none; }
+          .tw__mobile-dots { display: flex; }
 
-          .testi__says  { font-size: clamp(68px, 23vw, 110px); }
-          .testi__name  { font-size: clamp(16px, 5vw, 22px); }
-          .testi__quote { font-size: 15px; line-height: 1.75; margin-bottom: 0; }
-          .testi__about { margin-top: 10px; }
-
-          /* Slightly smaller arrows on mobile */
-          .arrow__ring  { width: 44px; height: 44px; }
-          .arrow__tail  { width: 18px; }
-          .testi__arrow:hover .arrow__tail { width: 24px; }
+          .tw__says       { font-size: clamp(70px, 22vw, 115px); }
+          .tw__name       { font-size: clamp(14px, 5vw, 20px); }
+          .tw__quote      { font-size: 14px; line-height: 1.74; }
+          .tw__quote-wrap { margin-bottom: 6px; }
+          .tw__about      { margin-top: 8px; }
+          .tw__oq         { font-size: clamp(24px, 6vw, 38px); }
         }
 
-        /* ══ SMALL PHONE ≤ 420px ══ */
+        /* ══════════════════════
+           SMALL PHONE ≤ 420px
+        ══════════════════════ */
         @media (max-width: 420px) {
-          .testi__right { height: 64vw; }
-          .testi__left  { padding: 22px 18px 10px; }
-          .testi__says  { font-size: clamp(52px, 26vw, 84px); }
-          .testi__name  { font-size: clamp(14px, 5.5vw, 18px); }
-          .testi__quote { font-size: 14px; line-height: 1.7; }
-          .testi__role  { font-size: clamp(8px, 2.8vw, 11px); }
+          .tw__right { height: 82vw; max-height: 380px; }
+          .tw__left  { padding: 20px 16px 12px; }
+          .tw__arrow--prev,
+          .tw__arrow--next { width: 40px; height: 40px; }
+          .tw__says   { font-size: clamp(52px, 25vw, 86px); }
+          .tw__name   { font-size: clamp(13px, 5.5vw, 17px); }
+          .tw__quote  { font-size: 13px; }
+          .tw__role   { font-size: clamp(8px, 2.8vw, 10.5px); }
+        }
 
-          .arrow__ring  { width: 38px; height: 38px; }
-          .arrow__icon svg { width: 15px; height: 15px; }
-          .arrow__tail  { width: 12px; }
+        /* ══════════════════════
+           Reduced motion
+        ══════════════════════ */
+        @media (prefers-reduced-motion: reduce) {
+          .tw__meta, .tw__quote-wrap, .tw__frame {
+            transition: opacity .15s linear !important;
+            transform : none !important;
+          }
         }
       `}</style>
     </section>
+  );
+}
+
+function Chevron({ dir }: { dir: 'left' | 'right' }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff"
+      strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {dir === 'right'
+        ? <polyline points="9 18 15 12 9 6" />
+        : <polyline points="15 18 9 12 15 6" />
+      }
+    </svg>
   );
 }

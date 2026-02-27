@@ -129,10 +129,11 @@ export default function Portfolio() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 16px;
+          gap: 20px;
           text-decoration: none;
           cursor: pointer;
           -webkit-tap-highlight-color: transparent;
+          width: clamp(110px, 14vw, 180px);
         }
 
         /* Circle — dark charcoal by default */
@@ -176,6 +177,9 @@ export default function Portfolio() {
           text-transform: uppercase;
           letter-spacing: 0.15em;
           pointer-events: none;
+          display: block;
+          width: 100%;
+          text-align: center;
         }
 
         /* Mobile */

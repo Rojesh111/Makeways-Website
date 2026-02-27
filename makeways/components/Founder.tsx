@@ -4,32 +4,30 @@ export default function Founder() {
   return (
     <section className="founder-section">
       <div className="founder-inner">
-        {/* FOUNDER background text */}
         <h1 className="founder-title">FOUNDER</h1>
 
-        {/* Photo */}
         <div className="founder-photo">
-          <img
-            src="/images/BIDHAN.png"
-            alt="Bidhan Rajbhandari"
-          />
+          <img src="/images/BIDHAN.png" alt="Bidhan Rajbhandari" />
         </div>
 
-        {/* Name + quote */}
         <div className="founder-info">
           <h2 className="founder-name">
             BIDHAN<br />
             RAJBHANDARI
           </h2>
-          <p className="founder-quote">
-            At MAKEWAYS, we take our work too seriously without
-            taking ourselves seriously.
-          </p>
+          <blockquote className="founder-quote">
+            <span className="quote-open">"</span>
+            <p className="quote-text">
+              MAKEWAYS was born from a simple belief — that great creative work can change how people feel about a brand.
+              We've built this agency on honesty, craft, and an obsession with getting things right.
+              From TVCs to jingles, every project we take on gets our full heart. We don't chase awards.
+              We chase impact. And somewhere along the way, the awards follow. That's the MAKEWAYS way.
+            </p>
+          </blockquote>
         </div>
       </div>
 
       <style jsx>{`
-        /* ── SECTION ── */
         .founder-section {
           background: #D4D4D0;
           width: 100%;
@@ -38,31 +36,28 @@ export default function Founder() {
           overflow: hidden;
         }
 
-        /* ══════════════════════════════════════
-           DESKTOP  (> 768px) — original layout
-        ══════════════════════════════════════ */
         .founder-inner {
           position: relative;
           width: 100%;
           max-width: 1400px;
-          height: 520px;
+          height: 655px;
           overflow: hidden;
         }
 
         .founder-title {
           position: absolute;
           top: 0;
-          left: 15%;
+          left: 8%;
           right: 0;
           font-family: 'Eurostile', 'Arial Black', sans-serif;
           font-size: clamp(80px, 14vw, 200px);
-          font-weight: 1000;
+          font-weight: 900;
           color: #FF8C00;
           letter-spacing: 0.1em;
           text-transform: uppercase;
           line-height: 1;
           margin: 0;
-          padding: 0;
+          padding: 0 0 0 2%;
           z-index: 1;
           white-space: nowrap;
         }
@@ -70,9 +65,9 @@ export default function Founder() {
         .founder-photo {
           position: absolute;
           bottom: 0;
-          left: 22%;
+          left: 15%;
           z-index: 2;
-          width: min(35vw, 350px);
+          width: min(52vw, 520px);
         }
 
         .founder-photo img {
@@ -84,81 +79,94 @@ export default function Founder() {
 
         .founder-info {
           position: absolute;
-          left: calc(22% + min(34vw, 350px) + 28px);
+          left: calc(17% + min(52vw, 520px) + 40px);
           top: 55%;
           transform: translateY(-50%);
           z-index: 3;
           display: flex;
           flex-direction: column;
-          gap: 16px;
-          max-width: 320px;
+          gap: 20px;
+          max-width: 340px;
         }
 
         .founder-name {
           font-family: 'Eurostile', 'Arial Black', sans-serif;
-          font-size: clamp(20px, 2.4vw, 38px);
-          font-weight: 800;
-          color: #666666;
+          font-size: clamp(24px, 2.2vw, 34px);
+          font-weight: 900;
+          color: #555555;
           letter-spacing: 0.06em;
           text-transform: uppercase;
           line-height: 1.1;
           margin: 0;
+          padding-bottom: 12px;
+          border-bottom: 1px solid #aaaaaa;
         }
 
         .founder-quote {
+          position: relative;
+          margin: 0;
+          padding: 0 0 0 16px;
+          border-left: 3px solid #FF8C00;
+        }
+
+        .quote-open {
+          display: block;
+          font-family: 'Eurostile', 'Arial Black', sans-serif;
+          font-size: clamp(40px, 4vw, 64px);
+          color: #FF8C00;
+          line-height: 0.5;
+          margin-bottom: 12px;
+        }
+
+        .quote-text {
           font-family: 'Eurostile', 'Arial', sans-serif;
-          font-size: clamp(12px, 0.9vw, 15px);
+          font-size: clamp(11px, 0.85vw, 13px);
           font-weight: 400;
           color: #666666;
-          line-height: 1.7;
-          letter-spacing: 0.01em;
+          line-height: 1.9;
+          letter-spacing: 0.03em;
           margin: 0;
+          font-style: normal;
         }
 
         /* ── 1024px ── */
         @media (max-width: 1024px) {
           .founder-inner { height: 460px; }
           .founder-title { font-size: clamp(70px, 11vw, 130px); }
-          .founder-photo { left: 18%; width: min(36vw, 320px); }
+          .founder-photo { left: 15%; width: min(38vw, 340px); }
           .founder-info {
-            left: calc(18% + min(38vw, 320px) + 20px);
+            left: calc(15% + min(38vw, 340px) + 28px);
             max-width: 280px;
           }
         }
 
-        /* ══════════════════════════════════════
-           MOBILE  (≤ 768px)
-           Grid layout: FOUNDER top, photo + info side by side below.
-           No gaps, no absolute positioning.
-        ══════════════════════════════════════ */
+        /* ── MOBILE ≤ 768px ── */
         @media (max-width: 768px) {
           .founder-inner {
             height: auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: auto 1fr;
+            display: flex;
+            flex-direction: column;
+            position: relative;
           }
 
-          /* Row 1: FOUNDER spans both columns */
           .founder-title {
             position: static;
-            grid-column: 1 / -1;
-            grid-row: 1;
             font-size: clamp(44px, 14vw, 90px);
             white-space: nowrap;
             letter-spacing: 0.05em;
-            line-height: 0.9;
-            padding: 0 4vw;
+            line-height: 1;
+            padding: 16px 4vw 0;
             margin: 0;
+            text-align: center;
+            z-index: 1;
           }
 
-          /* Row 2, col 1: photo anchored to bottom */
           .founder-photo {
             position: static;
-            grid-column: 1;
-            grid-row: 2;
-            width: 100%;
-            align-self: end;
+            width: 80%;            
+            align-self: center;
+            margin-top: -35px;
+            z-index: 2;
           }
 
           .founder-photo img {
@@ -167,25 +175,26 @@ export default function Founder() {
             display: block;
           }
 
-          /* Row 2, col 2: name + quote centered vertically */
           .founder-info {
             position: static;
-            grid-column: 2;
-            grid-row: 2;
             transform: none;
-            align-self: center;
-            padding: 12px 4vw 12px 2vw;
-            gap: 10px;
+            padding: 20px 6vw 32px;
+            gap: 12px;
             max-width: 100%;
+            z-index: 3;
           }
 
           .founder-name {
-            font-size: clamp(13px, 3.5vw, 22px);
+            font-size: clamp(18px, 5.5vw, 28px);
           }
 
-          .founder-quote {
-            font-size: clamp(10px, 2vw, 13px);
-            line-height: 1.55;
+          .quote-open {
+            font-size: clamp(30px, 7vw, 50px);
+          }
+
+          .quote-text {
+            font-size: clamp(11px, 3vw, 14px);
+            line-height: 1.7;
           }
         }
 
@@ -193,25 +202,22 @@ export default function Founder() {
         @media (max-width: 480px) {
           .founder-title {
             font-size: clamp(36px, 13.5vw, 58px);
-            padding: 0 3vw;
+            padding: 12px 3vw 0;
+            text-align: center;
           }
-          .founder-name {
-            font-size: clamp(11px, 3.8vw, 18px);
-          }
-          .founder-quote {
-            font-size: clamp(9px, 2.2vw, 12px);
-          }
-          .founder-info {
-            padding: 8px 3vw 8px 1vw;
-            gap: 7px;
-          }
+          .founder-name { font-size: clamp(15px, 5vw, 22px); }
+          .quote-text { font-size: clamp(10px, 2.8vw, 13px); }
+          .founder-info { padding: 16px 5vw 28px; gap: 10px; }
         }
 
         /* ── 360px ── */
         @media (max-width: 360px) {
-          .founder-title { font-size: 33px; }
-          .founder-name { font-size: 10px; }
-          .founder-quote { font-size: 8.5px; }
+          .founder-title { 
+            font-size: 33px;
+            text-align: center;
+          }
+          .founder-name { font-size: 14px; }
+          .quote-text { font-size: 10px; }
         }
       `}</style>
     </section>

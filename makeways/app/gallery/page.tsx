@@ -353,7 +353,7 @@ export default function GalleryPage() {
           <div className="hero__in">
             <p className="hero__eyebrow">MAKEWAYS PVT. LTD.</p>
             <h1 className="hero__title">
-              <span className="hero__title--black">GAL</span><span className="hero__title--orange">LERY</span>
+              <span className="hero__title--orange">GALLERY</span>
             </h1>
             <p className="hero__sub">
               A collection of our campaigns, events, awards and behind-the-scenes moments.
@@ -363,11 +363,9 @@ export default function GalleryPage() {
 
         {/* ── COUNT BAR ─────────────────────────────────────────────────── */}
         <div className="countbar">
-          <div className="countbar__in">
-            <span className="countbar__num">{galleryItems.length} POSTS</span>
-            <div className="countbar__divider" />
-            <span className="countbar__tag">PHOTOS &amp; VIDEOS</span>
-          </div>
+          <div className='countbar__inner'>
+            <span className="countbar__tag">IMAGES & VIDEOS</span>
+          </div>  
         </div>
 
         {/* ── INSTAGRAM-STYLE GRID ──────────────────────────────────────── */}
@@ -423,7 +421,6 @@ export default function GalleryPage() {
           font-weight: 900; letter-spacing: -1px; line-height: 0.95;
           text-transform: uppercase; margin-bottom: 20px;
         }
-        .hero__title--black  { color: #111; }
         .hero__title--orange { color: #F5A623; }
         .hero__sub {
           font-family: 'Barlow', sans-serif;
@@ -431,22 +428,22 @@ export default function GalleryPage() {
         }
 
         /* ── COUNT BAR ────────────────────────────────────────────────── */
-        .countbar { background: #fff; border-bottom: 1px solid #eee; }
-        .countbar__in {
-          max-width: 935px; margin: 0 auto;
+        .countbar { 
+          background: #fff; 
+          border-bottom: 1px solid #eee;
           padding: 18px 20px;
-          display: flex; align-items: center; gap: 20px;
         }
-        .countbar__num {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 16px; font-weight: 700; letter-spacing: 2px; color: #111;
-        }
-        .countbar__divider {
-          width: 1px; height: 18px; background: #ddd;
+        .countbar__inner {
+          max-width: 935px;
+          margin: 0 auto;
         }
         .countbar__tag {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 14px; font-weight: 700; letter-spacing: 2px; color: #aaa;
+          font-family: 'Eurostile';
+          font-size: 14px;
+          font-weight: 700;
+          letter-spacing: 2px;
+          color: #111;
+          text-transform: uppercase;
         }
 
         /* ── GRID ─────────────────────────────────────────────────────── */

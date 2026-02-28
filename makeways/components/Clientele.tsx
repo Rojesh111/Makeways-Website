@@ -303,7 +303,7 @@ export default function Clientele() {
       <style jsx>{`
         @font-face {
           font-family  : 'Eurostile';
-          src          : url('/fonts/FONTS/EurostileExt-Normal Regular.ttf') format('truetype');
+          src          : url('/fonts/FONTS/EurostileExt-Normal_Regular.ttf') format('truetype');
           font-weight  : 400;
           font-style   : normal;
           font-display : swap;

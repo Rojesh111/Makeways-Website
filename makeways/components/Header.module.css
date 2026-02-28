@@ -7,7 +7,7 @@
 /* ─── Fonts (declare here so header text is always styled) ───── */
 @font-face {
   font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileExt-Normal Regular.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileExt-Normal_Regular.ttf') format('truetype');
   font-weight  : 400;
   font-style   : normal;
   font-display : swap;
@@ -21,7 +21,7 @@
 }
 @font-face {
   font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
   font-weight  : 800;
   font-style   : normal;
   font-display : swap;
@@ -137,7 +137,7 @@
 
 /* Label */
 .navLabel {
-  font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+  font-family    : 'Eurostile', 'Eurostile Bold', 'EurostileExt';
   font-size      : 10px;
   font-weight    : 800;
   letter-spacing : 0.09em;
@@ -222,7 +222,7 @@
   align-items     : center;
   gap             : 16px;
   padding         : 15px 32px;
-  font-family     : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+  font-family     : 'Eurostile', 'Eurostile Bold', 'EurostileExt';
   font-size       : 12px;
   font-weight     : 800;
   letter-spacing  : 0.09em;
@@ -299,7 +299,7 @@
   left           : 20px;
   background     : #f47c20;
   color          : #ffffff;
-  font-family    : 'Eurostile', Arial, sans-serif;
+  font-family    : 'Eurostile', 'Eurostile Bold', 'EurostileExt';
   font-weight    : 700;
   font-size      : 12px;
   letter-spacing : 0.08em;

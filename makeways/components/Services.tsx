@@ -170,7 +170,7 @@ export default function Services() {
         }
         @font-face {
           font-family  : 'Eurostile';
-          src          : url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
+          src          : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
           font-weight  : 800;
           font-style   : normal;
           font-display : swap;
@@ -184,7 +184,7 @@ export default function Services() {
         }
         @font-face {
           font-family  : 'Eurostile';
-          src          : url('/fonts/FONTS/EurostileExt-Normal Regular.ttf') format('truetype');
+          src          : url('/fonts/FONTS/EurostileExt-Normal_Regular.ttf') format('truetype');
           font-weight  : 400;
           font-style   : normal;
           font-display : swap;

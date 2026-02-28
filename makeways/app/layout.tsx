@@ -27,18 +27,18 @@ export default function RootLayout({
           All font files live at: /public/fonts/FONTS/*.ttf
 
           Font weight mapping (set in globals.css @font-face):
-            400 normal   → EurostileExt-Normal Regular.ttf
-            400 oblique  → EurostileExtObl-Normal Regular.ttf
+            400 normal   → EurostileExt-Normal_Regular.ttf
+            400 oblique  → EurostileExtObl-Normal_Regular.ttf
             700 normal   → EurostileBold.ttf
-            700 oblique  → EurostileExtObl-Bold Regular.ttf
+            700 oblique  → EurostileExtObl-Bold_Regular.ttf
             800 normal   → EurostileTBold.ttf
             900 normal   → EurostileExtended.ttf
 
           Condensed variant (family: EurostileCnd):
-            700 normal   → EurostileCnd-Bold Regular.ttf
+            700 normal   → EurostileCnd-Bold_Regular.ttf
 
           Extended variant (family: EurostileExt):
-            700 normal   → EurostileExt-Bold Regular.ttf
+            700 normal   → EurostileExt-Bold_Regular.ttf
 
           All fonts use font-display: swap for optimal LCP.
         */}

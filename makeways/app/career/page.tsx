@@ -70,7 +70,7 @@ export default function CareerPage() {
         /* ── @font-face ──────────────────────────────────────────────── */
         @font-face {
           font-family  : 'Eurostile';
-          src          : url('/fonts/FONTS/EurostileExt-Normal Regular.ttf') format('truetype');
+          src          : url('/fonts/FONTS/EurostileExt-Normal_Regular.ttf') format('truetype');
           font-weight  : 400;
           font-style   : normal;
           font-display : swap;
@@ -84,7 +84,7 @@ export default function CareerPage() {
         }
         @font-face {
           font-family  : 'Eurostile';
-          src          : url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
+          src          : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
           font-weight  : 800;
           font-style   : normal;
           font-display : swap;
@@ -99,7 +99,7 @@ export default function CareerPage() {
 
         /* ── Tokens ──────────────────────────────────────────────────── */
         .career {
-          --eu     : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          --eu     : 'Eurostile', 'Eurostile Bold', 'EurostileExt';
           --orange : #f47c20;
           --dark   : #1a1a1a;
           --white  : #ffffff;

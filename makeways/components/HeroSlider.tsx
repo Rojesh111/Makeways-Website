@@ -406,7 +406,7 @@ export default function HeroSlider() {
         /* ── Fonts ───────────────────────────────────────────────── */
         @font-face {
           font-family: 'Eurostile';
-          src: url('/fonts/FONTS/EurostileExt-Normal Regular.ttf') format('truetype');
+          src: url('/fonts/FONTS/EurostileExt-Normal_Regular.ttf') format('truetype');
           font-weight: 400; font-style: normal; font-display: swap;
         }
         @font-face {
@@ -416,12 +416,12 @@ export default function HeroSlider() {
         }
         @font-face {
           font-family: 'Eurostile';
-          src: url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
+          src: url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
           font-weight: 800; font-style: normal; font-display: swap;
         }
         @font-face {
           font-family: 'Eurostile';
-          src: url('/fonts/FONTS/EurostileExt-Bold Regular.ttf') format('truetype');
+          src: url('/fonts/FONTS/EurostileExt-Bold_Regular.ttf') format('truetype');
           font-weight: 900; font-style: normal; font-display: swap;
         }
 

@@ -11,13 +11,13 @@ type Slide = ImageSlide | VideoSlide;
 
 /* ─── Slides — edit paths here ───────────────────────────────────── */
 const SLIDES: Slide[] = [
-  { type: 'video', src: '/images/neta2.mp4',  alt: 'MAKEWAYS Showreel',       bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
-  { type: 'video', src: '/images/nbank.mp4',  alt: 'Nabilbank – MAKEWAYS',    bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
-  { type: 'video', src: '/images/hulas.mp4',  alt: 'Hulas – MAKEWAYS',        bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
-  { type: 'video', src: '/images/neta.mp4',  alt: 'Neta EV – MAKEWAYS',   bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
-  { type: 'video', src: '/images/super.mp4',  alt: 'NSL League – MAKEWAYS',   bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
-  { type: 'video', src: '/images/suzuki.mp4', alt: 'Suzuki – MAKEWAYS',       bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
-  { type: 'video', src: '/images/yamaha.mp4', alt: 'Yamaha – MAKEWAYS',       bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
+  { type: 'video', src: '/Videos/neta2.mp4',  alt: 'MAKEWAYS Showreel',       bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
+  { type: 'video', src: '/Videos/nbank.mp4',  alt: 'Nabilbank – MAKEWAYS',    bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
+  { type: 'video', src: '/Videos/hulas.mp4',  alt: 'Hulas – MAKEWAYS',        bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
+  { type: 'video', src: '/Videos/neta.mp4',  alt: 'Neta EV – MAKEWAYS',   bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
+  { type: 'video', src: '/Videos/super.mp4',  alt: 'NSL League – MAKEWAYS',   bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
+  { type: 'video', src: '/Videos/suzuki.mp4', alt: 'Suzuki – MAKEWAYS',       bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
+  { type: 'video', src: '/Videos/yamaha.mp4', alt: 'Yamaha – MAKEWAYS',       bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
 ];
 
 const INTERVAL     = 6000;   // ms between auto-advance (images only)

@@ -7,18 +7,18 @@ const CARD_W = 180;
 const CARD_GAP = 16;
 
 const clients = [
-  { id: 1,  name: 'Yamaha',     category: 'Automotive',  logo: '/images/yamaha.jpg'  },
-  { id: 2,  name: 'Skoda',      category: 'Automotive',  logo: '/images/skoda.png'   },
-  { id: 3,  name: 'JCB',        category: 'Industrial',  logo: '/images/jcb.jpg'     },
-  { id: 4,  name: 'Czech Rep.', category: 'Government',  logo: '/images/czech.png'   },
-  { id: 5,  name: 'Epson',      category: 'Technology',  logo: '/images/epson.jpg'   },
-  { id: 6,  name: 'Acer',       category: 'Technology',  logo: '/images/acer.png'    },
-  { id: 7,  name: 'Save the Children', category: 'Non-Profit', logo: '/images/save the children.png' },
-  { id: 8,  name: 'Toshiba',    category: 'Technology',  logo: '/images/toshiba.png' },
-  { id: 9,  name: 'BMW',        category: 'Automotive',  logo: '/images/bmw.jpg'     },
-  { id: 10, name: 'CG',         category: 'Industry',    logo: '/images/cg.png'      },
-  { id: 11, name: 'Nabil Bank', category: 'Industry',    logo: '/images/nabil bank.jpg' },
-  { id: 12, name: 'Hulas Steel',  category: 'Industry',    logo: '/images/hulas_steel.png' },
+  { id: 1,  name: 'Yamaha',     category: 'Automotive',  logo: '/Clientele/yamaha.jpeg'  },
+  { id: 2,  name: 'Skoda',      category: 'Automotive',  logo: '/Clientele/skoda.png'   },
+  { id: 3,  name: 'JCB',        category: 'Industrial',  logo: '/Clientele/jcb.jpg'     },
+  { id: 4,  name: 'Czech Rep.', category: 'Government',  logo: '/Clientele/czech.png'   },
+  { id: 5,  name: 'Epson',      category: 'Technology',  logo: '/Clientele/epson.jpg'   },
+  { id: 6,  name: 'Acer',       category: 'Technology',  logo: '/Clientele/acer.png'    },
+  { id: 7,  name: 'Save the Children', category: 'Non-Profit', logo: '/Clientele/save the children.png' },
+  { id: 8,  name: 'Toshiba',    category: 'Technology',  logo: '/Clientele/toshiba.png' },
+  { id: 9,  name: 'BMW',        category: 'Automotive',  logo: '/Clientele/bmw.jpg'     },
+  { id: 10, name: 'CG',         category: 'Industry',    logo: '/Clientele/cg.png'      },
+  { id: 11, name: 'Nabil Bank', category: 'Industry',    logo: '/Clientele/nabil bank.jpg' },
+  { id: 12, name: 'Hulas Steel',  category: 'Industry',    logo: '/Clientele/hulas_steel.png' },
 ];
 
 const row1Base = clients.slice(0, 6);
@@ -299,7 +299,7 @@ export default function Clientele() {
             </div>
 
             <div className="stats-row">
-              <Counter target={25} label="Multi National Brands" />
+              <Counter target={25} label="Multi-National Brands" />
               <div className="divider" />
               <Counter target={20} label="Domestic Clients" />
               <div className="divider" />

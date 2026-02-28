@@ -76,7 +76,7 @@ export default function Header() {
 
           {/* Logo — always goes back to home */}
           <a href="/" className="logo-link" aria-label="Go to home">
-            <img src="/images/logo.jpg" alt="MAKEWAYS Logo" className="logo-img" />
+            <img src="/images/Logo/logo.jpg" alt="MAKEWAYS Logo" className="logo-img" />
           </a>
 
           {/* Desktop Nav */}

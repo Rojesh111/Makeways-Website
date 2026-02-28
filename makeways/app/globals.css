@@ -22,7 +22,7 @@
 /* ── Weight 400 — Normal (Extended) ── */
 @font-face {
   font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileExt-Normal Regular.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileExt-Normal_Regular.ttf') format('truetype');
   font-weight  : 400;
   font-style   : normal;
   font-display : swap;
@@ -31,7 +31,7 @@
 /* ── Weight 400 — Oblique / Italic (Extended Normal) ── */
 @font-face {
   font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileExtObl-Normal Regular.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileExtObl-Normal_Regular.ttf') format('truetype');
   font-weight  : 400;
   font-style   : oblique;
   font-display : swap;
@@ -49,7 +49,7 @@
 /* ── Weight 700 — Bold Oblique / Italic ── */
 @font-face {
   font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileExtObl-Bold Regular.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileExtObl-Bold_Regular.ttf') format('truetype');
   font-weight  : 700;
   font-style   : oblique;
   font-display : swap;
@@ -76,7 +76,7 @@
 /* ── Extended Bold variant (used for section headings) ── */
 @font-face {
   font-family  : 'EurostileExt';
-  src          : url('/fonts/FONTS/EurostileExt-Bold Regular.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileExt-Bold_Regular.ttf') format('truetype');
   font-weight  : 700;
   font-style   : normal;
   font-display : swap;
@@ -85,7 +85,7 @@
 /* ── Condensed Bold (used for sub-labels, tight spaces) ── */
 @font-face {
   font-family  : 'EurostileCnd';
-  src          : url('/fonts/FONTS/EurostileCnd-Bold Regular.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileCnd-Bold_Regular.ttf') format('truetype');
   font-weight  : 700;
   font-style   : normal;
   font-display : swap;
@@ -121,9 +121,9 @@
   --mw-bg-grey       : #c8c8c8;     /* Testimonials bg     */
 
   /* ── Font Families ── */
-  --font-primary     : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-  --font-condensed   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-  --font-extended    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+  --font-primary     : 'Eurostile';
+  --font-condensed   : 'EurostileCnd', 'Eurostile';
+  --font-extended    : 'EurostileExt', 'Eurostile', 'EurostileBold';
 
   /* ── Typography Scale — fluid via clamp() ──────────────────────────
      Based on the industry standard system:

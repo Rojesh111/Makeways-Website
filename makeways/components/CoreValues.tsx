@@ -132,6 +132,7 @@ export default function CoreValues() {
           --muted  : #666666;
           --rule   : #d8d8d8;
           --bg     : #f0f0f0;
+          --grey   : #9a9a9a;
         }
 
         /* Force Eurostile on every element inside .cv */
@@ -155,17 +156,23 @@ export default function CoreValues() {
           margin    : 0 auto;
         }
 
-        /* ── H2 Heading ──────────────────────────────────────────────────── */
+        /* ── H2 Heading — grey, Eurostile Regular Bold (700) ─────────────── */
         .cv__heading {
-          font-weight    : 800;
+          font-family    : 'Eurostile', 'Arial Narrow', sans-serif;
+          font-weight    : 700;
           font-size      : clamp(36px, 3.75vw, 48px);
           letter-spacing : 8px;
           text-transform : uppercase;
-          color          : var(--dark);
+          color          : var(--grey);
           margin         : 0 0 72px 0;
           line-height    : 1;
         }
-        .cv__heading--orange { color: var(--orange); }
+        /* DNA — grey to match OUR */
+        .cv__heading--orange {
+          color       : var(--grey);
+          font-family : 'Eurostile', 'Arial Narrow', sans-serif;
+          font-weight : 700;
+        }
 
         /* ── 4-col grid ──────────────────────────────────────────────────── */
         .cv__grid {
@@ -214,9 +221,10 @@ export default function CoreValues() {
         }
         .cv__card:hover .cv__icon { color: #fff; transform: scale(1.1); }
 
-        /* ── Card Title ──────────────────────────────────────────────────── */
+        /* ── Card Title — Eurostile Regular 400 ──────────────────────────── */
         .cv__title {
-          font-weight    : 700;
+          font-family    : 'Eurostile', 'Arial Narrow', sans-serif;
+          font-weight    : 400;
           font-size      : clamp(15px, 1.3vw, 20px);
           letter-spacing : 2px;
           text-transform : uppercase;
@@ -237,8 +245,9 @@ export default function CoreValues() {
         }
         .cv__card:hover .cv__rule { width: 52px; background: var(--orange); }
 
-        /* ── Description — justified ─────────────────────────────────────── */
+        /* ── Description — Eurostile Regular 400 ────────────────────────── */
         .cv__desc {
+          font-family    : 'Eurostile', 'Arial Narrow', sans-serif;
           font-weight    : 400;
           font-size      : clamp(13px, 1vw, 15px);
           color          : var(--muted);

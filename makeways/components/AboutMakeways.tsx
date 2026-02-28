@@ -25,8 +25,7 @@ export default function AboutMakeways(): ReactElement {
         <div className="about__inner">
 
           <h2 className="about__heading animate">
-            <span className="about__heading--black">MAKE</span>
-            <span className="about__heading--orange">WAYS</span>
+            <span className="about__heading--grey">MAKEWAYS</span>
           </h2>
 
           {/* ── Award tag — moved below heading ── */}
@@ -86,6 +85,7 @@ export default function AboutMakeways(): ReactElement {
           --dark   : #1a1a1a;
           --muted  : #666666;
           --white  : #ffffff;
+          --grey   : #9a9a9a;
         }
         .about *, .about *::before, .about *::after { box-sizing: border-box; }
 
@@ -102,8 +102,8 @@ export default function AboutMakeways(): ReactElement {
 
         /* ── H2 Section Heading ─────────────────────────────────────────── */
         .about__heading {
-          font-family    : var(--eu);
-          font-weight    : 800;
+          font-family    : 'Eurostile', 'Arial Narrow', sans-serif;
+          font-weight    : 700;
           font-size      : clamp(36px, 3.75vw, 48px);
           letter-spacing : 8px;
           text-transform : uppercase;
@@ -111,8 +111,9 @@ export default function AboutMakeways(): ReactElement {
           margin         : 0 0 24px 0;
           display        : block;
         }
-        .about__heading--black  { color: var(--black);  font-family: var(--eu); }
-        .about__heading--orange { color: var(--orange); font-family: var(--eu); }
+        .about__heading--black  { color: var(--black);  font-family: 'Eurostile', 'Arial Narrow', sans-serif; font-weight: 700; }
+        .about__heading--orange { color: var(--orange); font-family: 'Eurostile', 'Arial Narrow', sans-serif; font-weight: 700; }
+        .about__heading--grey   { color: var(--grey);   font-family: 'Eurostile', 'Arial Narrow', sans-serif; font-weight: 700; }
 
         /* ── Award tag — below heading ───────────────────────────────────── */
         .about__award {
@@ -151,7 +152,7 @@ export default function AboutMakeways(): ReactElement {
 
         /* ── Lead / intro text ───────────────────────────────────────────── */
         .about__lead {
-          font-family    : var(--eu);
+          font-family    : 'Eurostile', 'Arial Narrow', sans-serif;
           font-weight    : 400;
           font-size      : clamp(16px, 1.4vw, 18px);
           color          : var(--dark);
@@ -163,7 +164,7 @@ export default function AboutMakeways(): ReactElement {
 
         /* ── Regular body ────────────────────────────────────────────────── */
         .about__body {
-          font-family    : var(--eu);
+          font-family    : 'Eurostile', 'Arial Narrow', sans-serif;
           font-weight    : 400;
           font-size      : clamp(14px, 1.1vw, 16px);
           color          : var(--muted);
@@ -177,26 +178,27 @@ export default function AboutMakeways(): ReactElement {
         .about__quote {
           display     : flex;
           gap         : 28px;
-          align-items : flex-start;
+          align-items : stretch;
           margin      : 0;
           padding     : 0;
+          font-family : 'Eurostile', 'Arial Narrow', sans-serif;
         }
         .about__quote-bar {
           display       : block;
           flex-shrink   : 0;
-          width         : 4px;
+          width         : 5px;
           align-self    : stretch;
           background    : var(--orange);
           border-radius : 2px;
-          min-height    : 100%;
         }
         .about__quote p {
-          font-family    : var(--eu);
+          font-family    : 'Eurostile', 'Arial Narrow', sans-serif;
           font-weight    : 700;
-          font-size      : clamp(18px, 1.6vw, 22px);
+          font-size      : clamp(18px, 1.8vw, 24px);
           color          : var(--dark);
-          line-height    : 1.65;
-          letter-spacing : 0.3px;
+          line-height    : 1.85;
+          letter-spacing : 0.6px;
+          word-spacing   : 2px;
           margin         : 0;
           text-align     : justify;
         }
@@ -223,7 +225,7 @@ export default function AboutMakeways(): ReactElement {
           .about__heading { font-size: clamp(32px, 4vw, 42px); margin-bottom: 20px; }
           .about__award { margin-bottom: 44px; }
           .about__content { gap: 48px; }
-          .about__quote p { font-size: clamp(17px, 2vw, 20px); }
+          .about__quote p { font-size: clamp(16px, 1.6vw, 22px); }
         }
 
         /* ── 768px — collapse to single column ──────────────────────────── */
@@ -236,7 +238,7 @@ export default function AboutMakeways(): ReactElement {
           .about__quote { order: 1; }
           .about__lead { font-size: 16px; }
           .about__body { font-size: 15px; }
-          .about__quote p { font-size: 18px; line-height: 1.6; }
+          .about__quote p { font-size: 18px; line-height: 1.8; }
         }
 
         /* ── 520px ──────────────────────────────────────────────────────── */
@@ -249,7 +251,7 @@ export default function AboutMakeways(): ReactElement {
           .about__body { font-size: 14px; line-height: 1.7; }
           .about__quote { gap: 18px; }
           .about__quote-bar { width: 3px; }
-          .about__quote p { font-size: 16px; line-height: 1.6; }
+          .about__quote p { font-size: 16px; line-height: 1.8; }
         }
 
         /* ── 360px ──────────────────────────────────────────────────────── */

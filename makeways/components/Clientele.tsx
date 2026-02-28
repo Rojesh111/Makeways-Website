@@ -38,10 +38,7 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        {/* Orange bottom bar — grows from left */}
         <span className="accent-bar" />
-
-        {/* Logo */}
         <div className="logo-area">
           {errored ? (
             <span className="fallback">{client.name}</span>
@@ -58,8 +55,6 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
             </div>
           )}
         </div>
-
-        {/* Slide-up info panel from bottom */}
         <div className="info-panel">
           <span className="info-cat">{client.category}</span>
           <span className="info-name">{client.name}</span>
@@ -88,8 +83,6 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
             0 2px 8px rgba(0, 0, 0, 0.05);
           transform: translateY(-4px);
         }
-
-        /* Orange bar sweeps from left on hover */
         .accent-bar {
           position: absolute;
           bottom: 0;
@@ -100,11 +93,7 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
           transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1);
           z-index: 4;
         }
-        .card--hovered .accent-bar {
-          width: 100%;
-        }
-
-        /* Logo shifts up slightly, stays fully visible */
+        .card--hovered .accent-bar { width: 100%; }
         .logo-area {
           position: absolute;
           inset: 0;
@@ -114,14 +103,8 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
           transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
           z-index: 2;
         }
-        .card--hovered .logo-area {
-          transform: translateY(-9px);
-        }
-        .img-wrap {
-          position: relative;
-          width: 100%;
-          height: 100%;
-        }
+        .card--hovered .logo-area { transform: translateY(-9px); }
+        .img-wrap { position: relative; width: 100%; height: 100%; }
         .fallback {
           font-size: 11px;
           color: #bbb;
@@ -129,8 +112,6 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
           letter-spacing: 0.12em;
           font-weight: 600;
         }
-
-        /* Info panel: fades + slides up from bottom edge */
         .info-panel {
           position: absolute;
           bottom: 0;
@@ -156,22 +137,20 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
             opacity 0.2s ease;
           z-index: 3;
         }
-        .card--hovered .info-panel {
-          transform: translateY(0);
-          opacity: 1;
-        }
-
+        .card--hovered .info-panel { transform: translateY(0); opacity: 1; }
         .info-cat {
+          font-family : 'Eurostile', 'Arial Narrow', sans-serif;
           font-size: 8px;
           letter-spacing: 0.24em;
           color: #f97316;
           text-transform: uppercase;
-          font-weight: 700;
+          font-weight: 400;
           line-height: 1;
         }
         .info-name {
+          font-family : 'Eurostile', 'Arial Narrow', sans-serif;
           font-size: 11px;
-          font-weight: 800;
+          font-weight: 700;
           color: #222222;
           letter-spacing: 0.07em;
           text-transform: uppercase;
@@ -266,18 +245,20 @@ function Counter({ target, label }: { target: number; label: string }) {
       <style jsx>{`
         .counter { display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .num {
+          font-family : 'Eurostile', 'Arial Narrow', sans-serif;
           font-size: 38px;
-          font-weight: 900;
+          font-weight: 700;
           color: #f97316;
           letter-spacing: -0.03em;
           line-height: 1;
         }
         .lbl {
+          font-family : 'Eurostile', 'Arial Narrow', sans-serif;
           font-size: 9px;
           letter-spacing: 0.2em;
           color: #aaa;
           text-transform: uppercase;
-          font-weight: 600;
+          font-weight: 400;
         }
       `}</style>
     </div>
@@ -320,12 +301,27 @@ export default function Clientele() {
       </section>
 
       <style jsx>{`
+        @font-face {
+          font-family  : 'Eurostile';
+          src          : url('/fonts/FONTS/EurostileExt-Normal Regular.ttf') format('truetype');
+          font-weight  : 400;
+          font-style   : normal;
+          font-display : swap;
+        }
+        @font-face {
+          font-family  : 'Eurostile';
+          src          : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
+          font-weight  : 700;
+          font-style   : normal;
+          font-display : swap;
+        }
+
         .section {
           position: relative;
           background: #f9f9f9;
           padding: 60px 0 80px;
           overflow: hidden;
-          font-family: 'Eurostile', 'Franklin Gothic Medium', 'Trebuchet MS', sans-serif;
+          font-family: 'Eurostile', 'Arial Narrow', sans-serif;
         }
 
         .bg-grid {
@@ -360,34 +356,20 @@ export default function Clientele() {
           gap: 10px;
         }
 
-        .eyebrow {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
-        .eyebrow-line {
-          display: inline-block;
-          width: 28px;
-          height: 2px;
-          background: #f97316;
-          border-radius: 1px;
-        }
-        .eyebrow-text {
-          font-size: 10px;
-          letter-spacing: 0.3em;
-          color: #f97316;
-          text-transform: uppercase;
-          font-weight: 700;
-        }
+        .eyebrow { display: flex; align-items: center; gap: 10px; }
+        .eyebrow-line { display: inline-block; width: 28px; height: 2px; background: #f97316; border-radius: 1px; }
+        .eyebrow-text { font-size: 10px; letter-spacing: 0.3em; color: #f97316; text-transform: uppercase; font-weight: 400; }
 
+        /* ── Title — grey, Eurostile Bold (700) ── */
         .title {
-          font-size: clamp(36px, 5vw, 58px);
-          font-weight: 900;
-          color: #1a1a1a;
-          letter-spacing: -0.02em;
-          line-height: 1;
-          margin: 0;
-          text-transform: uppercase;
+          font-family    : 'Eurostile', 'Arial Narrow', sans-serif;
+          font-size      : clamp(36px, 5vw, 58px);
+          font-weight    : 700;
+          color          : #9a9a9a;
+          letter-spacing : 8px;
+          line-height    : 1;
+          margin         : 0;
+          text-transform : uppercase;
         }
 
         .stats-row {
@@ -397,21 +379,10 @@ export default function Clientele() {
           padding-bottom: 4px;
         }
 
-        .divider {
-          width: 1px;
-          height: 36px;
-          background: #e0e0e0;
-        }
+        .divider { width: 1px; height: 36px; background: #e0e0e0; }
 
-        .marquee-section {
-          position: relative;
-          z-index: 2;
-        }
-        .rows {
-          display: flex;
-          flex-direction: column;
-          gap: 14px;
-        }
+        .marquee-section { position: relative; z-index: 2; }
+        .rows { display: flex; flex-direction: column; gap: 14px; }
 
         .fade-left,
         .fade-right {

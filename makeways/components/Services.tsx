@@ -204,16 +204,22 @@ export default function Services() {
         }
         .svc__inner { max-width: 1280px; margin: 0 auto; }
 
-        /* ─── Heading ───────────────────────────────────────────────── */
+        /* ─── Heading — grey, Eurostile Bold (700) ──────────────────── */
         .svc__heading {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-weight    : 800;
+          font-weight    : 700;
           font-size      : clamp(36px, 3.75vw, 48px);
           letter-spacing : 8px;
           text-transform : uppercase;
-          color          : #f47c20;
+          color          : #9a9a9a;
           margin         : 0 0 64px;
           line-height    : 1;
+        }
+        /* ICES span — same grey */
+        .svc__fade {
+          color       : #9a9a9a;
+          font-family : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-weight : 700;
         }
 
         /* ─── Scroll reveal ─────────────────────────────────────────── */
@@ -243,7 +249,7 @@ export default function Services() {
           to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ─── Icon ring — outlined orange, fills solid on hover ─────── */
+        /* ─── Icon ring ─────────────────────────────────────────────── */
         .svc-ring {
           width           : 90px;
           height          : 90px;
@@ -261,7 +267,7 @@ export default function Services() {
           background : #f47c20;
         }
 
-        /* ─── Icon — orange at rest, white on hover ─────────────────── */
+        /* ─── Icon ──────────────────────────────────────────────────── */
         .svc-icon {
           color           : #f47c20;
           display         : flex;
@@ -272,10 +278,10 @@ export default function Services() {
         .svc-card--on   .svc-icon,
         .svc-card:hover .svc-icon { color: #ffffff; }
 
-        /* ─── Card label — larger, bolder ──────────────────────────── */
+        /* ─── Card label ────────────────────────────────────────────── */
         .svc-label {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-weight    : 600;
+          font-weight    : 400;
           font-size      : clamp(13px, 1.1vw, 15px);
           letter-spacing : 0.5px;
           color          : rgba(0, 0, 0, 0.65);
@@ -301,7 +307,7 @@ export default function Services() {
         }
         .svc-strip--on { height: 116px; opacity: 1; margin-bottom: 32px; }
 
-        /* ─── Strip inner — orange bg, white text ───────────────────── */
+        /* ─── Strip inner ───────────────────────────────────────────── */
         .strip {
           display               : grid;
           grid-template-columns : 1fr 280px;
@@ -324,7 +330,7 @@ export default function Services() {
 
         .strip__title {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-weight    : 800;
+          font-weight    : 700;
           font-size      : clamp(12px, 1vw, 15px);
           letter-spacing : 3px;
           text-transform : uppercase;
@@ -351,7 +357,7 @@ export default function Services() {
         }
         .strip__tag {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-weight    : 600;
+          font-weight    : 400;
           font-size      : 9px;
           letter-spacing : 1.2px;
           text-transform : uppercase;
@@ -403,7 +409,7 @@ export default function Services() {
 
         .mob-label {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-weight    : 600;
+          font-weight    : 400;
           font-size      : clamp(11px, 2.6vw, 13px);
           letter-spacing : 0.4px;
           color          : rgba(0, 0, 0, 0.65);
@@ -430,7 +436,7 @@ export default function Services() {
         @keyframes sheetUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
         .mob-sheet__handle { width: 36px; height: 3px; background: rgba(255,255,255,0.4); border-radius: 2px; margin: 14px auto 22px; }
-        .mob-sheet__title  { font-family: 'Eurostile','Arial Narrow',Arial,sans-serif; font-weight: 800; font-size: clamp(18px,4.5vw,22px); letter-spacing: 1.5px; text-transform: uppercase; color: #ffffff; line-height: 1.15; margin: 0 0 12px; }
+        .mob-sheet__title  { font-family: 'Eurostile','Arial Narrow',Arial,sans-serif; font-weight: 700; font-size: clamp(18px,4.5vw,22px); letter-spacing: 1.5px; text-transform: uppercase; color: #ffffff; line-height: 1.15; margin: 0 0 12px; }
         .mob-sheet__desc   { font-family: 'Eurostile','Arial Narrow',Arial,sans-serif; font-weight: 400; font-size: clamp(13px,3.5vw,15px); color: rgba(255,255,255,0.9); line-height: 1.75; letter-spacing: 0.2px; margin: 0 0 16px; display: block; }
         .mob-sheet__rule   { height: 1px; background: rgba(255,255,255,0.3); margin: 0 0 14px; }
         .mob-sheet__list   { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }

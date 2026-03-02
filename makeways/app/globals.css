@@ -1,25 +1,25 @@
 /* ============================================================
    MAKEWAYS — GLOBAL DESIGN SYSTEM
    globals.css
-   
-   TABLE OF CONTENTS
-   1. @font-face   — All Eurostile variants from /fonts/FONTS/
-   2. CSS Tokens   — Colors, typography scale, spacing, radius
-   3. Reset        — Minimal, opinionated reset
-   4. Base         — html, body, root font settings
-   5. Typography   — h1–h6, p, lead, small, label, blockquote
-   6. Utilities    — Spacing helpers, text utilities
-   7. Scroll / Motion — Reveal animation base class
    ============================================================ */
 
 
 /* ============================================================
-   1. @FONT-FACE — EUROSTILE FONT FAMILY
-   All variants mapped to their correct weight & style slots.
-   Paths assume fonts live at: /public/fonts/FONTS/
+   1. @FONT-FACE — ALL EUROSTILE VARIANTS
+   Files mapped from your /public/fonts/FONTS/ folder.
+
+   FONT FILE → WEIGHT / STYLE:
+   EurostileExt-Normal_Regular.ttf    → 400  normal
+   EurostileExtObl-Normal_Regular.ttf → 400  oblique
+   EurostileOblique.ttf               → 400  italic
+   EurostileBold.ttf                  → 700  normal
+   EurostileExtObl-Bold_Regular.ttf   → 700  oblique + italic
+   EurostileTBold.ttf                 → 800  normal
+   EurostileExtended.ttf              → 900  normal
+   EurostileExt-Bold_Regular.ttf      → EurostileExt  700  normal
+   EurostileCnd-Bold_Regular.ttf      → EurostileCnd  700  normal
    ============================================================ */
 
-/* ── Weight 400 — Normal (Extended) ── */
 @font-face {
   font-family  : 'Eurostile';
   src          : url('/fonts/FONTS/EurostileExt-Normal_Regular.ttf') format('truetype');
@@ -28,7 +28,6 @@
   font-display : swap;
 }
 
-/* ── Weight 400 — Oblique / Italic (Extended Normal) ── */
 @font-face {
   font-family  : 'Eurostile';
   src          : url('/fonts/FONTS/EurostileExtObl-Normal_Regular.ttf') format('truetype');
@@ -37,7 +36,14 @@
   font-display : swap;
 }
 
-/* ── Weight 700 — Bold ── */
+@font-face {
+  font-family  : 'Eurostile';
+  src          : url('/fonts/FONTS/EurostileOblique.ttf') format('truetype');
+  font-weight  : 400;
+  font-style   : italic;
+  font-display : swap;
+}
+
 @font-face {
   font-family  : 'Eurostile';
   src          : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
@@ -46,7 +52,6 @@
   font-display : swap;
 }
 
-/* ── Weight 700 — Bold Oblique / Italic ── */
 @font-face {
   font-family  : 'Eurostile';
   src          : url('/fonts/FONTS/EurostileExtObl-Bold_Regular.ttf') format('truetype');
@@ -55,16 +60,22 @@
   font-display : swap;
 }
 
-/* ── Weight 800 — Extra Bold (T-Bold) ── */
 @font-face {
   font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileExtObl-Bold_Regular.ttf') format('truetype');
+  font-weight  : 700;
+  font-style   : italic;
+  font-display : swap;
+}
+
+@font-face {
+  font-family  : 'Eurostile';
+  src          : url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
   font-weight  : 800;
   font-style   : normal;
   font-display : swap;
 }
 
-/* ── Weight 900 — Black / Extended Bold ── */
 @font-face {
   font-family  : 'Eurostile';
   src          : url('/fonts/FONTS/EurostileExtended.ttf') format('truetype');
@@ -73,7 +84,6 @@
   font-display : swap;
 }
 
-/* ── Extended Bold variant (used for section headings) ── */
 @font-face {
   font-family  : 'EurostileExt';
   src          : url('/fonts/FONTS/EurostileExt-Bold_Regular.ttf') format('truetype');
@@ -82,7 +92,6 @@
   font-display : swap;
 }
 
-/* ── Condensed Bold (used for sub-labels, tight spaces) ── */
 @font-face {
   font-family  : 'EurostileCnd';
   src          : url('/fonts/FONTS/EurostileCnd-Bold_Regular.ttf') format('truetype');
@@ -93,9 +102,7 @@
 
 
 /* ============================================================
-   2. DESIGN TOKENS — CSS CUSTOM PROPERTIES
-   All tokens prefixed with --mw- (makeways).
-   Override per-section by scoping on a parent element.
+   2. DESIGN TOKENS
    ============================================================ */
 
 :root {
@@ -105,60 +112,44 @@
   --mw-orange-light  : #ffa84a;
   --mw-orange-dark   : #d96910;
   --mw-orange-muted  : rgba(244, 124, 32, 0.15);
-
   --mw-black         : #000000;
   --mw-dark          : #1a1a1a;
   --mw-dark-2        : #2a2a2a;
-  --mw-grey-1        : #5a5a5a;     /* headings on grey bg */
-  --mw-grey-2        : #707070;     /* sub-labels          */
-  --mw-grey-3        : #888888;     /* body copy (muted)   */
-  --mw-grey-4        : #aaaaaa;     /* placeholders, dots  */
-  --mw-rule          : #e0e0e0;     /* horizontal rules    */
+  --mw-grey-1        : #5a5a5a;
+  --mw-grey-2        : #707070;
+  --mw-grey-3        : #888888;
+  --mw-grey-4        : #aaaaaa;
+  --mw-rule          : #e0e0e0;
   --mw-border        : rgba(0, 0, 0, 0.10);
-
   --mw-white         : #ffffff;
-  --mw-bg-light      : #f0f0f0;     /* Core Values bg      */
-  --mw-bg-grey       : #c8c8c8;     /* Testimonials bg     */
+  --mw-bg-light      : #f0f0f0;
+  --mw-bg-grey       : #c8c8c8;
 
-  /* ── Font Families ── */
-  --font-primary     : 'Eurostile';
-  --font-condensed   : 'EurostileCnd', 'Eurostile';
-  --font-extended    : 'EurostileExt', 'Eurostile', 'EurostileBold';
+  /* ── Font Families — always include system fallbacks ── */
+  --font-primary     : 'Eurostile', Arial, sans-serif;
+  --font-condensed   : 'EurostileCnd', 'Eurostile', Arial, sans-serif;
+  --font-extended    : 'EurostileExt', 'Eurostile', Arial, sans-serif;
 
-  /* ── Typography Scale — fluid via clamp() ──────────────────────────
-     Based on the industry standard system:
-       H1  Display     : 48–72px  fw 800–900  ls 6–10px
-       H2  Section     : 36–48px  fw 800      ls 6–8px
-       H3  Sub-section : 28–36px  fw 700      ls 2–4px
-       H4  Card Title  : 18–22px  fw 700      ls 1.5–2px
-       H5  Label-head  : 16–20px  fw 700      ls 1–2px
-       H6  Micro-head  : 14–18px  fw 700      ls 0.5–1px
-       Lead body       : 16–18px  fw 400      lh 1.7
-       Regular body    : 14–16px  fw 400      lh 1.7
-       Small / caption : 11–13px  fw 400/700  lh 1.5
-       Eyebrow / tag   : 10–12px  fw 700      ls 2–3px   uppercase
-  ─────────────────────────────────────────────────────────────── */
+  /* ── Typography Scale ── */
+  --text-display     : clamp(48px, 6vw,    72px);
+  --text-h1          : clamp(42px, 5vw,    64px);
+  --text-h2          : clamp(36px, 3.75vw, 48px);
+  --text-h3          : clamp(24px, 2.5vw,  36px);
+  --text-h4          : clamp(18px, 1.5vw,  22px);
+  --text-h5          : clamp(15px, 1.3vw,  20px);
+  --text-h6          : clamp(13px, 1.1vw,  17px);
+  --text-lead        : clamp(16px, 1.4vw,  18px);
+  --text-body        : clamp(14px, 1.1vw,  16px);
+  --text-small       : clamp(12px, 0.9vw,  14px);
+  --text-xs          : clamp(10px, 0.75vw, 12px);
 
-  /* Font sizes */
-  --text-display     : clamp(48px, 6vw,   72px);   /* Hero / page title  */
-  --text-h1          : clamp(42px, 5vw,   64px);   /* H1 in content      */
-  --text-h2          : clamp(36px, 3.75vw, 48px);  /* Section title      */
-  --text-h3          : clamp(24px, 2.5vw,  36px);  /* Sub-section        */
-  --text-h4          : clamp(18px, 1.5vw,  22px);  /* Card title / label */
-  --text-h5          : clamp(15px, 1.3vw,  20px);  /* H5                 */
-  --text-h6          : clamp(13px, 1.1vw,  17px);  /* H6                 */
-  --text-lead        : clamp(16px, 1.4vw,  18px);  /* Intro / lead body  */
-  --text-body        : clamp(14px, 1.1vw,  16px);  /* Regular body       */
-  --text-small       : clamp(12px, 0.9vw,  14px);  /* Small / caption    */
-  --text-xs          : clamp(10px, 0.75vw, 12px);  /* Eyebrow / tag      */
-
-  /* Font weights */
+  /* ── Font Weights ── */
   --fw-regular       : 400;
   --fw-bold          : 700;
   --fw-extrabold     : 800;
   --fw-black         : 900;
 
-  /* Line heights */
+  /* ── Line Heights ── */
   --lh-tight         : 1;
   --lh-heading       : 1.15;
   --lh-snug          : 1.35;
@@ -167,72 +158,56 @@
   --lh-body          : 1.75;
   --lh-loose         : 1.85;
 
-  /* Letter spacing */
-  --ls-display       : 8px;    /* Display word-marks, section headings */
-  --ls-heading       : 4px;    /* H3 sub-sections                      */
-  --ls-card          : 2px;    /* H4 card titles                       */
-  --ls-label         : 3px;    /* Eyebrow / tag uppercase labels       */
-  --ls-body          : 0.25px; /* Body copy — subtle optical spacing   */
+  /* ── Letter Spacing ── */
+  --ls-display       : 8px;
+  --ls-heading       : 4px;
+  --ls-card          : 2px;
+  --ls-label         : 3px;
+  --ls-body          : 0.25px;
   --ls-none          : 0px;
 
-  /* ── Spacing Scale — 4px base unit ─────────────────────────────────
-     Used for padding, margin, gap. Follow 4–8–12–16–24–32–48–64–80–96
-  ─────────────────────────────────────────────────────────────── */
-  --space-1          :  4px;
-  --space-2          :  8px;
-  --space-3          : 12px;
-  --space-4          : 16px;
-  --space-5          : 20px;
-  --space-6          : 24px;
-  --space-7          : 28px;
-  --space-8          : 32px;
-  --space-10         : 40px;
-  --space-12         : 48px;
-  --space-14         : 56px;
-  --space-16         : 64px;
-  --space-18         : 72px;
-  --space-20         : 80px;
-  --space-24         : 96px;
-  --space-28         : 112px;
+  /* ── Spacing Scale — 4px base unit ── */
+  --space-1  :  4px;  --space-2  :  8px;
+  --space-3  : 12px;  --space-4  : 16px;
+  --space-5  : 20px;  --space-6  : 24px;
+  --space-7  : 28px;  --space-8  : 32px;
+  --space-10 : 40px;  --space-12 : 48px;
+  --space-14 : 56px;  --space-16 : 64px;
+  --space-18 : 72px;  --space-20 : 80px;
+  --space-24 : 96px;  --space-28 : 112px;
 
-  /* ── Section Padding ─────────────────────────────────────────────── */
-  /* Consistent vertical rhythm across all sections                     */
-  --section-py       : clamp(64px, 8vw, 96px);   /* top & bottom pad   */
-  --section-px       : clamp(20px, 5vw, 60px);   /* left & right pad   */
-  --section-max-w    : 1280px;                    /* content max-width  */
-  --section-gap      : clamp(48px, 6vw, 72px);   /* heading → content  */
+  /* ── Section Padding ── */
+  --section-py       : clamp(64px, 8vw, 96px);
+  --section-px       : clamp(20px, 5vw, 60px);
+  --section-max-w    : 1280px;
+  --section-gap      : clamp(48px, 6vw, 72px);
 
   /* ── Border Radius ── */
-  --radius-sm        :  4px;
-  --radius-md        :  8px;
-  --radius-lg        : 14px;
-  --radius-xl        : 20px;
-  --radius-full      : 9999px;
+  --radius-sm   :  4px;  --radius-md   :  8px;
+  --radius-lg   : 14px;  --radius-xl   : 20px;
+  --radius-full : 9999px;
 
   /* ── Shadows ── */
-  --shadow-sm        : 0 1px 3px rgba(0,0,0,0.08);
-  --shadow-md        : 0 4px 16px rgba(0,0,0,0.10);
-  --shadow-lg        : 0 8px 32px rgba(0,0,0,0.12), 0 24px 56px rgba(0,0,0,0.10);
-  --shadow-orange    : 0 8px 28px rgba(244,124,32,0.28);
+  --shadow-sm     : 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md     : 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg     : 0 8px 32px rgba(0,0,0,0.12), 0 24px 56px rgba(0,0,0,0.10);
+  --shadow-orange : 0 8px 28px rgba(244,124,32,0.28);
 
   /* ── Transitions ── */
-  --ease-default     : 0.25s ease;
-  --ease-reveal      : 0.65s ease;
-  --ease-spring      : 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-default : 0.25s ease;
+  --ease-reveal  : 0.65s ease;
+  --ease-spring  : 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-  /* ── Z-index ladder ── */
-  --z-base           :   1;
-  --z-card           :  10;
-  --z-popup          : 300;
-  --z-overlay        : 499;
-  --z-sheet          : 500;
-  --z-nav            : 600;
-  --z-modal          : 900;
+  /* ── Z-index Ladder ── */
+  --z-base    :   1;  --z-card    :  10;
+  --z-popup   : 300;  --z-overlay : 499;
+  --z-sheet   : 500;  --z-nav     : 600;
+  --z-modal   : 900;
 }
 
 
 /* ============================================================
-   3. RESET — Minimal opinionated reset
+   3. RESET
    ============================================================ */
 
 *,
@@ -241,65 +216,57 @@
   box-sizing  : border-box;
   margin      : 0;
   padding     : 0;
+  /* ▼ THE KEY FIX — every element inherits font-family and
+     font-style from body, so no third-party CSS can silently
+     inject DM Sans, Roboto, or browser-synthesised oblique   */
+  font-family : inherit;
+  font-style  : inherit;
 }
 
-/* Remove list styling when lists have a role */
 ul[role='list'],
-ol[role='list'] {
-  list-style : none;
+ol[role='list'] { list-style: none; }
+
+img, picture, video, canvas, svg {
+  display   : block;
+  max-width : 100%;
 }
 
-/* Improve media defaults */
-img,
-picture,
-video,
-canvas,
-svg {
-  display    : block;
-  max-width  : 100%;
+input, button, textarea, select {
+  font  : inherit;
+  color : inherit;
 }
 
-/* Inherit fonts for form controls */
-input,
-button,
-textarea,
-select {
-  font        : inherit;
-  color       : inherit;
-}
-
-/* Remove default button styles */
 button {
-  background  : none;
-  border      : none;
-  cursor      : pointer;
-  padding     : 0;
+  background : none;
+  border     : none;
+  cursor     : pointer;
+  padding    : 0;
 }
 
-/* Prevent text size adjustment on orientation change */
 html {
   -webkit-text-size-adjust : 100%;
   text-size-adjust         : 100%;
 }
 
-/* Smooth scrolling */
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
 }
 
 
 /* ============================================================
-   4. BASE — html, body, root settings
+   4. BASE
    ============================================================ */
 
 html {
-  font-size   : 100%;        /* 16px browser default — do NOT change */
+  font-size   : 100%;
   line-height : var(--lh-body);
 }
 
 body {
+  /* ▼ Single source of truth — everything inherits from here */
   font-family              : var(--font-primary);
   font-weight              : var(--fw-regular);
+  font-style               : normal;    /* ← stops browser oblique synthesis */
   font-size                : var(--text-body);
   color                    : var(--mw-dark);
   background-color         : var(--mw-white);
@@ -314,15 +281,13 @@ body {
 
 
 /* ============================================================
-   5. TYPOGRAPHY — Global heading & body defaults
-   All headings use Eurostile. Override per-section as needed.
+   5. TYPOGRAPHY
    ============================================================ */
 
-/* ── H1 — Hero / Page Title ─────────────────────────────────── */
-/* 48–72px  fw 900  ls 8–10px  lh 1                             */
 h1 {
   font-family    : var(--font-primary);
   font-weight    : var(--fw-black);
+  font-style     : normal;
   font-size      : var(--text-h1);
   line-height    : var(--lh-tight);
   letter-spacing : var(--ls-display);
@@ -330,11 +295,10 @@ h1 {
   color          : var(--mw-dark);
 }
 
-/* ── H2 — Section Title ─────────────────────────────────────── */
-/* 36–48px  fw 800  ls 6–8px  lh 1                              */
 h2 {
   font-family    : var(--font-primary);
   font-weight    : var(--fw-extrabold);
+  font-style     : normal;
   font-size      : var(--text-h2);
   line-height    : var(--lh-tight);
   letter-spacing : var(--ls-display);
@@ -342,11 +306,10 @@ h2 {
   color          : var(--mw-dark);
 }
 
-/* ── H3 — Sub-section ───────────────────────────────────────── */
-/* 24–36px  fw 700  ls 2–4px  lh 1.15                           */
 h3 {
   font-family    : var(--font-primary);
   font-weight    : var(--fw-bold);
+  font-style     : normal;
   font-size      : var(--text-h3);
   line-height    : var(--lh-heading);
   letter-spacing : var(--ls-heading);
@@ -354,11 +317,10 @@ h3 {
   color          : var(--mw-dark);
 }
 
-/* ── H4 — Card Title / Label ────────────────────────────────── */
-/* 18–22px  fw 700  ls 1.5–2px  lh 1.3                          */
 h4 {
   font-family    : var(--font-primary);
   font-weight    : var(--fw-bold);
+  font-style     : normal;
   font-size      : var(--text-h4);
   line-height    : var(--lh-snug);
   letter-spacing : var(--ls-card);
@@ -366,11 +328,10 @@ h4 {
   color          : var(--mw-dark);
 }
 
-/* ── H5 ─────────────────────────────────────────────────────── */
-/* 15–20px  fw 700  ls 1–2px  lh 1.35                           */
 h5 {
   font-family    : var(--font-primary);
   font-weight    : var(--fw-bold);
+  font-style     : normal;
   font-size      : var(--text-h5);
   line-height    : var(--lh-snug);
   letter-spacing : var(--ls-card);
@@ -378,11 +339,10 @@ h5 {
   color          : var(--mw-dark);
 }
 
-/* ── H6 ─────────────────────────────────────────────────────── */
-/* 13–17px  fw 700  ls 0.5–1px  lh 1.35                         */
 h6 {
   font-family    : var(--font-primary);
   font-weight    : var(--fw-bold);
+  font-style     : normal;
   font-size      : var(--text-h6);
   line-height    : var(--lh-snug);
   letter-spacing : 1px;
@@ -390,46 +350,41 @@ h6 {
   color          : var(--mw-dark);
 }
 
-/* ── Paragraph — Regular body ───────────────────────────────── */
-/* 14–16px  fw 400  lh 1.75  ls 0.25px                          */
 p {
   font-family    : var(--font-primary);
   font-weight    : var(--fw-regular);
+  font-style     : normal;
   font-size      : var(--text-body);
   line-height    : var(--lh-body);
   letter-spacing : var(--ls-body);
   color          : var(--mw-grey-3);
 }
 
-/* ── Lead / Intro paragraph ─────────────────────────────────── */
-/* 16–18px  fw 400  lh 1.75  color: dark                        */
-/* Usage: <p class="lead"> or first-child intro copy            */
 p.lead,
 .lead {
+  font-family    : var(--font-primary);
+  font-style     : normal;
   font-size      : var(--text-lead);
   line-height    : var(--lh-body);
   color          : var(--mw-dark-2);
   letter-spacing : var(--ls-body);
 }
 
-/* ── Small / Caption ─────────────────────────────────────────── */
-/* 12–14px  fw 400  lh 1.5                                       */
 small,
 .text-small {
   font-family    : var(--font-primary);
   font-weight    : var(--fw-regular);
+  font-style     : normal;
   font-size      : var(--text-small);
   line-height    : var(--lh-normal);
   letter-spacing : var(--ls-body);
   color          : var(--mw-grey-3);
 }
 
-/* ── Eyebrow / Tag Label ─────────────────────────────────────── */
-/* 10–12px  fw 700  ls 3px  uppercase  color: orange             */
-/* Usage: <span class="eyebrow"> above a heading                 */
 .eyebrow {
   font-family    : var(--font-primary);
   font-weight    : var(--fw-bold);
+  font-style     : normal;
   font-size      : var(--text-xs);
   line-height    : var(--lh-normal);
   letter-spacing : var(--ls-label);
@@ -437,11 +392,10 @@ small,
   color          : var(--mw-orange);
 }
 
-/* ── Blockquote ──────────────────────────────────────────────── */
-/* Pull-quote style: 18–22px fw 700 lh 1.65                      */
 blockquote {
   font-family    : var(--font-primary);
   font-weight    : var(--fw-bold);
+  font-style     : normal;
   font-size      : clamp(18px, 1.6vw, 22px);
   line-height    : var(--lh-relaxed);
   letter-spacing : 0.3px;
@@ -451,8 +405,8 @@ blockquote {
   border         : none;
 }
 
-/* ── Anchor ──────────────────────────────────────────────────── */
 a {
+  font-family     : inherit;
   color           : var(--mw-orange);
   text-decoration : none;
   transition      : color var(--ease-default);
@@ -466,73 +420,56 @@ a:focus-visible {
 
 
 /* ============================================================
-   6. UTILITIES — Spacing, text, layout helpers
+   6. UTILITIES
    ============================================================ */
 
-/* ── Section wrapper ── */
 .section-inner {
-  max-width  : var(--section-max-w);
-  margin     : 0 auto;
-  padding    : 0;
-  width      : 100%;
+  max-width : var(--section-max-w);
+  margin    : 0 auto;
+  padding   : 0;
+  width     : 100%;
 }
 
-/* ── Standard section padding ── */
 .section {
   padding    : var(--section-py) var(--section-px);
   width      : 100%;
   overflow-x : hidden;
 }
 
-/* ── Section heading margin (heading → content gap) ── */
-.section-heading {
-  margin-bottom : var(--section-gap);
-}
+.section-heading { margin-bottom: var(--section-gap); }
 
-/* ── Text color utilities ── */
-.text-orange   { color: var(--mw-orange)  !important; }
-.text-dark     { color: var(--mw-dark)    !important; }
-.text-muted    { color: var(--mw-grey-3)  !important; }
-.text-white    { color: var(--mw-white)   !important; }
+.text-orange { color: var(--mw-orange)  !important; }
+.text-dark   { color: var(--mw-dark)    !important; }
+.text-muted  { color: var(--mw-grey-3)  !important; }
+.text-white  { color: var(--mw-white)   !important; }
 
-/* ── Font weight utilities ── */
-.fw-regular    { font-weight: var(--fw-regular);   }
-.fw-bold       { font-weight: var(--fw-bold);      }
-.fw-extrabold  { font-weight: var(--fw-extrabold); }
-.fw-black      { font-weight: var(--fw-black);     }
+.fw-regular   { font-weight: var(--fw-regular);   }
+.fw-bold      { font-weight: var(--fw-bold);      }
+.fw-extrabold { font-weight: var(--fw-extrabold); }
+.fw-black     { font-weight: var(--fw-black);     }
 
-/* ── Text transform ── */
-.uppercase     { text-transform: uppercase; }
-.normal-case   { text-transform: none;      }
+.uppercase   { text-transform: uppercase; }
+.normal-case { text-transform: none;      }
 
-/* ── Orange accent on heading spans ── */
-/* Usage: <h2>MAKE<span class="accent">WAYS</span></h2> */
 .accent { color: var(--mw-orange); }
 
-/* ── Orange border-top rule (used by About, Cards) ── */
-.border-top-orange {
-  border-top : 5px solid var(--mw-orange);
-}
+.border-top-orange { border-top: 5px solid var(--mw-orange); }
 
-/* ── Horizontal rule ── */
 hr {
-  border       : none;
-  border-top   : 1px solid var(--mw-rule);
-  margin       : var(--space-8) 0;
+  border     : none;
+  border-top : 1px solid var(--mw-rule);
+  margin     : var(--space-8) 0;
 }
 
 
 /* ============================================================
-   7. SCROLL / MOTION — Base reveal animation class
-   Applied to any element that should animate in on scroll.
-   JavaScript (IntersectionObserver) adds .visible to trigger.
-   Components set --delay via inline style for stagger.
+   7. SCROLL / MOTION
    ============================================================ */
 
 .animate {
-  opacity    : 0;
-  transform  : translateY(24px);
-  transition :
+  opacity   : 0;
+  transform : translateY(24px);
+  transition:
     opacity   var(--ease-reveal) calc(var(--delay, 0s)),
     transform var(--ease-reveal) calc(var(--delay, 0s));
 }
@@ -542,23 +479,15 @@ hr {
   transform : translateY(0);
 }
 
-/* Disable animations for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .animate {
-    opacity   : 1;
-    transform : none;
-    transition: none;
-  }
+  .animate { opacity: 1; transform: none; transition: none; }
 }
 
 
 /* ============================================================
-   8. RESPONSIVE BREAKPOINTS — Section-level adjustments
-   Components handle their own internal breakpoints.
-   These globals tune the shared section padding/spacing.
+   8. RESPONSIVE
    ============================================================ */
 
-/* ── ≤ 1280px ── */
 @media (max-width: 1280px) {
   :root {
     --section-py : clamp(56px, 7vw, 80px);
@@ -567,7 +496,6 @@ hr {
   }
 }
 
-/* ── ≤ 1024px ── */
 @media (max-width: 1024px) {
   :root {
     --section-py : clamp(52px, 7vw, 72px);
@@ -576,39 +504,33 @@ hr {
   }
 }
 
-/* ── ≤ 768px ── */
 @media (max-width: 768px) {
   :root {
     --section-py : clamp(48px, 8vw, 64px);
     --section-px : 24px;
     --section-gap: clamp(32px, 6vw, 48px);
   }
-
   h1 { letter-spacing: 6px; }
   h2 { letter-spacing: 5px; }
   h3 { letter-spacing: 2px; }
 }
 
-/* ── ≤ 520px ── */
 @media (max-width: 520px) {
   :root {
     --section-py : clamp(44px, 9vw, 56px);
     --section-px : 20px;
     --section-gap: clamp(28px, 7vw, 40px);
   }
-
   h1 { letter-spacing: 4px; }
   h2 { letter-spacing: 4px; }
 }
 
-/* ── ≤ 360px ── */
 @media (max-width: 360px) {
   :root {
     --section-py : 44px;
     --section-px : 16px;
     --section-gap: 28px;
   }
-
   h1 { letter-spacing: 3px; }
   h2 { letter-spacing: 3px; }
 }

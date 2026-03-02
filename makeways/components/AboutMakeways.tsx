@@ -54,18 +54,20 @@ export default function AboutMakeways(): ReactElement {
 
             </div>
 
-            {/* ── Right column — pull quote ── */}
-            <blockquote
-              className="about__quote animate"
-              style={{ '--delay': '0.15s' } as React.CSSProperties}
-            >
+              <blockquote className="about__quote animate" style={{ '--delay': '0.18s' } as React.CSSProperties}>
               <span className="about__quote-bar" />
-              <p>
-                Guided by strategic thinking and creative precision, we help brands connect
-                meaningfully with their audiences that translates into measurable results
-              </p>
+              <div className="about__quote-inner">
+                <svg width="40" height="28" viewBox="0 0 40 28" fill="none">
+                  <path d="M0 28V16.8C0 7.84 5.6 2.24 16.8 0L18 3.92C13.2 5.04 10.4 7.84 9.6 12.32H16.8V28H0ZM23.2 28V16.8C23.2 7.84 28.8 2.24 40 0L41.2 3.92C36.4 5.04 33.6 7.84 32.8 12.32H40V28H23.2Z" fill="#f47c20" fillOpacity="0.15"/>
+                </svg>
+                <p>
+                  Guided by strategic thinking and creative precision, we help brands connect
+                  meaningfully with their audiences — translating intent into measurable results.
+                </p>
+              </div>
             </blockquote>
-
+          </div>
+          <div className="founder-section animate" style={{ '--delay': '0.25s' } as React.CSSProperties}>
           </div>
         </div>
       </section>

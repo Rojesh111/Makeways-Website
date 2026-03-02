@@ -75,7 +75,7 @@ const nextConfig = {
 
       /* ── Fonts ───────────────────────────────────────────────── */
       {
-        source : '/fonts/:path*',
+        source : '/fonts/FONTS/:path*',
         headers: [
           {
             key  : 'Cache-Control',

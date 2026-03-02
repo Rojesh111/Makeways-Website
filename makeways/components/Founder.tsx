@@ -33,8 +33,7 @@ export default function Founder() {
         /* ── Eurostile Font Faces ── */
         @font-face {
           font-family: 'Eurostile';
-          src: url('/fonts/EurostileRegular.woff2') format('woff2'),
-               url('/fonts/EurostileRegular.woff') format('woff');
+          src: url('/fonts/FONTS/EurostileRegular.ttf') format('truetype');
           font-weight: 400;
           font-style: normal;
           font-display: swap;
@@ -42,8 +41,7 @@ export default function Founder() {
 
         @font-face {
           font-family: 'Eurostile';
-          src: url('/fonts/EurostileBold.woff2') format('woff2'),
-               url('/fonts/EurostileBold.woff') format('woff');
+          src: url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
           font-weight: 700;
           font-style: normal;
           font-display: swap;
@@ -51,8 +49,7 @@ export default function Founder() {
 
         @font-face {
           font-family: 'Eurostile';
-          src: url('/fonts/EurostileExtendedBold.woff2') format('woff2'),
-               url('/fonts/EurostileExtendedBold.woff') format('woff');
+          src: url('/fonts/FONTS/EurostileExtendedBold.ttf') format('truetype');
           font-weight: 900;
           font-style: normal;
           font-display: swap;
@@ -80,7 +77,7 @@ export default function Founder() {
           top: 0;
           left: 15%;
           right: 0;
-          font-family: 'Eurostile';
+          font-family: 'Eurostile', Eurostile Bold;
           font-size: clamp(80px, 14vw, 200px);
           font-weight: 900;
           color: #FF8C00;
@@ -146,7 +143,7 @@ export default function Founder() {
         /* Eurostile Bold (700) — opening quote mark */
         .quote-open {
           display: block;
-          font-family: 'Eurostile', 'Arial Black', sans-serif;
+          font-family: 'Eurostile', Eurostile Regular;
           font-size: clamp(40px, 4vw, 64px);
           font-weight: 700;
           color: #FF8C00;
@@ -178,7 +175,7 @@ export default function Founder() {
 
         /* Eurostile Regular (400) — body paragraph */
         .quote-text {
-          font-family: 'Eurostile', 'Arial', sans-serif;
+          font-family: 'Eurostile', Eurostile Regular;
           font-size: clamp(15px, 1vw, 16px);
           font-weight: 400;
           color: #666666;

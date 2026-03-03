@@ -151,11 +151,6 @@ export default function Header() {
   ───────────────────────────────────────────────────────────────── */
   return (
     <>
-      {/* ── Accessibility: skip to main content ──────────────────── */}
-      <a href="#main-content" className={styles.skipLink}>
-        Skip to content
-      </a>
-
       <header
         className={[
           styles.header,

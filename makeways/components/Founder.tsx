@@ -33,7 +33,7 @@ export default function Founder() {
         /* ── Eurostile Font Faces ── */
         @font-face {
           font-family: 'Eurostile';
-          src: url('/fonts/FONTS/EurostileRegular.ttf') format('truetype');
+          src: url('/fonts/FONTS/EurostileRegular.ttf') format('ttf');
           font-weight: 400;
           font-style: normal;
           font-display: swap;
@@ -41,7 +41,7 @@ export default function Founder() {
 
         @font-face {
           font-family: 'Eurostile';
-          src: url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
+          src: url('/fonts/FONTS/EurostileBold.ttf') format('ttf');
           font-weight: 700;
           font-style: normal;
           font-display: swap;
@@ -49,7 +49,7 @@ export default function Founder() {
 
         @font-face {
           font-family: 'Eurostile';
-          src: url('/fonts/FONTS/EurostileExtendedBold.ttf') format('truetype');
+          src: url('/fonts/FONTS/EurostileExtendedBold.ttf') format('ttf');
           font-weight: 900;
           font-style: normal;
           font-display: swap;

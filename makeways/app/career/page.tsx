@@ -77,14 +77,14 @@ export default function CareerPage() {
         }
         @font-face {
           font-family  : 'Eurostile';
-          src          : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
+          src          : url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
           font-weight  : 700;
           font-style   : normal;
           font-display : swap;
         }
         @font-face {
           font-family  : 'Eurostile';
-          src          : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
+          src          : url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
           font-weight  : 800;
           font-style   : normal;
           font-display : swap;

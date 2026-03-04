@@ -6,60 +6,60 @@ import React, { useState, useRef, useCallback, useEffect } from "react";
    DATA
 ───────────────────────────────────────────────────────────────── */
 interface Testimonial {
-  id    : number;
-  name  : string;
-  role  : string;
-  quote : string;
-  image : string;
+  id: number;
+  name: string;
+  role: string;
+  quote: string;
+  image: string;
 }
 
 const DATA: Testimonial[] = [
   {
-    id   : 1,
-    name : "NIRVANA CHAUDHARY",
-    role : "MD - CHAUDHARY GROUP",
+    id: 1,
+    name: "NIRVANA CHAUDHARY",
+    role: "MD - CHAUDHARY GROUP",
     quote: "Our association with Makeways goes beyond a typical client - agency relationship. Their strategic thinking and creativity make them one of the finest agencies in Nepal and my first choice.",
     image: "/images/testimonial/NIRVANACHAUDHARY.png",
   },
   {
-    id   : 2,
-    name : "HIMANSHU GOLCHA",
-    role : "EXECUTIVE DIRECTOR - HULAS STEEL",
+    id: 2,
+    name: "HIMANSHU GOLCHA",
+    role: "EXECUTIVE DIRECTOR - HULAS STEEL",
     quote: "Our experience working with Makeways has been extremely rewarding. What I appreciate about Makeways is their ability to combine creativity with results-driven campaigns.",
     image: "/images/testimonial/HIMANSHUGOLCHA.png",
   },
   {
-    id   : 3,
-    name : "MALVIKA SUBBA",
-    role : "MISS NEPAL / MEDIA PERSON",
+    id: 3,
+    name: "MALVIKA SUBBA",
+    role: "MISS NEPAL / MEDIA PERSON",
     quote: "Working with Makeways has been a smooth and collaborative experience. They are attentive to detail, responsive to feedback, and committed to delivering top-notch event solutions.",
     image: "/images/testimonial/MalvikaSubba.png",
   },
   {
-    id   : 4,
-    name : "BHUSAN DAHAL",
-    role : "MEDIA LEADER",
+    id: 4,
+    name: "BHUSAN DAHAL",
+    role: "MEDIA LEADER",
     quote: "What I admire about Makeways is their storytelling approach. Their campaigns are not just visually appealing but also culturally relevant and emotionally engaging.",
     image: "/images/testimonial/BHUSANDAHAL.png",
   },
   {
-    id   : 5,
-    name : "SUDIP THAPA",
-    role : "PRESIDENT - ADVERTISING ASSOCIATION OF NEPAL",
+    id: 5,
+    name: "SUDIP THAPA",
+    role: "PRESIDENT - ADVERTISING ASSOCIATION OF NEPAL",
     quote: "Over the years, I have observed many campaigns from Makeways that have contributed positively to Nepal's advertising standards. Their work is thoughtful, well-executed, and impactful.",
     image: "/images/testimonial/SUDIPTHAPA.png",
   },
   {
-    id   : 6,
-    name : "IRAJ SHRESTHA",
-    role : "SALES & MARKETING HEAD - GOLDSTAR SHOES",
+    id: 6,
+    name: "IRAJ SHRESTHA",
+    role: "SALES & MARKETING HEAD - GOLDSTAR SHOES",
     quote: "Makeways stands out because they approach branding with clarity and purpose. Their ideas are not only creative but also aligned with long-term brand positioning.",
     image: "/images/testimonial/IRAJSHRESTHA.png",
   },
 ];
 
 const OUT_MS = 260;
-const IN_MS  = 500;
+const IN_MS = 500;
 
 /* ─────────────────────────────────────────────────────────────────
    EDGE ARROW
@@ -83,11 +83,11 @@ function EdgeArrow({ onClick, dir }: { onClick: () => void; dir: "prev" | "next"
    MAIN COMPONENT
 ───────────────────────────────────────────────────────────────── */
 export default function Testimonials() {
-  const [idx,   setIdx]   = useState(0);
+  const [idx, setIdx] = useState(0);
   const [phase, setPhase] = useState<"idle" | "out" | "in">("idle");
 
   const pending = useRef<number>(0);
-  const timers  = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const clearTimers = () => {
     timers.current.forEach(clearTimeout);
@@ -115,14 +115,14 @@ export default function Testimonials() {
 
   const prev = () => goTo((idx - 1 + DATA.length) % DATA.length);
   const next = () => goTo((idx + 1) % DATA.length);
-  const t    = DATA[idx];
+  const t = DATA[idx];
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement).tagName;
       if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
-      if (e.key === "ArrowLeft"  || e.key === "ArrowUp")   prev();
-      if (e.key === "ArrowRight" || e.key === "ArrowDown")  next();
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") prev();
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") next();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -134,33 +134,10 @@ export default function Testimonials() {
     <>
       <style>{`
 
-        /* ════════════════════════════════════════════════════
-           @font-face — Eurostile loaded directly
-           Adjust paths if your fonts folder is elsewhere.
-           Using EurostileExt-Normal for regular weight and
-           EurostileExt-Bold for bold/black weights.
-        ════════════════════════════════════════════════════ */
-        @font-face {
-          font-family : 'Eurostile';
-          src         : url('/fonts/FONTS/EurostileExt-Normal_Regular.ttf') format('truetype');
-          font-weight : 400;
-          font-style  : normal;
-          font-display: swap;
-        }
-        @font-face {
-          font-family : 'Eurostile';
-          src         : url('/fonts/FONTS/EurostileExt-Bold_Regular.ttf') format('truetype');
-          font-weight : 700;
-          font-style  : normal;
-          font-display: swap;
-        }
-        @font-face {
-          font-family : 'Eurostile';
-          src         : url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
-          font-weight : 900;
-          font-style  : normal;
-          font-display: swap;
-        }
+        /*
+          NO @font-face here — fonts are declared once in globals.css.
+          Components only reference font-family names.
+        */
 
         /* ════════════════════════════════════════════════════
            SECTION SHELL
@@ -552,7 +529,7 @@ export default function Testimonials() {
               style={{ "--tst-delay": "0ms" } as React.CSSProperties}
             >
               <h2 className="tst-name">{t.name}</h2>
-              <p  className="tst-role">{t.role}</p>
+              <p className="tst-role">{t.role}</p>
             </div>
 
             <div className="tst-says" aria-hidden="true">SAYS</div>
@@ -608,7 +585,7 @@ export default function Testimonials() {
             style={{ "--tst-delay": "0ms" } as React.CSSProperties}
           >
             <h2 className="tst-name">{t.name}</h2>
-            <p  className="tst-role">{t.role}</p>
+            <p className="tst-role">{t.role}</p>
           </div>
 
           <div className="tst-says" aria-hidden="true">SAYS</div>

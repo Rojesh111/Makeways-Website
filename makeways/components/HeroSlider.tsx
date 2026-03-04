@@ -4,23 +4,23 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 
 /* ─── Types ──────────────────────────────────────────────────────── */
-interface Caption  { eyebrow: string; headline: string; sub: string; }
+interface Caption { eyebrow: string; headline: string; sub: string; }
 interface ImageSlide { type: 'image'; src: string; alt: string; fit: 'cover' | 'contain'; bg: string; raw?: boolean; }
 interface VideoSlide { type: 'video'; src: string; alt: string; bg: string; caption: Caption; }
 type Slide = ImageSlide | VideoSlide;
 
 /* ─── Slides — edit paths here ───────────────────────────────────── */
 const SLIDES: Slide[] = [
-  { type: 'video', src: '/Videos/neta2.mp4',  alt: 'MAKEWAYS Showreel',       bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
-  { type: 'video', src: '/Videos/nbank.mp4',  alt: 'Nabilbank – MAKEWAYS',    bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
-  { type: 'video', src: '/Videos/hulas.mp4',  alt: 'Hulas – MAKEWAYS',        bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
-  { type: 'video', src: '/Videos/neta.mp4',  alt: 'Neta EV – MAKEWAYS',   bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
-  { type: 'video', src: '/Videos/super.mp4',  alt: 'NSL League – MAKEWAYS',   bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
-  { type: 'video', src: '/Videos/suzuki.mp4', alt: 'Suzuki – MAKEWAYS',       bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
-  { type: 'video', src: '/Videos/yamaha.mp4', alt: 'Yamaha – MAKEWAYS',       bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
+  { type: 'video', src: '/Videos/neta2.mp4', alt: 'MAKEWAYS Showreel', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
+  { type: 'video', src: '/Videos/nbank.mp4', alt: 'Nabilbank – MAKEWAYS', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
+  { type: 'video', src: '/Videos/hulas.mp4', alt: 'Hulas – MAKEWAYS', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
+  { type: 'video', src: '/Videos/neta.mp4', alt: 'Neta EV – MAKEWAYS', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
+  { type: 'video', src: '/Videos/super.mp4', alt: 'NSL League – MAKEWAYS', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
+  { type: 'video', src: '/Videos/suzuki.mp4', alt: 'Suzuki – MAKEWAYS', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
+  { type: 'video', src: '/Videos/yamaha.mp4', alt: 'Yamaha – MAKEWAYS', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
 ];
 
-const INTERVAL     = 6000;   // ms between auto-advance (images only)
+const INTERVAL = 6000;   // ms between auto-advance (images only)
 const RENDER_RANGE = 1;       // how many slides either side to keep mounted
 
 /* ─── Tiny helper: preload image link ───────────────────────────── */
@@ -33,24 +33,24 @@ function preloadImage(src: string) {
 
 /* ─── Component ──────────────────────────────────────────────────── */
 export default function HeroSlider() {
-  const [current,   setCurrent]  = useState(0);
-  const [prev,      setPrev]     = useState<number | null>(null);
-  const [busy,      setBusy]     = useState(false);
-  const [ready,     setReady]    = useState(false);
-  const [videoPct,  setVideoPct] = useState(0);
-  const [muted,     setMuted]    = useState(true);
-  const [hasAudio,  setHasAudio] = useState(false);   // true once we detect an audio track
+  const [current, setCurrent] = useState(0);
+  const [prev, setPrev] = useState<number | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [videoPct, setVideoPct] = useState(0);
+  const [muted, setMuted] = useState(true);
+  const [hasAudio, setHasAudio] = useState(false);   // true once we detect an audio track
 
   const preloadedRef = useRef<Set<number>>(new Set([0]));
-  const timerRef     = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const rafRef       = useRef<number | null>(null);
-  const readyRef     = useRef(false);
-  const videoRefs    = useRef<Map<number, HTMLVideoElement>>(new Map());
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const readyRef = useRef(false);
+  const videoRefs = useRef<Map<number, HTMLVideoElement>>(new Map());
 
   /* ── Video ref collector ─────────────────────────────────────── */
   const setVideoRef = (i: number) => (el: HTMLVideoElement | null) => {
     if (el) videoRefs.current.set(i, el);
-    else    videoRefs.current.delete(i);
+    else videoRefs.current.delete(i);
   };
 
   const isVideo = SLIDES[current].type === 'video';
@@ -78,8 +78,8 @@ export default function HeroSlider() {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
   }, []);
 
-  useEffect(() => { const t = setTimeout(markReady, 1500);       return () => clearTimeout(t); }, [markReady]);
-  useEffect(() => { if (ready) preloadNeighbors(current); },     [current, ready, preloadNeighbors]);
+  useEffect(() => { const t = setTimeout(markReady, 1500); return () => clearTimeout(t); }, [markReady]);
+  useEffect(() => { if (ready) preloadNeighbors(current); }, [current, ready, preloadNeighbors]);
   useEffect(() => { const t = setTimeout(() => preloadNeighbors(0), 800); return () => clearTimeout(t); }, [preloadNeighbors]);
 
   /* ── Core navigation ─────────────────────────────────────────── */
@@ -195,12 +195,12 @@ export default function HeroSlider() {
       // Don't fire if user is typing in an input
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement).tagName)) return;
       switch (e.key) {
-        case 'ArrowLeft':  e.preventDefault(); goPrev();                   break;
-        case 'ArrowRight': e.preventDefault(); goNext();                   break;
-        case 'ArrowUp':    e.preventDefault(); goNext();                   break;
-        case 'ArrowDown':  e.preventDefault(); goPrev();                   break;
+        case 'ArrowLeft': e.preventDefault(); goPrev(); break;
+        case 'ArrowRight': e.preventDefault(); goNext(); break;
+        case 'ArrowUp': e.preventDefault(); goNext(); break;
+        case 'ArrowDown': e.preventDefault(); goPrev(); break;
         case 'm':
-        case 'M':          e.preventDefault(); setMuted(m => !m);          break;
+        case 'M': e.preventDefault(); setMuted(m => !m); break;
       }
     };
     window.addEventListener('keydown', onKey);
@@ -210,7 +210,7 @@ export default function HeroSlider() {
   /* ── Touch / swipe ───────────────────────────────────────────── */
   const touchStartX = useRef<number | null>(null);
   const onTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
-  const onTouchEnd   = (e: React.TouchEvent) => {
+  const onTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
     const dx = e.changedTouches[0].clientX - touchStartX.current;
     if (Math.abs(dx) > 50) { dx < 0 ? goNext() : goPrev(); }
@@ -248,7 +248,7 @@ export default function HeroSlider() {
           {SLIDES.map((slide, i) => {
             if (!shouldRender(i)) return null;
             const isActive = i === current;
-            const isExit   = i === prev;
+            const isExit = i === prev;
             return (
               <div
                 key={i}
@@ -262,8 +262,10 @@ export default function HeroSlider() {
                     {slide.raw ? (
                       <img
                         src={slide.src} alt={slide.alt}
-                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%',
-                          objectFit: slide.fit, objectPosition: 'center', display: 'block' }}
+                        style={{
+                          position: 'absolute', inset: 0, width: '100%', height: '100%',
+                          objectFit: slide.fit, objectPosition: 'center', display: 'block'
+                        }}
                       />
                     ) : (
                       <Image
@@ -320,12 +322,12 @@ export default function HeroSlider() {
         {/* ─── Navigation arrows ───────────────────────────────── */}
         <button className="hs__arrow hs__arrow--l" onClick={goPrev} aria-label="Previous slide">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <path d="M11 3.5L6 9L11 14.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M11 3.5L6 9L11 14.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
         <button className="hs__arrow hs__arrow--r" onClick={goNext} aria-label="Next slide">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <path d="M7 3.5L12 9L7 14.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M7 3.5L12 9L7 14.5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
 
@@ -341,16 +343,16 @@ export default function HeroSlider() {
               {muted ? (
                 /* Muted — speaker with X */
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                  <line x1="23" y1="9" x2="17" y2="15"/>
-                  <line x1="17" y1="9" x2="23" y2="15"/>
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                  <line x1="23" y1="9" x2="17" y2="15" />
+                  <line x1="17" y1="9" x2="23" y2="15" />
                 </svg>
               ) : (
                 /* Unmuted — speaker with waves */
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
                 </svg>
               )}
             </span>
@@ -376,7 +378,7 @@ export default function HeroSlider() {
               >
                 {s.type === 'video' && (
                   <svg width="5" height="6" viewBox="0 0 5 6" fill="currentColor" aria-hidden="true">
-                    <path d="M0 0L5 3L0 6Z"/>
+                    <path d="M0 0L5 3L0 6Z" />
                   </svg>
                 )}
               </button>
@@ -403,27 +405,10 @@ export default function HeroSlider() {
           All CSS is scoped via JSX — no global pollution.
       ───────────────────────────────────────────────────────────── */}
       <style jsx>{`
-        /* ── Fonts ───────────────────────────────────────────────── */
-        @font-face {
-          font-family: 'Eurostile';
-          src: url('/fonts/FONTS/EurostileExt-Normal_Regular.ttf') format('truetype');
-          font-weight: 400; font-style: normal; font-display: swap;
-        }
-        @font-face {
-          font-family: 'Eurostile';
-          src: url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
-          font-weight: 700; font-style: normal; font-display: swap;
-        }
-        @font-face {
-          font-family: 'Eurostile';
-          src: url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
-          font-weight: 800; font-style: normal; font-display: swap;
-        }
-        @font-face {
-          font-family: 'Eurostile';
-          src: url('/fonts/FONTS/EurostileExt-Bold_Regular.ttf') format('truetype');
-          font-weight: 900; font-style: normal; font-display: swap;
-        }
+        /*
+          NO @font-face here — fonts are declared once in globals.css.
+          Components only reference font-family names.
+        */
 
         /* ── Container ───────────────────────────────────────────── */
         .hs {

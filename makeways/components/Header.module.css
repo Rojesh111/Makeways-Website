@@ -2,308 +2,304 @@
    MAKEWAYS — Header.module.css
    CSS Modules = styles bundled into critical CSS chunk
    → delivered with HTML response → ZERO FOUC on reload
-   ============================================================ */
 
-/* ─── Fonts (declare here so header text is always styled) ───── */
-@font-face {
-  font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileExt-Normal_Regular.ttf') format('truetype');
-  font-weight  : 400;
-  font-style   : normal;
-  font-display : swap;
-}
-@font-face {
-  font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
-  font-weight  : 700;
-  font-style   : normal;
-  font-display : swap;
-}
-@font-face {
-  font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
-  font-weight  : 800;
-  font-style   : normal;
-  font-display : swap;
-}
+   NO @font-face here — fonts are declared once in globals.css.
+   ============================================================ */
 
 /* ── Wrapper ──────────────────────────────────────────────────── */
 .header {
-  position    : fixed;
-  top         : 0;
-  left        : 0;
-  right       : 0;
-  height      : 82px;          /* Explicit px — never flash with auto */
-  background  : #ffffff;
-  border-bottom : 2px solid #f0f0f0;
-  z-index     : 1000;
-  will-change : background, box-shadow;
-  transition  : background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 82px;
+  background: #ffffff;
+  border-bottom: 2px solid #f0f0f0;
+  z-index: 1000;
+  will-change: background, box-shadow;
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 /* Glass morph on scroll */
 .headerScrolled {
-  background           : rgba(255, 255, 255, 0.92);
-  backdrop-filter      : blur(14px) saturate(160%);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px) saturate(160%);
   -webkit-backdrop-filter: blur(14px) saturate(160%);
-  box-shadow           : 0 2px 28px rgba(0, 0, 0, 0.10);
-  border-bottom-color  : transparent;
+  box-shadow: 0 2px 28px rgba(0, 0, 0, 0.10);
+  border-bottom-color: transparent;
 }
 
 .headerInner {
-  display         : flex;
-  align-items     : center;
-  justify-content : space-between;
-  height          : 100%;
-  padding         : 0 40px;
-  max-width       : 1400px;
-  margin          : 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 40px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 /* ── Logo ─────────────────────────────────────────────────────── */
 .logoLink {
-  display         : flex;
-  align-items     : center;
-  flex-shrink     : 0;
-  margin-right    : 32px;
-  text-decoration : none;
-  /* Explicit dimensions prevent layout shift on first paint */
-  width           : 190px;
-  height          : 60px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: 32px;
+  text-decoration: none;
+  width: 190px;
+  height: 60px;
 }
 
 /* ── Desktop Nav ──────────────────────────────────────────────── */
-/*
-  CRITICAL LINE — this must be in CSS Modules (not styled-jsx)
-  so it is present in the SSR HTML from byte 0.
-  styled-jsx injects this only after JS hydration → causes the flash.
-*/
 .navDesktop {
-  display     : flex;            /* ← the line that was missing before */
-  align-items : center;
-  gap         : 20px;
-  margin-left : auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: auto;
 }
 
 .navItem {
-  display         : flex;
-  flex-direction  : column;
-  align-items     : center;
-  gap             : 6px;
-  text-decoration : none;
-  cursor          : pointer;
-  touch-action    : manipulation;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
 
 /* Circle */
 .navCircle {
-  display         : flex;
-  align-items     : center;
-  justify-content : center;
-  width           : 56px;
-  height          : 56px;
-  border-radius   : 50%;
-  background      : #ffffff;
-  border          : 2.5px solid #f47c20;
-  transition      :
-    background   0.22s ease,
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2.5px solid #f47c20;
+  transition:
+    background 0.22s ease,
     border-color 0.22s ease,
-    transform    0.22s ease,
-    box-shadow   0.22s ease;
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
 }
 
 .navItem:hover .navCircle,
 .navItemActive .navCircle {
-  background  : #f47c20;
+  background: #f47c20;
   border-color: #f47c20;
-  transform   : translateY(-2px);
-  box-shadow  : 0 6px 18px rgba(244, 124, 32, 0.30);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(244, 124, 32, 0.30);
 }
 
 /* Icon */
 .navIcon {
-  display         : flex;
-  align-items     : center;
-  justify-content : center;
-  color           : #f47c20;
-  transition      : color 0.22s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f47c20;
+  transition: color 0.22s ease;
 }
 
 .navItem:hover .navIcon,
 .navItemActive .navIcon {
-  color : #ffffff;
+  color: #ffffff;
 }
 
-/* Label */
+/* Label — Eurostile 800 · 10px · ls 0.09em */
 .navLabel {
-  font-family    : 'Eurostile', 'Eurostile Bold', 'EurostileExt';
-  font-size      : 10px;
-  font-weight    : 800;
-  letter-spacing : 0.09em;
-  color          : #2b2b2b;
-  text-transform : uppercase;
-  white-space    : nowrap;
-  transition     : color 0.22s ease;
+  font-family: 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  color: #2b2b2b;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.22s ease;
 }
 
 .navItem:hover .navLabel,
 .navItemActive .navLabel {
-  color : #f47c20;
+  color: #f47c20;
 }
 
 /* ── Hamburger ────────────────────────────────────────────────── */
 .hamburger {
-  display         : none;       /* shown only on mobile via media query */
-  flex-direction  : column;
-  justify-content : center;
-  gap             : 5px;
-  width           : 40px;
-  height          : 40px;
-  background      : none;
-  border          : none;
-  cursor          : pointer;
-  padding         : 4px;
-  z-index         : 1100;
-  flex-shrink     : 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 1100;
+  flex-shrink: 0;
 }
 
 .hamburger span {
-  display          : block;
-  height           : 2.5px;
-  width            : 100%;
-  background       : #2b2b2b;
-  border-radius    : 3px;
-  transition       :
-    transform  0.35s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity    0.3s ease,
-    width      0.3s ease;
-  transform-origin : center;
+  display: block;
+  height: 2.5px;
+  width: 100%;
+  background: #2b2b2b;
+  border-radius: 3px;
+  transition:
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease,
+    width 0.3s ease;
+  transform-origin: center;
 }
 
-.hamburgerOpen span:nth-child(1) { transform: translateY(7.5px)  rotate(45deg);  }
-.hamburgerOpen span:nth-child(2) { opacity: 0; width: 0;                         }
-.hamburgerOpen span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+.hamburgerOpen span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.hamburgerOpen span:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+
+.hamburgerOpen span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
 
 /* ── Mobile Drawer ────────────────────────────────────────────── */
-/*
-  KEY FIX:
-  display:flex is always set — the drawer is hidden via max-height:0
-  and overflow:hidden. This means the CSS is applied on first paint,
-  and no layout recalculation is needed when the menu opens.
-*/
 .mobileMenu {
-  display     : flex;           /* always flex, never toggled */
+  display: flex;
   flex-direction: column;
-  position    : fixed;
-  top         : 82px;           /* must match .header height */
-  left        : 0;
-  right       : 0;
-  background  : #ffffff;
-  border-top  : 1px solid #f0f0f0;
-  box-shadow  : 0 16px 40px rgba(0, 0, 0, 0.12);
-  max-height  : 0;              /* hidden by default */
-  overflow    : hidden;
-  transition  : max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index     : 999;
+  position: fixed;
+  top: 82px;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-top: 1px solid #f0f0f0;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 999;
 }
 
 .mobileMenuVisible {
-  max-height : 520px;           /* animate open */
+  max-height: 520px;
 }
 
-/* Only display on mobile (desktop: hidden via @media) */
 @media (min-width: 901px) {
-  .mobileMenu { display: none; }
+  .mobileMenu {
+    display: none;
+  }
 }
 
 .mobileNavItem {
-  display         : flex;
-  align-items     : center;
-  gap             : 16px;
-  padding         : 15px 32px;
-  font-family     : 'Eurostile', 'Eurostile Bold', 'EurostileExt';
-  font-size       : 12px;
-  font-weight     : 800;
-  letter-spacing  : 0.09em;
-  color           : #2b2b2b;
-  text-decoration : none;
-  text-transform  : uppercase;
-  border-bottom   : 1px solid #f0f0f0;
-  transition      : background 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 32px;
+  font-family: 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  color: #2b2b2b;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s ease, color 0.2s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
 .mobileNavItem:hover,
 .mobileNavItemActive {
-  background : #fff8ef;
-  color      : #f47c20;
+  background: #fff8ef;
+  color: #f47c20;
 }
 
 .mobileCircle {
-  display         : flex;
-  align-items     : center;
-  justify-content : center;
-  width           : 40px;
-  height          : 40px;
-  border-radius   : 50%;
-  border          : 2.5px solid #f47c20;
-  flex-shrink     : 0;
-  transition      : background 0.22s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2.5px solid #f47c20;
+  flex-shrink: 0;
+  transition: background 0.22s ease;
 }
 
 .mobileNavItem:hover .mobileCircle,
 .mobileNavItemActive .mobileCircle {
-  background : #f47c20;
+  background: #f47c20;
 }
 
 .mobileIcon {
-  display         : flex;
-  align-items     : center;
-  justify-content : center;
-  color           : #f47c20;
-  transition      : color 0.22s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f47c20;
+  transition: color 0.22s ease;
 }
 
 .mobileNavItem:hover .mobileIcon,
 .mobileNavItemActive .mobileIcon {
-  color : #ffffff;
+  color: #ffffff;
 }
 
 /* ── Responsive breakpoints ───────────────────────────────────── */
 @media (max-width: 900px) {
-  .navDesktop { display: none; }
-  .hamburger  { display: flex; }
+  .navDesktop {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
 
   .headerInner {
-    padding : 0 20px;
+    padding: 0 20px;
   }
 
   .logoLink {
-    width        : 160px;
-    height       : 51px;
-    margin-right : 0;
+    width: 160px;
+    height: 51px;
+    margin-right: 0;
   }
 }
 
 @media (max-width: 520px) {
-  .header     { height: 66px; }
-  .mobileMenu { top: 66px;    }
-  .logoLink   { width: 140px; height: 44px; }
+  .header {
+    height: 66px;
+  }
+
+  .mobileMenu {
+    top: 66px;
+  }
+
+  .logoLink {
+    width: 140px;
+    height: 44px;
+  }
 }
 
 
 /* ── Backdrop overlay (behind mobile drawer) ──────────────────── */
 .mobileOverlay {
-  position   : fixed;
-  inset      : 0;
-  background : rgba(0, 0, 0, 0.45);
-  z-index    : 998;
-  cursor     : pointer;
-  animation  : overlayFadeIn 0.25s ease forwards;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 998;
+  cursor: pointer;
+  animation: overlayFadeIn 0.25s ease forwards;
 }
 
 @keyframes overlayFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

@@ -1,25 +1,35 @@
 /* ============================================================
    MAKEWAYS — GLOBAL DESIGN SYSTEM
    globals.css
+
+   FONT FILES CONFIRMED ON DISK:
+     EurostileExt-Normal_Regular.ttf   → Eurostile 400 normal  (body, lead, captions)
+     EurostileExt-Bold_Regular.ttf     → Eurostile 700 normal  (headings H1–H3, cards)
+     EurostileTBold.ttf                → Eurostile 800 normal  (heavy display, hero)
+     EurostileCnd-Bold_Regular.ttf     → EurostileCnd 700      (overlines, labels H4–H6)
+
+   FILES THAT DO NOT EXIST (removed — were causing 404s):
+ 
+     EurostileExtended.ttf             ✗ 404
+     EurostileExtendedBold.ttf         ✗ 404
+     EurostileRegular.ttf              ✗ 404
+     EurostileOblique.ttf              ✗ 404
+     EurostileExtObl-Normal_Regular.ttf ✗ 404 (not on disk)
+     EurostileExtObl-Bold_Regular.ttf   ✗ 404 (not on disk)
+
+   WEIGHT MAPPING:
+     400 (regular)   → EurostileExt-Normal_Regular.ttf
+     700 (bold)      → EurostileExt-Bold_Regular.ttf
+     800 (extrabold) → EurostileTBold.ttf
+     900 (black)     → EurostileTBold.ttf (same face, heaviest available)
    ============================================================ */
 
 
 /* ============================================================
-   1. @FONT-FACE — ALL EUROSTILE VARIANTS
-   Files mapped from your /public/fonts/FONTS/ folder.
-
-   FONT FILE → WEIGHT / STYLE:
-   EurostileExt-Normal_Regular.ttf    → 400  normal
-   EurostileExtObl-Normal_Regular.ttf → 400  oblique
-   EurostileOblique.ttf               → 400  italic
-   EurostileBold.ttf                  → 700  normal
-   EurostileExtObl-Bold_Regular.ttf   → 700  oblique + italic
-   EurostileTBold.ttf                 → 800  normal
-   EurostileExtended.ttf              → 900  normal
-   EurostileExt-Bold_Regular.ttf      → EurostileExt  700  normal
-   EurostileCnd-Bold_Regular.ttf      → EurostileCnd  700  normal
+   1. @FONT-FACE — only files confirmed on disk
    ============================================================ */
 
+/* 400 — regular body, lead text, captions */
 @font-face {
   font-family  : 'Eurostile';
   src          : url('/fonts/FONTS/EurostileExt-Normal_Regular.ttf') format('truetype');
@@ -28,46 +38,16 @@
   font-display : swap;
 }
 
+/* 700 — section headings, card titles, bold UI */
 @font-face {
   font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileExtObl-Normal_Regular.ttf') format('truetype');
-  font-weight  : 400;
-  font-style   : oblique;
-  font-display : swap;
-}
-
-@font-face {
-  font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileOblique.ttf') format('truetype');
-  font-weight  : 400;
-  font-style   : italic;
-  font-display : swap;
-}
-
-@font-face {
-  font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileBold.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileExt-Bold_Regular.ttf') format('truetype');
   font-weight  : 700;
   font-style   : normal;
   font-display : swap;
 }
 
-@font-face {
-  font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileExtObl-Bold_Regular.ttf') format('truetype');
-  font-weight  : 700;
-  font-style   : oblique;
-  font-display : swap;
-}
-
-@font-face {
-  font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileExtObl-Bold_Regular.ttf') format('truetype');
-  font-weight  : 700;
-  font-style   : italic;
-  font-display : swap;
-}
-
+/* 800 extrabold — heavy display text, hero titles */
 @font-face {
   font-family  : 'Eurostile';
   src          : url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
@@ -76,25 +56,28 @@
   font-display : swap;
 }
 
+/* 900 black → same EurostileTBold file (heaviest available) */
 @font-face {
   font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileExtended.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
   font-weight  : 900;
   font-style   : normal;
   font-display : swap;
 }
 
+/* EurostileCnd — condensed bold for overlines, UI labels, H4–H6 */
 @font-face {
-  font-family  : 'EurostileExt';
-  src          : url('/fonts/FONTS/EurostileExt-Bold_Regular.ttf') format('truetype');
+  font-family  : 'EurostileCnd';
+  src          : url('/fonts/FONTS/EurostileCnd-Bold_Regular.ttf') format('truetype');
   font-weight  : 700;
   font-style   : normal;
   font-display : swap;
 }
 
+/* EurostileExt — extended bold alias (same file as Eurostile 700) */
 @font-face {
-  font-family  : 'EurostileCnd';
-  src          : url('/fonts/FONTS/EurostileCnd-Bold_Regular.ttf') format('truetype');
+  font-family  : 'EurostileExt';
+  src          : url('/fonts/FONTS/EurostileExt-Bold_Regular.ttf') format('truetype');
   font-weight  : 700;
   font-style   : normal;
   font-display : swap;
@@ -125,73 +108,82 @@
   --mw-bg-light      : #f0f0f0;
   --mw-bg-grey       : #c8c8c8;
 
-  /* ── Font Families — always include system fallbacks ── */
-  --font-primary     : 'Eurostile', Arial, sans-serif;
-  --font-condensed   : 'EurostileCnd', 'Eurostile', Arial, sans-serif;
-  --font-extended    : 'EurostileExt', 'Eurostile', Arial, sans-serif;
+  /* ── Font Families ── */
+  --font-primary   : 'Eurostile',    'Arial Narrow', Arial, sans-serif;
+  --font-condensed : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+  --font-extended  : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
 
   /* ── Typography Scale ── */
-  --text-display     : clamp(48px, 6vw,    72px);
-  --text-h1          : clamp(42px, 5vw,    64px);
-  --text-h2          : clamp(36px, 3.75vw, 48px);
-  --text-h3          : clamp(24px, 2.5vw,  36px);
-  --text-h4          : clamp(18px, 1.5vw,  22px);
-  --text-h5          : clamp(15px, 1.3vw,  20px);
-  --text-h6          : clamp(13px, 1.1vw,  17px);
-  --text-lead        : clamp(16px, 1.4vw,  18px);
-  --text-body        : clamp(14px, 1.1vw,  16px);
-  --text-small       : clamp(12px, 0.9vw,  14px);
-  --text-xs          : clamp(10px, 0.75vw, 12px);
+  --text-display : clamp(48px, 6vw,    72px);
+  --text-h1      : clamp(42px, 5vw,    64px);
+  --text-h2      : clamp(40px, 3.75vw, 48px);
+  --text-h3      : clamp(22px, 2.5vw,  32px);
+  --text-h4      : clamp(14px, 1.1vw,  16px);
+  --text-h5      : clamp(13px, 1vw,    15px);
+  --text-h6      : clamp(12px, 0.9vw,  14px);
+  --text-lead    : clamp(16px, 1.4vw,  18px);
+  --text-body    : clamp(14px, 1.1vw,  16px);
+  --text-small   : clamp(12px, 0.9vw,  14px);
+  --text-xs      : clamp(10px, 0.75vw, 12px);
 
   /* ── Font Weights ── */
-  --fw-regular       : 400;
-  --fw-bold          : 700;
-  --fw-extrabold     : 800;
-  --fw-black         : 900;
+  --fw-regular   : 400;
+  --fw-bold      : 700;
+  --fw-extrabold : 800;
+  --fw-black     : 900;
 
   /* ── Line Heights ── */
-  --lh-tight         : 1;
-  --lh-heading       : 1.15;
-  --lh-snug          : 1.35;
-  --lh-normal        : 1.5;
-  --lh-relaxed       : 1.65;
-  --lh-body          : 1.75;
-  --lh-loose         : 1.85;
+  --lh-tight   : 1;
+  --lh-heading : 1.15;
+  --lh-snug    : 1.35;
+  --lh-normal  : 1.5;
+  --lh-relaxed : 1.65;
+  --lh-body    : 1.75;
+  --lh-loose   : 1.85;
 
-  /* ── Letter Spacing ── */
-  --ls-display       : 8px;
-  --ls-heading       : 4px;
-  --ls-card          : 2px;
-  --ls-label         : 3px;
-  --ls-body          : 0.25px;
-  --ls-none          : 0px;
+  /* ── Letter Spacing — all em, scales with font-size ── */
+  --ls-display : -0.02em;
+  --ls-h2      : -0.01em;
+  --ls-h3      :  0em;
+  --ls-label   :  0.12em;
+  --ls-button  :  0.05em;
+  --ls-body    :  0.01em;
+  --ls-small   :  0.02em;
 
-  /* ── Spacing Scale — 4px base unit ── */
-  --space-1  :  4px;  --space-2  :  8px;
-  --space-3  : 12px;  --space-4  : 16px;
-  --space-5  : 20px;  --space-6  : 24px;
-  --space-7  : 28px;  --space-8  : 32px;
-  --space-10 : 40px;  --space-12 : 48px;
-  --space-14 : 56px;  --space-16 : 64px;
-  --space-18 : 72px;  --space-20 : 80px;
-  --space-24 : 96px;  --space-28 : 112px;
+  /* Legacy aliases */
+  --ls-heading : -0.01em;
+  --ls-card    :  0em;
+  --ls-none    :  0em;
 
-  /* ── Section Padding ── */
-  --section-py       : clamp(64px, 8vw, 96px);
-  --section-px       : clamp(20px, 5vw, 60px);
-  --section-max-w    : 1280px;
-  --section-gap      : clamp(48px, 6vw, 72px);
+  /* ── Spacing Scale — 4px base ── */
+  --space-1  :  4px;   --space-2  :  8px;
+  --space-3  : 12px;   --space-4  : 16px;
+  --space-5  : 20px;   --space-6  : 24px;
+  --space-7  : 28px;   --space-8  : 32px;
+  --space-10 : 40px;   --space-12 : 48px;
+  --space-14 : 56px;   --space-16 : 64px;
+  --space-18 : 72px;   --space-20 : 80px;
+  --space-24 : 96px;   --space-28 : 112px;
+
+  /* ── Section Helpers ── */
+  --section-py    : clamp(64px, 8vw, 96px);
+  --section-px    : clamp(20px, 5vw, 60px);
+  --section-max-w : 1280px;
+  --section-gap   : clamp(48px, 6vw, 72px);
 
   /* ── Border Radius ── */
-  --radius-sm   :  4px;  --radius-md   :  8px;
-  --radius-lg   : 14px;  --radius-xl   : 20px;
+  --radius-sm   :  4px;
+  --radius-md   :  8px;
+  --radius-lg   : 14px;
+  --radius-xl   : 20px;
   --radius-full : 9999px;
 
   /* ── Shadows ── */
-  --shadow-sm     : 0 1px 3px rgba(0,0,0,0.08);
-  --shadow-md     : 0 4px 16px rgba(0,0,0,0.10);
-  --shadow-lg     : 0 8px 32px rgba(0,0,0,0.12), 0 24px 56px rgba(0,0,0,0.10);
-  --shadow-orange : 0 8px 28px rgba(244,124,32,0.28);
+  --shadow-sm     : 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md     : 0 4px 16px rgba(0, 0, 0, 0.10);
+  --shadow-lg     : 0 8px 32px rgba(0, 0, 0, 0.12),
+                    0 24px 56px rgba(0, 0, 0, 0.10);
+  --shadow-orange : 0 8px 28px rgba(244, 124, 32, 0.28);
 
   /* ── Transitions ── */
   --ease-default : 0.25s ease;
@@ -199,9 +191,12 @@
   --ease-spring  : 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
   /* ── Z-index Ladder ── */
-  --z-base    :   1;  --z-card    :  10;
-  --z-popup   : 300;  --z-overlay : 499;
-  --z-sheet   : 500;  --z-nav     : 600;
+  --z-base    :   1;
+  --z-card    :  10;
+  --z-popup   : 300;
+  --z-overlay : 499;
+  --z-sheet   : 500;
+  --z-nav     : 600;
   --z-modal   : 900;
 }
 
@@ -216,9 +211,6 @@
   box-sizing  : border-box;
   margin      : 0;
   padding     : 0;
-  /* ▼ THE KEY FIX — every element inherits font-family and
-     font-style from body, so no third-party CSS can silently
-     inject DM Sans, Roboto, or browser-synthesised oblique   */
   font-family : inherit;
   font-style  : inherit;
 }
@@ -229,7 +221,10 @@ ol[role='list'] { list-style: none; }
 img, picture, video, canvas, svg {
   display   : block;
   max-width : 100%;
+  height    : auto;
 }
+
+video { object-fit: cover; }
 
 input, button, textarea, select {
   font  : inherit;
@@ -263,150 +258,91 @@ html {
 }
 
 body {
-  /* ▼ Single source of truth — everything inherits from here */
-  font-family              : var(--font-primary);
-  font-weight              : var(--fw-regular);
-  font-style               : normal;    /* ← stops browser oblique synthesis */
-  font-size                : var(--text-body);
-  color                    : var(--mw-dark);
-  background-color         : var(--mw-white);
-  line-height              : var(--lh-body);
-  letter-spacing           : var(--ls-body);
-  -webkit-font-smoothing   : antialiased;
-  -moz-osx-font-smoothing  : grayscale;
-  text-rendering           : optimizeLegibility;
-  overflow-x               : hidden;
-  min-height               : 100dvh;
+  font-family             : var(--font-primary);
+  font-weight             : var(--fw-regular);
+  font-style              : normal;
+  font-size               : var(--text-body);
+  line-height             : var(--lh-body);
+  letter-spacing          : var(--ls-body);
+  color                   : var(--mw-dark);
+  background-color        : var(--mw-white);
+  -webkit-font-smoothing  : antialiased;
+  -moz-osx-font-smoothing : grayscale;
+  text-rendering          : optimizeLegibility;
+  overflow-x              : hidden;
+  min-height              : 100dvh;
 }
 
 
 /* ============================================================
-   5. TYPOGRAPHY
+   5. BARE ELEMENT TYPOGRAPHY
+   H1–H3 → Eurostile (700/800/900)
+   H4–H6 → EurostileCnd (condensed, overlines / labels)
+   No margin on any heading — components own their spacing.
    ============================================================ */
 
-h1 {
-  font-family    : var(--font-primary);
-  font-weight    : var(--fw-black);
+h1, h2, h3, h4, h5, h6 {
   font-style     : normal;
-  font-size      : var(--text-h1);
-  line-height    : var(--lh-tight);
-  letter-spacing : var(--ls-display);
   text-transform : uppercase;
   color          : var(--mw-dark);
 }
 
+h1 {
+  font-family    : var(--font-primary);
+  font-weight    : var(--fw-black);
+  font-size      : var(--text-h1);
+  line-height    : 1.1;
+  letter-spacing : var(--ls-display);
+}
+
 h2 {
   font-family    : var(--font-primary);
-  font-weight    : var(--fw-extrabold);
-  font-style     : normal;
+  font-weight    : var(--fw-bold);
   font-size      : var(--text-h2);
-  line-height    : var(--lh-tight);
-  letter-spacing : var(--ls-display);
-  text-transform : uppercase;
-  color          : var(--mw-dark);
+  line-height    : 1.2;
+  letter-spacing : var(--ls-h2);
 }
 
 h3 {
   font-family    : var(--font-primary);
   font-weight    : var(--fw-bold);
-  font-style     : normal;
   font-size      : var(--text-h3);
-  line-height    : var(--lh-heading);
-  letter-spacing : var(--ls-heading);
-  text-transform : uppercase;
-  color          : var(--mw-dark);
+  line-height    : 1.3;
+  letter-spacing : var(--ls-h3);
 }
 
 h4 {
-  font-family    : var(--font-primary);
+  font-family    : var(--font-condensed);
   font-weight    : var(--fw-bold);
-  font-style     : normal;
   font-size      : var(--text-h4);
-  line-height    : var(--lh-snug);
-  letter-spacing : var(--ls-card);
-  text-transform : uppercase;
-  color          : var(--mw-dark);
+  line-height    : 1.5;
+  letter-spacing : var(--ls-label);
 }
 
 h5 {
-  font-family    : var(--font-primary);
+  font-family    : var(--font-condensed);
   font-weight    : var(--fw-bold);
-  font-style     : normal;
   font-size      : var(--text-h5);
-  line-height    : var(--lh-snug);
-  letter-spacing : var(--ls-card);
-  text-transform : uppercase;
-  color          : var(--mw-dark);
+  line-height    : 1.5;
+  letter-spacing : 0.10em;
 }
 
 h6 {
-  font-family    : var(--font-primary);
+  font-family    : var(--font-condensed);
   font-weight    : var(--fw-bold);
-  font-style     : normal;
   font-size      : var(--text-h6);
-  line-height    : var(--lh-snug);
-  letter-spacing : 1px;
-  text-transform : uppercase;
-  color          : var(--mw-dark);
+  line-height    : 1.5;
+  letter-spacing : 0.08em;
 }
 
 p {
-  font-family    : var(--font-primary);
-  font-weight    : var(--fw-regular);
-  font-style     : normal;
   font-size      : var(--text-body);
   line-height    : var(--lh-body);
   letter-spacing : var(--ls-body);
   color          : var(--mw-grey-3);
 }
 
-p.lead,
-.lead {
-  font-family    : var(--font-primary);
-  font-style     : normal;
-  font-size      : var(--text-lead);
-  line-height    : var(--lh-body);
-  color          : var(--mw-dark-2);
-  letter-spacing : var(--ls-body);
-}
-
-small,
-.text-small {
-  font-family    : var(--font-primary);
-  font-weight    : var(--fw-regular);
-  font-style     : normal;
-  font-size      : var(--text-small);
-  line-height    : var(--lh-normal);
-  letter-spacing : var(--ls-body);
-  color          : var(--mw-grey-3);
-}
-
-.eyebrow {
-  font-family    : var(--font-primary);
-  font-weight    : var(--fw-bold);
-  font-style     : normal;
-  font-size      : var(--text-xs);
-  line-height    : var(--lh-normal);
-  letter-spacing : var(--ls-label);
-  text-transform : uppercase;
-  color          : var(--mw-orange);
-}
-
-blockquote {
-  font-family    : var(--font-primary);
-  font-weight    : var(--fw-bold);
-  font-style     : normal;
-  font-size      : clamp(18px, 1.6vw, 22px);
-  line-height    : var(--lh-relaxed);
-  letter-spacing : 0.3px;
-  color          : var(--mw-dark);
-  padding        : 0;
-  margin         : 0;
-  border         : none;
-}
-
 a {
-  font-family     : inherit;
   color           : var(--mw-orange);
   text-decoration : none;
   transition      : color var(--ease-default);
@@ -418,15 +354,34 @@ a:focus-visible {
   border-radius  : var(--radius-sm);
 }
 
+small {
+  font-size      : var(--text-small);
+  line-height    : var(--lh-normal);
+  letter-spacing : var(--ls-small);
+  color          : var(--mw-grey-3);
+}
+
+blockquote {
+  font-weight    : var(--fw-bold);
+  font-size      : clamp(18px, 1.6vw, 22px);
+  line-height    : 1.3;
+  letter-spacing : var(--ls-h3);
+  color          : var(--mw-dark);
+}
+
+hr {
+  border     : none;
+  border-top : 1px solid var(--mw-rule);
+}
+
 
 /* ============================================================
-   6. UTILITIES
+   6. UTILITY CLASSES
    ============================================================ */
 
 .section-inner {
   max-width : var(--section-max-w);
   margin    : 0 auto;
-  padding   : 0;
   width     : 100%;
 }
 
@@ -438,10 +393,30 @@ a:focus-visible {
 
 .section-heading { margin-bottom: var(--section-gap); }
 
+.eyebrow {
+  font-family    : var(--font-condensed);
+  font-weight    : var(--fw-bold);
+  font-style     : normal;
+  font-size      : var(--text-xs);
+  line-height    : var(--lh-normal);
+  letter-spacing : var(--ls-label);
+  text-transform : uppercase;
+  color          : var(--mw-orange);
+}
+
+.lead {
+  font-size      : var(--text-lead);
+  line-height    : var(--lh-relaxed);
+  letter-spacing : var(--ls-body);
+  color          : var(--mw-dark-2);
+}
+
+.text-small  { font-size: var(--text-small); }
 .text-orange { color: var(--mw-orange)  !important; }
 .text-dark   { color: var(--mw-dark)    !important; }
 .text-muted  { color: var(--mw-grey-3)  !important; }
 .text-white  { color: var(--mw-white)   !important; }
+.accent      { color: var(--mw-orange); }
 
 .fw-regular   { font-weight: var(--fw-regular);   }
 .fw-bold      { font-weight: var(--fw-bold);      }
@@ -451,27 +426,38 @@ a:focus-visible {
 .uppercase   { text-transform: uppercase; }
 .normal-case { text-transform: none;      }
 
-.accent { color: var(--mw-orange); }
-
 .border-top-orange { border-top: 5px solid var(--mw-orange); }
 
-hr {
-  border     : none;
-  border-top : 1px solid var(--mw-rule);
-  margin     : var(--space-8) 0;
+
+/* ============================================================
+   7. MEDIA PERFORMANCE
+   ============================================================ */
+
+img {
+  content-visibility     : auto;
+  contain-intrinsic-size : auto 300px;
+}
+
+span[data-nimg] { display: block; }
+
+video {
+  will-change                 : transform;
+  backface-visibility         : hidden;
+  -webkit-backface-visibility : hidden;
 }
 
 
 /* ============================================================
-   7. SCROLL / MOTION
+   8. SCROLL-REVEAL
    ============================================================ */
 
 .animate {
-  opacity   : 0;
-  transform : translateY(24px);
-  transition:
-    opacity   var(--ease-reveal) calc(var(--delay, 0s)),
-    transform var(--ease-reveal) calc(var(--delay, 0s));
+  opacity    : 0;
+  transform  : translateY(20px);
+  transition :
+    opacity   var(--ease-reveal) var(--delay, 0s),
+    transform var(--ease-reveal) var(--delay, 0s);
+  will-change : opacity, transform;
 }
 
 .animate.visible {
@@ -485,52 +471,51 @@ hr {
 
 
 /* ============================================================
-   8. RESPONSIVE
+   9. RESPONSIVE TOKEN OVERRIDES
    ============================================================ */
 
 @media (max-width: 1280px) {
   :root {
-    --section-py : clamp(56px, 7vw, 80px);
-    --section-px : clamp(20px, 4vw, 48px);
-    --section-gap: clamp(40px, 5vw, 60px);
+    --section-py  : clamp(56px, 7vw, 80px);
+    --section-px  : clamp(20px, 4vw, 48px);
+    --section-gap : clamp(40px, 5vw, 60px);
   }
 }
 
 @media (max-width: 1024px) {
   :root {
-    --section-py : clamp(52px, 7vw, 72px);
-    --section-px : clamp(20px, 4vw, 40px);
-    --section-gap: clamp(36px, 5vw, 52px);
+    --section-py  : clamp(52px, 7vw, 72px);
+    --section-px  : clamp(20px, 4vw, 40px);
+    --section-gap : clamp(36px, 5vw, 52px);
   }
 }
 
 @media (max-width: 768px) {
   :root {
-    --section-py : clamp(48px, 8vw, 64px);
-    --section-px : 24px;
-    --section-gap: clamp(32px, 6vw, 48px);
+    --section-py  : clamp(48px, 8vw, 64px);
+    --section-px  : 24px;
+    --section-gap : clamp(32px, 6vw, 48px);
+    --text-h2     : clamp(32px, 5vw, 44px);
+    --text-h3     : clamp(20px, 4vw, 28px);
   }
-  h1 { letter-spacing: 6px; }
-  h2 { letter-spacing: 5px; }
-  h3 { letter-spacing: 2px; }
 }
 
 @media (max-width: 520px) {
   :root {
-    --section-py : clamp(44px, 9vw, 56px);
-    --section-px : 20px;
-    --section-gap: clamp(28px, 7vw, 40px);
+    --section-py  : clamp(44px, 9vw, 56px);
+    --section-px  : 20px;
+    --section-gap : clamp(28px, 7vw, 40px);
+    --text-h2     : clamp(28px, 7vw, 38px);
+    --text-h3     : clamp(18px, 5vw, 24px);
   }
-  h1 { letter-spacing: 4px; }
-  h2 { letter-spacing: 4px; }
 }
 
 @media (max-width: 360px) {
   :root {
-    --section-py : 44px;
-    --section-px : 16px;
-    --section-gap: 28px;
+    --section-py  : 44px;
+    --section-px  : 16px;
+    --section-gap : 28px;
+    --text-h2     : 28px;
+    --text-h3     : 18px;
   }
-  h1 { letter-spacing: 3px; }
-  h2 { letter-spacing: 3px; }
 }

@@ -6,55 +6,69 @@ import React, { useState, useRef, useCallback, useEffect } from "react";
    DATA
 ───────────────────────────────────────────────────────────────── */
 interface Testimonial {
-  id    : number;
-  name  : string;
-  role  : string;
-  quote : string;
-  image : string;
+  id        : number;
+  name      : string;
+  role      : string;
+  quote     : string;
+  image     : string;
+  objectPos : string;
+  objectFit : "cover" | "contain";
 }
 
 const DATA: Testimonial[] = [
   {
-    id   : 1,
-    name : "NIRVANA CHAUDHARY",
-    role : "MD - CHAUDHARY GROUP",
-    quote: "Our association with Makeways goes beyond a typical client - agency relationship. Their strategic thinking and creativity make them one of the finest agencies in Nepal and my first choice.",
-    image: "/images/testimonial/NIRVANACHAUDHARY.png",
+    id        : 1,
+    name      : "NIRVANA CHAUDHARY",
+    role      : "MD - CHAUDHARY GROUP",
+    quote     : "Our association with Makeways goes beyond a typical client - agency relationship. Their strategic thinking and creativity make them one of the finest agencies in Nepal and my first choice.",
+    image     : "/images/testimonial/NIRVANACHAUDHARY.png",
+    objectPos : "top center",
+    objectFit : "cover",
   },
   {
-    id   : 2,
-    name : "HIMANSHU GOLCHA",
-    role : "EXECUTIVE DIRECTOR - HULAS STEEL",
-    quote: "Our experience working with Makeways has been extremely rewarding. What I appreciate about Makeways is their ability to combine creativity with results-driven campaigns.",
-    image: "/images/testimonial/HIMANSHUGOLCHA.png",
+    id        : 2,
+    name      : "HIMANSHU GOLCHA",
+    role      : "EXECUTIVE DIRECTOR - HULAS STEEL",
+    quote     : "Our experience working with Makeways has been extremely rewarding. What I appreciate about Makeways is their ability to combine creativity with results-driven campaigns.",
+    image     : "/images/testimonial/HIMANSHUGOLCHA.png",
+    objectPos : "top center",
+    objectFit : "contain",   /* square image — contain avoids heavy zoom */
   },
   {
-    id   : 3,
-    name : "MALVIKA SUBBA",
-    role : "MISS NEPAL / MEDIA PERSON",
-    quote: "Working with Makeways has been a smooth and collaborative experience. They are attentive to detail, responsive to feedback, and committed to delivering top-notch event solutions.",
-    image: "/images/testimonial/MalvikaSubba.png",
+    id        : 3,
+    name      : "MALVIKA SUBBA",
+    role      : "MISS NEPAL / MEDIA PERSON",
+    quote     : "Working with Makeways has been a smooth and collaborative experience. They are attentive to detail, responsive to feedback, and committed to delivering top-notch event solutions.",
+    image     : "/images/testimonial/MalvikaSubba.png",
+    objectPos : "top center",
+    objectFit : "cover",
   },
   {
-    id   : 4,
-    name : "BHUSAN DAHAL",
-    role : "MEDIA LEADER",
-    quote: "What I admire about Makeways is their storytelling approach. Their campaigns are not just visually appealing but also culturally relevant and emotionally engaging.",
-    image: "/images/testimonial/BHUSANDAHAL.png",
+    id        : 4,
+    name      : "BHUSAN DAHAL",
+    role      : "MEDIA LEADER",
+    quote     : "What I admire about Makeways is their storytelling approach. Their campaigns are not just visually appealing but also culturally relevant and emotionally engaging.",
+    image     : "/images/testimonial/BHUSANDAHAL.png",
+    objectPos : "top center",
+    objectFit : "cover",
   },
   {
-    id   : 5,
-    name : "SUDIP THAPA",
-    role : "PRESIDENT - ADVERTISING ASSOCIATION OF NEPAL",
-    quote: "Over the years, I have observed many campaigns from Makeways that have contributed positively to Nepal's advertising standards. Their work is thoughtful, well-executed, and impactful.",
-    image: "/images/testimonial/SUDIPTHAPA.png",
+    id        : 5,
+    name      : "SUDIP THAPA",
+    role      : "PRESIDENT - ADVERTISING ASSOCIATION OF NEPAL",
+    quote     : "Over the years, I have observed many campaigns from Makeways that have contributed positively to Nepal's advertising standards. Their work is thoughtful, well-executed, and impactful.",
+    image     : "/images/testimonial/SUDIPTHAPA.png",
+    objectPos : "top center",
+    objectFit : "cover",
   },
   {
-    id   : 6,
-    name : "IRAJ SHRESTHA",
-    role : "SALES & MARKETING HEAD - GOLDSTAR SHOES",
-    quote: "Makeways stands out because they approach branding with clarity and purpose. Their ideas are not only creative but also aligned with long-term brand positioning.",
-    image: "/images/testimonial/IRAJSHRESTHA.png",
+    id        : 6,
+    name      : "IRAJ SHRESTHA",
+    role      : "SALES & MARKETING HEAD - GOLDSTAR SHOES",
+    quote     : "Makeways stands out because they approach branding with clarity and purpose. Their ideas are not only creative but also aligned with long-term brand positioning.",
+    image     : "/images/testimonial/IRAJSHRESTHA.png",
+    objectPos : "top center",
+    objectFit : "cover",
   },
 ];
 
@@ -74,9 +88,9 @@ function ArrowBtn({
   dir,
   size = 44,
 }: {
-  onClick: () => void;
-  dir: "prev" | "next";
-  size?: number;
+  onClick : () => void;
+  dir     : "prev" | "next";
+  size?   : number;
 }) {
   const [hov, setHov] = useState(false);
   return (
@@ -135,43 +149,40 @@ export default function Testimonials() {
   const prev = () => goTo((idx - 1 + DATA.length) % DATA.length);
   const next = () => goTo((idx + 1) % DATA.length);
   const t    = DATA[idx];
-// ── Keyboard navigation ──────────────────────────────────────
-useEffect(() => {
-  const onKey = (e: KeyboardEvent) => {
-    // Only fire when focus is NOT inside a form element
-    const tag = (e.target as HTMLElement).tagName;
-    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
 
-    if (e.key === "ArrowLeft"  || e.key === "ArrowUp")   prev();
-    if (e.key === "ArrowRight" || e.key === "ArrowDown")  next();
-  };
+  /* ── Keyboard navigation ─────────────────────────────────── */
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement).tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+      if (e.key === "ArrowLeft"  || e.key === "ArrowUp")   prev();
+      if (e.key === "ArrowRight" || e.key === "ArrowDown")  next();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [idx, phase]);
 
-  window.addEventListener("keydown", onKey);
-  return () => window.removeEventListener("keydown", onKey);
-}, [idx, phase]); // re-bind when idx/phase change so prev/next are current
   return (
     <>
       {/* ═══════════════════════════════════════════════════════
-          SCOPED CSS — uses globals.css tokens throughout
-          "SAYS" and "ABOUT MAKEWAYS" have NO animation class.
-          Only .tst-animate receives phase classes.
+          SCOPED CSS
       ═════════════════════════════════════════════════════════ */}
       <style>{`
 
         /* ── Section shell ─────────────────────────────────── */
         .tst-section {
-          font-family      : var(--font-primary);
-          background       : var(--mw-bg-grey);
-          width            : 100%;
-          overflow         : hidden;
-          position         : relative;
+          font-family : var(--font-primary);
+          background  : var(--mw-bg-grey);
+          width       : 100%;
+          overflow    : hidden;
+          position    : relative;
         }
 
         /* ════════════════════════════════════════════════════
            DESKTOP LAYOUT  (≥ 768 px)
         ════════════════════════════════════════════════════ */
         .tst-desktop {
-          display    : none;           /* mobile-first; enabled below */
+          display    : none;
           position   : relative;
           width      : 100%;
           height     : calc(100vh - 90px);
@@ -198,12 +209,13 @@ useEffect(() => {
         }
 
         /* ════════════════════════════════════════════════════
-           PHOTO STACK — shared desktop + mobile
+           PHOTO STACK
         ════════════════════════════════════════════════════ */
         .tst-photo-stack {
-          position : relative;
-          width    : 100%;
-          height   : 100%;
+          position         : relative;
+          width            : 100%;
+          height           : 100%;
+          background-color : var(--mw-bg-grey); /* fills gaps for contain images */
         }
 
         .tst-photo {
@@ -211,11 +223,12 @@ useEffect(() => {
           inset           : 0;
           width           : 100%;
           height          : 100%;
-          object-fit      : cover;
-          object-position : top center;
+          object-fit      : cover;      /* overridden inline per-image */
+          object-position : top center; /* overridden inline per-image */
           opacity         : 0;
           transition      : opacity 0.55s ease;
           z-index         : 0;
+          background-color: var(--mw-bg-grey);
         }
 
         .tst-photo--active {
@@ -225,12 +238,7 @@ useEffect(() => {
 
         /* ════════════════════════════════════════════════════
            ANIMATED ELEMENTS
-           .tst-animate is the wrapper that receives phase.
-           "SAYS" and "ABOUT MAKEWAYS" are NOT wrapped here —
-           they sit outside and never receive a phase class.
         ════════════════════════════════════════════════════ */
-
-        /* ── Phase: out (fade + lift) ── */
         .tst-animate--out {
           opacity    : 0;
           transform  : translateY(-10px);
@@ -239,14 +247,12 @@ useEffect(() => {
             transform ${OUT_MS}ms ease;
         }
 
-        /* ── Phase: in — step 1: snap to start (no transition) ── */
         .tst-animate--snap {
           opacity    : 0;
           transform  : translateY(16px);
           transition : none;
         }
 
-        /* ── Phase: in — step 2: animate to rest (transition applied) ── */
         .tst-animate--in {
           opacity    : 1;
           transform  : translateY(0);
@@ -255,7 +261,6 @@ useEffect(() => {
             transform ${IN_MS}ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--tst-delay, 0ms);
         }
 
-        /* ── Phase: idle (rest state) ── */
         .tst-animate--idle {
           opacity    : 1;
           transform  : translateY(0);
@@ -265,10 +270,8 @@ useEffect(() => {
         }
 
         /* ════════════════════════════════════════════════════
-           TEXT ELEMENTS — using design-system tokens
+           TEXT ELEMENTS
         ════════════════════════════════════════════════════ */
-
-        /* ── Person name ── */
         .tst-name {
           font-family    : var(--font-primary);
           font-weight    : var(--fw-black);
@@ -280,7 +283,6 @@ useEffect(() => {
           margin         : 0;
         }
 
-        /* ── Person role ── */
         .tst-role {
           font-family    : var(--font-primary);
           font-weight    : var(--fw-bold);
@@ -292,7 +294,7 @@ useEffect(() => {
           margin         : var(--space-1) 0 0;
         }
 
-        /* ── SAYS — FIXED, never animates ── */
+        /* SAYS — fixed, never animates */
         .tst-says {
           font-family    : var(--font-primary);
           font-weight    : var(--fw-black);
@@ -303,10 +305,9 @@ useEffect(() => {
           color          : var(--mw-orange);
           user-select    : none;
           margin         : var(--space-1) 0 0 -3px;
-          /* ⚠ NO animation, NO transition — intentionally fixed */
         }
 
-        /* ── ABOUT MAKEWAYS — FIXED, never animates ── */
+        /* ABOUT MAKEWAYS — fixed, never animates */
         .tst-about {
           font-family    : var(--font-primary);
           font-weight    : var(--fw-bold);
@@ -316,15 +317,12 @@ useEffect(() => {
           text-transform : uppercase;
           color          : var(--mw-dark);
           margin-top     : var(--space-2);
-          /* ⚠ NO animation, NO transition — intentionally fixed */
         }
 
-        /* ── Quote wrapper ── */
         .tst-quote-wrap {
           margin-top : var(--space-6);
         }
 
-        /* ── Opening quote mark ── */
         .tst-qq-open {
           display       : block;
           font-family   : Georgia, 'Times New Roman', serif;
@@ -335,7 +333,6 @@ useEffect(() => {
           margin-bottom : var(--space-3);
         }
 
-        /* ── Closing quote mark ── */
         .tst-qq-close {
           display     : block;
           font-family : Georgia, 'Times New Roman', serif;
@@ -348,7 +345,6 @@ useEffect(() => {
           margin-top  : var(--space-2);
         }
 
-        /* ── Quote text ── */
         .tst-quote-text {
           font-family    : var(--font-primary);
           font-weight    : var(--fw-regular);
@@ -361,7 +357,7 @@ useEffect(() => {
         }
 
         /* ════════════════════════════════════════════════════
-           CONTROLS — arrows + pill dots
+           CONTROLS
         ════════════════════════════════════════════════════ */
         .tst-controls {
           display     : flex;
@@ -370,26 +366,25 @@ useEffect(() => {
           margin-top  : var(--space-7);
         }
 
-        /* ── Arrow button ── */
         .tst-arrow {
-          border-radius  : 50%;
-          border         : 2px solid var(--mw-orange);
-          background     : transparent;
-          color          : var(--mw-orange);
-          font-size      : 27px;
-          display        : flex;
-          align-items    : center;
-          justify-content: center;
-          cursor         : pointer;
-          flex-shrink    : 0;
-          padding        : 0 0 2px 0;
-          outline        : none;
-          transition     :
+          border-radius   : 50%;
+          border          : 2px solid var(--mw-orange);
+          background      : transparent;
+          color           : var(--mw-orange);
+          font-size       : 27px;
+          display         : flex;
+          align-items     : center;
+          justify-content : center;
+          cursor          : pointer;
+          flex-shrink     : 0;
+          padding         : 0 0 2px 0;
+          outline         : none;
+          transition      :
             background  var(--ease-default),
             color       var(--ease-default),
             transform   0.15s ease,
             box-shadow  var(--ease-default);
-          font-family    : var(--font-primary);
+          font-family     : var(--font-primary);
         }
         .tst-arrow:hover,
         .tst-arrow--hov {
@@ -398,16 +393,12 @@ useEffect(() => {
           transform  : scale(1.1);
           box-shadow : var(--shadow-orange);
         }
-        .tst-arrow:active {
-          transform  : scale(0.94);
-          box-shadow : none;
-        }
+        .tst-arrow:active      { transform: scale(0.94); box-shadow: none; }
         .tst-arrow:focus-visible {
           outline        : 2px solid var(--mw-orange);
           outline-offset : 3px;
         }
 
-        /* ── Dot indicators ── */
         .tst-dots {
           display     : flex;
           align-items : center;
@@ -415,24 +406,19 @@ useEffect(() => {
         }
 
         .tst-dot {
-          height         : 9px;
-          border-radius  : var(--radius-full);
-          background     : var(--mw-grey-4);
-          border         : none;
-          cursor         : pointer;
-          padding        : 0;
-          outline        : none;
-          flex-shrink    : 0;
-          transition     : all 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
-          width          : 9px;
+          height        : 9px;
+          border-radius : var(--radius-full);
+          background    : var(--mw-grey-4);
+          border        : none;
+          cursor        : pointer;
+          padding       : 0;
+          outline       : none;
+          flex-shrink   : 0;
+          transition    : all 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+          width         : 9px;
         }
-        .tst-dot--active {
-          width      : 28px;
-          background : var(--mw-orange);
-        }
-        .tst-dot:not(.tst-dot--active):hover {
-          background : var(--mw-grey-2);
-        }
+        .tst-dot--active              { width: 28px; background: var(--mw-orange); }
+        .tst-dot:not(.tst-dot--active):hover { background: var(--mw-grey-2); }
         .tst-dot:focus-visible {
           outline        : 2px solid var(--mw-orange);
           outline-offset : 2px;
@@ -461,19 +447,20 @@ useEffect(() => {
         }
 
         .tst-mobile-img-wrap {
-          position    : relative;
-          width       : 56%;
-          max-width   : 230px;
-          aspect-ratio: 3 / 4;
-          overflow    : hidden;
-          flex-shrink : 0;
+          position     : relative;
+          width        : 56%;
+          max-width    : 230px;
+          aspect-ratio : 3 / 4;
+          overflow     : hidden;
+          flex-shrink  : 0;
+          background-color: var(--mw-bg-grey);
         }
 
-        .tst-mobile .tst-quote-wrap      { margin-top: var(--space-5); }
-        .tst-mobile .tst-qq-open         { font-size: 44px; }
-        .tst-mobile .tst-qq-close        { font-size: 44px; max-width: 100%; }
-        .tst-mobile .tst-quote-text      { font-size: clamp(12px, 3.7vw, 15px); max-width: 100%; text-align: justify; }
-        .tst-mobile .tst-dots            { justify-content: center; margin-top: var(--space-6); }
+        .tst-mobile .tst-quote-wrap { margin-top: var(--space-5); }
+        .tst-mobile .tst-qq-open    { font-size: 44px; }
+        .tst-mobile .tst-qq-close   { font-size: 44px; max-width: 100%; }
+        .tst-mobile .tst-quote-text { font-size: clamp(12px, 3.7vw, 15px); max-width: 100%; text-align: justify; }
+        .tst-mobile .tst-dots       { justify-content: center; margin-top: var(--space-6); }
 
         /* ════════════════════════════════════════════════════
            BREAKPOINT SWITCH
@@ -522,18 +509,13 @@ useEffect(() => {
               <p  className="tst-role">{t.role}</p>
             </div>
 
-            {/* ╔══════════════════════════════╗
-                ║  SAYS — COMPLETELY FIXED     ║
-                ║  No animation class. Ever.   ║
-                ╚══════════════════════════════╝ */}
+            {/* SAYS — fixed */}
             <div className="tst-says" aria-hidden="true">SAYS</div>
 
-            {/* ╔══════════════════════════════╗
-                ║ ABOUT MAKEWAYS — FIXED       ║
-                ╚══════════════════════════════╝ */}
+            {/* ABOUT MAKEWAYS — fixed */}
             <div className="tst-about">ABOUT MAKEWAYS</div>
 
-            {/* Quote — animated, staggered 65 ms after name */}
+            {/* Quote — animated, staggered 65ms */}
             <div
               className={`tst-quote-wrap tst-animate--${phase === "out" ? "out" : phase === "in" ? "snap" : "idle"}`}
               style={{ "--tst-delay": "65ms" } as React.CSSProperties}
@@ -560,7 +542,7 @@ useEffect(() => {
             </div>
           </div>
 
-          {/* ── RIGHT COLUMN — photo ── */}
+          {/* ── RIGHT COLUMN — photo stack ── */}
           <div className="tst-right">
             <div className="tst-photo-stack">
               {DATA.map((item, i) => (
@@ -569,6 +551,10 @@ useEffect(() => {
                   src={item.image}
                   alt={item.name}
                   className={`tst-photo${i === idx ? " tst-photo--active" : ""}`}
+                  style={{
+                    objectFit      : item.objectFit,
+                    objectPosition : item.objectPos,
+                  }}
                 />
               ))}
             </div>
@@ -587,10 +573,10 @@ useEffect(() => {
             <p  className="tst-role">{t.role}</p>
           </div>
 
-          {/* SAYS — FIXED */}
+          {/* SAYS — fixed */}
           <div className="tst-says" aria-hidden="true">SAYS</div>
 
-          {/* ABOUT MAKEWAYS — FIXED */}
+          {/* ABOUT MAKEWAYS — fixed */}
           <div className="tst-about">ABOUT MAKEWAYS</div>
 
           {/* Photo row with flanking arrows */}
@@ -604,6 +590,10 @@ useEffect(() => {
                     src={item.image}
                     alt={item.name}
                     className={`tst-photo${i === idx ? " tst-photo--active" : ""}`}
+                    style={{
+                      objectFit      : item.objectFit,
+                      objectPosition : item.objectPos,
+                    }}
                   />
                 ))}
               </div>

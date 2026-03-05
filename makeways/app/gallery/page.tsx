@@ -4,24 +4,29 @@ import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
+/*
+  Font family roles — matches system-wide convention:
+    'EurostileExt'  — GALLERY display title
+    'EurostileCnd'  — eyebrow label, countbar tag, lightbox cat badge,
+                      cell hover meta, lightbox placeholder label
+    'Eurostile'     — hero subtitle, lightbox title/year, cell hover title
+
+  NO @import Google Fonts — fonts declared once in globals.css.
+  NO 'Barlow' anywhere — removed entirely.
+  NO font-weight: 900 — 700 = bold, 400 = regular.
+  Color token: #FF8C00 (was #FF8C00 — unified across all components).
+*/
+
 interface GalleryItem {
-  id: number;
-  title: string;
-  category: string;
-  year: string;
-  isVideo?: boolean;
-  // ── ADD YOUR FILE PATHS HERE ──────────────────────────────────────────────
-  // Images: src: '/gallery/your-image.jpg'   (put files in /public/gallery/)
-  // Videos: src: '/gallery/your-video.mp4'   (also set isVideo: true)
-  src?: string;
+  id       : number;
+  title    : string;
+  category : string;
+  year     : string;
+  isVideo? : boolean;
+  src?     : string;
 }
 
 const galleryItems: GalleryItem[] = [
-  // ── HOW TO ADD MEDIA ─────────────────────────────────────────────────────
-  // 1. Place your files inside the /public/gallery/ folder of your project
-  // 2. Fill in the src field: src: '/gallery/filename.jpg' or '.mp4'
-  // 3. For videos set isVideo: true so the play icon shows
-  // ─────────────────────────────────────────────────────────────────────────
   { id: 1,  title: 'Brand Film',          category: 'TVC',     year: '2024', isVideo: true,  src: '/Videos/suzuki.mp4#t=1' },
   { id: 2,  title: 'Gold Award Win',       category: 'AWARDS',  year: '2023',                 src: '/images/awards/awards1.jpg' },
   { id: 3,  title: 'Campaign Visual',      category: 'PRINT',   year: '2024',                 src: '/images/portfolio/eventss/Picture10.jpg' },
@@ -44,50 +49,38 @@ const galleryItems: GalleryItem[] = [
 
 // ─── Lightbox ─────────────────────────────────────────────────────────────────
 function Lightbox({
-  item,
-  onClose,
-  onPrev,
-  onNext,
+  item, onClose, onPrev, onNext,
 }: {
-  item: GalleryItem;
-  onClose: () => void;
-  onPrev: () => void;
-  onNext: () => void;
+  item: GalleryItem; onClose: () => void; onPrev: () => void; onNext: () => void;
 }) {
   return (
     <div className="lb-backdrop" onClick={onClose}>
       <div className="lb" onClick={e => e.stopPropagation()}>
 
-        {/* Close */}
         <button className="lb__close" onClick={onClose}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-            <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="18"/>
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
         </button>
 
-        {/* Prev */}
-        <button className="lb__arrow lb__arrow--prev" onClick={(e) => { e.stopPropagation(); onPrev(); }}>
+        <button className="lb__arrow lb__arrow--prev" onClick={e => { e.stopPropagation(); onPrev(); }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="15 18 9 12 15 6"/>
           </svg>
         </button>
 
-        {/* Media area */}
         <div className="lb__media">
           {item.src ? (
             item.isVideo ? (
               <video
                 src={item.src}
                 controls
-                className="lb__video"
                 style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#000' }}
               />
             ) : (
               <img
                 src={item.src}
                 alt={item.title}
-                className="lb__real-img"
                 style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#f0f0f0' }}
               />
             )
@@ -109,14 +102,12 @@ function Lightbox({
           )}
         </div>
 
-        {/* Next */}
-        <button className="lb__arrow lb__arrow--next" onClick={(e) => { e.stopPropagation(); onNext(); }}>
+        <button className="lb__arrow lb__arrow--next" onClick={e => { e.stopPropagation(); onNext(); }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="9 18 15 12 9 6"/>
           </svg>
         </button>
 
-        {/* Caption bar */}
         <div className="lb__caption">
           <span className="lb__cat">{item.category}</span>
           <h3 className="lb__title">{item.title}</h3>
@@ -126,90 +117,100 @@ function Lightbox({
 
       <style jsx>{`
         .lb-backdrop {
-          position: fixed; inset: 0;
+          position  : fixed; inset: 0;
           background: rgba(0,0,0,0.92);
-          z-index: 2000;
-          display: flex; align-items: center; justify-content: center;
-          padding: 20px;
-          animation: lbfade .2s ease;
+          z-index   : 2000;
+          display   : flex; align-items: center; justify-content: center;
+          padding   : 20px;
+          animation : lbfade .2s ease;
         }
         @keyframes lbfade { from{opacity:0} to{opacity:1} }
 
         .lb {
-          position: relative;
+          position  : relative;
           width: 100%; max-width: 860px;
           background: #fff;
-          display: flex; flex-direction: column;
-          animation: lbpop .22s ease;
+          display   : flex; flex-direction: column;
+          animation : lbpop .22s ease;
           max-height: 92vh;
         }
         @keyframes lbpop { from{transform:scale(.96);opacity:0} to{transform:scale(1);opacity:1} }
 
         .lb__close {
-          position: absolute; top: 16px; right: 16px;
+          position  : absolute; top: 16px; right: 16px;
           background: rgba(0,0,0,0.6); border: none;
           color: #fff; width: 36px; height: 36px;
-          display: flex; align-items: center; justify-content: center;
-          cursor: pointer; z-index: 10;
-          transition: background .2s;
+          display   : flex; align-items: center; justify-content: center;
+          cursor    : pointer; z-index: 10; transition: background .2s;
         }
-        .lb__close:hover { background: #F5A623; }
+        .lb__close:hover { background: #FF8C00; }
 
         .lb__arrow {
-          position: absolute; top: 50%; transform: translateY(-50%);
+          position  : absolute; top: 50%; transform: translateY(-50%);
           background: rgba(0,0,0,0.5); border: none;
           color: #fff; width: 44px; height: 44px;
-          display: flex; align-items: center; justify-content: center;
-          cursor: pointer; z-index: 10;
-          transition: background .2s;
+          display   : flex; align-items: center; justify-content: center;
+          cursor    : pointer; z-index: 10; transition: background .2s;
         }
-        .lb__arrow:hover { background: #F5A623; }
-        .lb__arrow--prev { left: 16px; }
-        .lb__arrow--next { right: 16px; }
+        .lb__arrow:hover  { background: #FF8C00; }
+        .lb__arrow--prev  { left: 16px; }
+        .lb__arrow--next  { right: 16px; }
 
         .lb__media {
-          width: 100%;
-          aspect-ratio: 16/9;
-          background: #f0f0f0;
-          display: flex; align-items: center; justify-content: center;
+          width        : 100%;
+          aspect-ratio : 16/9;
+          background   : #f0f0f0;
+          display      : flex; align-items: center; justify-content: center;
         }
 
+        /* EurostileCnd Bold — placeholder label */
         .lb__ph {
-          display: flex; flex-direction: column; align-items: center; gap: 14px;
-          color: #bbb;
-          font-family: 'Eurostile', sans-serif;
-          font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+          display     : flex; flex-direction: column;
+          align-items : center; gap: 14px;
+          color       : #bbb;
+          font-family : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size   : 9px; font-weight: 700;
+          letter-spacing: 0.15em; text-transform: uppercase;
         }
 
         .lb__caption {
-          padding: 18px 24px;
-          display: flex; align-items: center; gap: 16px;
-          border-top: 3px solid #F5A623;
-          background: #fff;
+          padding    : 18px 24px;
+          display    : flex; align-items: center; gap: 16px;
+          border-top : 3px solid #FF8C00;
+          background : #fff;
         }
 
+        /* EurostileCnd Bold — category badge */
         .lb__cat {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 8.5px; font-weight: 700; letter-spacing: 2px;
-          color: #fff; background: #F5A623;
-          padding: 4px 10px; text-transform: uppercase; flex-shrink: 0;
+          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size     : 9px; font-weight: 700;
+          letter-spacing: 0.12em;
+          color         : #fff; background: #f47c20;
+          padding       : 4px 10px;
+          text-transform: uppercase; flex-shrink: 0;
+          white-space   : nowrap;
         }
 
+        /* Eurostile Bold — lightbox title */
         .lb__title {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 14px; font-weight: 700; color: #111;
-          text-transform: uppercase; letter-spacing: 0.5px; flex: 1;
+          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size     : 14px; font-weight: 700; color: #111;
+          text-transform: uppercase; letter-spacing: 0.04em;
+          flex          : 1; margin: 0;
         }
 
+        /* Eurostile Regular — lightbox year */
         .lb__year {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 10px; color: #999; letter-spacing: 1px; flex-shrink: 0;
+          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size     : 10px; font-weight: 400;
+          color         : #999; letter-spacing: 0.06em;
+          flex-shrink   : 0;
         }
 
         @media (max-width: 600px) {
-          .lb__arrow { width: 36px; height: 36px; }
+          .lb__arrow   { width: 36px; height: 36px; }
           .lb__caption { padding: 14px 16px; gap: 10px; }
-          .lb__title { font-size: 12px; }
+          .lb__title   { font-size: 12px; }
         }
       `}</style>
     </div>
@@ -227,40 +228,26 @@ function GridCell({ item, onClick }: { item: GalleryItem; onClick: () => void })
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
     >
-      {/* Placeholder */}
-      {/* Media — real or placeholder */}
       <div className="cell__bg">
         {item.src ? (
           item.isVideo ? (
-            <video
-              src={item.src}
-              muted
-              playsInline
-              className="cell__media"
-            />
+            <video src={item.src} muted playsInline className="cell__media" />
           ) : (
-            <img
-              src={item.src}
-              alt={item.title}
-              className="cell__media"
-            />
+            <img src={item.src} alt={item.title} className="cell__media" />
           )
+        ) : item.isVideo ? (
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccc" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
         ) : (
-          item.isVideo ? (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccc" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="5 3 19 12 5 21 5 3"/>
-            </svg>
-          ) : (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccc" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2"/>
-              <circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-          )
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccc" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
         )}
       </div>
 
-      {/* Video badge */}
       {item.isVideo && (
         <div className="cell__video-badge">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="#fff" stroke="none">
@@ -269,64 +256,66 @@ function GridCell({ item, onClick }: { item: GalleryItem; onClick: () => void })
         </div>
       )}
 
-      {/* Hover overlay */}
-      <div className={`cell__ov ${hov ? 'cell__ov--on' : ''}`}>
-        <span className="cell__ov-label">{item.title}</span>
-        <span className="cell__ov-cat">{item.category} · {item.year}</span>
+      <div className={`cell__ov${hov ? ' cell__ov--on' : ''}`}>
+        <span className="cell__ov-title">{item.title}</span>
+        <span className="cell__ov-meta">{item.category} · {item.year}</span>
       </div>
 
       <style jsx>{`
         .cell {
-          position: relative;
-          aspect-ratio: 1/1;
-          background: #f5f5f5;
-          cursor: pointer;
-          overflow: hidden;
+          position     : relative;
+          aspect-ratio : 1/1;
+          background   : #f5f5f5;
+          cursor       : pointer;
+          overflow     : hidden;
         }
 
         .cell__bg {
-          width: 100%; height: 100%;
-          display: flex; align-items: center; justify-content: center;
-          background: #f0f0f0;
-          transition: background .2s;
+          width      : 100%; height: 100%;
+          display    : flex; align-items: center; justify-content: center;
+          background : #f0f0f0;
+          transition : background .2s;
         }
         .cell:hover .cell__bg { background: #e8e8e8; }
-
-        .cell__video-badge {
-          position: absolute; top: 10px; right: 10px;
-          background: rgba(0,0,0,0.55);
-          width: 28px; height: 28px;
-          display: flex; align-items: center; justify-content: center;
-        }
-
-        .cell__ov {
-          position: absolute; inset: 0;
-          background: rgba(0,0,0,0.72);
-          display: flex; flex-direction: column;
-          align-items: center; justify-content: center;
-          gap: 6px; padding: 16px;
-          opacity: 0; transition: opacity .22s ease;
-        }
-        .cell__ov--on { opacity: 1; }
-
-        .cell__ov-label {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 12px; font-weight: 700;
-          color: #fff; text-transform: uppercase;
-          letter-spacing: 0.5px; text-align: center;
-          line-height: 1.3;
-        }
-
-        .cell__ov-cat {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 8.5px; font-weight: 700;
-          color: #F5A623; text-transform: uppercase;
-          letter-spacing: 2px;
-        }
 
         .cell__media {
           width: 100%; height: 100%;
           object-fit: cover; display: block;
+        }
+
+        .cell__video-badge {
+          position  : absolute; top: 10px; right: 10px;
+          background: rgba(0,0,0,0.55);
+          width     : 28px; height: 28px;
+          display   : flex; align-items: center; justify-content: center;
+        }
+
+        .cell__ov {
+          position   : absolute; inset: 0;
+          background : rgba(0,0,0,0.72);
+          display    : flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          gap        : 6px; padding: 16px;
+          opacity    : 0; transition: opacity .22s ease;
+        }
+        .cell__ov--on { opacity: 1; }
+
+        /* Eurostile Bold — hover title */
+        .cell__ov-title {
+          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size     : 12px; font-weight: 700;
+          color         : #fff; text-transform: uppercase;
+          letter-spacing: 0.04em; text-align: center;
+          line-height   : 1.3;
+        }
+
+        /* EurostileCnd Bold — hover meta (category · year) */
+        .cell__ov-meta {
+          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size     : 9px; font-weight: 700;
+          color         : #FF8C00; text-transform: uppercase;
+          letter-spacing: 0.1em;
+          white-space   : nowrap;
         }
       `}</style>
     </div>
@@ -337,10 +326,10 @@ function GridCell({ item, onClick }: { item: GalleryItem; onClick: () => void })
 export default function GalleryPage() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const openItem = (index: number) => setActiveIndex(index);
+  const openItem  = (index: number) => setActiveIndex(index);
   const closeItem = () => setActiveIndex(null);
-  const prevItem = () => setActiveIndex(i => (i === null || i === 0 ? galleryItems.length - 1 : i - 1));
-  const nextItem = () => setActiveIndex(i => (i === null ? 0 : (i + 1) % galleryItems.length));
+  const prevItem  = () => setActiveIndex(i => (i === null || i === 0 ? galleryItems.length - 1 : i - 1));
+  const nextItem  = () => setActiveIndex(i => (i === null ? 0 : (i + 1) % galleryItems.length));
 
   return (
     <>
@@ -348,35 +337,41 @@ export default function GalleryPage() {
 
       <main className="page">
 
-        {/* ── PAGE TITLE ────────────────────────────────────────────────── */}
+        {/* ── HERO ── */}
         <section className="hero">
           <div className="hero__in">
+
+            {/* EurostileCnd Bold — eyebrow overline */}
             <p className="hero__eyebrow">MAKEWAYS PVT. LTD.</p>
-            <h1 className="hero__title">
-              <span className="hero__title--orange">GALLERY</span>
-            </h1>
+
+            {/* EurostileExt Bold — GALLERY display title
+                Matches FOUNDER / SAYS / PORTFOLIO / CAREER treatment ── */}
+            <h1 className="hero__title">GALLERY</h1>
+
+            {/* Eurostile Regular — subtitle body text */}
             <p className="hero__sub">
               A collection of our campaigns, events, awards and behind-the-scenes moments.
             </p>
           </div>
         </section>
 
-        {/* ── COUNT BAR ─────────────────────────────────────────────────── */}
+        {/* ── COUNT BAR ── */}
         <div className="countbar">
-          <div className='countbar__inner'>
-            <span className="countbar__tag">IMAGES & VIDEOS</span>
-          </div>  
+          <div className="countbar__inner">
+            {/* EurostileCnd Bold — label tag */}
+            <span className="countbar__tag">IMAGES &amp; VIDEOS</span>
+          </div>
         </div>
 
-        {/* ── INSTAGRAM-STYLE GRID ──────────────────────────────────────── */}
+        {/* ── GRID ── */}
         <div className="grid">
           {galleryItems.map((item, index) => (
             <GridCell key={item.id} item={item} onClick={() => openItem(index)} />
           ))}
         </div>
+
       </main>
 
-      {/* Lightbox */}
       {activeIndex !== null && (
         <Lightbox
           item={galleryItems[activeIndex]}
@@ -388,81 +383,96 @@ export default function GalleryPage() {
 
       <Footer />
 
+      {/* NO @import — fonts declared once in globals.css. No Barlow. */}
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;900&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #fff; color: #111; font-family: 'Eurostile','Barlow',-apple-system,sans-serif; }
+        body {
+          background  : #fff;
+          color       : #111;
+          font-family : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+        }
       `}</style>
 
       <style jsx>{`
-        /* PAGE */
+
         .page {
-          padding-top: 106px;
-          background: #fff;
-          min-height: 100vh;
+          padding-top : 106px;
+          background  : #fff;
+          min-height  : 100vh;
         }
 
-        /* ── HERO ─────────────────────────────────────────────────────── */
-        .hero {
-          background: #fff;
-        }
+        /* ── HERO ── */
+        .hero    { background: #fff; }
         .hero__in {
-          max-width: 935px; margin: 0 auto;
-          padding: 48px 20px 40px;
-        }
-        .hero__eyebrow {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 9px; font-weight: 700; letter-spacing: 4px;
-          color: #F5A623; text-transform: uppercase; margin-bottom: 12px;
-        }
-        .hero__title {
-          font-family: 'Eurostile', 'Barlow', sans-serif;
-          font-size: clamp(44px, 7vw, 80px);
-          font-weight: 900; letter-spacing: -1px; line-height: 0.95;
-          text-transform: uppercase; margin-bottom: 20px;
-        }
-        .hero__title--orange { color: #F5A623; }
-        .hero__sub {
-          font-family: 'Barlow', sans-serif;
-          font-size: 14px; color: #777; line-height: 1.6; max-width: 480px;
+          max-width : 935px; margin: 0 auto;
+          padding   : 48px 20px 40px;
         }
 
-        /* ── COUNT BAR ────────────────────────────────────────────────── */
-        .countbar { 
-          background: #fff; 
-          border-bottom: 1px solid #eee;
-          padding: 18px 20px;
+        /* EurostileCnd Bold — eyebrow */
+        .hero__eyebrow {
+          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size     : 10px; font-weight: 700;
+          letter-spacing: 0.25em;
+          color         : #FF8C00; text-transform: uppercase;
+          margin-bottom : 12px;
+          white-space   : nowrap;
+        }
+
+        /* EurostileExt Bold — GALLERY display title */
+        .hero__title {
+          font-family    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-weight    : 700;
+          font-size      : clamp(44px, 7vw, 80px);
+          letter-spacing : 0.06em;
+          line-height    : 0.95;
+          text-transform : uppercase;
+          color          : #FF8C00;
+          margin-bottom  : 20px;
+        }
+
+        /* Eurostile Regular — subtitle */
+        .hero__sub {
+          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size     : 14px; font-weight: 400;
+          color         : #777; line-height: 1.7;
+          max-width     : 480px; letter-spacing: 0.01em;
+        }
+
+        /* ── COUNT BAR ── */
+        .countbar {
+          background    : #fff;
+          border-bottom : 1px solid #eee;
+          padding       : 18px 20px;
         }
         .countbar__inner {
-          max-width: 935px;
-          margin: 0 auto;
+          max-width : 935px; margin: 0 auto;
         }
+
+        /* EurostileCnd Bold — count tag */
         .countbar__tag {
-          font-family: 'Eurostile';
-          font-size: 14px;
-          font-weight: 700;
-          letter-spacing: 2px;
-          color: #111;
-          text-transform: uppercase;
+          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size     : 13px; font-weight: 700;
+          letter-spacing: 0.12em;
+          color         : #111; text-transform: uppercase;
+          white-space   : nowrap;
         }
 
-        /* ── GRID ─────────────────────────────────────────────────────── */
+        /* ── GRID ── */
         .grid {
-          max-width: 935px; margin: 0 auto;
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 3px;
-          padding-bottom: 60px;
+          max-width             : 935px; margin: 0 auto;
+          display               : grid;
+          grid-template-columns : repeat(3, 1fr);
+          gap                   : 3px;
+          padding-bottom        : 60px;
         }
 
-        /* ── RESPONSIVE ───────────────────────────────────────────────── */
+        /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
           .hero__in { padding: 36px 16px 28px; }
-          .page { padding-top: 80px; }
+          .page     { padding-top: 80px; }
         }
         @media (max-width: 480px) {
           .grid { gap: 2px; }
-          .hlrow__in { gap: 16px; }
         }
       `}</style>
     </>

@@ -78,7 +78,7 @@
   height: 56px;
   border-radius: 50%;
   background: #ffffff;
-  border: 2.5px solid #f47c20;
+  border: 2.5px solid #FF8C00;
   transition:
     background 0.22s ease,
     border-color 0.22s ease,
@@ -88,10 +88,10 @@
 
 .navItem:hover .navCircle,
 .navItemActive .navCircle {
-  background: #f47c20;
-  border-color: #f47c20;
+  background: #FF8C00;
+  border-color: #FF8C00;
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(244, 124, 32, 0.30);
+  box-shadow: 0 6px 18px rgba(255, 140, 0, 0.30);
 }
 
 /* Icon */
@@ -99,7 +99,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f47c20;
+  color: #FF8C00;
   transition: color 0.22s ease;
 }
 
@@ -214,7 +214,7 @@
 .mobileNavItem:hover,
 .mobileNavItemActive {
   background: #fff8ef;
-  color: #f47c20;
+  color: #FF8C00;
 }
 
 .mobileCircle {
@@ -224,21 +224,21 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 2.5px solid #f47c20;
+  border: 2.5px solid #FF8C00;
   flex-shrink: 0;
   transition: background 0.22s ease;
 }
 
 .mobileNavItem:hover .mobileCircle,
 .mobileNavItemActive .mobileCircle {
-  background: #f47c20;
+  background: #FF8C00;
 }
 
 .mobileIcon {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f47c20;
+  color: #FF8C00;
   transition: color 0.22s ease;
 }
 

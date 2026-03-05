@@ -163,7 +163,7 @@ export default function Header() {
           {/* ── Logo ─────────────────────────────────────────────── */}
           <a href="/" className={styles.logoLink} aria-label="MAKEWAYS — go to home">
             <Image
-              src="/images/Logo/logo.jpg"
+              src="/images/Logo/logo.png"
               alt="MAKEWAYS Logo"
               width={190}
               height={60}

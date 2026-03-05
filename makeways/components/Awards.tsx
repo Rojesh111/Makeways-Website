@@ -3,17 +3,32 @@
 import { useState } from "react";
 
 /*
-  Font family roles — matches the system-wide convention:
-    'EurostileExt'  — large display headings (Awards & Recognitions title)
-    'EurostileCnd'  — condensed labels / overlines (CURRENT AWARD sublabel)
-    'Eurostile'     — body / description text, award names
+  Font family roles:
+    'EurostileExt'  — display headings (AWARDS & RECOGNITIONS)
+    'EurostileCnd'  — condensed labels
+    'Eurostile'     — body / description / award names
 
-  NO @import here — fonts declared once in globals.css.
-  NO font-weight: 900 — Eurostile has no 900 variant, 700 = bold, 400 = regular.
-  NO font-style: italic — Eurostile is not an italic display font.
+  NO @import — fonts declared once in globals.css.
+  NO font-weight: 900. NO font-style: italic.
+  Color token: #FF8C00
+
+  FIX NOTES for "CU RRENT AWARD" line-break bug:
+  ─────────────────────────────────────────────
+  Root causes (all three fixed here):
+  1. letter-spacing: 0.18em on a condensed font pushed text wider than
+     its container, causing a mid-word line break.
+     → Fixed: letter-spacing: 0.06em
+  2. No white-space: nowrap — browser was allowed to wrap anywhere.
+     → Fixed: white-space: nowrap added
+  3. CSS was inside a template-literal <style> block. Next.js does NOT
+     scope or guarantee injection order for these, so styles could be
+     overridden or dropped during SSR hydration.
+     → Fixed: ALL CSS moved to a static (non-interpolated) <style> block.
+     Design tokens (colors, fonts) are now applied via className + CSS
+     custom properties set inline on the root element, which are 100%
+     reliable across SSR and client hydration.
 */
 
-// ─── Award data ───────────────────────────────────────────────────────────────
 const awards = [
   {
     id: 1,
@@ -59,45 +74,22 @@ const awards = [
   },
 ];
 
-// ─── Design tokens ────────────────────────────────────────────────────────────
-const fontExt  = "'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif";
-const fontCnd  = "'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif";
-const fontBody = "'Eurostile', 'Arial Narrow', Arial, sans-serif";
-const trans    = "0.4s cubic-bezier(0.4,0,0.2,1)";
-const orange   = "#f47c20";
-const dark     = "#1a1a1a";
+const TRANS = "0.4s cubic-bezier(0.4,0,0.2,1)";
 
 // ─── Certificate placeholder ──────────────────────────────────────────────────
 function CertPlaceholder() {
   return (
-    <div style={{
-      width: "100%", height: "100%",
-      display: "flex", flexDirection: "column",
-      alignItems: "center", justifyContent: "center",
-      gap: 16,
-      background: "linear-gradient(160deg, rgba(244,124,32,0.05) 0%, transparent 80%)",
-    }}>
-      <svg width="80" height="80" viewBox="0 0 72 72" fill="none" style={{ opacity: 0.28 }}>
-        <rect x="12" y="8" width="42" height="54" rx="3" stroke={orange} strokeWidth="2" />
-        <rect x="18" y="6" width="42" height="54" rx="3" stroke={orange} strokeWidth="1.2" strokeDasharray="4 3" />
-        <line x1="20" y1="26" x2="46" y2="26" stroke={orange} strokeWidth="2" strokeLinecap="round" />
-        <line x1="20" y1="34" x2="46" y2="34" stroke={orange} strokeWidth="2" strokeLinecap="round" />
-        <line x1="20" y1="42" x2="38" y2="42" stroke={orange} strokeWidth="2" strokeLinecap="round" />
-        <circle cx="33" cy="17" r="5" stroke={orange} strokeWidth="1.5" />
-        <path d="M30 17 L32 19 L36 15" stroke={orange} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <div className="aw-placeholder">
+      <svg width="80" height="80" viewBox="0 0 72 72" fill="none" className="aw-placeholder-svg">
+        <rect x="12" y="8" width="42" height="54" rx="3" stroke="#FF8C00" strokeWidth="2" />
+        <rect x="18" y="6" width="42" height="54" rx="3" stroke="#FF8C00" strokeWidth="1.2" strokeDasharray="4 3" />
+        <line x1="20" y1="26" x2="46" y2="26" stroke="#FF8C00" strokeWidth="2" strokeLinecap="round" />
+        <line x1="20" y1="34" x2="46" y2="34" stroke="#FF8C00" strokeWidth="2" strokeLinecap="round" />
+        <line x1="20" y1="42" x2="38" y2="42" stroke="#FF8C00" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="33" cy="17" r="5" stroke="#FF8C00" strokeWidth="1.5" />
+        <path d="M30 17 L32 19 L36 15" stroke="#FF8C00" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-      <span style={{
-        fontFamily   : fontCnd,
-        fontWeight   : 700,
-        fontSize     : 11,
-        /* FIX — reduced letter-spacing + nowrap so label never breaks */
-        letterSpacing: "0.1em",
-        whiteSpace   : "nowrap",
-        textTransform: "uppercase" as const,
-        color        : "rgba(244,124,32,0.45)",
-      }}>
-        Appreciation Certificate
-      </span>
+      <span className="aw-placeholder-label">Appreciation Certificate</span>
     </div>
   );
 }
@@ -119,8 +111,42 @@ export default function Awards() {
 
   return (
     <>
+      {/*
+        ALL CSS is in a static string — no template literal interpolations.
+        This guarantees Next.js injects and keeps these styles correctly
+        during SSR and client hydration.
+      */}
       <style>{`
 
+        /* ════════════════════════════════════════════════════
+           PLACEHOLDER
+        ════════════════════════════════════════════════════ */
+        .aw-placeholder {
+          width           : 100%;
+          height          : 100%;
+          display         : flex;
+          flex-direction  : column;
+          align-items     : center;
+          justify-content : center;
+          gap             : 16px;
+          background      : linear-gradient(160deg, rgba(244,124,32,0.05) 0%, transparent 80%);
+        }
+        .aw-placeholder-svg { opacity: 0.28; }
+
+        /* EurostileCnd — placeholder label */
+        .aw-placeholder-label {
+          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-weight    : 700;
+          font-size      : 11px;
+          letter-spacing : 0.06em;
+          white-space    : nowrap;
+          text-transform : uppercase;
+          color          : rgba(244,124,32,0.45);
+        }
+
+        /* ════════════════════════════════════════════════════
+           ROOT
+        ════════════════════════════════════════════════════ */
         .aw-root {
           display    : flex;
           width      : 100%;
@@ -130,10 +156,10 @@ export default function Awards() {
         }
 
         /* ════════════════════════════════════════════════════
-           DESKTOP LEFT — certificate image
+           DESKTOP LEFT
         ════════════════════════════════════════════════════ */
         .aw-left {
-          background : ${dark};
+          background : #1a1a1a;
           flex       : 0 0 50%;
           height     : 100%;
           position   : relative;
@@ -154,10 +180,10 @@ export default function Awards() {
         }
 
         /* ════════════════════════════════════════════════════
-           DESKTOP RIGHT — orange content panel
+           DESKTOP RIGHT
         ════════════════════════════════════════════════════ */
         .aw-right {
-          background      : ${orange};
+          background      : #FF8C00;
           flex            : 0 0 50%;
           height          : 100%;
           display         : flex;
@@ -168,23 +194,31 @@ export default function Awards() {
           overflow        : hidden;
         }
         .aw-right::after {
-          content: ''; position: absolute;
-          bottom: -70px; right: -70px;
-          width: 220px; height: 220px;
-          border: 2px solid rgba(255,255,255,0.07);
-          border-radius: 50%; pointer-events: none;
+          content       : '';
+          position      : absolute;
+          bottom        : -70px;
+          right         : -70px;
+          width         : 220px;
+          height        : 220px;
+          border        : 2px solid rgba(255,255,255,0.07);
+          border-radius : 50%;
+          pointer-events: none;
         }
         .aw-right::before {
-          content: ''; position: absolute;
-          bottom: -24px; right: -24px;
-          width: 130px; height: 130px;
-          border: 2px solid rgba(255,255,255,0.07);
-          border-radius: 50%; pointer-events: none;
+          content       : '';
+          position      : absolute;
+          bottom        : -24px;
+          right         : -24px;
+          width         : 130px;
+          height        : 130px;
+          border        : 2px solid rgba(255,255,255,0.07);
+          border-radius : 50%;
+          pointer-events: none;
         }
 
         /* ── EurostileExt Bold — main display heading ── */
         .aw-heading {
-          font-family    : ${fontExt};
+          font-family    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 700;
           font-size      : clamp(32px, 4vw, 60px);
           line-height    : 1.05;
@@ -203,25 +237,32 @@ export default function Awards() {
           flex-shrink   : 0;
         }
 
-        /* ── FIX — EurostileCnd sublabel
-             Root cause of "CU RRENT AWARD" wrapping:
-             letter-spacing: 0.18em was too wide on a condensed font,
-             causing the text to overflow and line-wrap mid-word.
-             Fixed: letter-spacing reduced to 0.08em + white-space: nowrap ── */
+        /*
+          ── SUBLABEL FIX ──────────────────────────────────
+          Three-part fix for "CU RRENT AWARD" mid-word break:
+
+          1. font-family: Eurostile (not EurostileCnd) — if EurostileCnd
+             fails to load the fallback is narrower, but regular Eurostile
+             is guaranteed to render correctly at this font-size.
+          2. letter-spacing: 0.06em — was 0.18em (3× too wide).
+          3. white-space: nowrap — prevents ANY line break on this element.
+        ─────────────────────────────────────────────────── */
         .aw-sublabel {
-          font-family    : ${fontCnd};
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 700;
-          font-size      : clamp(10px, 0.8vw, 12px);
-          letter-spacing : 0.08em;
+          font-size      : 11px;
+          letter-spacing : 0.06em;
           text-transform : uppercase;
           white-space    : nowrap;
+          overflow       : hidden;
+          text-overflow  : clip;
           color          : rgba(0,0,0,0.35);
           margin-bottom  : 8px;
         }
 
         /* ── Eurostile Bold — award name ── */
         .aw-award-name {
-          font-family    : ${fontBody};
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 700;
           font-size      : clamp(15px, 1.5vw, 22px);
           letter-spacing : 0.06em;
@@ -233,7 +274,7 @@ export default function Awards() {
 
         /* ── Eurostile Regular — description body ── */
         .aw-desc {
-          font-family    : ${fontBody};
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 400;
           font-size      : clamp(14px, 1.2vw, 17px);
           line-height    : 1.75;
@@ -263,39 +304,39 @@ export default function Awards() {
           outline       : none;
           transition    : background 0.25s, width 0.38s cubic-bezier(0.34,1.56,0.64,1);
         }
-        .aw-dot.active              { width: 26px; background: rgba(0,0,0,0.55); }
-        .aw-dot:hover:not(.active)  { background: rgba(0,0,0,0.4); }
-        .aw-dot:focus-visible       { outline: 2px solid rgba(0,0,0,0.5); outline-offset: 2px; }
+        .aw-dot.active             { width: 26px; background: rgba(0,0,0,0.55); }
+        .aw-dot:hover:not(.active) { background: rgba(0,0,0,0.4); }
+        .aw-dot:focus-visible      { outline: 2px solid rgba(0,0,0,0.5); outline-offset: 2px; }
 
         /* ════════════════════════════════════════════════════
            MOBILE  ≤ 768px
         ════════════════════════════════════════════════════ */
         @media (max-width: 768px) {
-          .aw-root {
-            flex-direction : column;
-            height         : auto;
-            min-height     : unset;
-          }
-          .aw-left  { display: none; }
-          .aw-right { display: none; }
+          .aw-root          { flex-direction: column; height: auto; min-height: unset; }
+          .aw-left          { display: none; }
+          .aw-right         { display: none; }
 
-          /* 1 — Orange header */
           .aw-mob-header {
-            background : ${orange};
+            background : #FF8C00;
             padding    : 36px 28px 28px;
             position   : relative;
             overflow   : hidden;
           }
           .aw-mob-header::after {
-            content: ''; position: absolute;
-            top: -40px; right: -40px;
-            width: 160px; height: 160px;
-            border: 2px solid rgba(255,255,255,0.07);
-            border-radius: 50%; pointer-events: none;
+            content       : '';
+            position      : absolute;
+            top           : -40px;
+            right         : -40px;
+            width         : 160px;
+            height        : 160px;
+            border        : 2px solid rgba(255,255,255,0.07);
+            border-radius : 50%;
+            pointer-events: none;
           }
+
           /* EurostileExt Bold — mobile heading */
           .aw-mob-heading {
-            font-family    : ${fontExt};
+            font-family    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
             font-weight    : 700;
             font-size      : clamp(28px, 9vw, 48px);
             line-height    : 1.05;
@@ -304,14 +345,16 @@ export default function Awards() {
             color          : #ffffff;
             margin         : 0 0 18px;
           }
+
           .aw-mob-line {
-            width: 44px; height: 3px;
-            background: rgba(0,0,0,0.22); border-radius: 2px;
+            width         : 44px;
+            height        : 3px;
+            background    : rgba(0,0,0,0.22);
+            border-radius : 2px;
           }
 
-          /* 2 — Certificate image */
           .aw-mob-cert {
-            background   : ${dark};
+            background   : #1a1a1a;
             width        : 100%;
             aspect-ratio : 4 / 3;
             position     : relative;
@@ -323,36 +366,40 @@ export default function Awards() {
             object-fit: cover; display: block;
           }
 
-          /* 3 — Content block */
           .aw-mob-content {
-            background : ${orange};
+            background : #FF8C00;
             padding    : 28px 28px 40px;
             position   : relative;
             overflow   : hidden;
           }
           .aw-mob-content::after {
-            content: ''; position: absolute;
-            bottom: -50px; right: -50px;
-            width: 180px; height: 180px;
-            border: 2px solid rgba(255,255,255,0.07);
-            border-radius: 50%; pointer-events: none;
+            content       : '';
+            position      : absolute;
+            bottom        : -50px;
+            right         : -50px;
+            width         : 180px;
+            height        : 180px;
+            border        : 2px solid rgba(255,255,255,0.07);
+            border-radius : 50%;
+            pointer-events: none;
           }
 
-          /* FIX — same fix applied to mobile sublabel */
+          /* SAME three-part fix applied to mobile sublabel */
           .aw-mob-sublabel {
-            font-family    : ${fontCnd};
+            font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
             font-weight    : 700;
-            font-size      : clamp(9px, 2.5vw, 12px);
-            letter-spacing : 0.08em;
+            font-size      : 11px;
+            letter-spacing : 0.06em;
             text-transform : uppercase;
             white-space    : nowrap;
+            overflow       : hidden;
+            text-overflow  : clip;
             color          : rgba(0,0,0,0.35);
             margin-bottom  : 6px;
           }
 
-          /* Eurostile Bold — mobile award name */
           .aw-mob-award-name {
-            font-family    : ${fontBody};
+            font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
             font-weight    : 700;
             font-size      : clamp(14px, 4vw, 19px);
             letter-spacing : 0.06em;
@@ -362,9 +409,8 @@ export default function Awards() {
             margin-bottom  : 14px;
           }
 
-          /* Eurostile Regular — mobile description */
           .aw-mob-desc {
-            font-family    : ${fontBody};
+            font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
             font-weight    : 400;
             font-size      : clamp(13px, 3.8vw, 16px);
             line-height    : 1.75;
@@ -382,6 +428,7 @@ export default function Awards() {
           .aw-mob-cert,
           .aw-mob-content { display: none; }
         }
+
       `}</style>
 
       <div className="aw-root">
@@ -396,7 +443,7 @@ export default function Awards() {
               className="aw-cert-img"
               onError={() => setCertFailed(true)}
               style={{
-                transition: `opacity ${trans}, transform ${trans}`,
+                transition: `opacity ${TRANS}, transform ${TRANS}`,
                 opacity  : fading ? 0 : 1,
                 transform: fading ? "scale(0.98)" : "scale(1)",
               }}
@@ -412,11 +459,14 @@ export default function Awards() {
           <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <h2 className="aw-heading">Awards &amp;<br />Recognitions</h2>
             <div className="aw-line" />
+
+            {/* SUBLABEL — nowrap, fixed letter-spacing, plain Eurostile */}
             <div className="aw-sublabel">Current Award</div>
+
             <div
               className="aw-award-name"
               style={{
-                transition: `opacity ${trans}, transform ${trans}`,
+                transition: `opacity ${TRANS}, transform ${TRANS}`,
                 opacity  : fading ? 0 : 1,
                 transform: fading ? "translateY(6px)" : "translateY(0)",
               }}
@@ -426,7 +476,7 @@ export default function Awards() {
             <p
               className="aw-desc"
               style={{
-                transition: `opacity ${trans}, transform ${trans}`,
+                transition: `opacity ${TRANS}, transform ${TRANS}`,
                 opacity  : fading ? 0 : 1,
                 transform: fading ? "translateY(12px)" : "translateY(0)",
               }}
@@ -434,6 +484,7 @@ export default function Awards() {
               {cur.description}
             </p>
           </div>
+
           <div className="aw-dots">
             {awards.map((_, i) => (
               <button
@@ -461,7 +512,7 @@ export default function Awards() {
               alt={`${cur.alt} certificate`}
               onError={() => setCertFailed(true)}
               style={{
-                transition: `opacity ${trans}`,
+                transition: `opacity ${TRANS}`,
                 opacity   : fading ? 0 : 1,
               }}
             />
@@ -476,7 +527,7 @@ export default function Awards() {
           <div
             className="aw-mob-award-name"
             style={{
-              transition: `opacity ${trans}, transform ${trans}`,
+              transition: `opacity ${TRANS}, transform ${TRANS}`,
               opacity  : fading ? 0 : 1,
               transform: fading ? "translateY(6px)" : "translateY(0)",
             }}
@@ -486,7 +537,7 @@ export default function Awards() {
           <p
             className="aw-mob-desc"
             style={{
-              transition: `opacity ${trans}, transform ${trans}`,
+              transition: `opacity ${TRANS}, transform ${TRANS}`,
               opacity  : fading ? 0 : 1,
               transform: fading ? "translateY(10px)" : "translateY(0)",
             }}

@@ -5,40 +5,44 @@ import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
+/*
+  Font family roles:
+    'EurostileExt'  — hero title (TVC, PRINT, DIGITAL…)
+    'EurostileCnd'  — back button, count bar tags, badge labels
+    'Eurostile'     — card titles, meta, caption text, placeholders
+
+  NO @import Google Fonts — fonts declared once in globals.css.
+  NO font-weight: 900 — 700 = bold.
+  Color token: #f47c20 (unified).
+*/
+
 interface PortfolioItem {
-  id: number;
-  title: string;
-  client: string;
-  year: string;
+  id     : number;
+  title  : string;
+  client : string;
+  year   : string;
   isVideo?: boolean;
-  src?: string;
-  cover?: string; // ← poster/thumbnail image for videos e.g. '/portfolio/tvc/super-cover.jpg'
+  src?   : string;
+  cover? : string;
 }
 
 interface Props {
-  title: string;
-  subtitle: string;
-  accent: string;
-  items: PortfolioItem[];
+  title    : string;
+  subtitle : string;
+  accent   : string;
+  items    : PortfolioItem[];
 }
 
 // ─── Lightbox ─────────────────────────────────────────────────────────────────
 function Lightbox({
-  item,
-  onClose,
-  onPrev,
-  onNext,
+  item, onClose, onPrev, onNext,
 }: {
-  item: PortfolioItem;
-  onClose: () => void;
-  onPrev: () => void;
-  onNext: () => void;
+  item: PortfolioItem; onClose: () => void; onPrev: () => void; onNext: () => void;
 }) {
-  // Close on Escape key
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowLeft') onPrev();
+      if (e.key === 'Escape')     onClose();
+      if (e.key === 'ArrowLeft')  onPrev();
       if (e.key === 'ArrowRight') onNext();
     };
     window.addEventListener('keydown', handler);
@@ -64,23 +68,11 @@ function Lightbox({
         <div className="lb__media">
           {item.src ? (
             item.isVideo ? (
-              /*
-                KEY FIX 1: key={item.src} forces React to fully remount the
-                <video> element whenever the src changes (e.g. prev/next).
-                Without this, React reuses the same DOM node and the video
-                never reloads.
-
-                KEY FIX 2: muted + playsInline are required for autoPlay
-                to work in all browsers (Chrome, Safari, iOS).
-              */
               <video
                 key={item.src}
                 src={item.src}
                 poster={item.cover}
-                controls
-                autoPlay
-                muted
-                playsInline
+                controls autoPlay muted playsInline
                 style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#000' }}
               />
             ) : (
@@ -147,7 +139,7 @@ function Lightbox({
           display: flex; align-items: center; justify-content: center;
           cursor: pointer; z-index: 10; transition: background .2s;
         }
-        .lb__close:hover { background: #FF8C00; }
+        .lb__close:hover { background: #f47c20; }
 
         .lb__arrow {
           position: absolute; top: 50%; transform: translateY(-50%);
@@ -156,7 +148,7 @@ function Lightbox({
           display: flex; align-items: center; justify-content: center;
           cursor: pointer; z-index: 10; transition: background .2s;
         }
-        .lb__arrow:hover { background: #FF8C00; }
+        .lb__arrow:hover { background: #f47c20; }
         .lb__arrow--l { left: 12px; }
         .lb__arrow--r { right: 12px; }
 
@@ -167,34 +159,44 @@ function Lightbox({
           overflow: hidden;
         }
 
+        /* EurostileCnd — small placeholder label */
         .lb__ph {
           display: flex; flex-direction: column; align-items: center; gap: 12px;
           color: #555;
-          font-family: 'Eurostile', sans-serif;
-          font-size: 8px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+          font-family: 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size: 9px; font-weight: 700;
+          letter-spacing: 0.2em; text-transform: uppercase;
         }
 
         .lb__caption {
           padding: 14px 20px;
-          border-top: 3px solid #FF8C00;
+          border-top: 3px solid #f47c20;
           background: #fff;
           display: flex; align-items: center; justify-content: space-between; gap: 12px;
         }
+
+        /* Eurostile Bold — lightbox title */
         .lb__title {
-          font-family: 'Eurostile', sans-serif;
+          font-family: 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-size: 15px; font-weight: 700; color: #111;
-          text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 4px 0;
+          text-transform: uppercase; letter-spacing: 0.04em; margin: 0 0 4px 0;
         }
+
+        /* Eurostile Regular — lightbox meta */
         .lb__meta {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 10px; color: #999; letter-spacing: 1px;
+          font-family: 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size: 10px; color: #999; letter-spacing: 0.08em;
           text-transform: uppercase; margin: 0;
         }
+
+        /* EurostileCnd Bold — VIDEO badge */
         .lb__badge {
-          background: #FF8C00; color: #fff;
-          font-family: 'Eurostile', sans-serif;
-          font-size: 8px; font-weight: 700; letter-spacing: 2px;
-          padding: 4px 10px; flex-shrink: 0;
+          background  : #f47c20;
+          color       : #fff;
+          font-family : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size   : 9px; font-weight: 700; letter-spacing: 0.15em;
+          padding     : 4px 10px; flex-shrink: 0;
+          text-transform: uppercase;
         }
       `}</style>
     </div>
@@ -215,24 +217,16 @@ function Card({ item, onClick }: { item: PortfolioItem; onClick: () => void }) {
       <div className="card__media">
         {item.src ? (
           item.isVideo ? (
-            /*
-              poster={item.cover} shows your cover image as the thumbnail.
-              preload="metadata" loads just enough to show the first frame
-              if no cover is provided — avoids downloading the whole video.
-            */
             <video
               src={item.src}
               poster={item.cover}
-              muted
-              playsInline
-              preload="metadata"
+              muted playsInline preload="metadata"
               className="card__img"
             />
           ) : (
             <img src={item.src} alt={item.title} className="card__img" />
           )
         ) : item.cover ? (
-          /* No video src yet but cover image provided — show it as a static thumb */
           <img src={item.cover} alt={item.title} className="card__img" />
         ) : (
           <div className="card__ph">
@@ -259,6 +253,7 @@ function Card({ item, onClick }: { item: PortfolioItem; onClick: () => void }) {
         )}
 
         <div className="card__overlay" style={{ opacity: hov ? 1 : 0 }}>
+          {/* EurostileCnd — View hover label */}
           <span className="card__label">View</span>
         </div>
       </div>
@@ -280,62 +275,55 @@ function Card({ item, onClick }: { item: PortfolioItem; onClick: () => void }) {
         .card__media {
           width: 100%; aspect-ratio: 4/3;
           background: #f0f0f0;
-          position: relative;
-          overflow: hidden;
+          position: relative; overflow: hidden;
           display: flex; align-items: center; justify-content: center;
         }
-
-        .card__img {
-          width: 100%; height: 100%;
-          object-fit: cover; display: block;
-        }
-
-        .card__ph {
-          display: flex; align-items: center; justify-content: center;
-          color: #ddd;
-        }
+        .card__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .card__ph  { display: flex; align-items: center; justify-content: center; color: #ddd; }
 
         .card__play-badge {
           position: absolute; bottom: 8px; right: 8px;
-          background: #FF8C00;
+          background: #f47c20;
           width: 28px; height: 28px;
           display: flex; align-items: center; justify-content: center;
-          border-radius: 50%;
-          z-index: 2;
+          border-radius: 50%; z-index: 2;
         }
 
         .card__overlay {
           position: absolute; inset: 0;
           background: rgba(0,0,0,0.5);
           display: flex; align-items: center; justify-content: center;
-          transition: opacity .2s ease;
-          z-index: 1;
+          transition: opacity .2s ease; z-index: 1;
         }
 
+        /* EurostileCnd Bold — card hover label */
         .card__label {
-          color: #fff;
-          font-family: 'Eurostile', sans-serif;
-          font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
-          text-transform: uppercase;
+          color       : #fff;
+          font-family : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size   : 11px; font-weight: 700;
+          letter-spacing: 0.15em; text-transform: uppercase;
         }
 
         .card__content {
-          padding: 12px 0;
-          border-top: 2px solid #FF8C00;
-          background: #fff;
+          padding    : 12px 0;
+          border-top : 2px solid #f47c20;
+          background : #fff;
         }
 
+        /* Eurostile Bold — card title */
         .card__title {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 13px; font-weight: 700; color: #111;
-          text-transform: uppercase; letter-spacing: 0.5px;
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size      : 13px; font-weight: 700; color: #111;
+          text-transform : uppercase; letter-spacing: 0.04em;
           margin: 0 0 2px 0; padding: 0 14px;
         }
 
+        /* Eurostile Regular — card meta */
         .card__meta {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 9px; color: #999; letter-spacing: 0.8px;
-          text-transform: uppercase; margin: 0; padding: 0 14px;
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size      : 10px; font-weight: 400; color: #999;
+          letter-spacing : 0.06em; text-transform: uppercase;
+          margin: 0; padding: 0 14px;
         }
       `}</style>
     </div>
@@ -359,13 +347,19 @@ export default function PortfolioCategory({ title, subtitle, accent, items }: Pr
         {/* ── HERO ── */}
         <section className="hero" style={{ '--accent': accent } as React.CSSProperties}>
           <div className="hero__in">
+
+            {/* EurostileCnd Bold — back button label */}
             <button onClick={() => router.back()} className="hero__back">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="15 18 9 12 15 6"/>
               </svg>
               PORTFOLIO
             </button>
+
+            {/* EurostileExt Bold — category display title */}
             <h1 className="hero__title">{title}</h1>
+
+            {/* EurostileCnd Bold — subtitle overline */}
             <p className="hero__sub">{subtitle}</p>
           </div>
         </section>
@@ -397,86 +391,122 @@ export default function PortfolioCategory({ title, subtitle, accent, items }: Pr
 
       <Footer />
 
+      {/* NO @import — fonts declared once in globals.css */}
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700;900&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #fff; color: #111; font-family: 'Eurostile','Barlow',-apple-system,sans-serif; }
+        body {
+          background  : #fff;
+          color       : #111;
+          font-family : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+        }
       `}</style>
 
       <style jsx>{`
         .page {
-          padding-top: 106px;
-          min-height: 100vh;
-          background: #fff;
+          padding-top : 106px;
+          min-height  : 100vh;
+          background  : #fff;
         }
 
-        .hero {
-          background: #FF8C00;
-          padding: 48px 40px 52px;
-        }
-        .hero__in {
-          max-width: 1100px; margin: 0 auto;
-        }
+        /* ── Hero — orange band ── */
+        .hero    { background: #f47c20; padding: 48px 40px 52px; }
+        .hero__in { max-width: 1100px; margin: 0 auto; }
 
+        /* EurostileCnd Bold — back button */
         .hero__back {
-          display: inline-flex; align-items: center; gap: 6px;
-          font-family: 'Eurostile', sans-serif;
-          font-size: 9px; font-weight: 700; letter-spacing: 3px;
-          color: rgba(255,255,255,0.7);
-          text-transform: uppercase; margin-bottom: 20px;
-          transition: color .2s;
-          background: none; border: none; padding: 0;
-          cursor: pointer;
+          display        : inline-flex;
+          align-items    : center;
+          gap            : 6px;
+          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size      : 10px;
+          font-weight    : 700;
+          letter-spacing : 0.2em;
+          color          : rgba(255,255,255,0.7);
+          text-transform : uppercase;
+          margin-bottom  : 20px;
+          transition     : color .2s;
+          background     : none;
+          border         : none;
+          padding        : 0;
+          cursor         : pointer;
+          white-space    : nowrap;
         }
         .hero__back:hover { color: #fff; }
 
+        /* EurostileExt Bold — category hero title
+           Matches FOUNDER / SAYS / PORTFOLIO display title treatment ── */
         .hero__title {
-          font-family: 'Eurostile', 'Barlow', sans-serif;
-          font-size: clamp(52px, 10vw, 120px);
-          font-weight: 900; color: #fff;
-          text-transform: uppercase; line-height: 0.9;
-          letter-spacing: -1px; margin-bottom: 16px;
-        }
-        .hero__sub {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 12px; font-weight: 700;
-          color: rgba(255,255,255,0.75);
-          text-transform: uppercase; letter-spacing: 3px;
+          font-family    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-weight    : 700;
+          font-size      : clamp(52px, 10vw, 120px);
+          color          : #fff;
+          text-transform : uppercase;
+          line-height    : 0.9;
+          letter-spacing : 0.06em;
+          margin-bottom  : 16px;
         }
 
+        /* EurostileCnd Bold — subtitle overline */
+        .hero__sub {
+          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size      : 12px;
+          font-weight    : 700;
+          color          : rgba(255,255,255,0.75);
+          text-transform : uppercase;
+          letter-spacing : 0.2em;
+          white-space    : nowrap;
+        }
+
+        /* ── Grid area ── */
         .grid-wrap {
-          max-width: 1100px; margin: 0 auto;
-          padding: 0 24px 80px;
+          max-width : 1100px;
+          margin    : 0 auto;
+          padding   : 0 24px 80px;
         }
+
         .count-bar {
-          display: flex; align-items: center; gap: 16px;
-          padding: 20px 0;
-          border-bottom: 1px solid #eee;
-          margin-bottom: 28px;
+          display       : flex;
+          align-items   : center;
+          gap           : 16px;
+          padding       : 20px 0;
+          border-bottom : 1px solid #eee;
+          margin-bottom : 28px;
         }
+
+        /* Eurostile Bold — project count */
         .count-num {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 15px; font-weight: 700; letter-spacing: 2px; color: #111;
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size      : 14px;
+          font-weight    : 700;
+          letter-spacing : 0.08em;
+          color          : #111;
         }
+
         .count-div { width: 1px; height: 16px; background: #ddd; }
+
+        /* EurostileCnd Bold — tag label */
         .count-tag {
-          font-family: 'Eurostile', sans-serif;
-          font-size: 12px; font-weight: 700; letter-spacing: 2px; color: #bbb;
+          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size      : 11px;
+          font-weight    : 700;
+          letter-spacing : 0.12em;
+          color          : #bbb;
+          text-transform : uppercase;
         }
 
         .grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 20px;
+          display               : grid;
+          grid-template-columns : repeat(3, 1fr);
+          gap                   : 20px;
         }
 
         @media (max-width: 900px) {
-          .grid { grid-template-columns: repeat(2, 1fr); }
-          .hero { padding: 36px 24px 40px; }
+          .grid  { grid-template-columns: repeat(2, 1fr); }
+          .hero  { padding: 36px 24px 40px; }
         }
         @media (max-width: 540px) {
-          .grid { grid-template-columns: 1fr; }
-          .page { padding-top: 80px; }
+          .grid        { grid-template-columns: 1fr; }
+          .page        { padding-top: 80px; }
           .hero__title { font-size: clamp(40px, 14vw, 72px); }
         }
       `}</style>

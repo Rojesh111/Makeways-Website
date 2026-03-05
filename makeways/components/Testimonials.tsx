@@ -59,7 +59,29 @@ const DATA: Testimonial[] = [
 ];
 
 const OUT_MS = 260;
-const IN_MS = 500;
+const IN_MS  = 500;
+
+/* ─────────────────────────────────────────────────────────────────
+   SVG QUOTE MARK — reused in both desktop and mobile
+   Identical path to AboutMakeways, consistent system-wide
+───────────────────────────────────────────────────────────────── */
+function QuoteMark() {
+  return (
+    <svg
+      width="32" height="22"
+      viewBox="0 0 40 28"
+      fill="none"
+      aria-hidden="true"
+      style={{ display: "block", flexShrink: 0 }}
+    >
+      <path
+        d="M0 28V16.8C0 7.84 5.6 2.24 16.8 0L18 3.92C13.2 5.04 10.4 7.84 9.6 12.32H16.8V28H0ZM23.2 28V16.8C23.2 7.84 28.8 2.24 40 0L41.2 3.92C36.4 5.04 33.6 7.84 32.8 12.32H40V28H23.2Z"
+        fill="#f47c20"
+        fillOpacity="0.22"
+      />
+    </svg>
+  );
+}
 
 /* ─────────────────────────────────────────────────────────────────
    EDGE ARROW
@@ -83,16 +105,13 @@ function EdgeArrow({ onClick, dir }: { onClick: () => void; dir: "prev" | "next"
    MAIN COMPONENT
 ───────────────────────────────────────────────────────────────── */
 export default function Testimonials() {
-  const [idx, setIdx] = useState(0);
+  const [idx,   setIdx]   = useState(0);
   const [phase, setPhase] = useState<"idle" | "out" | "in">("idle");
 
   const pending = useRef<number>(0);
-  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const timers  = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  const clearTimers = () => {
-    timers.current.forEach(clearTimeout);
-    timers.current = [];
-  };
+  const clearTimers = () => { timers.current.forEach(clearTimeout); timers.current = []; };
 
   const goTo = useCallback(
     (to: number) => {
@@ -121,7 +140,7 @@ export default function Testimonials() {
     const onKey = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement).tagName;
       if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
-      if (e.key === "ArrowLeft" || e.key === "ArrowUp") prev();
+      if (e.key === "ArrowLeft"  || e.key === "ArrowUp")   prev();
       if (e.key === "ArrowRight" || e.key === "ArrowDown") next();
     };
     window.addEventListener("keydown", onKey);
@@ -135,16 +154,21 @@ export default function Testimonials() {
       <style>{`
 
         /*
-          NO @font-face here — fonts are declared once in globals.css.
-          Components only reference font-family names.
+          NO @font-face here — fonts declared once in globals.css.
+          Font-weight 700 = bold, 400 = regular. No synthetic 900.
+
+          Font family roles:
+            'EurostileExt'  — large display title (SAYS)
+            'EurostileCnd'  — role / overline labels
+            'Eurostile'     — name, quote body
         */
 
         /* ════════════════════════════════════════════════════
            SECTION SHELL
         ════════════════════════════════════════════════════ */
         .tst-section {
-          font-family : 'Eurostile', var(--font-primary);
-          background  : var(--mw-bg-grey);
+          font-family : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          background  : #D4D4D0;
           width       : 100%;
           overflow    : hidden;
           position    : relative;
@@ -158,20 +182,20 @@ export default function Testimonials() {
           top             : 50%;
           transform       : translateY(-50%);
           z-index         : 10;
-          width           : 48px;
-          height          : 48px;
+          width           : 44px;
+          height          : 44px;
           border-radius   : 50%;
-          border          : 2px solid var(--mw-orange);
+          border          : 1.5px solid #f47c20;
           background      : transparent;
-          color           : var(--mw-orange);
-          font-size       : 28px;
+          color           : #f47c20;
+          font-size       : 26px;
           display         : flex;
           align-items     : center;
           justify-content : center;
           cursor          : pointer;
           padding         : 0 0 2px 0;
           outline         : none;
-          font-family     : 'Eurostile', var(--font-primary);
+          font-family     : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           transition      :
             background 0.2s ease,
             color      0.2s ease,
@@ -182,22 +206,16 @@ export default function Testimonials() {
         .tst-edge-arrow--next { right : clamp(12px, 2vw, 30px); }
         .tst-edge-arrow--hov,
         .tst-edge-arrow:hover {
-          background : var(--mw-orange);
-          color      : var(--mw-white);
-          transform  : translateY(-50%) scale(1.1);
-          box-shadow : var(--shadow-orange);
+          background : #f47c20;
+          color      : #ffffff;
+          transform  : translateY(-50%) scale(1.08);
+          box-shadow : 0 4px 16px rgba(244,124,32,0.28);
         }
-        .tst-edge-arrow:active {
-          transform  : translateY(-50%) scale(0.94);
-          box-shadow : none;
-        }
-        .tst-edge-arrow:focus-visible {
-          outline        : 2px solid var(--mw-orange);
-          outline-offset : 3px;
-        }
+        .tst-edge-arrow:active       { transform: translateY(-50%) scale(0.94); box-shadow: none; }
+        .tst-edge-arrow:focus-visible { outline: 2px solid #f47c20; outline-offset: 3px; }
 
         /* ════════════════════════════════════════════════════
-           DESKTOP LAYOUT  (≥ 768 px)
+           DESKTOP LAYOUT  (≥ 768px)
         ════════════════════════════════════════════════════ */
         .tst-desktop {
           display    : none;
@@ -222,17 +240,13 @@ export default function Testimonials() {
           position         : absolute;
           inset            : 0 0 0 53%;
           overflow         : hidden;
-          background-color : var(--mw-bg-grey);
+          background-color : #D4D4D0;
         }
 
         /* ════════════════════════════════════════════════════
            PHOTO STACK
         ════════════════════════════════════════════════════ */
-        .tst-photo-stack {
-          position : relative;
-          width    : 100%;
-          height   : 100%;
-        }
+        .tst-photo-stack { position: relative; width: 100%; height: 100%; }
         .tst-photo {
           position        : absolute;
           inset           : 0;
@@ -244,148 +258,121 @@ export default function Testimonials() {
           transition      : opacity 0.55s ease;
           z-index         : 0;
         }
-        .tst-photo--active {
-          opacity : 1;
-          z-index : 1;
-        }
+        .tst-photo--active { opacity: 1; z-index: 1; }
 
         /* ════════════════════════════════════════════════════
            ANIMATION PHASES
         ════════════════════════════════════════════════════ */
         .tst-animate--out {
-          opacity    : 0;
-          transform  : translateY(-10px);
-          transition :
+          opacity   : 0;
+          transform : translateY(-10px);
+          transition:
             opacity   ${OUT_MS}ms ease,
             transform ${OUT_MS}ms ease;
         }
         .tst-animate--snap {
-          opacity    : 0;
-          transform  : translateY(16px);
-          transition : none;
+          opacity   : 0;
+          transform : translateY(16px);
+          transition: none;
         }
         .tst-animate--in {
-          opacity    : 1;
-          transform  : translateY(0);
-          transition :
+          opacity   : 1;
+          transform : translateY(0);
+          transition:
             opacity   ${IN_MS}ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--tst-delay, 0ms),
             transform ${IN_MS}ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--tst-delay, 0ms);
         }
         .tst-animate--idle {
-          opacity    : 1;
-          transform  : translateY(0);
-          transition :
+          opacity   : 1;
+          transform : translateY(0);
+          transition:
             opacity   ${IN_MS}ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--tst-delay, 0ms),
             transform ${IN_MS}ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--tst-delay, 0ms);
         }
 
         /* ════════════════════════════════════════════════════
-           TEXT — all Eurostile, no Georgia anywhere
+           TEXT STYLES
+
+           .tst-name       → Eurostile Bold 700 · orange · prominent
+           .tst-role       → EurostileCnd Bold 700 · dark · overline label
+           .tst-says       → EurostileExt Bold 700 · large display
+           .tst-about      → EurostileCnd Bold 700 · dark · overline label
+           .tst-quote-text → Eurostile Regular 400 · #666666 body
         ════════════════════════════════════════════════════ */
+
+        /* Eurostile Bold — name, orange */
         .tst-name {
-          font-family    : 'Eurostile', var(--font-primary);
-          font-weight    : 900;
-          font-size      : clamp(22px, 2.5vw, 46px);
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-weight    : 700;
+          font-size      : clamp(20px, 2.2vw, 38px);
           line-height    : 1.1;
-          letter-spacing : var(--ls-display);
+          letter-spacing : 0.06em;
           text-transform : uppercase;
-          color          : var(--mw-orange);
+          color          : #f47c20;
           margin         : 0;
         }
+
+        /* FIX 3 — EurostileCnd Bold for role, tight condensed overline */
         .tst-role {
-          font-family    : 'Eurostile', var(--font-primary);
+          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 700;
-          font-size      : clamp(10px, 0.95vw, 15px);
-          line-height    : 1.4;
-          letter-spacing : var(--ls-label);
+          font-size      : clamp(10px, 0.85vw, 13px);
+          line-height    : 1.5;
+          letter-spacing : 0.1em;
           text-transform : uppercase;
-          color          : var(--mw-dark);
-          margin         : var(--space-1) 0 0;
+          color          : #1a1a1a;
+          margin         : 6px 0 0;
         }
 
-        /* SAYS — fixed */
+        /* EurostileExt Bold — SAYS display title */
         .tst-says {
-          font-family    : 'Eurostile', var(--font-primary);
-          font-weight    : 900;
-          font-size      : clamp(130px, 17vw, 350px);
-          line-height    : 0.83;
-          letter-spacing : 25px;
+          font-family    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-weight    : 700;
+          font-size      : clamp(100px, 14vw, 280px);
+          line-height    : 0.85;
+          letter-spacing : 0.04em;
           text-transform : uppercase;
-          color          : var(--mw-orange);
+          color          : #f47c20;
           user-select    : none;
-          margin : 4px 0 0 30px;
+          margin         : 6px 0 0 0;
         }
 
-        /* ABOUT MAKEWAYS — fixed */
+        /* EurostileCnd Bold — ABOUT MAKEWAYS label */
         .tst-about {
-          font-family    : 'Eurostile', var(--font-primary);
+          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 700;
-          font-size      : clamp(10px, 0.95vw, 15px);
-          line-height    : 1.4;
-          letter-spacing : var(--ls-label);
+          font-size      : clamp(10px, 0.85vw, 13px);
+          line-height    : 1.5;
+          letter-spacing : 0.1em;
           text-transform : uppercase;
-          color          : var(--mw-dark);
-          margin-top     : var(--space-2);
+          color          : #1a1a1a;
+          margin-top     : 4px;
         }
 
         /* ════════════════════════════════════════════════════
-           QUOTE BLOCK — matches mockup exactly
-           Opening " floats LEFT beside text,
-           closing " sits bottom-right under text block
+           QUOTE BLOCK
         ════════════════════════════════════════════════════ */
         .tst-quote-wrap {
-          margin-top : var(--space-6);
+          margin-top : clamp(20px, 2.5vw, 32px);
           max-width  : 520px;
         }
 
-        /* Outer row: " on left, text+close on right */
+        /* Quote mark + text side by side */
         .tst-quote-body {
-          display   : flex;
-          gap       : clamp(8px, 1vw, 14px);
-          align-items: flex-start;
+          display     : flex;
+          gap         : clamp(10px, 1.2vw, 16px);
+          align-items : flex-start;
         }
 
-        /* Opening " — large, sits to the left */
-        .tst-qq-open {
-          font-family    : 'Eurostile', var(--font-primary);
-          font-weight    : 900;
-          font-size      : clamp(44px, 4.5vw, 80px);
-          line-height    : 1;
-          color          : var(--mw-grey-4);
-          flex-shrink    : 0;
-          margin-top     : -4px;
-          letter-spacing : -2px;
-          user-select    : none;
-        }
-
-        /* Right side: text + closing " stacked */
-        .tst-quote-right {
-          display        : flex;
-          flex-direction : column;
-          flex           : 1;
-        }
-
+        /* FIX 2 — quote text #666666, matching AboutMakeways .about__body */
         .tst-quote-text {
-          font-family    : 'Eurostile', var(--font-primary);
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 400;
-          font-size      : clamp(14px, 1.1vw, 17px);
+          font-size      : clamp(14px, 1.05vw, 16px);
           line-height    : 1.75;
           letter-spacing : 0.01em;
-          color          : var(--mw-dark-2);
+          color          : #666666;
           margin         : 0;
-        }
-
-        /* Closing " — right-aligned below text */
-        .tst-qq-close {
-          font-family    : 'Eurostile', var(--font-primary);
-          font-weight    : 900;
-          font-size      : clamp(44px, 4.5vw, 80px);
-          line-height    : 0.8;
-          color          : var(--mw-grey-4);
-          text-align     : right;
-          margin-top     : 4px;
-          letter-spacing : -2px;
-          user-select    : none;
         }
 
         /* ════════════════════════════════════════════════════
@@ -394,74 +381,69 @@ export default function Testimonials() {
         .tst-controls {
           display     : flex;
           align-items : center;
-          margin-top  : var(--space-7);
+          margin-top  : clamp(20px, 2.5vw, 32px);
         }
         .tst-dots {
           display     : flex;
           align-items : center;
-          gap         : var(--space-2);
+          gap         : 8px;
         }
         .tst-dot {
-          height        : 9px;
-          border-radius : var(--radius-full);
-          background    : var(--mw-grey-4);
+          height        : 8px;
+          border-radius : 99px;
+          background    : rgba(26,26,26,0.2);
           border        : none;
           cursor        : pointer;
           padding       : 0;
           outline       : none;
           flex-shrink   : 0;
           transition    : all 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
-          width         : 9px;
+          width         : 8px;
         }
-        .tst-dot--active                     { width: 28px; background: var(--mw-orange); }
-        .tst-dot:not(.tst-dot--active):hover { background: var(--mw-grey-2); }
-        .tst-dot:focus-visible {
-          outline        : 2px solid var(--mw-orange);
-          outline-offset : 2px;
-        }
+        .tst-dot--active                     { width: 26px; background: #f47c20; }
+        .tst-dot:not(.tst-dot--active):hover { background: rgba(26,26,26,0.35); }
+        .tst-dot:focus-visible               { outline: 2px solid #f47c20; outline-offset: 2px; }
 
         /* ════════════════════════════════════════════════════
-           MOBILE LAYOUT  (< 768 px)
+           MOBILE LAYOUT  (< 768px)
         ════════════════════════════════════════════════════ */
         .tst-mobile {
           display        : flex;
           flex-direction : column;
-          padding        : clamp(32px, 8vw, 48px) var(--section-px) clamp(48px, 10vw, 64px);
+          padding        : clamp(32px, 8vw, 48px) clamp(20px, 6vw, 40px) clamp(48px, 10vw, 64px);
         }
 
-        .tst-mobile .tst-name  { font-size: clamp(20px, 6vw, 28px); letter-spacing: 4px; }
-        .tst-mobile .tst-role  { font-size: clamp(9px, 2.5vw, 12px); }
-        .tst-mobile .tst-says  { font-size: clamp(70px, 21.5vw, 116px); }
-        .tst-mobile .tst-about { font-size: clamp(9px, 2.5vw, 12px); }
+        .tst-mobile .tst-name  { font-size: clamp(18px, 5.5vw, 26px); }
+        .tst-mobile .tst-role  { font-size: clamp(9px, 2.3vw, 12px); }
+        .tst-mobile .tst-says  { font-size: clamp(64px, 20vw, 110px); }
+        .tst-mobile .tst-about { font-size: clamp(9px, 2.3vw, 12px); }
 
         .tst-mobile-img-wrap {
           position         : relative;
           width            : 100%;
           aspect-ratio     : 3 / 4;
           overflow         : hidden;
-          margin-top       : var(--space-5);
-          background-color : var(--mw-bg-grey);
+          margin-top       : clamp(16px, 4vw, 24px);
+          background-color : #D4D4D0;
         }
 
-        .tst-mobile .tst-quote-wrap { margin-top: var(--space-5); }
-        .tst-mobile .tst-qq-open    { font-size: 40px; }
-        .tst-mobile .tst-qq-close   { font-size: 40px; }
-        .tst-mobile .tst-quote-text { font-size: clamp(13px, 3.8vw, 16px); }
+        .tst-mobile .tst-quote-wrap { margin-top: clamp(16px, 4vw, 24px); }
+        .tst-mobile .tst-quote-text { font-size: clamp(13px, 3.6vw, 16px); }
 
         .tst-mobile-nav {
           display         : flex;
           align-items     : center;
           justify-content : center;
-          gap             : var(--space-3);
-          margin-top      : var(--space-6);
+          gap             : clamp(12px, 3vw, 20px);
+          margin-top      : clamp(20px, 5vw, 32px);
         }
         .tst-mobile-arrow {
           width           : 38px;
           height          : 38px;
           border-radius   : 50%;
-          border          : 2px solid var(--mw-orange);
+          border          : 1.5px solid #f47c20;
           background      : transparent;
-          color           : var(--mw-orange);
+          color           : #f47c20;
           font-size       : 22px;
           display         : flex;
           align-items     : center;
@@ -469,19 +451,16 @@ export default function Testimonials() {
           cursor          : pointer;
           padding         : 0 0 2px 0;
           outline         : none;
-          font-family     : 'Eurostile', var(--font-primary);
+          font-family     : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           flex-shrink     : 0;
           transition      :
             background 0.2s ease,
             color      0.2s ease,
             transform  0.15s ease;
         }
-        .tst-mobile-arrow:hover  { background: var(--mw-orange); color: var(--mw-white); transform: scale(1.08); }
-        .tst-mobile-arrow:active { transform: scale(0.93); }
-        .tst-mobile-arrow:focus-visible {
-          outline        : 2px solid var(--mw-orange);
-          outline-offset : 3px;
-        }
+        .tst-mobile-arrow:hover        { background: #f47c20; color: #ffffff; transform: scale(1.08); }
+        .tst-mobile-arrow:active       { transform: scale(0.93); }
+        .tst-mobile-arrow:focus-visible { outline: 2px solid #f47c20; outline-offset: 3px; }
 
         /* ════════════════════════════════════════════════════
            BREAKPOINT SWITCH
@@ -529,23 +508,20 @@ export default function Testimonials() {
               style={{ "--tst-delay": "0ms" } as React.CSSProperties}
             >
               <h2 className="tst-name">{t.name}</h2>
-              <p className="tst-role">{t.role}</p>
+              <p  className="tst-role">{t.role}</p>
             </div>
 
-            <div className="tst-says" aria-hidden="true">SAYS</div>
+            <div className="tst-says"  aria-hidden="true">SAYS</div>
             <div className="tst-about">ABOUT MAKEWAYS</div>
 
-            {/* Quote — block open mark, text, block close mark */}
+            {/* FIX 1 — SVG quote mark replaces &ldquo; / &rdquo; */}
             <div
               className={`tst-quote-wrap tst-animate--${animClass}`}
               style={{ "--tst-delay": "65ms" } as React.CSSProperties}
             >
               <div className="tst-quote-body">
-                <span className="tst-qq-open">&ldquo;</span>
-                <div className="tst-quote-right">
-                  <p className="tst-quote-text">{t.quote}</p>
-                  <span className="tst-qq-close">&rdquo;</span>
-                </div>
+                <QuoteMark />
+                <p className="tst-quote-text">{t.quote}</p>
               </div>
             </div>
 
@@ -585,10 +561,10 @@ export default function Testimonials() {
             style={{ "--tst-delay": "0ms" } as React.CSSProperties}
           >
             <h2 className="tst-name">{t.name}</h2>
-            <p className="tst-role">{t.role}</p>
+            <p  className="tst-role">{t.role}</p>
           </div>
 
-          <div className="tst-says" aria-hidden="true">SAYS</div>
+          <div className="tst-says"  aria-hidden="true">SAYS</div>
           <div className="tst-about">ABOUT MAKEWAYS</div>
 
           <div className="tst-mobile-img-wrap">
@@ -604,16 +580,14 @@ export default function Testimonials() {
             </div>
           </div>
 
+          {/* FIX 1 — SVG quote mark on mobile too */}
           <div
             className={`tst-quote-wrap tst-animate--${animClass}`}
             style={{ "--tst-delay": "65ms" } as React.CSSProperties}
           >
             <div className="tst-quote-body">
-              <span className="tst-qq-open">&ldquo;</span>
-              <div className="tst-quote-right">
-                <p className="tst-quote-text">{t.quote}</p>
-                <span className="tst-qq-close">&rdquo;</span>
-              </div>
+              <QuoteMark />
+              <p className="tst-quote-text">{t.quote}</p>
             </div>
           </div>
 

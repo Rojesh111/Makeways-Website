@@ -43,7 +43,7 @@ export default function AboutMakeways(): ReactElement {
             >
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
             </svg>
-            Nepal&apos;s most awarded advertising agency
+            Nepal&apos;s most awarded advertising company
           </div>
 
           {/* Two-column content */}
@@ -57,7 +57,7 @@ export default function AboutMakeways(): ReactElement {
               >
                 Makeways Pvt Ltd is an independent, full-service advertising agency based in
                 Kathmandu, Nepal, established in 2013. We deliver cutting-edge marcom solutions
-                through a wide range of professional services.
+                through a wide range of professional services
               </p>
 
               <p
@@ -65,7 +65,7 @@ export default function AboutMakeways(): ReactElement {
                 style={{ '--delay': '0.2s' } as React.CSSProperties}
               >
                 We continuously explore new disciplines and refine our offerings to stay ahead of
-                ever-changing trends and platforms.
+                ever changing trends and platforms
               </p>
             </div>
 
@@ -91,7 +91,7 @@ export default function AboutMakeways(): ReactElement {
                 </svg>
                 <p>
                   Guided by strategic thinking and creative precision, we help brands connect
-                  meaningfully with their audiences — translating intent into measurable results.
+                  meaningfully with their audiences translating intent into measurable results
                 </p>
               </div>
             </blockquote>
@@ -183,6 +183,7 @@ export default function AboutMakeways(): ReactElement {
           letter-spacing : 0.01em;
           color          : #1a1a1a;
           margin         : 0;
+          text-align     : justify;
         }
 
         /* ── Body — Eurostile 400 · 16–18px · lh 1.6 · ls 0.01em ── */
@@ -194,6 +195,7 @@ export default function AboutMakeways(): ReactElement {
           letter-spacing : 0.01em;
           color          : #666666;
           margin         : 0;
+          text-align     : justify;
         }
 
         /* ── Pull quote — Eurostile 700 · 22–28px · lh 1.3 · ls 0em ── */
@@ -226,6 +228,7 @@ export default function AboutMakeways(): ReactElement {
           letter-spacing : 0em;
           color          : #1a1a1a;
           margin         : 0;
+          text-align     : justify;
         }
 
         /* ── Scroll reveal ── */

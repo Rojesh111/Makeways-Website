@@ -136,9 +136,7 @@ export default function Founder() {
           gap            : 18px;
         }
 
-        /* ── FIX 3 — EurostileCnd Bold
-             Condensed letterforms sit clearly subordinate to the
-             large FOUNDER title — tight, label-weight, no competition ── */
+        /* ── FIX 3 — EurostileCnd Bold ── */
         .founder-name {
           font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 700;
@@ -177,7 +175,7 @@ export default function Founder() {
         .scroll-box::-webkit-scrollbar-track { background: rgba(26,26,26,0.08); border-radius: 2px; }
         .scroll-box::-webkit-scrollbar-thumb { background: #f47c20; border-radius: 2px; }
 
-        /* FIX 2 — #666666, matching AboutMakeways .about__body ── */
+        /* FIX 2 — justified text ── */
         .quote-text {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 400;
@@ -187,6 +185,7 @@ export default function Founder() {
           color          : #666666;
           margin         : 0;
           font-style     : normal;
+          text-align     : justify;
         }
 
         /* ── 1280px ── */

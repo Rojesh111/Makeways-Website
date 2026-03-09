@@ -1,33 +1,6 @@
 "use client";
 
-import { useState } from "react";
-
-/*
-  Font family roles:
-    'EurostileExt'  — display headings (AWARDS & RECOGNITIONS)
-    'EurostileCnd'  — condensed labels
-    'Eurostile'     — body / description / award names
-
-  NO @import — fonts declared once in globals.css.
-  NO font-weight: 900. NO font-style: italic.
-  Color token: #FF8C00
-
-  FIX NOTES for "CU RRENT AWARD" line-break bug:
-  ─────────────────────────────────────────────
-  Root causes (all three fixed here):
-  1. letter-spacing: 0.18em on a condensed font pushed text wider than
-     its container, causing a mid-word line break.
-     → Fixed: letter-spacing: 0.06em
-  2. No white-space: nowrap — browser was allowed to wrap anywhere.
-     → Fixed: white-space: nowrap added
-  3. CSS was inside a template-literal <style> block. Next.js does NOT
-     scope or guarantee injection order for these, so styles could be
-     overridden or dropped during SSR hydration.
-     → Fixed: ALL CSS moved to a static (non-interpolated) <style> block.
-     Design tokens (colors, fonts) are now applied via className + CSS
-     custom properties set inline on the root element, which are 100%
-     reliable across SSR and client hydration.
-*/
+import { useState, useEffect, useCallback } from "react";
 
 const awards = [
   {
@@ -76,7 +49,6 @@ const awards = [
 
 const TRANS = "0.4s cubic-bezier(0.4,0,0.2,1)";
 
-// ─── Certificate placeholder ──────────────────────────────────────────────────
 function CertPlaceholder() {
   return (
     <div className="aw-placeholder">
@@ -94,7 +66,6 @@ function CertPlaceholder() {
   );
 }
 
-// ─── Main component ───────────────────────────────────────────────────────────
 export default function Awards() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [fading,      setFading]      = useState(false);
@@ -107,20 +78,24 @@ export default function Awards() {
     setTimeout(() => { setActiveIndex(index); setFading(false); }, 380);
   };
 
+  const prev = useCallback(() => switchTo((activeIndex - 1 + awards.length) % awards.length), [activeIndex]);
+  const next = useCallback(() => switchTo((activeIndex + 1) % awards.length), [activeIndex]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft")  prev();
+      if (e.key === "ArrowRight") next();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [prev, next]);
+
   const cur = awards[activeIndex];
 
   return (
     <>
-      {/*
-        ALL CSS is in a static string — no template literal interpolations.
-        This guarantees Next.js injects and keeps these styles correctly
-        during SSR and client hydration.
-      */}
       <style>{`
 
-        /* ════════════════════════════════════════════════════
-           PLACEHOLDER
-        ════════════════════════════════════════════════════ */
         .aw-placeholder {
           width           : 100%;
           height          : 100%;
@@ -133,7 +108,6 @@ export default function Awards() {
         }
         .aw-placeholder-svg { opacity: 0.28; }
 
-        /* EurostileCnd — placeholder label */
         .aw-placeholder-label {
           font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 700;
@@ -144,9 +118,6 @@ export default function Awards() {
           color          : rgba(244,124,32,0.45);
         }
 
-        /* ════════════════════════════════════════════════════
-           ROOT
-        ════════════════════════════════════════════════════ */
         .aw-root {
           display    : flex;
           width      : 100%;
@@ -155,9 +126,6 @@ export default function Awards() {
           overflow   : hidden;
         }
 
-        /* ════════════════════════════════════════════════════
-           DESKTOP LEFT
-        ════════════════════════════════════════════════════ */
         .aw-left {
           background : #1a1a1a;
           flex       : 0 0 50%;
@@ -179,9 +147,6 @@ export default function Awards() {
           z-index        : 1;
         }
 
-        /* ════════════════════════════════════════════════════
-           DESKTOP RIGHT
-        ════════════════════════════════════════════════════ */
         .aw-right {
           background      : #FF8C00;
           flex            : 0 0 50%;
@@ -216,7 +181,6 @@ export default function Awards() {
           pointer-events: none;
         }
 
-        /* ── EurostileExt Bold — main display heading ── */
         .aw-heading {
           font-family    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 700;
@@ -237,16 +201,6 @@ export default function Awards() {
           flex-shrink   : 0;
         }
 
-        /*
-          ── SUBLABEL FIX ──────────────────────────────────
-          Three-part fix for "CU RRENT AWARD" mid-word break:
-
-          1. font-family: Eurostile (not EurostileCnd) — if EurostileCnd
-             fails to load the fallback is narrower, but regular Eurostile
-             is guaranteed to render correctly at this font-size.
-          2. letter-spacing: 0.06em — was 0.18em (3× too wide).
-          3. white-space: nowrap — prevents ANY line break on this element.
-        ─────────────────────────────────────────────────── */
         .aw-sublabel {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 700;
@@ -260,7 +214,6 @@ export default function Awards() {
           margin-bottom  : 8px;
         }
 
-        /* ── Eurostile Bold — award name ── */
         .aw-award-name {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 700;
@@ -272,7 +225,6 @@ export default function Awards() {
           margin-bottom  : 22px;
         }
 
-        /* ── Eurostile Regular — description body ── */
         .aw-desc {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 400;
@@ -285,7 +237,6 @@ export default function Awards() {
           flex           : 1;
         }
 
-        /* ── Dots ── */
         .aw-dots {
           display    : flex;
           gap        : 10px;
@@ -304,13 +255,36 @@ export default function Awards() {
           outline       : none;
           transition    : background 0.25s, width 0.38s cubic-bezier(0.34,1.56,0.64,1);
         }
+        .aw-keys {
+          display        : flex;
+          align-items    : center;
+          gap            : 6px;
+          margin-top     : 16px;
+          opacity        : 0.35;
+          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size      : 10px;
+          font-weight    : 700;
+          letter-spacing : 0.08em;
+          text-transform : uppercase;
+          color          : #000;
+          user-select    : none;
+        }
+        .aw-key {
+          display         : inline-flex;
+          align-items     : center;
+          justify-content : center;
+          width           : 20px;
+          height          : 20px;
+          border          : 1.5px solid rgba(0,0,0,0.4);
+          border-radius   : 4px;
+          font-size       : 10px;
+          line-height     : 1;
+        }
+
         .aw-dot.active             { width: 26px; background: rgba(0,0,0,0.55); }
         .aw-dot:hover:not(.active) { background: rgba(0,0,0,0.4); }
         .aw-dot:focus-visible      { outline: 2px solid rgba(0,0,0,0.5); outline-offset: 2px; }
 
-        /* ════════════════════════════════════════════════════
-           MOBILE  ≤ 768px
-        ════════════════════════════════════════════════════ */
         @media (max-width: 768px) {
           .aw-root          { flex-direction: column; height: auto; min-height: unset; }
           .aw-left          { display: none; }
@@ -334,7 +308,6 @@ export default function Awards() {
             pointer-events: none;
           }
 
-          /* EurostileExt Bold — mobile heading */
           .aw-mob-heading {
             font-family    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
             font-weight    : 700;
@@ -384,7 +357,6 @@ export default function Awards() {
             pointer-events: none;
           }
 
-          /* SAME three-part fix applied to mobile sublabel */
           .aw-mob-sublabel {
             font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
             font-weight    : 700;
@@ -422,7 +394,6 @@ export default function Awards() {
           .aw-mob-dots { display: flex; gap: 10px; }
         }
 
-        /* Hide mobile blocks on desktop */
         @media (min-width: 769px) {
           .aw-mob-header,
           .aw-mob-cert,
@@ -459,10 +430,7 @@ export default function Awards() {
           <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <h2 className="aw-heading">Awards &amp;<br />Recognitions</h2>
             <div className="aw-line" />
-
-            {/* SUBLABEL — nowrap, fixed letter-spacing, plain Eurostile */}
             <div className="aw-sublabel">Current Award</div>
-
             <div
               className="aw-award-name"
               style={{
@@ -486,7 +454,7 @@ export default function Awards() {
           </div>
 
           <div className="aw-dots">
-            {awards.map((_, i) => (
+            {awards.map((_: typeof awards[0], i: number) => (
               <button
                 key={i}
                 className={`aw-dot${i === activeIndex ? " active" : ""}`}
@@ -494,6 +462,8 @@ export default function Awards() {
                 aria-label={`Award ${i + 1}`}
               />
             ))}
+          </div>
+          <div className="aw-keys">
           </div>
         </div>
 
@@ -545,7 +515,7 @@ export default function Awards() {
             {cur.description}
           </p>
           <div className="aw-mob-dots">
-            {awards.map((_, i) => (
+            {awards.map((_: typeof awards[0], i: number) => (
               <button
                 key={i}
                 className={`aw-dot${i === activeIndex ? " active" : ""}`}

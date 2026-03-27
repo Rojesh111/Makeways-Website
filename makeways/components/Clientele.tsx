@@ -17,7 +17,7 @@ const CARD_W   = 180;
 const CARD_GAP = 16;
 
 const clients = [
-  { id: 1,  name: 'Yamaha',            category: 'Automotive', logo: '/Clientele/yamaha.jpeg' },
+  { id: 1,  name: 'Yamaha',            category: 'Automotive', logo: '/Clientele/yamaha.png' },
   { id: 2,  name: 'Skoda',             category: 'Automotive', logo: '/Clientele/skoda.png' },
   { id: 3,  name: 'JCB',               category: 'Industrial', logo: '/Clientele/jcb.jpg' },
   { id: 4,  name: 'Czech Rep.',         category: 'Government', logo: '/Clientele/czech.png' },

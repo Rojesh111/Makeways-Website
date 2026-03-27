@@ -2,13 +2,6 @@
 
 /**
  * Header.tsx — MAKEWAYS
- *
- * ✅ CSS Modules only (no styled-jsx) → styles ship with the HTML, zero FOUC
- * ✅ Scroll-aware glass effect (requestAnimationFrame-throttled)
- * ✅ Mobile drawer + backdrop overlay
- * ✅ Skip-to-content link (accessibility)
- * ✅ Active-route detection via usePathname
- * ✅ Next.js Image for the logo (automatic sizing + priority load)
  */
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
@@ -16,10 +9,8 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import styles from './Header.module.css';
 
-/* ─── Types ─────────────────────────────────────────────────────────── */
 type NavLabel = 'INTRO' | 'WHAT WE DO' | 'PORTFOLIO' | 'GALLERY' | 'CAREER';
 
-/* ─── SVG Icons ─────────────────────────────────────────────────────── */
 const icons: Record<NavLabel, React.ReactElement> = {
   INTRO: (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
@@ -70,7 +61,6 @@ const icons: Record<NavLabel, React.ReactElement> = {
   ),
 };
 
-/* ─── Nav item definitions ──────────────────────────────────────────── */
 const HOME_NAV: { label: NavLabel; href: string }[] = [
   { label: 'INTRO',      href: '#about'     },
   { label: 'WHAT WE DO', href: '#services'  },
@@ -87,31 +77,25 @@ const AWAY_NAV: { label: NavLabel; href: string }[] = [
   { label: 'CAREER',     href: '/career'    },
 ];
 
-/* ─── Helper: which nav label is "active" for this pathname ─────────── */
 function getActiveLabel(pathname: string): NavLabel | null {
   if (pathname === '/gallery') return 'GALLERY';
   if (pathname === '/career')  return 'CAREER';
-  return null; // home / scroll-sections — nothing is page-level active
+  return null;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════
-   COMPONENT
-═══════════════════════════════════════════════════════════════════════ */
 export default function Header() {
-  const pathname   = usePathname();
-  const isHome     = pathname === '/';
-  const navItems   = isHome ? HOME_NAV : AWAY_NAV;
+  const pathname    = usePathname();
+  const isHome      = pathname === '/';
+  const navItems    = isHome ? HOME_NAV : AWAY_NAV;
   const activeLabel = getActiveLabel(pathname);
 
-  /* ── State ───────────────────────────────────────────────────────── */
-  const [menuOpen,  setMenuOpen]  = useState(false);
-  const [scrolled,  setScrolled]  = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  /* ── Scroll detection (RAF-throttled, passive) ───────────────────── */
   const rafId = useRef<number | null>(null);
 
   const handleScroll = useCallback(() => {
-    if (rafId.current !== null) return;           // already scheduled
+    if (rafId.current !== null) return;
     rafId.current = requestAnimationFrame(() => {
       setScrolled(window.scrollY > 10);
       rafId.current = null;
@@ -119,7 +103,6 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    // Set initial state immediately (handles hard refresh mid-page)
     setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
@@ -128,16 +111,13 @@ export default function Header() {
     };
   }, [handleScroll]);
 
-  /* ── Close drawer on route change ────────────────────────────────── */
   useEffect(() => { setMenuOpen(false); }, [pathname]);
 
-  /* ── Lock body scroll when drawer is open ────────────────────────── */
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
-  /* ── Keyboard: close on Escape ───────────────────────────────────── */
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && menuOpen) setMenuOpen(false);
@@ -146,28 +126,22 @@ export default function Header() {
     return () => document.removeEventListener('keydown', onKey);
   }, [menuOpen]);
 
-  /* ─────────────────────────────────────────────────────────────────
-     RENDER
-  ───────────────────────────────────────────────────────────────── */
   return (
     <>
       <header
-        className={[
-          styles.header,
-          scrolled ? styles.headerScrolled : '',
-        ].join(' ')}
+        className={[styles.header, scrolled ? styles.headerScrolled : ''].join(' ')}
         role="banner"
       >
         <div className={styles.headerInner}>
 
-          {/* ── Logo ─────────────────────────────────────────────── */}
+          {/* Logo */}
           <a href="/" className={styles.logoLink} aria-label="MAKEWAYS — go to home">
             <Image
               src="/images/Logo/logo.png"
               alt="MAKEWAYS Logo"
               width={190}
               height={60}
-              priority          /* LCP element — must load immediately */
+              priority
               quality={90}
               style={{
                 width: '100%',
@@ -178,7 +152,7 @@ export default function Header() {
             />
           </a>
 
-          {/* ── Desktop Nav ──────────────────────────────────────── */}
+          {/* Desktop Nav — no circle wrapper, icon shown directly */}
           <nav className={styles.navDesktop} aria-label="Primary navigation">
             {navItems.map((item) => {
               const isActive = activeLabel === item.label;
@@ -186,16 +160,11 @@ export default function Header() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className={[
-                    styles.navItem,
-                    isActive ? styles.navItemActive : '',
-                  ].join(' ')}
+                  className={[styles.navItem, isActive ? styles.navItemActive : ''].join(' ')}
                   aria-current={isActive ? 'page' : undefined}
                 >
-                  <span className={styles.navCircle}>
-                    <span className={styles.navIcon}>
-                      {icons[item.label]}
-                    </span>
+                  <span className={styles.navIcon}>
+                    {icons[item.label]}
                   </span>
                   <span className={styles.navLabel}>{item.label}</span>
                 </a>
@@ -203,12 +172,9 @@ export default function Header() {
             })}
           </nav>
 
-          {/* ── Hamburger ────────────────────────────────────────── */}
+          {/* Hamburger */}
           <button
-            className={[
-              styles.hamburger,
-              menuOpen ? styles.hamburgerOpen : '',
-            ].join(' ')}
+            className={[styles.hamburger, menuOpen ? styles.hamburgerOpen : ''].join(' ')}
             onClick={() => setMenuOpen((o) => !o)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
@@ -221,13 +187,10 @@ export default function Header() {
 
         </div>
 
-        {/* ── Mobile Drawer ────────────────────────────────────────── */}
+        {/* Mobile Drawer */}
         <nav
           id="mobile-menu"
-          className={[
-            styles.mobileMenu,
-            menuOpen ? styles.mobileMenuVisible : '',
-          ].join(' ')}
+          className={[styles.mobileMenu, menuOpen ? styles.mobileMenuVisible : ''].join(' ')}
           aria-label="Mobile navigation"
           aria-hidden={!menuOpen}
         >
@@ -237,10 +200,7 @@ export default function Header() {
               <a
                 key={item.label}
                 href={item.href}
-                className={[
-                  styles.mobileNavItem,
-                  isActive ? styles.mobileNavItemActive : '',
-                ].join(' ')}
+                className={[styles.mobileNavItem, isActive ? styles.mobileNavItemActive : ''].join(' ')}
                 aria-current={isActive ? 'page' : undefined}
                 onClick={() => setMenuOpen(false)}
                 tabIndex={menuOpen ? 0 : -1}
@@ -257,7 +217,7 @@ export default function Header() {
         </nav>
       </header>
 
-      {/* ── Mobile backdrop overlay ─────────────────────────────────── */}
+      {/* Mobile backdrop */}
       {menuOpen && (
         <div
           className={styles.mobileOverlay}

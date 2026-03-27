@@ -325,7 +325,7 @@ export default function Clientele() {
                 Labels shortened to avoid any wrapping risk at small viewports.
                 "Multi-National Brands" → "Multinational Brands"  (no hyphen, fits better)
               */}
-              <Counter target={25} label="Multinational Brands" />
+              <Counter target={25} label="Multi-National Brands" />
               <div className="divider" />
               <Counter target={20} label="Domestic Brands" />
               <div className="divider" />

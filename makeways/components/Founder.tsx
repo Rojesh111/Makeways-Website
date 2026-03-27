@@ -12,31 +12,13 @@ export default function Founder() {
 
         <div className="founder-info">
 
-          {/* FIX 3 — EurostileCnd so name sits clearly below FOUNDER in hierarchy */}
           <h2 className="founder-name">
             BIDHAN<br />
             RAJBHANDARI
           </h2>
 
           <blockquote className="founder-quote">
-
-            {/* FIX 1 — SVG quote mark, identical to AboutMakeways treatment */}
-            <svg
-              className="quote-svg-mark"
-              width="28" height="20"
-              viewBox="0 0 40 28"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M0 28V16.8C0 7.84 5.6 2.24 16.8 0L18 3.92C13.2 5.04 10.4 7.84 9.6 12.32H16.8V28H0ZM23.2 28V16.8C23.2 7.84 28.8 2.24 40 0L41.2 3.92C36.4 5.04 33.6 7.84 32.8 12.32H40V28H23.2Z"
-                fill="#f47c20"
-                fillOpacity="0.22"
-              />
-            </svg>
-
             <div className="scroll-box">
-              {/* FIX 2 — #666666 body color matching AboutMakeways .about__body */}
               <p className="quote-text">
                 Bidhan Rajbhandari is the Founder and Managing Director of Makeways Pvt. Ltd.
                 With more than 17 years of experience in advertising, branding, and marketing
@@ -136,7 +118,7 @@ export default function Founder() {
           gap            : 18px;
         }
 
-        /* ── FIX 3 — EurostileCnd Bold ── */
+        /* ── EurostileCnd Bold ── */
         .founder-name {
           font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 700;
@@ -158,24 +140,20 @@ export default function Founder() {
           border-radius: 0 0 0 2px;
         }
 
-        /* FIX 1 — SVG mark, same as AboutMakeways */
-        .quote-svg-mark {
-          display       : block;
-          margin-bottom : 10px;
-        }
-
+        /* Scrollable box — scrollbar fully hidden */
         .scroll-box {
-          max-height      : 200px;
-          overflow-y      : auto;
-          padding-right   : 8px;
-          scrollbar-width : thin;
-          scrollbar-color : #f47c20 rgba(26,26,26,0.08);
+          max-height : 200px;
+          overflow-y : auto;
+          padding-right: 8px;
+          /* Hide scrollbar — Firefox */
+          scrollbar-width: none;
         }
-        .scroll-box::-webkit-scrollbar       { width: 3px; }
-        .scroll-box::-webkit-scrollbar-track { background: rgba(26,26,26,0.08); border-radius: 2px; }
-        .scroll-box::-webkit-scrollbar-thumb { background: #f47c20; border-radius: 2px; }
+        /* Hide scrollbar — Chrome / Safari / Edge */
+        .scroll-box::-webkit-scrollbar {
+          display: none;
+        }
 
-        /* FIX 2 — justified text ── */
+        /* Body text */
         .quote-text {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 400;

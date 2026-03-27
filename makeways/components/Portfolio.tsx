@@ -11,6 +11,8 @@ import Link from 'next/link';
   NO font-weight: 900 — Eurostile has no 900 variant, 700 = bold.
   NO 'Arial Black' fallback — replaced with proper Eurostile stack.
   Color token: #f47c20 (unified across all components).
+
+  Categories: TVC | STATIC (print + digital) | EVENT | JINGLE | ACTIVATION
 */
 
 const categories = [
@@ -25,8 +27,9 @@ const categories = [
     ),
   },
   {
-    label: 'PRINT',
-    href: '/portfolio/print',
+    // STATIC = Print + Digital
+    label: 'STATIC',
+    href: '/portfolio/static',
     icon: (
       <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="6 9 6 2 18 2 18 9" />
@@ -36,25 +39,15 @@ const categories = [
     ),
   },
   {
-    label: 'DIGITAL',
-    href: '/portfolio/digital',
-    icon: (
-      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-        <line x1="8" y1="21" x2="16" y2="21" />
-        <line x1="12" y1="17" x2="12" y2="21" />
-      </svg>
-    ),
-  },
-  {
     label: 'EVENT',
     href: '/portfolio/eventss',
     icon: (
+      // Calendar icon — more fitting for events
       <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+        <line x1="16" y1="2" x2="16" y2="6" />
+        <line x1="8" y1="2" x2="8" y2="6" />
+        <line x1="3" y1="10" x2="21" y2="10" />
       </svg>
     ),
   },
@@ -66,6 +59,16 @@ const categories = [
         <path d="M9 18V5l12-2v13" />
         <circle cx="6" cy="18" r="3" />
         <circle cx="18" cy="16" r="3" />
+      </svg>
+    ),
+  },
+  {
+    label: 'ACTIVATION',
+    href: '/portfolio/activation',
+    icon: (
+      // Megaphone/bullhorn icon — brand activation, campaigns, experiential
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 11l19-9-9 19-2-8-8-2z" />
       </svg>
     ),
   },
@@ -113,9 +116,7 @@ export default function Portfolio() {
           gap             : 0;
         }
 
-        /* ── EurostileExt Bold — large display heading
-             Matches FOUNDER / SAYS / AWARDS display title treatment.
-             font-weight: 700 maps to EurostileExt-Bold_Regular.ttf ── */
+        /* ── EurostileExt Bold — large display heading ── */
         .portfolio__title {
           font-family    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 700;
@@ -140,45 +141,44 @@ export default function Portfolio() {
 
         /* Each item = circle + label */
         .portfolio__item {
-          display                 : flex;
-          flex-direction          : column;
-          align-items             : center;
-          gap                     : 20px;
-          text-decoration         : none;
-          cursor                  : pointer;
+          display                    : flex;
+          flex-direction             : column;
+          align-items                : center;
+          gap                        : 20px;
+          text-decoration            : none;
+          cursor                     : pointer;
           -webkit-tap-highlight-color: transparent;
-          width                   : clamp(110px, 14vw, 180px);
+          width                      : clamp(110px, 14vw, 180px);
         }
 
         /* Circle — dark charcoal by default */
         .portfolio__circle {
-          width          : clamp(110px, 14vw, 180px);
-          height         : clamp(110px, 14vw, 180px);
-          border-radius  : 50%;
-          background     : #1a1a1a;
-          display        : flex;
-          align-items    : center;
-          justify-content: center;
-          transition     : background 0.25s ease;
-          color          : #ffffff;
-          pointer-events : none;
+          width           : clamp(110px, 14vw, 180px);
+          height          : clamp(110px, 14vw, 180px);
+          border-radius   : 50%;
+          background      : #1a1a1a;
+          display         : flex;
+          align-items     : center;
+          justify-content : center;
+          transition      : background 0.25s ease;
+          color           : #ffffff;
+          pointer-events  : none;
         }
 
         .portfolio__icon {
-          display        : flex;
-          align-items    : center;
-          justify-content: center;
-          color          : inherit;
-          transition     : color 0.25s ease;
-          pointer-events : none;
+          display         : flex;
+          align-items     : center;
+          justify-content : center;
+          color           : inherit;
+          transition      : color 0.25s ease;
+          pointer-events  : none;
         }
 
         /* Hover: circle turns white, icon turns orange */
         .portfolio__item:hover .portfolio__circle { background: #ffffff; }
         .portfolio__item:hover .portfolio__icon   { color: #f47c20; }
 
-        /* ── EurostileCnd Bold — category label
-             Condensed overline treatment, matches .tst-role / .aw-sublabel ── */
+        /* ── EurostileCnd Bold — category label ── */
         .portfolio__label {
           font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-weight    : 700;

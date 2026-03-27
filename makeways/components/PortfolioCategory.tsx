@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 
 /*
   Font family roles:
-    'EurostileExt'  — hero title (TVC, PRINT, DIGITAL…)
+    'EurostileExt'  — hero title 
     'EurostileCnd'  — back button, count bar tags, badge labels
     'Eurostile'     — card titles, meta, caption text, placeholders
 

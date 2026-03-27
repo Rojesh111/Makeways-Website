@@ -11,11 +11,11 @@ const items = [
   { id: 6,  title: 'Brand Identity',       client: 'CLIENT NAME', year: '2022', isVideo: false, src: '' },
 ];
 
-export default function PrintPage() {
+export default function ActivationPage() {
   return (
     <PortfolioCategory
-      title="PRINT"
-      subtitle="Print & Outdoor"
+      title="ACTIVATION"
+      subtitle="Brand Activation & Experiential"
       accent="#FF8C00"
       items={items}
     />

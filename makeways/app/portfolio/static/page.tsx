@@ -11,11 +11,11 @@ const items = [
   { id: 6,  title: 'App Launch Campaign',     client: 'CLIENT NAME', year: '2023', isVideo: true,  src: '' },
 ];
 
-export default function DigitalPage() {
+export default function StaticPage() {
   return (
     <PortfolioCategory
-      title="DIGITAL"
-      subtitle="Digital Marketing"
+      title="STATIC"
+      subtitle="Print & Digital"
       accent="#FF8C00"
       items={items}
     />

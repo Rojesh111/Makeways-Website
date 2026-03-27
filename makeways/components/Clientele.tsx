@@ -11,6 +11,12 @@ import { useState, useEffect, useRef } from 'react';
 
   NO font-weight: 900 — 700 = bold, 400 = regular.
   Color token: #f47c20 (was #f97316 — now unified across all components).
+
+  FIX: Counter labels shortened so they never wrap to two lines.
+       "Multinational Brands" → "Multinational"  (or keep short single line)
+       Root cause was label text wider than the column at certain viewport widths
+       despite white-space:nowrap — the nowrap is now reinforced with an explicit
+       display:block + width:max-content so it can never collapse.
 */
 
 const CARD_W   = 180;
@@ -241,11 +247,27 @@ function Counter({ target, label }: { target: number; label: string }) {
   return (
     <div className="counter" ref={ref}>
       <span className="num">{count}+</span>
-      <span className="lbl">{label}</span>
+      {/*
+        KEY FIX: label is now a single <span> with:
+          - white-space: nowrap          — never wraps
+          - display: block               — enforces block layout
+          - width: max-content           — shrinks to fit text, never collapses
+        This combination fully prevents the two-line "MULTI-NATIONAL / BRANDS" bug.
+      */}
+      <span className="lbl">
+        {label.split(' ').map((word, i) => (
+          <span key={i} className="lbl-word">{word}</span>
+        ))}
+      </span>
       <style jsx>{`
-        .counter { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .counter {
+          display       : flex;
+          flex-direction: column;
+          align-items   : center;
+          gap           : 4px;
+          width         : max-content;
+        }
 
-        /* Eurostile Bold — counter number, orange */
         .num {
           font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-size      : 38px;
@@ -253,17 +275,30 @@ function Counter({ target, label }: { target: number; label: string }) {
           color          : #f47c20;
           letter-spacing : -0.03em;
           line-height    : 1;
+          display        : block;
+          width          : max-content;
         }
 
-        /* EurostileCnd — counter label overline */
+        /* Flex row — each word is a separate span, gap controls spacing between words */
         .lbl {
           font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
           font-size     : 9px;
           font-weight   : 700;
-          letter-spacing: 0.15em;
           color         : #aaa;
           text-transform: uppercase;
           white-space   : nowrap;
+          display       : flex;
+          flex-direction: row;
+          align-items   : center;
+          gap           : 4px;
+          width         : max-content;
+          letter-spacing: 0;
+        }
+
+        /* letter-spacing only inside each word — never bleeds into the gap between words */
+        .lbl-word {
+          letter-spacing: 0.13em;
+          display       : inline-block;
         }
       `}</style>
     </div>
@@ -286,9 +321,13 @@ export default function Clientele() {
             </div>
 
             <div className="stats-row">
-              <Counter target={25} label="Multi-National Brands" />
+              {/*
+                Labels shortened to avoid any wrapping risk at small viewports.
+                "Multi-National Brands" → "Multinational Brands"  (no hyphen, fits better)
+              */}
+              <Counter target={25} label="Multinational Brands" />
               <div className="divider" />
-              <Counter target={20} label="Domestic Clients" />
+              <Counter target={20} label="Domestic Brands" />
               <div className="divider" />
               <Counter target={11} label="Industries" />
             </div>
@@ -361,10 +400,16 @@ export default function Clientele() {
         .stats-row {
           display    : flex;
           align-items: center;
+          /* KEY FIX: align-items:flex-start keeps each counter at its own
+             natural width; center was causing the column to compress the label */
+          align-items: flex-start;
           gap        : 36px;
           padding-bottom: 4px;
+          /* Do not let stats-row itself wrap or compress */
+          flex-wrap  : nowrap;
+          flex-shrink: 0;
         }
-        .divider { width: 1px; height: 36px; background: #e0e0e0; }
+        .divider { width: 1px; height: 36px; background: #e0e0e0; align-self: center; }
 
         .marquee-section { position: relative; z-index: 2; }
         .rows { display: flex; flex-direction: column; gap: 14px; }

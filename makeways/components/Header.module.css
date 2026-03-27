@@ -54,8 +54,8 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  margin-left: 32px;   /* ~2 finger space from logo */
-  margin-right: auto;  /* push hamburger to far right */
+  margin-left: 32px;
+  margin-right: auto;
 }
 
 .navItem {
@@ -193,21 +193,15 @@
   color: #FF8C00;
 }
 
+/* ── Mobile icon — circle REMOVED, raw icon only (matches desktop) ── */
 .mobileCircle {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2.5px solid #FF8C00;
+  width: 32px;
+  height: 32px;
   flex-shrink: 0;
-  transition: background 0.22s ease;
-}
-
-.mobileNavItem:hover .mobileCircle,
-.mobileNavItemActive .mobileCircle {
-  background: #FF8C00;
+  /* border and border-radius intentionally omitted */
 }
 
 .mobileIcon {
@@ -215,12 +209,13 @@
   align-items: center;
   justify-content: center;
   color: #FF8C00;
-  transition: color 0.22s ease;
+  transition: color 0.22s ease, transform 0.22s ease;
 }
 
 .mobileNavItem:hover .mobileIcon,
 .mobileNavItemActive .mobileIcon {
-  color: #ffffff;
+  color: #e07000;
+  transform: translateY(-2px);
 }
 
 /* ── Responsive breakpoints ───────────────────────────────────── */

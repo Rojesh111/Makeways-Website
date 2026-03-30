@@ -21,7 +21,7 @@ export default function EventPage() {
   return (
     <PortfolioCategory
       title="EVENT"
-      subtitle="Events & Activations"
+      subtitle="Events"
       accent="#FF8C00"
       items={items}
     />

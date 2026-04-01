@@ -52,56 +52,47 @@ export default function RootLayout({
       <head>
         {/*
           ── CRITICAL FONT PRELOADS ─────────────────────────────────────
-          Only files that EXIST in /public/fonts/FONTS/ are listed.
+          Files must live in: /public/fonts/FONTS/
 
-          PRELOAD ORDER (most critical first):
-
-          1. EurostileExt-Bold_Regular.ttf
-             Covers Eurostile 700 — all H2, H3, bold labels, pull quotes.
-
-          2. EurostileCnd-Bold_Regular.ttf
-             All H4 overlines, role labels, card labels, service names.
-
-          3. EurostileExt-Normal_Regular.ttf
-             All body copy, lead text, quote paragraphs, bio text.
-
-          4. EurostileTBold.ttf
-             Heavy display weight 800/900 — hero titles, portfolio, "SAYS".
+          Preload order — most render-blocking first:
+          1. EurostileExt-Bold_Regular.ttf  → all H2/H3, card titles, bold labels
+          2. EurostileCnd-Bold_Regular.ttf  → all H4–H6 overlines, role labels
+          3. EurostileExt-Normal_Regular.ttf → all body copy, lead text, captions
+          4. EurostileTBold.ttf              → hero H1, display weight 800/900
         */}
         <link
           rel="preload"
-          href="/fonts/FONTS/EurostileExt-Bold_Regular.ttf"
+          href="/fonts/FONTS/EurostileExt-Bold_Regular.woff2"
           as="font"
-          type="font/truetype"
+          type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/FONTS/EurostileCnd-Bold_Regular.ttf"
+          href="/fonts/FONTS/EurostileCnd-Bold_Regular.woff2"
           as="font"
-          type="font/truetype"
+          type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/FONTS/EurostileExt-Normal_Regular.ttf"
+          href="/fonts/FONTS/EurostileExt-Normal_Regular.woff2"
           as="font"
-          type="font/truetype"
+          type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/FONTS/EurostileTBold.ttf"
+          href="/fonts/FONTS/EurostileTBold.woff2"
           as="font"
-          type="font/truetype"
+          type="font/woff2"
           crossOrigin="anonymous"
         />
 
-        {/* ── Favicon ── */}
+        {/* ── Favicons ── */}
         <link rel="icon"             href="/favicon.ico"          sizes="any" />
         <link rel="icon"             href="/favicon.svg"          type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        {/* <link rel="manifest" href="/site.webmanifest" /> */}
       </head>
 
       <body>

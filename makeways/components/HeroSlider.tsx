@@ -415,12 +415,12 @@ export default function HeroSlider() {
         .hs {
           position:   relative;
           width:      100%;
-          height:     calc(100vh - 55px);
+          height:     calc(100vh - var(--header-h));
           min-height: 480px;
           max-height: 920px;
           overflow:   hidden;
           background: #0a0a0a;
-          margin-top: 55px;
+          margin-top: var(--header-h);
           opacity:    0;
           /* Prepare GPU layer early for smooth compositing */
           will-change: opacity;
@@ -463,7 +463,7 @@ export default function HeroSlider() {
           border:      1px solid rgba(255,255,255,0.10);
           backdrop-filter: blur(12px);
           -webkit-backdrop-filter: blur(12px);
-          font-family: 'Eurostile', 'Arial Narrow', monospace;
+          font-family: var(--font-primary);
           font-size:   9px;
           letter-spacing: 0.12em;
           color:       rgba(255,255,255,0.30);
@@ -562,7 +562,7 @@ export default function HeroSlider() {
         }
         .hs__cap-eye {
           display:      inline-block;
-          font-family:  'Eurostile', 'Arial Narrow', sans-serif;
+          font-family:  var(--font-condensed);
           font-weight:  700;
           font-size:    11px;
           letter-spacing: 0.38em;
@@ -576,8 +576,9 @@ export default function HeroSlider() {
           animation:    capEye 0.6s cubic-bezier(0.22,1,0.36,1) 0.25s both;
         }
         .hs__cap-hl {
-          font-family:    'Eurostile', 'Arial Narrow', sans-serif;
-          font-weight:    900;
+          font-family:    var(--font-primary);
+          /* FIXED: font-weight 900 → 700 (Eurostile has no weight-900 variant) */
+          font-weight:    700;
           font-size:      clamp(28px, 5vw, 66px);
           letter-spacing: 0.05em;
           text-transform: uppercase;
@@ -587,7 +588,7 @@ export default function HeroSlider() {
           animation:      capHl 0.7s cubic-bezier(0.22,1,0.36,1) 0.45s both;
         }
         .hs__cap-sub {
-          font-family:    'Eurostile', 'Arial Narrow', sans-serif;
+          font-family:    var(--font-primary);
           font-weight:    400;
           font-size:      clamp(10px, 1.3vw, 14px);
           letter-spacing: 0.22em;
@@ -625,7 +626,7 @@ export default function HeroSlider() {
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
 
-          font-family:    'Eurostile', 'Arial Narrow', sans-serif;
+          font-family:    var(--font-primary);
           font-weight:    700;
           font-size:      9px;
           letter-spacing: 0.18em;
@@ -762,7 +763,7 @@ export default function HeroSlider() {
 
         /* ── Slide counter ───────────────────────────────────────── */
         .hs__count {
-          font-family:  'Eurostile', monospace;
+          font-family:  var(--font-primary);
           font-size:    11px;
           letter-spacing: 0.14em;
           color:        rgba(255, 255, 255, 0.40);

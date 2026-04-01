@@ -86,7 +86,7 @@
 
 /* Label — Eurostile 800 · 10px · ls 0.09em */
 .navLabel {
-  font-family: 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+  font-family: var(--font-primary);
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.09em;
@@ -175,7 +175,7 @@
   align-items: center;
   gap: 16px;
   padding: 15px 32px;
-  font-family: 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+  font-family: var(--font-primary);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.09em;

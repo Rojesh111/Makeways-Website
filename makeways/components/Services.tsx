@@ -175,7 +175,7 @@ export default function Services() {
         .svc {
           background  : #f0f0f0;
           padding     : 96px 60px 112px;
-          font-family : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family : var(--font-primary);
           font-style  : normal;
           overflow    : hidden;
           position    : relative;
@@ -184,7 +184,7 @@ export default function Services() {
 
         /* ── H2 heading — Eurostile 700 · lh 1.2 · ls -0.01em ── */
         .svc__heading {
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-primary);
           font-weight    : 700;
           font-size      : clamp(40px, 3.75vw, 48px);
           line-height    : 1.2;
@@ -195,14 +195,7 @@ export default function Services() {
         }
         .svc__heading--fade { color: #9a9a9a; }
 
-        /* ── Scroll reveal ── */
-        .animate {
-          opacity    : 0;
-          transform  : translateY(20px);
-          transition : opacity 0.6s ease, transform 0.6s ease;
-          will-change: opacity, transform;
-        }
-        .animate.visible { opacity: 1; transform: translateY(0); }
+
 
         /* ── Desktop layout ── */
         .svc-wrap { display: flex; flex-direction: column; align-items: center; }
@@ -255,7 +248,7 @@ export default function Services() {
 
         /* ── Card label — EurostileCnd 700 · 12–14px · lh 1.5 · ls 0.1em ── */
         .svc-label {
-          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-condensed);
           font-weight    : 700;
           font-size      : clamp(12px, 1vw, 14px);
           line-height    : 1.5;
@@ -306,7 +299,7 @@ export default function Services() {
 
         /* Strip title — EurostileCnd 700 · 12–14px · ls 0.12em */
         .strip__title {
-          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-condensed);
           font-weight    : 700;
           font-size      : clamp(12px, 1vw, 14px);
           line-height    : 1.5;
@@ -318,7 +311,7 @@ export default function Services() {
 
         /* Strip desc — Eurostile 400 · 13–15px · lh 1.6 · ls 0.01em */
         .strip__desc {
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-primary);
           font-weight    : 400;
           font-size      : clamp(13px, 0.9vw, 15px);
           line-height    : 1.6;
@@ -335,7 +328,7 @@ export default function Services() {
           align-content         : center;
         }
         .strip__tag {
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-primary);
           font-weight    : 400;
           font-size      : clamp(10px, 0.75vw, 12px);
           line-height    : 1.5;
@@ -391,7 +384,7 @@ export default function Services() {
 
         /* Mobile label — EurostileCnd 700 · 11–13px · ls 0.1em */
         .mob-label {
-          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-condensed);
           font-weight    : 700;
           font-size      : clamp(11px, 2.6vw, 13px);
           line-height    : 1.5;
@@ -438,7 +431,7 @@ export default function Services() {
 
         /* Sheet title — Eurostile 700 · 20–24px · lh 1.3 · ls 0em */
         .mob-sheet__title {
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-primary);
           font-weight    : 700;
           font-size      : clamp(20px, 4.5vw, 24px);
           line-height    : 1.3;
@@ -450,7 +443,7 @@ export default function Services() {
 
         /* Sheet desc — Eurostile 400 · 16px · lh 1.6 · ls 0.01em */
         .mob-sheet__desc {
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-primary);
           font-weight    : 400;
           font-size      : 16px;
           line-height    : 1.6;
@@ -478,7 +471,7 @@ export default function Services() {
           display        : flex;
           align-items    : center;
           gap            : 10px;
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-primary);
           font-weight    : 400;
           font-size      : clamp(13px, 3vw, 14px);
           line-height    : 1.5;

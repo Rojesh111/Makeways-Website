@@ -114,7 +114,7 @@ function ContactRow({ Icon, text, href }: { Icon: () => JSX.Element; text: strin
         }
         /* Eurostile Regular — contact detail text */
         .cr__text {
-          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family   : var(--font-primary);
           font-size     : clamp(11px, 1vw, 14px);
           font-weight   : 400;
           letter-spacing: 0.02em;
@@ -237,7 +237,7 @@ export default function Footer() {
 
         .ft {
           background  : #ffffff;
-          font-family : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family : var(--font-primary);
           color       : #111111;
         }
 
@@ -256,7 +256,7 @@ export default function Footer() {
 
         /* EurostileCnd Bold — nav links */
         .ft__navlink {
-          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-condensed);
           font-size      : 10px;
           font-weight    : 700;
           letter-spacing : 0.2em;
@@ -284,7 +284,7 @@ export default function Footer() {
         /* EurostileExt Bold — MAKEWAYS wordmark
            Same display treatment as .founder-title, .tst-says ── */
         .ft__wordmark {
-          font-family    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-extended);
           font-size      : clamp(38px, 5.2vw, 64px);
           font-weight    : 700;
           letter-spacing : 0.06em;
@@ -296,7 +296,7 @@ export default function Footer() {
 
         /* EurostileCnd Bold — CONTACT DETAIL overline */
         .ft__contact-label {
-          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-condensed);
           font-size      : 9px;
           font-weight    : 700;
           letter-spacing : 0.25em;
@@ -327,7 +327,7 @@ export default function Footer() {
 
         /* EurostileExt Bold — SOCIALS heading */
         .ft__socials-heading {
-          font-family    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-extended);
           font-size      : clamp(24px, 3.2vw, 44px);
           font-weight    : 700;
           letter-spacing : 0.06em;
@@ -357,7 +357,7 @@ export default function Footer() {
           padding       : 9px 0;
           background    : #f5f5f5;
           border        : none;
-          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family   : var(--font-condensed);
           font-size     : 9px;
           font-weight   : 700;
           letter-spacing: 0.15em;
@@ -380,7 +380,7 @@ export default function Footer() {
           padding        : 10px 16px;
           background     : #1a1a1a;
           color          : #fff;
-          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-condensed);
           font-size      : 9px;
           font-weight    : 700;
           letter-spacing : 0.15em;
@@ -395,7 +395,7 @@ export default function Footer() {
         /* EurostileCnd — copyright */
         .ft__copyright {
           text-align    : center;
-          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family   : var(--font-condensed);
           font-size     : 8px;
           font-weight   : 700;
           letter-spacing: 0.2em;

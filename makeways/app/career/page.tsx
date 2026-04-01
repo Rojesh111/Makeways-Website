@@ -61,26 +61,7 @@ export default function CareerPage() {
 
       <style jsx>{`
 
-        @font-face {
-          font-family: 'Eurostile';
-          src: url('/fonts/FONTS/EurostileExt-Normal_Regular.ttf') format('truetype');
-          font-weight: 400; font-display: swap;
-        }
-        @font-face {
-          font-family: 'Eurostile';
-          src: url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
-          font-weight: 700; font-display: swap;
-        }
-        @font-face {
-          font-family: 'Eurostile';
-          src: url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
-          font-weight: 800; font-display: swap;
-        }
-        @font-face {
-          font-family: 'Eurostile';
-          src: url('/fonts/FONTS/EurostileExtended.ttf') format('truetype');
-          font-weight: 900; font-display: swap;
-        }
+        /* FIXED: Removed @font-face declarations — fonts are declared once in globals.css */
 
         /* ── Shell ── */
         .cw {
@@ -111,7 +92,8 @@ export default function CareerPage() {
         }
 
         .cs-title {
-          font-weight: 900;
+          /* FIXED: font-weight 900 → 700 (no weight-900 variant in Eurostile) */
+          font-weight: 700;
           font-size: clamp(72px, 9vw, 120px);
           color: #ffffff;
           text-transform: uppercase;
@@ -187,7 +169,8 @@ export default function CareerPage() {
 
         .cs-label {
           margin: 0;
-          font-weight: 900;
+          /* FIXED: font-weight 900 → 700 */
+          font-weight: 700;
           font-size: clamp(36px, 5vw, 72px);
           color: #2b2b2b;
           text-transform: uppercase;
@@ -214,7 +197,8 @@ export default function CareerPage() {
 
         /* ── Slash ── */
         .cs-slash {
-          font-weight: 900;
+          /* FIXED: font-weight 900 → 700 */
+          font-weight: 700;
           font-size: clamp(120px, 16vw, 220px);
           color: #ffffff;
           line-height: 1;

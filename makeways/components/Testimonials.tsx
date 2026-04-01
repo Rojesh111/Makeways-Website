@@ -167,7 +167,7 @@ export default function Testimonials() {
            SECTION SHELL
         ════════════════════════════════════════════════════ */
         .tst-section {
-          font-family : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family : var(--font-primary);
           background  : #D4D4D0;
           width       : 100%;
           overflow    : hidden;
@@ -195,7 +195,7 @@ export default function Testimonials() {
           cursor          : pointer;
           padding         : 0 0 2px 0;
           outline         : none;
-          font-family     : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family     : var(--font-primary);
           transition      :
             background 0.2s ease,
             color      0.2s ease,
@@ -302,7 +302,7 @@ export default function Testimonials() {
 
         /* Eurostile Bold — name, orange */
         .tst-name {
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-primary);
           font-weight    : 700;
           font-size      : clamp(20px, 2.2vw, 38px);
           line-height    : 1.1;
@@ -314,7 +314,7 @@ export default function Testimonials() {
 
         /* FIX 3 — EurostileCnd Bold for role, tight condensed overline */
         .tst-role {
-          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-condensed);
           font-weight    : 700;
           font-size      : clamp(10px, 0.85vw, 13px);
           line-height    : 1.5;
@@ -326,7 +326,7 @@ export default function Testimonials() {
 
         /* EurostileExt Bold — SAYS display title */
         .tst-says {
-          font-family    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-extended);
           font-weight    : 700;
           font-size      : clamp(100px, 14vw, 280px);
           line-height    : 0.85;
@@ -339,7 +339,7 @@ export default function Testimonials() {
 
         /* EurostileCnd Bold — ABOUT MAKEWAYS label */
         .tst-about {
-          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-condensed);
           font-weight    : 700;
           font-size      : clamp(10px, 0.85vw, 13px);
           line-height    : 1.5;
@@ -366,12 +366,12 @@ export default function Testimonials() {
 
         /* FIX 2 — quote text #666666, matching AboutMakeways .about__body */
         .tst-quote-text {
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-primary);
           font-weight    : 400;
           font-size      : clamp(14px, 1.05vw, 16px);
           line-height    : 1.75;
           letter-spacing : 0.01em;
-          color          : #666666;
+          color          : var(--mw-body);
           margin         : 0;
         }
 
@@ -451,7 +451,7 @@ export default function Testimonials() {
           cursor          : pointer;
           padding         : 0 0 2px 0;
           outline         : none;
-          font-family     : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family     : var(--font-primary);
           flex-shrink     : 0;
           transition      :
             background 0.2s ease,

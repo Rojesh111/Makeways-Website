@@ -2,82 +2,71 @@
    MAKEWAYS — GLOBAL DESIGN SYSTEM
    globals.css
 
-   FONT FILES CONFIRMED ON DISK:
-     EurostileExt-Normal_Regular.ttf   → Eurostile 400 normal  (body, lead, captions)
-     EurostileExt-Bold_Regular.ttf     → Eurostile 700 normal  (headings H1–H3, cards)
-     EurostileTBold.ttf                → Eurostile 800 normal  (heavy display, hero)
-     EurostileCnd-Bold_Regular.ttf     → EurostileCnd 700      (overlines, labels H4–H6)
+   FONT FILES IN /public/fonts/FONTS/:
+     EurostileExt-Normal_Regular.woff2 → Eurostile 400  (body, lead, captions)
+     EurostileExt-Bold_Regular.woff2   → Eurostile 700  (h2, h3, card titles, bold UI)
+     EurostileTBold.woff2              → Eurostile 800/900 (hero, display, pull-quotes)
+     EurostileCnd-Bold_Regular.woff2   → EurostileCnd 700  (overlines, labels, h4–h6)
 
-   FILES THAT DO NOT EXIST (removed — were causing 404s):
- 
-     EurostileExtended.ttf             ✗ 404
-     EurostileExtendedBold.ttf         ✗ 404
-     EurostileRegular.ttf              ✗ 404
-     EurostileOblique.ttf              ✗ 404
-     EurostileExtObl-Normal_Regular.ttf ✗ 404 (not on disk)
-     EurostileExtObl-Bold_Regular.ttf   ✗ 404 (not on disk)
+   WEIGHT MAP:
+     400 → EurostileExt-Normal_Regular.woff2
+     700 → EurostileExt-Bold_Regular.woff2
+     800 → EurostileTBold.woff2
+     900 → EurostileTBold.woff2  (heaviest available)
 
-   WEIGHT MAPPING:
-     400 (regular)   → EurostileExt-Normal_Regular.ttf
-     700 (bold)      → EurostileExt-Bold_Regular.ttf
-     800 (extrabold) → EurostileTBold.ttf
-     900 (black)     → EurostileTBold.ttf (same face, heaviest available)
+   FORMAT: WOFF2 (modern web font, ~30% smaller than TTF, faster loading)
    ============================================================ */
 
 
 /* ============================================================
-   1. @FONT-FACE — only files confirmed on disk
+   1. @FONT-FACE
    ============================================================ */
 
-/* 400 — regular body, lead text, captions */
 @font-face {
   font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileExt-Normal_Regular.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileExt-Normal_Regular.woff2') format('woff2');
   font-weight  : 400;
   font-style   : normal;
   font-display : swap;
 }
 
-/* 700 — section headings, card titles, bold UI */
 @font-face {
   font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileExt-Bold_Regular.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileExt-Bold_Regular.woff2') format('woff2');
   font-weight  : 700;
   font-style   : normal;
   font-display : swap;
 }
 
-/* 800 extrabold — heavy display text, hero titles */
 @font-face {
   font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileTBold.woff2') format('woff2');
   font-weight  : 800;
   font-style   : normal;
   font-display : swap;
 }
 
-/* 900 black → same EurostileTBold file (heaviest available) */
 @font-face {
   font-family  : 'Eurostile';
-  src          : url('/fonts/FONTS/EurostileTBold.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileTBold.woff2') format('woff2');
   font-weight  : 900;
   font-style   : normal;
   font-display : swap;
 }
 
-/* EurostileCnd — condensed bold for overlines, UI labels, H4–H6 */
+/* EurostileCnd — condensed bold: overlines, h4–h6, UI labels */
 @font-face {
   font-family  : 'EurostileCnd';
-  src          : url('/fonts/FONTS/EurostileCnd-Bold_Regular.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileCnd-Bold_Regular.woff2') format('woff2');
   font-weight  : 700;
   font-style   : normal;
   font-display : swap;
 }
 
-/* EurostileExt — extended bold alias (same file as Eurostile 700) */
+/* EurostileExt alias — for cases that need the extended face explicitly */
 @font-face {
   font-family  : 'EurostileExt';
-  src          : url('/fonts/FONTS/EurostileExt-Bold_Regular.ttf') format('truetype');
+  src          : url('/fonts/FONTS/EurostileExt-Bold_Regular.woff2') format('woff2');
   font-weight  : 700;
   font-style   : normal;
   font-display : swap;
@@ -89,6 +78,10 @@
    ============================================================ */
 
 :root {
+
+  /* ── Layout ── */
+  --header-h        : 82px;
+  --header-h-mobile : 66px;
 
   /* ── Brand Colors ── */
   --mw-orange        : #f47c20;
@@ -141,7 +134,7 @@
   --lh-body    : 1.75;
   --lh-loose   : 1.85;
 
-  /* ── Letter Spacing — all em, scales with font-size ── */
+  /* ── Letter Spacing ── */
   --ls-display : -0.02em;
   --ls-h2      : -0.01em;
   --ls-h3      :  0em;
@@ -149,7 +142,6 @@
   --ls-button  :  0.05em;
   --ls-body    :  0.01em;
   --ls-small   :  0.02em;
-
   /* Legacy aliases */
   --ls-heading : -0.01em;
   --ls-card    :  0em;
@@ -269,29 +261,32 @@ body {
   -webkit-font-smoothing  : antialiased;
   -moz-osx-font-smoothing : grayscale;
   text-rendering          : optimizeLegibility;
+  font-feature-settings   : 'kern' 1, 'liga' 1;
+  font-variant-numeric    : tabular-nums;
   overflow-x              : hidden;
   min-height              : 100dvh;
 }
 
 
 /* ============================================================
-   5. BARE ELEMENT TYPOGRAPHY
-   H1–H3 → Eurostile (700/800/900)
-   H4–H6 → EurostileCnd (condensed, overlines / labels)
-   No margin on any heading — components own their spacing.
+   5. TYPOGRAPHY — BARE ELEMENTS
+   H1–H3 → Eurostile Extended (700/800/900)
+   H4–H6 → EurostileCnd 700 (condensed, overlines / labels)
+   No margin on headings — components own spacing.
    ============================================================ */
 
 h1, h2, h3, h4, h5, h6 {
   font-style     : normal;
   text-transform : uppercase;
   color          : var(--mw-dark);
+  text-wrap      : balance;
 }
 
 h1 {
   font-family    : var(--font-primary);
   font-weight    : var(--fw-black);
   font-size      : var(--text-h1);
-  line-height    : 1.1;
+  line-height    : 1.05;
   letter-spacing : var(--ls-display);
 }
 
@@ -299,7 +294,7 @@ h2 {
   font-family    : var(--font-primary);
   font-weight    : var(--fw-bold);
   font-size      : var(--text-h2);
-  line-height    : 1.2;
+  line-height    : 1.15;
   letter-spacing : var(--ls-h2);
 }
 
@@ -307,7 +302,7 @@ h3 {
   font-family    : var(--font-primary);
   font-weight    : var(--fw-bold);
   font-size      : var(--text-h3);
-  line-height    : 1.3;
+  line-height    : 1.25;
   letter-spacing : var(--ls-h3);
 }
 
@@ -340,6 +335,7 @@ p {
   line-height    : var(--lh-body);
   letter-spacing : var(--ls-body);
   color          : var(--mw-grey-3);
+  text-wrap      : pretty;
 }
 
 a {
@@ -362,11 +358,13 @@ small {
 }
 
 blockquote {
+  font-family    : var(--font-primary);
   font-weight    : var(--fw-bold);
   font-size      : clamp(18px, 1.6vw, 22px);
-  line-height    : 1.3;
+  line-height    : 1.35;
   letter-spacing : var(--ls-h3);
   color          : var(--mw-dark);
+  text-transform : uppercase;
 }
 
 hr {
@@ -379,6 +377,7 @@ hr {
    6. UTILITY CLASSES
    ============================================================ */
 
+/* ── Layout ── */
 .section-inner {
   max-width : var(--section-max-w);
   margin    : 0 auto;
@@ -393,6 +392,18 @@ hr {
 
 .section-heading { margin-bottom: var(--section-gap); }
 
+/* ── Type Roles ── */
+.display {
+  font-family    : var(--font-primary);
+  font-weight    : var(--fw-black);
+  font-size      : var(--text-display);
+  line-height    : var(--lh-tight);
+  letter-spacing : var(--ls-display);
+  text-transform : uppercase;
+  color          : var(--mw-dark);
+  text-wrap      : balance;
+}
+
 .eyebrow {
   font-family    : var(--font-condensed);
   font-weight    : var(--fw-bold);
@@ -405,28 +416,65 @@ hr {
 }
 
 .lead {
+  font-family    : var(--font-primary);
+  font-weight    : var(--fw-regular);
   font-size      : var(--text-lead);
   line-height    : var(--lh-relaxed);
   letter-spacing : var(--ls-body);
   color          : var(--mw-dark-2);
 }
 
+.label {
+  font-family    : var(--font-condensed);
+  font-weight    : var(--fw-bold);
+  font-size      : var(--text-xs);
+  line-height    : 1;
+  letter-spacing : var(--ls-label);
+  text-transform : uppercase;
+  color          : var(--mw-grey-2);
+}
+
+.stat {
+  font-family    : var(--font-primary);
+  font-weight    : var(--fw-black);
+  font-size      : clamp(48px, 7vw, 96px);
+  line-height    : var(--lh-tight);
+  letter-spacing : var(--ls-display);
+  text-transform : uppercase;
+  color          : var(--mw-dark);
+  font-variant-numeric : tabular-nums;
+}
+
+/* ── Color Modifiers ── */
 .text-small  { font-size: var(--text-small); }
-.text-orange { color: var(--mw-orange)  !important; }
-.text-dark   { color: var(--mw-dark)    !important; }
-.text-muted  { color: var(--mw-grey-3)  !important; }
-.text-white  { color: var(--mw-white)   !important; }
+.text-orange { color: var(--mw-orange)    !important; }
+.text-dark   { color: var(--mw-dark)      !important; }
+.text-muted  { color: var(--mw-grey-3)    !important; }
+.text-white  { color: var(--mw-white)     !important; }
 .accent      { color: var(--mw-orange); }
 
+/* ── Weight Modifiers ── */
 .fw-regular   { font-weight: var(--fw-regular);   }
 .fw-bold      { font-weight: var(--fw-bold);      }
 .fw-extrabold { font-weight: var(--fw-extrabold); }
 .fw-black     { font-weight: var(--fw-black);     }
 
+/* ── Transform Modifiers ── */
 .uppercase   { text-transform: uppercase; }
 .normal-case { text-transform: none;      }
 
+/* ── Decorative ── */
 .border-top-orange { border-top: 5px solid var(--mw-orange); }
+
+/* ── Industrial rule — horizontal accent line ── */
+.rule-orange {
+  display          : block;
+  width            : 48px;
+  height           : 3px;
+  background-color : var(--mw-orange);
+  border           : none;
+  margin           : 0;
+}
 
 
 /* ============================================================

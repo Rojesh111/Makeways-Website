@@ -114,161 +114,153 @@ export default function CoreValues() {
         NO @font-face here — fonts are declared once in globals.css.
         Components only reference font-family names.
       */}
-      <style jsx>{`
+<style jsx>{`
 
-        /* ── Section ── */
-        .cv {
-          background  : #f0f0f0;
-          padding     : 96px 60px;
-          width       : 100%;
-          overflow-x  : hidden;
-          font-family : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-        }
-        .cv__inner {
-          max-width : 1280px;
-          margin    : 0 auto;
-        }
+  /* ── Section ── */
+  .cv {
+    background  : #f0f0f0;
+    padding     : var(--section-py) var(--section-px);
+    width       : 100%;
+    overflow-x  : hidden;
+    font-family : var(--font-primary);
+  }
+  .cv__inner {
+    max-width : 1280px;
+    margin    : 0 auto;
+  }
 
-        /* ── H2 heading — Eurostile 700 · lh 1.2 · ls -0.01em ── */
-        .cv__heading {
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-weight    : 700;
-          font-size      : clamp(40px, 3.75vw, 48px);
-          line-height    : 1.2;
-          letter-spacing : -0.01em;
-          text-transform : uppercase;
-          color          : #9a9a9a;
-          margin         : 0 0 72px 0;
-        }
-        .cv__heading--accent { color: #9a9a9a; }
+  /* ── H2 heading — Eurostile 700 · lh 1.2 · ls -0.01em ── */
+  .cv__heading {
+    font-family    : var(--font-primary);
+    font-weight    : 700;
+    font-size      : clamp(40px, 3.75vw, 48px);
+    line-height    : 1.2;
+    letter-spacing : -0.01em;
+    text-transform : uppercase;
+    color          : #9a9a9a;
+    margin         : 0 0 72px 0;
+  }
+  /* FIXED: cv__heading--accent color #9a9a9a → #f47c20 (orange) */
+  .cv__heading--accent { color: #f47c20; }
 
-        /* ── 4-col grid ── */
-        .cv__grid {
-          display               : grid;
-          grid-template-columns : repeat(4, 1fr);
-          gap                   : 48px 40px;
-        }
+  /* ── 4-col grid ── */
+  .cv__grid {
+    display               : grid;
+    grid-template-columns : repeat(4, 1fr);
+    gap                   : 48px 40px;
+  }
 
-        /* ── Card ── */
-        .cv__card {
-          display        : flex;
-          flex-direction : column;
-          align-items    : center;
-          text-align     : center;
-          transition     : transform 0.3s ease;
-        }
-        .cv__card:hover { transform: translateY(-6px); }
+  /* ── Card ── */
+  .cv__card {
+    display        : flex;
+    flex-direction : column;
+    align-items    : center;
+    text-align     : center;
+    transition     : transform 0.3s ease;
+  }
+  .cv__card:hover { transform: translateY(-6px); }
 
-        /* ── Icon ring ── */
-        .cv__icon-ring {
-          width            : 112px;
-          height           : 112px;
-          border           : 1.5px solid #f47c20;
-          border-radius    : 50%;
-          display          : flex;
-          align-items      : center;
-          justify-content  : center;
-          margin-bottom    : 28px;
-          flex-shrink      : 0;
-          transition       :
-            background  0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55),
-            transform   0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55),
-            box-shadow  0.35s ease;
-        }
-        .cv__card:hover .cv__icon-ring {
-          background : #f47c20;
-          transform  : scale(1.08);
-          box-shadow : 0 8px 28px rgba(244, 124, 32, 0.28);
-        }
-        .cv__icon {
-          color           : #f47c20;
-          display         : flex;
-          align-items     : center;
-          justify-content : center;
-          transition      : color 0.3s ease, transform 0.3s ease;
-        }
-        .cv__card:hover .cv__icon { color: #ffffff; transform: scale(1.1); }
+  /* ── Icon ring ── */
+  .cv__icon-ring {
+    width            : 112px;
+    height           : 112px;
+    border           : 1.5px solid #f47c20;
+    border-radius    : 50%;
+    display          : flex;
+    align-items      : center;
+    justify-content  : center;
+    margin-bottom    : 28px;
+    flex-shrink      : 0;
+    transition       :
+      background  0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+      transform   0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+      box-shadow  0.35s ease;
+  }
+  .cv__card:hover .cv__icon-ring {
+    background : #f47c20;
+    transform  : scale(1.08);
+    box-shadow : 0 8px 28px rgba(244, 124, 32, 0.28);
+  }
+  .cv__icon {
+    color           : #f47c20;
+    display         : flex;
+    align-items     : center;
+    justify-content : center;
+    transition      : color 0.3s ease, transform 0.3s ease;
+  }
+  .cv__card:hover .cv__icon { color: #ffffff; transform: scale(1.1); }
 
-        /* ── Card title — EurostileCnd 700 · 14–16px · lh 1.5 · ls 0.1em ── */
-        .cv__title {
-          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-weight    : 700;
-          font-size      : clamp(14px, 1.1vw, 16px);
-          line-height    : 1.5;
-          letter-spacing : 0.1em;
-          text-transform : uppercase;
-          color          : #1a1a1a;
-          margin         : 0 0 12px 0;
-          transition     : color 0.25s ease;
-        }
-        .cv__card:hover .cv__title { color: #f47c20; }
+  /* ── Card title — EurostileCnd 700 · 14–16px · lh 1.5 · ls 0.1em ── */
+  .cv__title {
+    font-family    : var(--font-condensed);
+    font-weight    : 700;
+    font-size      : clamp(14px, 1.1vw, 16px);
+    line-height    : 1.5;
+    letter-spacing : 0.1em;
+    text-transform : uppercase;
+    color          : #1a1a1a;
+    margin         : 0 0 12px 0;
+    transition     : color 0.25s ease;
+  }
+  .cv__card:hover .cv__title { color: #f47c20; }
 
-        /* ── Divider ── */
-        .cv__rule {
-          width      : 32px;
-          height     : 2px;
-          background : #d8d8d8;
-          margin     : 0 auto 20px;
-          transition : width 0.3s ease, background 0.3s ease;
-        }
-        .cv__card:hover .cv__rule { width: 48px; background: #f47c20; }
+  /* ── Divider ── */
+  .cv__rule {
+    width      : 32px;
+    height     : 2px;
+    background : #d8d8d8;
+    margin     : 0 auto 20px;
+    transition : width 0.3s ease, background 0.3s ease;
+  }
+  .cv__card:hover .cv__rule { width: 48px; background: #f47c20; }
 
-        /* ── Description — Eurostile 400 · 14–16px · lh 1.7 · ls 0.01em ── */
-        .cv__desc {
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
-          font-weight    : 400;
-          font-size      : clamp(14px, 1vw, 16px);
-          line-height    : 1.7;
-          letter-spacing : 0.01em;
-          color          : #666666;
-          margin         : 0 auto;
-          text-align     : center;
-          max-width      : 260px;
-        }
+  /* ── Description — Eurostile 400 · 14–16px · lh 1.7 · ls 0.01em ── */
+  .cv__desc {
+    font-family    : var(--font-primary);
+    font-weight    : 400;
+    font-size      : clamp(14px, 1vw, 16px);
+    line-height    : 1.7;
+    letter-spacing : 0.01em;
+    color          : var(--mw-body);
+    margin         : 0 auto;
+    text-align     : center;
+    max-width      : 260px;
+  }
 
-        /* ── Scroll reveal ── */
-        .animate {
-          opacity    : 0;
-          transform  : translateY(20px);
-          transition :
-            opacity   0.65s ease var(--delay, 0s),
-            transform 0.65s ease var(--delay, 0s);
-          will-change : opacity, transform;
-        }
-        .animate.visible { opacity: 1; transform: translateY(0); }
 
-        @media (max-width: 1280px) {
-          .cv          { padding: 80px 48px; }
-          .cv__grid    { gap: 44px 32px; }
-        }
-        @media (max-width: 1024px) {
-          .cv              { padding: 72px 40px; }
-          .cv__heading     { font-size: clamp(36px, 4vw, 44px); margin-bottom: 56px; }
-          .cv__grid        { grid-template-columns: repeat(2, 1fr); gap: 48px 36px; }
-          .cv__icon-ring   { width: 96px; height: 96px; margin-bottom: 22px; }
-        }
-        @media (max-width: 768px) {
-          .cv              { padding: 60px 24px; }
-          .cv__heading     { font-size: clamp(32px, 5vw, 40px); margin-bottom: 48px; }
-          .cv__grid        { grid-template-columns: repeat(2, 1fr); gap: 40px 24px; }
-          .cv__icon-ring   { width: 88px; height: 88px; }
-          .cv__title       { font-size: 13px; letter-spacing: 0.08em; }
-          .cv__desc        { font-size: 14px; line-height: 1.65; }
-        }
-        @media (max-width: 520px) {
-          .cv              { padding: 52px 20px; }
-          .cv__heading     { font-size: clamp(28px, 7vw, 36px); margin-bottom: 40px; }
-          .cv__grid        { grid-template-columns: 1fr; gap: 40px; }
-          .cv__icon-ring   { width: 80px; height: 80px; margin-bottom: 18px; }
-        }
-        @media (max-width: 360px) {
-          .cv              { padding: 44px 16px; }
-          .cv__heading     { font-size: 28px; margin-bottom: 32px; }
-          .cv__icon-ring   { width: 72px; height: 72px; }
-          .cv__title       { font-size: 12px; }
-          .cv__desc        { font-size: 13px; }
-        }
-      `}</style>
+
+  @media (max-width: 1280px) {
+    .cv          { padding: 80px 48px; }
+    .cv__grid    { gap: 44px 32px; }
+  }
+  @media (max-width: 1024px) {
+    .cv              { padding: 72px 40px; }
+    .cv__heading     { font-size: clamp(36px, 4vw, 44px); margin-bottom: 56px; }
+    .cv__grid        { grid-template-columns: repeat(2, 1fr); gap: 48px 36px; }
+    .cv__icon-ring   { width: 96px; height: 96px; margin-bottom: 22px; }
+  }
+  @media (max-width: 768px) {
+    .cv              { padding: 60px 24px; }
+    .cv__heading     { font-size: clamp(32px, 5vw, 40px); margin-bottom: 48px; }
+    .cv__grid        { grid-template-columns: repeat(2, 1fr); gap: 40px 24px; }
+    .cv__icon-ring   { width: 88px; height: 88px; }
+    .cv__title       { font-size: 13px; letter-spacing: 0.08em; }
+    .cv__desc        { font-size: 14px; line-height: 1.65; }
+  }
+  @media (max-width: 520px) {
+    .cv              { padding: 52px 20px; }
+    .cv__heading     { font-size: clamp(28px, 7vw, 36px); margin-bottom: 40px; }
+    .cv__grid        { grid-template-columns: 1fr; gap: 40px; }
+    .cv__icon-ring   { width: 80px; height: 80px; margin-bottom: 18px; }
+  }
+  @media (max-width: 360px) {
+    .cv              { padding: 44px 16px; }
+    .cv__heading     { font-size: 28px; margin-bottom: 32px; }
+    .cv__icon-ring   { width: 72px; height: 72px; }
+    .cv__title       { font-size: 12px; }
+    .cv__desc        { font-size: 13px; }
+  }
+`}</style>
     </>
   );
 }

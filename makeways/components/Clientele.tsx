@@ -125,7 +125,7 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
 
         /* Eurostile Regular — fallback name */
         .fallback {
-          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family   : var(--font-primary);
           font-size     : 11px;
           font-weight   : 400;
           color         : #bbb;
@@ -155,7 +155,7 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
 
         /* EurostileCnd — category overline */
         .info-cat {
-          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family   : var(--font-condensed);
           font-size     : 8px;
           font-weight   : 700;
           letter-spacing: 0.18em;
@@ -167,7 +167,7 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
 
         /* Eurostile Bold — client name */
         .info-name {
-          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family   : var(--font-primary);
           font-size     : 11px;
           font-weight   : 700;
           color         : #222222;
@@ -269,7 +269,7 @@ function Counter({ target, label }: { target: number; label: string }) {
         }
 
         .num {
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-primary);
           font-size      : 38px;
           font-weight    : 700;
           color          : #f47c20;
@@ -281,7 +281,7 @@ function Counter({ target, label }: { target: number; label: string }) {
 
         /* Flex row — each word is a separate span, gap controls spacing between words */
         .lbl {
-          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family   : var(--font-condensed);
           font-size     : 9px;
           font-weight   : 700;
           color         : #aaa;
@@ -353,7 +353,7 @@ export default function Clientele() {
           background : #f9f9f9;
           padding    : 60px 0 80px;
           overflow   : hidden;
-          font-family: 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family: var(--font-primary);
         }
 
         .bg-grid {
@@ -387,7 +387,7 @@ export default function Clientele() {
         /* Eurostile Bold — section title, grey
            Matches .about__heading--grey treatment exactly */
         .title {
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-primary);
           font-size      : clamp(36px, 5vw, 58px);
           font-weight    : 700;
           color          : #9a9a9a;

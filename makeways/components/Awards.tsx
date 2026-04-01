@@ -5,45 +5,108 @@ import { useState, useEffect, useCallback } from "react";
 const awards = [
   {
     id: 1,
-    certificate: "/images/awards/certificate1.jpg",
+    certificate: "/images/awards/Awards 9.jpg",
     alt: "Gulf Excellence Award 2023",
     description:
       "Honored with the prestigious Gulf Excellence Award 2023 in recognition of outstanding performance, innovation, and commitment to delivering world-class lubricant solutions across the region.",
   },
   {
     id: 2,
-    certificate: "/images/awards/certificate2.jpg",
+    certificate: "/images/awards/award2.jpg",
     alt: "Best Distributor Award",
     description:
       "Recognized as the Best Distributor of the Year for consistently exceeding targets, maintaining superior customer service standards, and driving market expansion across key territories.",
   },
   {
     id: 3,
-    certificate: "/images/awards/certificate3.jpg",
+    certificate: "/images/awards/award3.png",
     alt: "Innovation Excellence Award",
     description:
       "Awarded the Innovation Excellence trophy for pioneering new approaches in lubricant distribution and setting benchmarks in supply chain efficiency and product quality assurance.",
   },
   {
     id: 4,
-    certificate: "/images/awards/certificate4.jpg",
+    certificate: "/images/awards/Awards_4.jpg",
     alt: "Sustainability Leadership Award",
     description:
       "Received the Sustainability Leadership Award in acknowledgment of our unwavering dedication to environmentally responsible practices and green business transformation initiatives.",
   },
   {
     id: 5,
-    certificate: "/images/awards/certificate5.jpg",
+    certificate: "/images/awards/Awards 5.jpg",
     alt: "Regional Excellence Award",
     description:
       "Presented with the Regional Excellence Award for outstanding contributions to market development, customer satisfaction, and establishing the highest standards of business integrity.",
   },
   {
     id: 6,
-    certificate: "/images/awards/certificate6.jpg",
+    certificate: "/images/awards/Awards 6.jpg",
     alt: "Quality Champion Award",
     description:
       "Earned the Quality Champion recognition for maintaining exemplary product standards, rigorous quality control processes, and an uncompromising commitment to customer excellence.",
+  },
+  {
+    id: 7,
+    certificate: "/images/awards/Awards 7.jpg",
+    alt: "Performance Excellence Award",
+    description:
+      "Commended for delivering exceptional performance metrics across all key business verticals, demonstrating consistent growth and operational excellence throughout the fiscal year.",
+  },
+  {
+    id: 8,
+    certificate: "/images/awards/Awards 8.jpg",
+    alt: "Customer Satisfaction Award",
+    description:
+      "Awarded in recognition of achieving the highest customer satisfaction ratings, reflecting our commitment to building lasting partnerships and providing unparalleled service experiences.",
+  },
+  {
+    id: 9,
+    certificate: "/images/awards/Awards 10.jpg",
+    alt: "Market Leadership Award",
+    description:
+      "Recognized as a market leader for driving significant business growth, expanding our footprint across new territories, and maintaining dominant market share in the lubricant sector.",
+  },
+  {
+    id: 10,
+    certificate: "/images/awards/Award_ANN.jpg",
+    alt: "Annual Achievement Award",
+    description:
+      "Presented with the Annual Achievement Award for outstanding yearly performance, demonstrating consistent excellence and dedication to business growth and customer satisfaction.",
+  },
+  {
+    id: 11,
+    certificate: "/images/awards/Awards_BRB.jpg",
+    alt: "Business Recognition Award",
+    description:
+      "Honored with the Business Recognition Award for exemplary business conduct, ethical practices, and significant contributions to the industry's growth and development.",
+  },
+  {
+    id: 12,
+    certificate: "/images/awards/Awards_Critty 2.jpg",
+    alt: "Critical Excellence Award",
+    description:
+      "Recognized for critical excellence in operations and customer delivery, consistently surpassing benchmarks and setting new industry standards for quality and service.",
+  },
+  {
+    id: 13,
+    certificate: "/images/awards/Awards_Critty3.jpg",
+    alt: "Critty Excellence Award",
+    description:
+      "Awarded for exceptional operational standards and outstanding contributions toward sustainable and innovative lubricant solutions that positively impact our clients and communities.",
+  },
+  {
+    id: 14,
+    certificate: "/images/awards/Awards 1.jpg",
+    alt: "Premier Partner Award",
+    description:
+      "Presented as a Premier Partner in acknowledgment of our exemplary collaboration, mutual growth initiatives, and unwavering commitment to shared business goals and values.",
+  },
+  {
+    id: 15,
+    certificate: "/images/awards/awards1.jpg",
+    alt: "Outstanding Service Award",
+    description:
+      "Honored with the Outstanding Service Award for delivering consistent excellence across all client touchpoints, reflecting our core values of integrity, reliability, and superior quality.",
   },
 ];
 
@@ -109,7 +172,7 @@ export default function Awards() {
         .aw-placeholder-svg { opacity: 0.28; }
 
         .aw-placeholder-label {
-          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-condensed);
           font-weight    : 700;
           font-size      : 11px;
           letter-spacing : 0.06em;
@@ -126,6 +189,7 @@ export default function Awards() {
           overflow   : hidden;
         }
 
+        /* ── LEFT PANEL ── */
         .aw-left {
           background : #1a1a1a;
           flex       : 0 0 50%;
@@ -147,6 +211,32 @@ export default function Awards() {
           z-index        : 1;
         }
 
+        /* ── NAV ARROWS ── */
+        .aw-arrow {
+          position        : absolute;
+          top             : 50%;
+          transform       : translateY(-50%);
+          z-index         : 10;
+          width           : 44px;
+          height          : 44px;
+          border-radius   : 50%;
+          background      : rgba(255,255,255,0.10);
+          border          : 1.5px solid rgba(255,255,255,0.18);
+          color           : #fff;
+          display         : flex;
+          align-items     : center;
+          justify-content : center;
+          cursor          : pointer;
+          transition      : background 0.2s, border-color 0.2s;
+          backdrop-filter : blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+        }
+        .aw-arrow:hover  { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.35); }
+        .aw-arrow.left   { left: 18px; }
+        .aw-arrow.right  { right: 18px; }
+        .aw-arrow svg    { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+        /* ── RIGHT PANEL ── */
         .aw-right {
           background      : #FF8C00;
           flex            : 0 0 50%;
@@ -182,7 +272,7 @@ export default function Awards() {
         }
 
         .aw-heading {
-          font-family    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-extended);
           font-weight    : 700;
           font-size      : clamp(32px, 4vw, 60px);
           line-height    : 1.05;
@@ -201,8 +291,18 @@ export default function Awards() {
           flex-shrink   : 0;
         }
 
+        .aw-counter {
+          font-family    : var(--font-primary);
+          font-weight    : 700;
+          font-size      : 11px;
+          letter-spacing : 0.08em;
+          text-transform : uppercase;
+          color          : rgba(0,0,0,0.3);
+          margin-bottom  : 4px;
+        }
+
         .aw-sublabel {
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-primary);
           font-weight    : 700;
           font-size      : 11px;
           letter-spacing : 0.06em;
@@ -215,7 +315,7 @@ export default function Awards() {
         }
 
         .aw-award-name {
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-primary);
           font-weight    : 700;
           font-size      : clamp(15px, 1.5vw, 22px);
           letter-spacing : 0.06em;
@@ -226,7 +326,7 @@ export default function Awards() {
         }
 
         .aw-desc {
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-primary);
           font-weight    : 400;
           font-size      : clamp(14px, 1.2vw, 17px);
           line-height    : 1.75;
@@ -237,12 +337,15 @@ export default function Awards() {
           flex           : 1;
         }
 
+        /* ── DOTS ── */
         .aw-dots {
-          display    : flex;
-          gap        : 10px;
-          margin-top : 48px;
-          flex-shrink: 0;
-          z-index    : 1;
+          display     : flex;
+          flex-wrap   : wrap;
+          gap         : 8px;
+          margin-top  : 48px;
+          flex-shrink : 0;
+          z-index     : 1;
+          max-width   : 320px;
         }
         .aw-dot {
           width         : 8px;
@@ -255,13 +358,17 @@ export default function Awards() {
           outline       : none;
           transition    : background 0.25s, width 0.38s cubic-bezier(0.34,1.56,0.64,1);
         }
+        .aw-dot.active             { width: 26px; background: rgba(0,0,0,0.55); }
+        .aw-dot:hover:not(.active) { background: rgba(0,0,0,0.4); }
+        .aw-dot:focus-visible      { outline: 2px solid rgba(0,0,0,0.5); outline-offset: 2px; }
+
         .aw-keys {
           display        : flex;
           align-items    : center;
           gap            : 6px;
           margin-top     : 16px;
           opacity        : 0.35;
-          font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-primary);
           font-size      : 10px;
           font-weight    : 700;
           letter-spacing : 0.08em;
@@ -281,10 +388,7 @@ export default function Awards() {
           line-height     : 1;
         }
 
-        .aw-dot.active             { width: 26px; background: rgba(0,0,0,0.55); }
-        .aw-dot:hover:not(.active) { background: rgba(0,0,0,0.4); }
-        .aw-dot:focus-visible      { outline: 2px solid rgba(0,0,0,0.5); outline-offset: 2px; }
-
+        /* ── MOBILE ── */
         @media (max-width: 768px) {
           .aw-root          { flex-direction: column; height: auto; min-height: unset; }
           .aw-left          { display: none; }
@@ -309,7 +413,7 @@ export default function Awards() {
           }
 
           .aw-mob-heading {
-            font-family    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+            font-family    : var(--font-extended);
             font-weight    : 700;
             font-size      : clamp(28px, 9vw, 48px);
             line-height    : 1.05;
@@ -318,7 +422,6 @@ export default function Awards() {
             color          : #ffffff;
             margin         : 0 0 18px;
           }
-
           .aw-mob-line {
             width         : 44px;
             height        : 3px;
@@ -339,6 +442,32 @@ export default function Awards() {
             object-fit: cover; display: block;
           }
 
+          /* mobile nav arrows */
+          .aw-mob-nav {
+            position       : absolute;
+            inset          : 0;
+            display        : flex;
+            align-items    : center;
+            justify-content: space-between;
+            padding        : 0 12px;
+            pointer-events : none;
+            z-index        : 5;
+          }
+          .aw-mob-arrow {
+            pointer-events  : all;
+            width           : 36px;
+            height          : 36px;
+            border-radius   : 50%;
+            background      : rgba(255,255,255,0.12);
+            border          : 1.5px solid rgba(255,255,255,0.2);
+            color           : #fff;
+            display         : flex;
+            align-items     : center;
+            justify-content : center;
+            cursor          : pointer;
+          }
+          .aw-mob-arrow svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+
           .aw-mob-content {
             background : #FF8C00;
             padding    : 28px 28px 40px;
@@ -357,8 +486,17 @@ export default function Awards() {
             pointer-events: none;
           }
 
+          .aw-mob-counter {
+            font-family    : var(--font-primary);
+            font-weight    : 700;
+            font-size      : 11px;
+            letter-spacing : 0.08em;
+            text-transform : uppercase;
+            color          : rgba(0,0,0,0.3);
+            margin-bottom  : 4px;
+          }
           .aw-mob-sublabel {
-            font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+            font-family    : var(--font-primary);
             font-weight    : 700;
             font-size      : 11px;
             letter-spacing : 0.06em;
@@ -369,9 +507,8 @@ export default function Awards() {
             color          : rgba(0,0,0,0.35);
             margin-bottom  : 6px;
           }
-
           .aw-mob-award-name {
-            font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+            font-family    : var(--font-primary);
             font-weight    : 700;
             font-size      : clamp(14px, 4vw, 19px);
             letter-spacing : 0.06em;
@@ -380,9 +517,8 @@ export default function Awards() {
             color          : rgba(0,0,0,0.45);
             margin-bottom  : 14px;
           }
-
           .aw-mob-desc {
-            font-family    : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+            font-family    : var(--font-primary);
             font-weight    : 400;
             font-size      : clamp(13px, 3.8vw, 16px);
             line-height    : 1.75;
@@ -390,8 +526,7 @@ export default function Awards() {
             color          : rgba(255,255,255,0.92);
             margin         : 0 0 24px;
           }
-
-          .aw-mob-dots { display: flex; gap: 10px; }
+          .aw-mob-dots { display: flex; flex-wrap: wrap; gap: 8px; max-width: 260px; }
         }
 
         @media (min-width: 769px) {
@@ -423,6 +558,14 @@ export default function Awards() {
             <CertPlaceholder />
           )}
           <div className="aw-vignette" />
+
+          {/* Desktop nav arrows on image */}
+          <button className="aw-arrow left"  onClick={prev} aria-label="Previous award">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button className="aw-arrow right" onClick={next} aria-label="Next award">
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
         </div>
 
         {/* ══ DESKTOP RIGHT ══ */}
@@ -430,6 +573,7 @@ export default function Awards() {
           <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <h2 className="aw-heading">Awards &amp;<br />Recognitions</h2>
             <div className="aw-line" />
+            <div className="aw-counter">{activeIndex + 1} / {awards.length}</div>
             <div className="aw-sublabel">Current Award</div>
             <div
               className="aw-award-name"
@@ -489,10 +633,20 @@ export default function Awards() {
           ) : (
             <CertPlaceholder />
           )}
+          {/* Mobile nav arrows */}
+          <div className="aw-mob-nav">
+            <button className="aw-mob-arrow" onClick={prev} aria-label="Previous award">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button className="aw-mob-arrow" onClick={next} aria-label="Next award">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
         </div>
 
         {/* ══ MOBILE: 3 — Content + dots ══ */}
         <div className="aw-mob-content">
+          <div className="aw-mob-counter">{activeIndex + 1} / {awards.length}</div>
           <div className="aw-mob-sublabel">Current Award</div>
           <div
             className="aw-mob-award-name"

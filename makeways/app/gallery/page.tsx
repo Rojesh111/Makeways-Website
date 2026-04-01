@@ -168,7 +168,7 @@ function Lightbox({
           display     : flex; flex-direction: column;
           align-items : center; gap: 14px;
           color       : #bbb;
-          font-family : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family : var(--font-condensed);
           font-size   : 9px; font-weight: 700;
           letter-spacing: 0.15em; text-transform: uppercase;
         }
@@ -182,7 +182,7 @@ function Lightbox({
 
         /* EurostileCnd Bold — category badge */
         .lb__cat {
-          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family   : var(--font-condensed);
           font-size     : 9px; font-weight: 700;
           letter-spacing: 0.12em;
           color         : #fff; background: #f47c20;
@@ -193,7 +193,7 @@ function Lightbox({
 
         /* Eurostile Bold — lightbox title */
         .lb__title {
-          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family   : var(--font-primary);
           font-size     : 14px; font-weight: 700; color: #111;
           text-transform: uppercase; letter-spacing: 0.04em;
           flex          : 1; margin: 0;
@@ -201,7 +201,7 @@ function Lightbox({
 
         /* Eurostile Regular — lightbox year */
         .lb__year {
-          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family   : var(--font-primary);
           font-size     : 10px; font-weight: 400;
           color         : #999; letter-spacing: 0.06em;
           flex-shrink   : 0;
@@ -302,7 +302,7 @@ function GridCell({ item, onClick }: { item: GalleryItem; onClick: () => void })
 
         /* Eurostile Bold — hover title */
         .cell__ov-title {
-          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family   : var(--font-primary);
           font-size     : 12px; font-weight: 700;
           color         : #fff; text-transform: uppercase;
           letter-spacing: 0.04em; text-align: center;
@@ -311,7 +311,7 @@ function GridCell({ item, onClick }: { item: GalleryItem; onClick: () => void })
 
         /* EurostileCnd Bold — hover meta (category · year) */
         .cell__ov-meta {
-          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family   : var(--font-condensed);
           font-size     : 9px; font-weight: 700;
           color         : #FF8C00; text-transform: uppercase;
           letter-spacing: 0.1em;
@@ -410,7 +410,7 @@ export default function GalleryPage() {
 
         /* EurostileCnd Bold — eyebrow */
         .hero__eyebrow {
-          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family   : var(--font-condensed);
           font-size     : 10px; font-weight: 700;
           letter-spacing: 0.25em;
           color         : #FF8C00; text-transform: uppercase;
@@ -420,7 +420,7 @@ export default function GalleryPage() {
 
         /* EurostileExt Bold — GALLERY display title */
         .hero__title {
-          font-family    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-extended);
           font-weight    : 700;
           font-size      : clamp(44px, 7vw, 80px);
           letter-spacing : 0.06em;
@@ -432,7 +432,7 @@ export default function GalleryPage() {
 
         /* Eurostile Regular — subtitle */
         .hero__sub {
-          font-family   : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family   : var(--font-primary);
           font-size     : 14px; font-weight: 400;
           color         : #777; line-height: 1.7;
           max-width     : 480px; letter-spacing: 0.01em;
@@ -450,7 +450,7 @@ export default function GalleryPage() {
 
         /* EurostileCnd Bold — count tag */
         .countbar__tag {
-          font-family   : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family   : var(--font-condensed);
           font-size     : 13px; font-weight: 700;
           letter-spacing: 0.12em;
           color         : #111; text-transform: uppercase;

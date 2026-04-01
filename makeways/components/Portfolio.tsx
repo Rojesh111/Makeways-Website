@@ -104,7 +104,7 @@ export default function Portfolio() {
           background  : #f47c20;
           width       : 100%;
           padding     : 60px 40px 70px;
-          font-family : 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family : var(--font-primary);
         }
 
         .portfolio__inner {
@@ -118,7 +118,7 @@ export default function Portfolio() {
 
         /* ── EurostileExt Bold — large display heading ── */
         .portfolio__title {
-          font-family    : 'EurostileExt', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-extended);
           font-weight    : 700;
           font-size      : clamp(60px, 13vw, 160px);
           color          : #ffffff;
@@ -180,7 +180,7 @@ export default function Portfolio() {
 
         /* ── EurostileCnd Bold — category label ── */
         .portfolio__label {
-          font-family    : 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-family    : var(--font-condensed);
           font-weight    : 700;
           font-size      : clamp(11px, 1.2vw, 14px);
           color          : #ffffff;

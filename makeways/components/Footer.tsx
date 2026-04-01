@@ -35,7 +35,7 @@ const socials: { name: string; Icon: () => JSX.Element; url: string }[] = [
   { name: 'Instagram', Icon: InstagramIcon, url: '#' },
   { name: 'YouTube',   Icon: YouTubeIcon,   url: '#' },
   { name: 'LinkedIn',  Icon: LinkedInIcon,  url: '#' },
-  { name: 'TikTok',    Icon: TikTokIcon,    url: '#' },
+  { name: 'TikTok',    Icon: TikTokIcon,    url: '#' }, 
 ];
 
 const contactRows: { Icon: () => JSX.Element; text: string; href?: string }[] = [

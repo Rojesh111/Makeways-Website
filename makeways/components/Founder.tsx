@@ -135,6 +135,7 @@ export default function Founder() {
   .founder-quote {
     position     : relative;
     margin       : 0;
+    text-transform : none;
     padding      : 0 0 0 16px;
     border-left  : 3px solid #f47c20;
     border-radius: 0 0 0 2px;

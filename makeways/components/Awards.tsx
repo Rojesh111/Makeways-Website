@@ -37,14 +37,7 @@ const awards = [
     alt: "Regional Excellence Award",
     description:
       "Presented with the Regional Excellence Award for outstanding contributions to market development, customer satisfaction, and establishing the highest standards of business integrity.",
-  },
-  {
-    id: 6,
-    certificate: "/images/awards/Awards 6.jpg",
-    alt: "Quality Champion Award",
-    description:
-      "Earned the Quality Champion recognition for maintaining exemplary product standards, rigorous quality control processes, and an uncompromising commitment to customer excellence.",
-  },
+  }, 
   {
     id: 7,
     certificate: "/images/awards/Awards 7.jpg",

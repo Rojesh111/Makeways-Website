@@ -3,38 +3,32 @@
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 
-/*
-  Font family roles:
-    'EurostileExt'  — (not used here — no large display title in this section)
-    'EurostileCnd'  — eyebrow text, category tag on cards
-    'Eurostile'     — section title, counter numbers/labels, card names
-
-  NO font-weight: 900 — 700 = bold, 400 = regular.
-  Color token: #f47c20 (was #f97316 — now unified across all components).
-
-  FIX: Counter labels shortened so they never wrap to two lines.
-       "Multinational Brands" → "Multinational"  (or keep short single line)
-       Root cause was label text wider than the column at certain viewport widths
-       despite white-space:nowrap — the nowrap is now reinforced with an explicit
-       display:block + width:max-content so it can never collapse.
-*/
-
 const CARD_W   = 180;
 const CARD_GAP = 16;
 
 const clients = [
-  { id: 1,  name: 'Yamaha',            category: 'Automotive', logo: '/Clientele/yamaha.png' },
-  { id: 2,  name: 'Skoda',             category: 'Automotive', logo: '/Clientele/skoda.png' },
-  { id: 3,  name: 'JCB',               category: 'Industrial', logo: '/Clientele/jcb.jpg' },
-  { id: 4,  name: 'Czech Rep.',         category: 'Government', logo: '/Clientele/czech.png' },
-  { id: 5,  name: 'Epson',             category: 'Technology', logo: '/Clientele/epson.jpg' },
-  { id: 6,  name: 'Acer',              category: 'Technology', logo: '/Clientele/acer.png' },
-  { id: 7,  name: 'Save the Children', category: 'Non-Profit', logo: '/Clientele/save the children.png' },
-  { id: 8,  name: 'Toshiba',           category: 'Technology', logo: '/Clientele/toshiba.png' },
-  { id: 9,  name: 'BMW',               category: 'Automotive', logo: '/Clientele/bmw.jpg' },
-  { id: 10, name: 'CG',                category: 'Industry',   logo: '/Clientele/cg.png' },
-  { id: 11, name: 'Nabil Bank',        category: 'Industry',   logo: '/Clientele/nabil bank.jpg' },
-  { id: 12, name: 'Hulas Steel',       category: 'Industry',   logo: '/Clientele/hulas_steel.png' },
+  { id: 1, name: 'Yamaha', logo: '/Clientele/yamaha.png' },
+  { id: 2, name: 'JCB', logo: '/Clientele/JCB.jpg' },
+  { id: 4, name: 'BMW', logo: '/Clientele/BMW.png' },
+  { id: 5, name: 'Epson', logo: '/Clientele/epson.jpg' },
+  { id: 6, name: 'Acer', logo: '/Clientele/acer.png' },
+  { id: 7, name: 'Save the Children', logo: '/Clientele/save the children.png' },
+  { id: 8, name: 'Toshiba', logo: '/Clientele/toshiba.png' },
+  { id: 9, name: 'Skoda', logo: '/Clientele/skoda.png' },
+  { id: 10, name: 'CG', logo: '/Clientele/cg.png' },
+  { id: 11, name: 'Nabil Bank', logo: '/Clientele/Nabil.png' },
+  { id: 12, name: 'Hulas Steel', logo: '/Clientele/Hulassteel.png' },
+  { id: 13, name: 'British Embassy', logo: '/Clientele/British_Embassy.png' },
+  { id: 14, name: 'CGNET', logo: '/Clientele/CGNET.png' },
+  { id: 15, name: 'Forthing', logo: '/Clientele/Forthing.png' },
+  { id: 16, name: 'Goldstar', logo: '/Clientele/Goldstar.png' },
+  { id: 17, name: 'Hero', logo: '/Clientele/Hero.png' },
+  { id: 18, name: 'LG', logo: '/Clientele/LG.png' },
+  { id: 19, name: 'Neta', logo: '/Clientele/Neta.png' },
+  { id: 20, name: 'Padelux', logo: '/Clientele/Padelux.png' },
+  { id: 21, name: 'Yeti Airlines', logo: '/Clientele/Yeti_Airlines.png' },
+  { id: 22, name: 'Czech', logo: '/Clientele/czech.png' },
+  { id: 23, name: 'Nepal Care', logo: '/Clientele/nepalcare.png' },
 ];
 
 const row1Base = clients.slice(0, 6);
@@ -72,9 +66,7 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
           )}
         </div>
         <div className="info-panel">
-          {/* EurostileCnd — category overline label */}
-          <span className="info-cat">{client.category}</span>
-          {/* Eurostile Bold — client name */}
+          {/* Only brand name — no category label */}
           <span className="info-name">{client.name}</span>
         </div>
       </div>
@@ -123,7 +115,6 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
 
         .img-wrap { position: relative; width: 100%; height: 100%; }
 
-        /* Eurostile Regular — fallback name */
         .fallback {
           font-family   : var(--font-primary);
           font-size     : 11px;
@@ -136,14 +127,12 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
         .info-panel {
           position       : absolute;
           bottom         : 0; left: 0; right: 0;
-          height         : 38px;
+          height         : 28px;
           background     : linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 55%, rgba(255,255,255,0) 100%);
           display        : flex;
-          flex-direction : column;
           align-items    : center;
-          justify-content: flex-end;
-          padding-bottom : 8px;
-          gap            : 2px;
+          justify-content: center;
+          padding-bottom : 6px;
           transform      : translateY(100%);
           opacity        : 0;
           transition     :
@@ -152,18 +141,6 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
           z-index        : 3;
         }
         .card--hovered .info-panel { transform: translateY(0); opacity: 1; }
-
-        /* EurostileCnd — category overline */
-        .info-cat {
-          font-family   : var(--font-condensed);
-          font-size     : 8px;
-          font-weight   : 700;
-          letter-spacing: 0.18em;
-          color         : #f47c20;
-          text-transform: uppercase;
-          line-height   : 1;
-          white-space   : nowrap;
-        }
 
         /* Eurostile Bold — client name */
         .info-name {
@@ -247,13 +224,6 @@ function Counter({ target, label }: { target: number; label: string }) {
   return (
     <div className="counter" ref={ref}>
       <span className="num">{count}+</span>
-      {/*
-        KEY FIX: label is now a single <span> with:
-          - white-space: nowrap          — never wraps
-          - display: block               — enforces block layout
-          - width: max-content           — shrinks to fit text, never collapses
-        This combination fully prevents the two-line "MULTI-NATIONAL / BRANDS" bug.
-      */}
       <span className="lbl">
         {label.split(' ').map((word, i) => (
           <span key={i} className="lbl-word">{word}</span>
@@ -267,7 +237,6 @@ function Counter({ target, label }: { target: number; label: string }) {
           gap           : 4px;
           width         : max-content;
         }
-
         .num {
           font-family    : var(--font-primary);
           font-size      : 38px;
@@ -278,8 +247,6 @@ function Counter({ target, label }: { target: number; label: string }) {
           display        : block;
           width          : max-content;
         }
-
-        /* Flex row — each word is a separate span, gap controls spacing between words */
         .lbl {
           font-family   : var(--font-condensed);
           font-size     : 9px;
@@ -294,8 +261,6 @@ function Counter({ target, label }: { target: number; label: string }) {
           width         : max-content;
           letter-spacing: 0;
         }
-
-        /* letter-spacing only inside each word — never bleeds into the gap between words */
         .lbl-word {
           letter-spacing: 0.13em;
           display       : inline-block;
@@ -316,15 +281,10 @@ export default function Clientele() {
           <div className="header-row">
 
             <div className="title-block">
-              {/* Eurostile Bold — section title, grey, matches AboutMakeways heading */}
               <h2 className="title">The Clients</h2>
             </div>
 
             <div className="stats-row">
-              {/*
-                Labels shortened to avoid any wrapping risk at small viewports.
-                "Multi-National Brands" → "Multinational Brands"  (no hyphen, fits better)
-              */}
               <Counter target={25} label="Multi-National Brands" />
               <div className="divider" />
               <Counter target={20} label="Domestic Brands" />
@@ -346,8 +306,6 @@ export default function Clientele() {
       </section>
 
       <style jsx>{`
-        /* NO @font-face here — fonts declared once in globals.css */
-
         .section {
           position   : relative;
           background : #f9f9f9;
@@ -355,7 +313,6 @@ export default function Clientele() {
           overflow   : hidden;
           font-family: var(--font-primary);
         }
-
         .bg-grid {
           position        : absolute;
           inset           : 0;
@@ -364,7 +321,6 @@ export default function Clientele() {
           opacity         : 0.45;
           pointer-events  : none;
         }
-
         .inner {
           max-width : 1100px;
           margin    : 0 auto;
@@ -372,7 +328,6 @@ export default function Clientele() {
           position  : relative;
           z-index   : 2;
         }
-
         .header-row {
           display         : flex;
           align-items     : flex-end;
@@ -381,11 +336,7 @@ export default function Clientele() {
           flex-wrap       : wrap;
           gap             : 32px;
         }
-
         .title-block { display: flex; flex-direction: column; gap: 10px; }
-
-        /* Eurostile Bold — section title, grey
-           Matches .about__heading--grey treatment exactly */
         .title {
           font-family    : var(--font-primary);
           font-size      : clamp(36px, 5vw, 58px);
@@ -396,24 +347,17 @@ export default function Clientele() {
           margin         : 0;
           text-transform : uppercase;
         }
-
         .stats-row {
           display    : flex;
-          align-items: center;
-          /* KEY FIX: align-items:flex-start keeps each counter at its own
-             natural width; center was causing the column to compress the label */
           align-items: flex-start;
           gap        : 36px;
           padding-bottom: 4px;
-          /* Do not let stats-row itself wrap or compress */
           flex-wrap  : nowrap;
           flex-shrink: 0;
         }
         .divider { width: 1px; height: 36px; background: #e0e0e0; align-self: center; }
-
         .marquee-section { position: relative; z-index: 2; }
         .rows { display: flex; flex-direction: column; gap: 14px; }
-
         .fade-left,
         .fade-right {
           position      : absolute;
@@ -424,7 +368,6 @@ export default function Clientele() {
         }
         .fade-left  { left: 0;  background: linear-gradient(to right, #f9f9f9, transparent); }
         .fade-right { right: 0; background: linear-gradient(to left,  #f9f9f9, transparent); }
-
         @media (max-width: 700px) {
           .inner      { padding: 0 20px; }
           .header-row { flex-direction: column; align-items: flex-start; }

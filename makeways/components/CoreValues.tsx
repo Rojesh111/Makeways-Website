@@ -79,7 +79,7 @@ export default function CoreValues() {
       <section className="cv" id="core-values" ref={sectionRef}>
         <div className="cv__inner">
 
-          {/* H2 heading */}
+          {/* H2 heading — both OUR and DNA use the same gray #9a9a9a */}
           <h2 className="cv__heading animate">
             OUR <span className="cv__heading--accent">DNA</span>
           </h2>
@@ -140,8 +140,8 @@ export default function CoreValues() {
     color          : #9a9a9a;
     margin         : 0 0 72px 0;
   }
-  /* FIXED: cv__heading--accent color #9a9a9a → #f47c20 (orange) */
-  .cv__heading--accent { color: #f47c20; }
+  /* DNA now matches OUR — same gray #9a9a9a */
+  .cv__heading--accent { color: #9a9a9a; }
 
   /* ── 4-col grid ── */
   .cv__grid {
@@ -226,8 +226,6 @@ export default function CoreValues() {
     text-align     : center;
     max-width      : 260px;
   }
-
-
 
   @media (max-width: 1280px) {
     .cv          { padding: 80px 48px; }

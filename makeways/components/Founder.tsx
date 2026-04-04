@@ -133,19 +133,19 @@ export default function Founder() {
   }
 
   .founder-quote {
-    position     : relative;
-    margin       : 0;
+    position       : relative;
+    margin         : 0;
     text-transform : none;
-    padding      : 0 0 0 16px;
-    border-left  : 3px solid #f47c20;
-    border-radius: 0 0 0 2px;
+    padding        : 0 0 0 16px;
+    border-left    : 3px solid #f47c20;
+    border-radius  : 0 0 0 2px;
   }
 
   /* Scrollable box — scrollbar fully hidden */
   .scroll-box {
-    max-height : 200px;
-    overflow-y : auto;
-    padding-right: 8px;
+    max-height    : 200px;
+    overflow-y    : auto;
+    padding-right : 8px;
     /* Hide scrollbar — Firefox */
     scrollbar-width: none;
   }
@@ -164,8 +164,7 @@ export default function Founder() {
     color          : var(--mw-body);
     margin         : 0;
     font-style     : normal;
-    /* FIXED: text-align justify → left */
-    text-align     : left;
+    text-align     : justify;
   }
 
   /* ── 1280px ── */

@@ -14,7 +14,6 @@ export default function CareerPage() {
       <main className="cw">
         <section className="cs">
 
-          {/* TOP */}
           <div className="cs-top">
             <h1 className="cs-title">CAREER</h1>
             <div className="cs-roles-wrap">
@@ -35,22 +34,15 @@ export default function CareerPage() {
             </div>
           </div>
 
-          {/* BOTTOM */}
           <div className="cs-bottom">
             <div className="cs-col cs-col--left">
               <h2 className="cs-label">APPLY<br />FOR JOB</h2>
-              <a href="mailto:jobs@makeways.agency" className="cs-mail">
-                jobs@makeways.agency
-              </a>
+              <a href="mailto:jobs@makeways.agency" className="cs-mail">jobs@makeways.agency</a>
             </div>
-
             <div className="cs-slash" aria-hidden="true">/</div>
-
             <div className="cs-col cs-col--right">
               <h2 className="cs-label">APPLY<br />FOR<br />INTERNSHIP</h2>
-              <a href="mailto:intern@makeways.agency" className="cs-mail">
-                intern@makeways.agency
-              </a>
+              <a href="mailto:intern@makeways.agency" className="cs-mail">intern@makeways.agency</a>
             </div>
           </div>
 
@@ -60,41 +52,39 @@ export default function CareerPage() {
       <Footer />
 
       <style jsx>{`
-
-        /* FIXED: Removed @font-face declarations — fonts are declared once in globals.css */
-
-        /* ── Shell ── */
+        /* FIX: padding-top matches exact header height token — no gap, no overlap */
         .cw {
-          margin-top: 104px;
-          font-family: 'Eurostile', sans-serif;
+          padding-top: var(--header-h); /* 82px from globals.css */
+          font-family: var(--font-primary);
         }
 
-        /* ── Section ── */
         .cs {
           background: #FF8C00;
           width: 100%;
-          height: 680px;
+          /* fills viewport below header exactly */
+          height: calc(100dvh - var(--header-h));
+          min-height: 560px;
           box-sizing: border-box;
-          padding: 56px 72px 60px;
-          display: grid;
-          grid-template-rows: 1fr 1fr;
+          padding: 48px 72px 56px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
           overflow: hidden;
         }
 
-        /* ── TOP ROW ── */
+        /* ── TOP ── */
         .cs-top {
-          display: grid;
-          grid-template-columns: auto 1fr;
+          display: flex;
+          flex-direction: row;
           align-items: center;
-          column-gap: 64px;
-          align-self: center;
-          min-width: 0;
+          gap: 56px;
+          width: 100%;
+          flex-shrink: 0;
         }
 
         .cs-title {
-          /* FIXED: font-weight 900 → 700 (no weight-900 variant in Eurostile) */
           font-weight: 700;
-          font-size: clamp(72px, 9vw, 120px);
+          font-size: clamp(72px, 9vw, 128px);
           color: #ffffff;
           text-transform: uppercase;
           letter-spacing: 2px;
@@ -105,8 +95,8 @@ export default function CareerPage() {
         }
 
         .cs-roles-wrap {
+          flex: 1;
           min-width: 0;
-          width: 100%;
           display: flex;
           flex-direction: column;
           gap: 2px;
@@ -115,19 +105,18 @@ export default function CareerPage() {
         .cs-roles {
           display: flex;
           align-items: baseline;
-          flex-wrap: nowrap;
+          flex-wrap: wrap;
           font-weight: 700;
-          font-size: clamp(14px, 1.35vw, 19px);
+          font-size: clamp(13px, 1.15vw, 17px);
           color: rgba(255,255,255,0.93);
           letter-spacing: 0.3px;
-          line-height: 1.75;
-          white-space: nowrap;
+          line-height: 1.85;
         }
 
         .cs-role {
-          white-space: nowrap;
           display: inline-flex;
           align-items: baseline;
+          white-space: nowrap;
         }
 
         .cs-pipe {
@@ -135,41 +124,28 @@ export default function CareerPage() {
           padding: 0 6px;
         }
 
-        /* ── BOTTOM ROW ── */
+        /* ── BOTTOM ── */
         .cs-bottom {
-          display: grid;
-          grid-template-columns: 1fr auto 1fr;
+          display: flex;
+          flex-direction: row;
           align-items: center;
-          align-self: center;
-          min-width: 0;
-          /* pulls both cols inward toward the slash */
-          padding: 0 clamp(40px, 7vw, 120px);
+          justify-content: center;
+          flex-shrink: 0;
         }
 
         .cs-col {
           display: flex;
           flex-direction: column;
-          gap: 22px;
+          gap: 14px;
+          flex: 1;
           min-width: 0;
         }
 
-        /* left col: right-align content so it sits flush against the slash */
-        .cs-col--left {
-          align-items: flex-end;
-          text-align: right;
-          top: 50%;
-          transform: translateY(-15%);
-        }
-
-        /* right col: default left-align */
-        .cs-col--right {
-          align-items: flex-start;
-          text-align: left;
-        }
+        .cs-col--left  { align-items: flex-end; text-align: right; }
+        .cs-col--right { align-items: flex-start; text-align: left; }
 
         .cs-label {
           margin: 0;
-          /* FIXED: font-weight 900 → 700 */
           font-weight: 700;
           font-size: clamp(36px, 5vw, 72px);
           color: #2b2b2b;
@@ -180,7 +156,7 @@ export default function CareerPage() {
 
         .cs-mail {
           font-weight: 700;
-          font-size: clamp(13px, 1.2vw, 18px);
+          font-size: clamp(12px, 1.1vw, 16px);
           color: rgba(255,255,255,0.88);
           letter-spacing: 0.4px;
           text-decoration: none;
@@ -195,15 +171,13 @@ export default function CareerPage() {
           text-underline-offset: 4px;
         }
 
-        /* ── Slash ── */
         .cs-slash {
-          /* FIXED: font-weight 900 → 700 */
           font-weight: 700;
           font-size: clamp(120px, 16vw, 220px);
           color: #ffffff;
           line-height: 1;
           text-align: center;
-          padding: 0 clamp(20px, 3vw, 48px);
+          padding: 0 clamp(16px, 2.5vw, 48px);
           user-select: none;
           flex-shrink: 0;
           letter-spacing: -8px;
@@ -211,13 +185,11 @@ export default function CareerPage() {
 
         /* ── 900px ── */
         @media (max-width: 900px) {
-          .cw { margin-top: 74px; }
+          .cw { padding-top: var(--header-h-mobile); }
           .cs {
-            height: auto;
-            min-height: 680px;
-            padding: 48px 40px 56px;
+            height: calc(100dvh - var(--header-h-mobile));
+            padding: 40px 40px 48px;
           }
-          .cs-bottom { padding: 0 clamp(20px, 4vw, 60px); }
         }
 
         /* ── 768px ── */
@@ -225,51 +197,36 @@ export default function CareerPage() {
           .cs {
             height: auto;
             min-height: unset;
-            padding: 44px 28px 52px;
-            grid-template-rows: auto auto;
+            padding: 40px 28px 48px;
             gap: 40px;
           }
-
-          .cs-top {
-            grid-template-columns: 1fr;
-            row-gap: 14px;
-          }
-
+          .cs-top { flex-direction: column; align-items: flex-start; gap: 10px; }
           .cs-title { font-size: clamp(52px, 14vw, 80px); }
-          .cs-roles { flex-wrap: wrap; white-space: normal; }
-
-          .cs-bottom {
-            grid-template-columns: 1fr;
-            padding: 0;
-            gap: 0;
-          }
-
+          .cs-bottom { flex-direction: column; align-items: flex-start; gap: 0; }
           .cs-slash { display: none; }
-
+          .cs-col { flex: unset; width: 100%; }
           .cs-col--left {
-            align-items: flex-start;
-            text-align: left;
-            padding-bottom: 32px;
-            margin-bottom: 32px;
+            align-items: flex-start; text-align: left;
+            padding-bottom: 28px; margin-bottom: 28px;
             border-bottom: 1px solid rgba(255,255,255,0.35);
           }
-
+          .cs-col--right { align-items: flex-start; }
           .cs-label { font-size: clamp(34px, 10vw, 56px); }
           .cs-mail  { white-space: normal; word-break: break-all; }
         }
 
         /* ── 520px ── */
         @media (max-width: 520px) {
-          .cs       { padding: 36px 20px 44px; gap: 28px; }
+          .cs       { padding: 32px 20px 40px; }
           .cs-title { font-size: clamp(40px, 13vw, 60px); }
           .cs-label { font-size: clamp(28px, 9vw, 44px); }
-          .cs-roles { font-size: 13px; line-height: 1.7; }
+          .cs-roles { font-size: 13px; }
           .cs-mail  { font-size: 13px; }
         }
 
         /* ── 360px ── */
         @media (max-width: 360px) {
-          .cs       { padding: 28px 16px 36px; }
+          .cs       { padding: 24px 16px 32px; }
           .cs-title { font-size: 36px; }
           .cs-label { font-size: 26px; }
           .cs-roles { font-size: 12px; }

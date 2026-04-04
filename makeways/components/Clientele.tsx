@@ -7,28 +7,28 @@ const CARD_W   = 180;
 const CARD_GAP = 16;
 
 const clients = [
-  { id: 1, name: 'Yamaha', logo: '/Clientele/yamaha.png' },
-  { id: 2, name: 'JCB', logo: '/Clientele/JCB.jpg' },
-  { id: 4, name: 'BMW', logo: '/Clientele/BMW.png' },
-  { id: 5, name: 'Epson', logo: '/Clientele/epson.jpg' },
-  { id: 6, name: 'Acer', logo: '/Clientele/acer.png' },
-  { id: 7, name: 'Save the Children', logo: '/Clientele/save the children.png' },
-  { id: 8, name: 'Toshiba', logo: '/Clientele/toshiba.png' },
-  { id: 9, name: 'Skoda', logo: '/Clientele/skoda.png' },
-  { id: 10, name: 'CG', logo: '/Clientele/cg.png' },
-  { id: 11, name: 'Nabil Bank', logo: '/Clientele/Nabil.png' },
-  { id: 12, name: 'Hulas Steel', logo: '/Clientele/Hulassteel.png' },
+  { id: 1,  name: 'Yamaha',          logo: '/Clientele/yamaha.png' },
+  { id: 2,  name: 'JCB',             logo: '/Clientele/JCB.jpg' },
+  { id: 4,  name: 'BMW',             logo: '/Clientele/BMW.png' },
+  { id: 5,  name: 'Epson',           logo: '/Clientele/epson.jpg' },
+  { id: 6,  name: 'Acer',            logo: '/Clientele/acer.png' },
+  { id: 7,  name: 'Save the Children', logo: '/Clientele/save the children.png' },
+  { id: 8,  name: 'Toshiba',         logo: '/Clientele/toshiba.png' },
+  { id: 9,  name: 'Skoda',           logo: '/Clientele/skoda.png' },
+  { id: 10, name: 'CG',              logo: '/Clientele/cg.png' },
+  { id: 11, name: 'Nabil Bank',      logo: '/Clientele/Nabil.png' },
+  { id: 12, name: 'Hulas Steel',     logo: '/Clientele/Hulassteel.png' },
   { id: 13, name: 'British Embassy', logo: '/Clientele/British_Embassy.png' },
-  { id: 14, name: 'CGNET', logo: '/Clientele/CGNET.png' },
-  { id: 15, name: 'Forthing', logo: '/Clientele/Forthing.png' },
-  { id: 16, name: 'Goldstar', logo: '/Clientele/Goldstar.png' },
-  { id: 17, name: 'Hero', logo: '/Clientele/Hero.png' },
-  { id: 18, name: 'LG', logo: '/Clientele/LG.png' },
-  { id: 19, name: 'Neta', logo: '/Clientele/Neta.png' },
-  { id: 20, name: 'Padelux', logo: '/Clientele/Padelux.png' },
-  { id: 21, name: 'Yeti Airlines', logo: '/Clientele/Yeti_Airlines.png' },
-  { id: 22, name: 'Czech', logo: '/Clientele/czech.png' },
-  { id: 23, name: 'Nepal Care', logo: '/Clientele/nepalcare.png' },
+  { id: 14, name: 'CGNET',           logo: '/Clientele/CGNET.png' },
+  { id: 15, name: 'Forthing',        logo: '/Clientele/Forthing.png' },
+  { id: 16, name: 'Goldstar',        logo: '/Clientele/Goldstar.png' },
+  { id: 17, name: 'Hero',            logo: '/Clientele/Hero.png' },
+  { id: 18, name: 'LG',              logo: '/Clientele/LG.png' },
+  { id: 19, name: 'Neta',            logo: '/Clientele/Neta.png' },
+  { id: 20, name: 'Padelux',         logo: '/Clientele/Padelux.png' },
+  { id: 21, name: 'Yeti Airlines',   logo: '/Clientele/Yeti_Airlines.png' },
+  { id: 22, name: 'Czech',           logo: '/Clientele/czech.png' },
+  { id: 23, name: 'Nepal Care',      logo: '/Clientele/nepalcare.png' },
 ];
 
 const row1Base = clients.slice(0, 6);
@@ -38,7 +38,7 @@ const row2 = [...row2Base, ...row2Base, ...row2Base];
 
 // ─── Logo Card ────────────────────────────────────────────────────────────────
 function LogoCard({ client }: { client: typeof clients[0] }) {
-  const [errored,  setErrored]  = useState(false);
+  const [errored, setErrored] = useState(false);
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -48,7 +48,11 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
+        {/* Top shine highlight */}
+        <span className="glass-shine" />
+        {/* Orange bottom accent bar */}
         <span className="accent-bar" />
+
         <div className="logo-area">
           {errored ? (
             <span className="fallback">{client.name}</span>
@@ -65,51 +69,94 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
             </div>
           )}
         </div>
+
         <div className="info-panel">
-          {/* Only brand name — no category label */}
           <span className="info-name">{client.name}</span>
         </div>
       </div>
 
       <style jsx>{`
         .card {
-          flex         : 0 0 ${CARD_W}px;
-          height       : 120px;
-          position     : relative;
-          background   : #ffffff;
-          border       : 1px solid #e8e8e8;
-          border-radius: 8px;
-          overflow     : hidden;
-          cursor       : pointer;
-          transition   :
-            border-color 0.25s ease,
-            box-shadow   0.25s ease,
-            transform    0.25s ease;
+          flex          : 0 0 ${CARD_W}px;
+          height        : 120px;
+          position      : relative;
+          background    : linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.72) 0%,
+            rgba(255, 255, 255, 0.48) 50%,
+            rgba(220, 230, 255, 0.38) 100%
+          );
+          border        : 1px solid rgba(255, 255, 255, 0.95);
+          border-bottom : 1px solid rgba(180, 190, 210, 0.4);
+          border-right  : 1px solid rgba(180, 190, 210, 0.4);
+          border-radius : 18px;
+          overflow      : hidden;
+          cursor        : pointer;
+          backdrop-filter        : blur(20px) saturate(1.8);
+          -webkit-backdrop-filter: blur(20px) saturate(1.8);
+          box-shadow    :
+            0 4px 24px rgba(0, 0, 0, 0.08),
+            0 1px 4px  rgba(0, 0, 0, 0.06),
+            inset 0 1px 0 rgba(255, 255, 255, 1),
+            inset 0 -1px 0 rgba(180, 190, 220, 0.3);
+          transition    :
+            border-color  0.25s ease,
+            box-shadow    0.25s ease,
+            transform     0.25s ease,
+            background    0.25s ease;
         }
+
         .card--hovered {
-          border-color : #f47c20;
-          box-shadow   :
-            0 8px 28px rgba(244,124,32,0.14),
-            0 2px 8px rgba(0,0,0,0.05);
-          transform    : translateY(-4px);
+          background    : linear-gradient(
+            145deg,
+            rgba(255, 248, 240, 0.85) 0%,
+            rgba(255, 235, 210, 0.65) 50%,
+            rgba(244, 124, 32, 0.12)  100%
+          );
+          border-color  : rgba(244, 124, 32, 0.5);
+          border-bottom-color: rgba(244, 124, 32, 0.3);
+          border-right-color : rgba(244, 124, 32, 0.3);
+          box-shadow    :
+            0 8px 32px rgba(244, 124, 32, 0.16),
+            0 2px 8px  rgba(244, 124, 32, 0.10),
+            inset 0 1px 0 rgba(255, 255, 255, 1),
+            inset 0 -1px 0 rgba(244, 124, 32, 0.15);
+          transform     : translateY(-4px);
         }
+
+        .glass-shine {
+          position      : absolute;
+          top: 0; left: 0; right: 0;
+          height        : 50%;
+          background    : linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.75) 0%,
+            rgba(255, 255, 255, 0.25) 40%,
+            rgba(255, 255, 255, 0)    100%
+          );
+          border-radius : 18px 18px 60% 60% / 18px 18px 40% 40%;
+          pointer-events: none;
+          z-index       : 1;
+        }
+
         .accent-bar {
           position   : absolute;
           bottom     : 0; left: 0;
           height     : 3px; width: 0%;
           background : #f47c20;
-          transition : width 0.32s cubic-bezier(0.4,0,0.2,1);
+          transition : width 0.32s cubic-bezier(0.4, 0, 0.2, 1);
           z-index    : 4;
         }
         .card--hovered .accent-bar { width: 100%; }
 
         .logo-area {
-          position   : absolute;
-          inset      : 0;
-          display    : flex;
-          align-items: center; justify-content: center;
-          transition : transform 0.28s cubic-bezier(0.22,1,0.36,1);
-          z-index    : 2;
+          position      : absolute;
+          inset         : 0;
+          display       : flex;
+          align-items   : center;
+          justify-content: center;
+          transition    : transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+          z-index       : 2;
         }
         .card--hovered .logo-area { transform: translateY(-9px); }
 
@@ -119,38 +166,43 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
           font-family   : var(--font-primary);
           font-size     : 11px;
           font-weight   : 400;
-          color         : #bbb;
+          color         : rgba(0, 0, 0, 0.4);
           text-transform: uppercase;
           letter-spacing: 0.1em;
         }
 
         .info-panel {
-          position       : absolute;
-          bottom         : 0; left: 0; right: 0;
-          height         : 28px;
-          background     : linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 55%, rgba(255,255,255,0) 100%);
-          display        : flex;
-          align-items    : center;
-          justify-content: center;
-          padding-bottom : 6px;
-          transform      : translateY(100%);
-          opacity        : 0;
-          transition     :
-            transform 0.28s cubic-bezier(0.22,1,0.36,1),
+          position        : absolute;
+          bottom          : 0; left: 0; right: 0;
+          height          : 28px;
+          background      : linear-gradient(
+            to top,
+            rgba(255, 255, 255, 0.92) 0%,
+            rgba(255, 255, 255, 0.6)  55%,
+            rgba(255, 255, 255, 0)   100%
+          );
+          display         : flex;
+          align-items     : center;
+          justify-content : center;
+          padding-bottom  : 6px;
+          transform       : translateY(100%);
+          opacity         : 0;
+          transition      :
+            transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
             opacity   0.2s ease;
-          z-index        : 3;
+          z-index         : 3;
         }
         .card--hovered .info-panel { transform: translateY(0); opacity: 1; }
 
-        /* Eurostile Bold — client name */
         .info-name {
           font-family   : var(--font-primary);
           font-size     : 11px;
           font-weight   : 700;
-          color         : #222222;
+          color         : #1a1a1a;
           letter-spacing: 0.07em;
           text-transform: uppercase;
           line-height   : 1;
+          text-shadow   : none;
         }
       `}</style>
     </>
@@ -176,16 +228,20 @@ function MarqueeRow({
       : `@keyframes ${animName} { from{transform:translateX(-${shiftPx}px)} to{transform:translateX(0)} }`;
 
   return (
-    <div className="outer" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+    <div
+      className="outer"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
       <style dangerouslySetInnerHTML={{ __html: keyframes }} />
       <div
         className="track"
         style={{
-          animationName           : animName,
-          animationDuration       : `${duration}s`,
-          animationTimingFunction : 'linear',
-          animationIterationCount : 'infinite',
-          animationPlayState      : paused ? 'paused' : 'running',
+          animationName          : animName,
+          animationDuration      : `${duration}s`,
+          animationTimingFunction: 'linear',
+          animationIterationCount: 'infinite',
+          animationPlayState     : paused ? 'paused' : 'running',
         }}
       >
         {items.map((client, i) => (
@@ -208,7 +264,7 @@ function Counter({ target, label }: { target: number; label: string }) {
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
-      let cur  = 0;
+      let cur = 0;
       const step  = Math.ceil(target / 40);
       const timer = setInterval(() => {
         cur += step;
@@ -238,20 +294,20 @@ function Counter({ target, label }: { target: number; label: string }) {
           width         : max-content;
         }
         .num {
-          font-family    : var(--font-primary);
-          font-size      : 38px;
-          font-weight    : 700;
-          color          : #f47c20;
-          letter-spacing : -0.03em;
-          line-height    : 1;
-          display        : block;
-          width          : max-content;
+          font-family   : var(--font-primary);
+          font-size     : 38px;
+          font-weight   : 700;
+          color         : #f47c20;
+          letter-spacing: -0.03em;
+          line-height   : 1;
+          display       : block;
+          width         : max-content;
         }
         .lbl {
           font-family   : var(--font-condensed);
           font-size     : 9px;
           font-weight   : 700;
-          color         : #aaa;
+          color         : rgba(0, 0, 0, 0.45);
           text-transform: uppercase;
           white-space   : nowrap;
           display       : flex;
@@ -275,15 +331,23 @@ export default function Clientele() {
   return (
     <>
       <section className="section">
+
+        {/* White background */}
+        <div className="bg-gradient" />
+
+        {/* Subtle dot grid overlay */}
         <div className="bg-grid" />
+
+        {/* Decorative glow orbs */}
+        <div className="orb orb-1" />
+        <div className="orb orb-2" />
+        <div className="orb orb-3" />
 
         <div className="inner">
           <div className="header-row">
-
             <div className="title-block">
               <h2 className="title">The Clients</h2>
             </div>
-
             <div className="stats-row">
               <Counter target={25} label="Multi-National Brands" />
               <div className="divider" />
@@ -291,7 +355,6 @@ export default function Clientele() {
               <div className="divider" />
               <Counter target={11} label="Industries" />
             </div>
-
           </div>
         </div>
 
@@ -303,24 +366,56 @@ export default function Clientele() {
             <MarqueeRow items={row2} baseCount={row2Base.length} direction="right" duration={25} uid="row2" />
           </div>
         </div>
+
       </section>
 
       <style jsx>{`
         .section {
           position   : relative;
-          background : #f9f9f9;
           padding    : 60px 0 80px;
           overflow   : hidden;
           font-family: var(--font-primary);
         }
+
+        .bg-gradient {
+          position  : absolute;
+          inset     : 0;
+          background: #ffffff;
+          z-index   : 0;
+        }
+
         .bg-grid {
           position        : absolute;
           inset           : 0;
-          background-image: radial-gradient(circle, #d4d4d4 1px, transparent 1px);
+          background-image: radial-gradient(circle, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
           background-size : 24px 24px;
-          opacity         : 0.45;
           pointer-events  : none;
+          z-index         : 1;
         }
+
+        .orb {
+          position     : absolute;
+          border-radius: 50%;
+          pointer-events: none;
+          filter       : blur(80px);
+          z-index      : 1;
+        }
+        .orb-1 {
+          width     : 400px; height: 400px;
+          top       : -100px; left: -80px;
+          background: rgba(244, 124, 32, 0.07);
+        }
+        .orb-2 {
+          width     : 350px; height: 350px;
+          top       : 20%; right: -60px;
+          background: rgba(80, 40, 160, 0.05);
+        }
+        .orb-3 {
+          width     : 300px; height: 300px;
+          bottom    : -60px; left: 40%;
+          background: rgba(20, 120, 100, 0.05);
+        }
+
         .inner {
           max-width : 1100px;
           margin    : 0 auto;
@@ -329,35 +424,42 @@ export default function Clientele() {
           z-index   : 2;
         }
         .header-row {
-          display         : flex;
-          align-items     : flex-end;
-          justify-content : space-between;
-          margin-bottom   : 48px;
-          flex-wrap       : wrap;
-          gap             : 32px;
+          display        : flex;
+          align-items    : flex-end;
+          justify-content: space-between;
+          margin-bottom  : 48px;
+          flex-wrap      : wrap;
+          gap            : 32px;
         }
         .title-block { display: flex; flex-direction: column; gap: 10px; }
         .title {
-          font-family    : var(--font-primary);
-          font-size      : clamp(36px, 5vw, 58px);
-          font-weight    : 700;
-          color          : #9a9a9a;
-          letter-spacing : 0.12em;
-          line-height    : 1;
-          margin         : 0;
-          text-transform : uppercase;
+          font-family   : var(--font-primary);
+          font-size     : clamp(36px, 5vw, 58px);
+          font-weight   : 700;
+          color         : #9a9a9a;
+          letter-spacing: 0.12em;
+          line-height   : 1;
+          margin        : 0;
+          text-transform: uppercase;
         }
         .stats-row {
-          display    : flex;
-          align-items: flex-start;
-          gap        : 36px;
+          display       : flex;
+          align-items   : flex-start;
+          gap           : 36px;
           padding-bottom: 4px;
-          flex-wrap  : nowrap;
-          flex-shrink: 0;
+          flex-wrap     : nowrap;
+          flex-shrink   : 0;
         }
-        .divider { width: 1px; height: 36px; background: #e0e0e0; align-self: center; }
+        .divider {
+          width     : 1px;
+          height    : 36px;
+          background: rgba(0, 0, 0, 0.12);
+          align-self: center;
+        }
+
         .marquee-section { position: relative; z-index: 2; }
         .rows { display: flex; flex-direction: column; gap: 14px; }
+
         .fade-left,
         .fade-right {
           position      : absolute;
@@ -366,12 +468,25 @@ export default function Clientele() {
           z-index       : 3;
           pointer-events: none;
         }
-        .fade-left  { left: 0;  background: linear-gradient(to right, #f9f9f9, transparent); }
-        .fade-right { right: 0; background: linear-gradient(to left,  #f9f9f9, transparent); }
+        .fade-left  {
+          left      : 0;
+          background: linear-gradient(to right, #ffffff, transparent);
+        }
+        .fade-right {
+          right     : 0;
+          background: linear-gradient(to left, #ffffff, transparent);
+        }
+
         @media (max-width: 700px) {
-          .inner      { padding: 0 20px; }
-          .header-row { flex-direction: column; align-items: flex-start; }
-          .stats-row  { gap: 20px; }
+          .section      { padding: 40px 0 60px; }
+          .inner        { padding: 0 20px; }
+          .header-row   { flex-direction: column; align-items: flex-start; }
+          .stats-row    { gap: 20px; }
+          .orb-1        { width: 250px; height: 250px; }
+          .orb-2        { width: 200px; height: 200px; }
+          .orb-3        { width: 180px; height: 180px; }
+          .fade-left,
+          .fade-right   { width: 40px; }
         }
       `}</style>
     </>

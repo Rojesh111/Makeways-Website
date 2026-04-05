@@ -80,15 +80,11 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
           flex          : 0 0 ${CARD_W}px;
           height        : 120px;
           position      : relative;
-          background    : linear-gradient(
-            145deg,
-            rgba(255, 255, 255, 0.72) 0%,
-            rgba(255, 255, 255, 0.48) 50%,
-            rgba(220, 230, 255, 0.38) 100%
-          );
+          /* iPhone liquid glass — layered translucency */
+          background    : transparent;
           border        : 1px solid rgba(255, 255, 255, 0.95);
-          border-bottom : 1px solid rgba(180, 190, 210, 0.4);
-          border-right  : 1px solid rgba(180, 190, 210, 0.4);
+          border-bottom : 1px solid rgba(160, 172, 200, 0.4);
+          border-right  : 1px solid rgba(160, 172, 200, 0.4);
           border-radius : 18px;
           overflow      : hidden;
           cursor        : pointer;
@@ -107,12 +103,7 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
         }
 
         .card--hovered {
-          background    : linear-gradient(
-            145deg,
-            rgba(255, 248, 240, 0.85) 0%,
-            rgba(255, 235, 210, 0.65) 50%,
-            rgba(244, 124, 32, 0.12)  100%
-          );
+          background    : transparent;
           border-color  : rgba(244, 124, 32, 0.5);
           border-bottom-color: rgba(244, 124, 32, 0.3);
           border-right-color : rgba(244, 124, 32, 0.3);
@@ -124,6 +115,7 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
           transform     : translateY(-4px);
         }
 
+        /* iPhone-style top specular shine — bright white streak */
         .glass-shine {
           position      : absolute;
           top: 0; left: 0; right: 0;
@@ -157,6 +149,7 @@ function LogoCard({ client }: { client: typeof clients[0] }) {
           justify-content: center;
           transition    : transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
           z-index       : 2;
+          background    : transparent;
         }
         .card--hovered .logo-area { transform: translateY(-9px); }
 
@@ -370,6 +363,7 @@ export default function Clientele() {
       </section>
 
       <style jsx>{`
+        /* ── Section shell ── */
         .section {
           position   : relative;
           padding    : 60px 0 80px;
@@ -377,6 +371,7 @@ export default function Clientele() {
           font-family: var(--font-primary);
         }
 
+        /* White background */
         .bg-gradient {
           position  : absolute;
           inset     : 0;
@@ -384,6 +379,7 @@ export default function Clientele() {
           z-index   : 0;
         }
 
+        /* Subtle dot grid */
         .bg-grid {
           position        : absolute;
           inset           : 0;
@@ -393,6 +389,7 @@ export default function Clientele() {
           z-index         : 1;
         }
 
+        /* Soft ambient glow orbs */
         .orb {
           position     : absolute;
           border-radius: 50%;
@@ -416,6 +413,7 @@ export default function Clientele() {
           background: rgba(20, 120, 100, 0.05);
         }
 
+        /* ── Inner layout ── */
         .inner {
           max-width : 1100px;
           margin    : 0 auto;
@@ -457,9 +455,11 @@ export default function Clientele() {
           align-self: center;
         }
 
+        /* ── Marquee ── */
         .marquee-section { position: relative; z-index: 2; }
         .rows { display: flex; flex-direction: column; gap: 14px; }
 
+        /* Left/right fade — matches white background */
         .fade-left,
         .fade-right {
           position      : absolute;
@@ -477,6 +477,7 @@ export default function Clientele() {
           background: linear-gradient(to left, #ffffff, transparent);
         }
 
+        /* ── Mobile ── */
         @media (max-width: 700px) {
           .section      { padding: 40px 0 60px; }
           .inner        { padding: 0 20px; }

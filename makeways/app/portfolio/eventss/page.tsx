@@ -3,18 +3,57 @@
 import PortfolioCategory from '@/components/PortfolioCategory';
 
 const items = [
-  { id: 1,  title: 'NSL 2023 Opening Ceremony',  client: 'Nepal Super League', year: '2023', isVideo: false, src: '/images/portfolio/eventss/Picture2.png' },
-  { id: 2,  title: 'NSL 2023 Live Performance',   client: 'Nepal Super League', year: '2023', isVideo: false, src: '/images/portfolio/eventss/Picture3.jpg' },
-  { id: 3,  title: 'Lalitpur City Champions',     client: 'Nepal Super League', year: '2023', isVideo: false, src: '/images/portfolio/eventss/Picture4.png' },
-  { id: 4,  title: 'NSL Cheerleaders',            client: 'Nepal Super League', year: '2023', isVideo: false, src: '/images/portfolio/eventss/Picture5.jpg' },
-  { id: 5,  title: 'NSL 2023 Closing Ceremony',   client: 'Nepal Super League', year: '2023', isVideo: false, src: '/images/portfolio/eventss/Picture6.jpg' },
-  { id: 6,  title: 'NSL Event Highlight',         client: 'Nepal Super League', year: '2023', isVideo: false, src: '/images/portfolio/eventss/Picture7.jpg' },
-  { id: 7,  title: 'NSL Fan Engagement',          client: 'Nepal Super League', year: '2023', isVideo: false, src: '/images/portfolio/eventss/Picture9.jpg' },
-  { id: 8,  title: 'NSL Stadium Crowd',           client: 'Nepal Super League', year: '2023', isVideo: false, src: '/images/portfolio/eventss/Picture10.jpg' },
-  { id: 9,  title: 'NSL Award Night',             client: 'Nepal Super League', year: '2023', isVideo: false, src: '/images/portfolio/eventss/Picture11.png' },
-  { id: 10, title: 'NSL Trophy Presentation',     client: 'Nepal Super League', year: '2023', isVideo: false, src: '/images/portfolio/eventss/Picture12.jpg' },
-  { id: 11, title: 'NSL Victory Celebration',     client: 'Nepal Super League', year: '2023', isVideo: false, src: '/images/portfolio/eventss/Picture13.jpg' },
-  { id: 12, title: 'NSL Grand Finale',            client: 'Nepal Super League', year: '2023', isVideo: false, src: '/images/portfolio/eventss/Picture14.png' },
+  {
+    id: 1,
+    title: 'Nepal Super League 2023',
+    client: 'Nepal Super League',
+    year: '2023',
+    images: '/images/activation/NSL.jpg',
+  },
+  {
+    id: 2,
+    title: 'Yamaha FZ Street Fighter Ride Out',
+    client: 'Yamaha Nepal',
+    year: '2023',
+    images: '/images/activation/Yamaha.jpg',
+  },
+
+  {
+    id: 4,
+    title: 'Yamaha Dealers Meet — Malaysia',
+    client: 'Yamaha Nepal',
+    year: '2016',
+    /*
+      If the actual file on disk is "Yamaha 2.jpg", use the encoded form.
+      If it's "Yamaha2.jpg" (no space), remove the %20.
+    */
+    images: '/images/activation/Yamaha%202.jpg',
+  },
+
+  {
+    id: 9,
+    title: 'VR Holdings × LET Aircraft & Etihad Media Trip',
+    client: 'VR Holdings / Etihad Airways',
+    year: '2015',
+    images: '/images/activation/Eithad.jpg',
+  },
+  {
+    id: 8,
+    title: 'Miss Nepal — Face of Fascino',
+    client: 'Yamaha Nepal / Miss Nepal',
+    year: '2017',
+    images: '/images/activation/fiat.jpg',
+  },
+
+  {
+    id: 7,
+    title: 'Fiat Brand Ambassador & Yamaha FZS-Fi Launch',
+    client: 'Fiat / Yamaha Nepal',
+    year: '2015',
+    images: '/images/activation/Paras.jpg',
+  },
+
+
 ];
 
 export default function EventPage() {

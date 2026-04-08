@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -14,7 +15,12 @@ import Footer from '@/components/Footer';
   NO @import Google Fonts — fonts declared once in globals.css.
   NO 'Barlow' anywhere — removed entirely.
   NO font-weight: 900 — 700 = bold, 400 = regular.
-  Color token: #FF8C00 (was #FF8C00 — unified across all components).
+  Color token: #FF8C00 — unified across all components.
+
+  CLS NOTES:
+    Images  → Next.js <Image fill> inside a sized container fixes CLS.
+    Videos  → CLS already prevented by aspect-ratio on .cell (1/1) and
+              .lb__media (16/9) — browser reserves space before load.
 */
 
 interface GalleryItem {
@@ -69,6 +75,7 @@ function Lightbox({
           </svg>
         </button>
 
+        {/* aspect-ratio: 16/9 on .lb__media prevents CLS for both image and video */}
         <div className="lb__media">
           {item.src ? (
             item.isVideo ? (
@@ -78,10 +85,13 @@ function Lightbox({
                 style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#000' }}
               />
             ) : (
-              <img
+              <Image
                 src={item.src}
                 alt={item.title}
-                style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#f0f0f0' }}
+                fill
+                sizes="(max-width: 860px) 100vw, 860px"
+                style={{ objectFit: 'contain' }}
+                priority
               />
             )
           ) : (
@@ -156,20 +166,23 @@ function Lightbox({
         .lb__arrow--prev  { left: 16px; }
         .lb__arrow--next  { right: 16px; }
 
+        /* aspect-ratio holds space before media loads — no CLS */
         .lb__media {
+          position     : relative;
           width        : 100%;
           aspect-ratio : 16/9;
           background   : #f0f0f0;
-          display      : flex; align-items: center; justify-content: center;
+          overflow     : hidden;
         }
 
-        /* EurostileCnd Bold — placeholder label */
         .lb__ph {
-          display     : flex; flex-direction: column;
-          align-items : center; gap: 14px;
-          color       : #bbb;
-          font-family : var(--font-condensed);
-          font-size   : 9px; font-weight: 700;
+          position   : absolute; inset: 0;
+          display    : flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          gap        : 14px;
+          color      : #bbb;
+          font-family: var(--font-condensed);
+          font-size  : 9px; font-weight: 700;
           letter-spacing: 0.15em; text-transform: uppercase;
         }
 
@@ -180,7 +193,6 @@ function Lightbox({
           background : #fff;
         }
 
-        /* EurostileCnd Bold — category badge */
         .lb__cat {
           font-family   : var(--font-condensed);
           font-size     : 9px; font-weight: 700;
@@ -191,7 +203,6 @@ function Lightbox({
           white-space   : nowrap;
         }
 
-        /* Eurostile Bold — lightbox title */
         .lb__title {
           font-family   : var(--font-primary);
           font-size     : 14px; font-weight: 700; color: #111;
@@ -199,7 +210,6 @@ function Lightbox({
           flex          : 1; margin: 0;
         }
 
-        /* Eurostile Regular — lightbox year */
         .lb__year {
           font-family   : var(--font-primary);
           font-size     : 10px; font-weight: 400;
@@ -228,25 +238,37 @@ function GridCell({ item, onClick }: { item: GalleryItem; onClick: () => void })
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
     >
-      <div className="cell__bg">
-        {item.src ? (
-          item.isVideo ? (
-            <video src={item.src} muted playsInline className="cell__media" />
-          ) : (
-            <img src={item.src} alt={item.title} className="cell__media" />
-          )
-        ) : item.isVideo ? (
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccc" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-            <polygon points="5 3 19 12 5 21 5 3"/>
-          </svg>
+      {item.src && (
+        item.isVideo ? (
+          /* Video — aspect-ratio: 1/1 on .cell already prevents CLS */
+          <video src={item.src} muted playsInline className="cell__media" />
         ) : (
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccc" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2"/>
-            <circle cx="8.5" cy="8.5" r="1.5"/>
-            <polyline points="21 15 16 10 5 21"/>
-          </svg>
-        )}
-      </div>
+          /* Image — <Image fill> prevents CLS */
+          <Image
+            src={item.src}
+            alt={item.title}
+            fill
+            sizes="(max-width: 480px) 50vw, (max-width: 935px) 33vw, 311px"
+            style={{ objectFit: 'cover' }}
+          />
+        )
+      )}
+
+      {!item.src && (
+        <div className="cell__ph">
+          {item.isVideo ? (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccc" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          ) : (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccc" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          )}
+        </div>
+      )}
 
       {item.isVideo && (
         <div className="cell__video-badge">
@@ -262,6 +284,7 @@ function GridCell({ item, onClick }: { item: GalleryItem; onClick: () => void })
       </div>
 
       <style jsx>{`
+        /* aspect-ratio: 1/1 reserves the full square before any media loads */
         .cell {
           position     : relative;
           aspect-ratio : 1/1;
@@ -270,17 +293,17 @@ function GridCell({ item, onClick }: { item: GalleryItem; onClick: () => void })
           overflow     : hidden;
         }
 
-        .cell__bg {
-          width      : 100%; height: 100%;
+        /* video mirrors what Image fill does — absolute + inset: 0 */
+        .cell__media {
+          position  : absolute; inset: 0;
+          width     : 100%; height: 100%;
+          object-fit: cover; display: block;
+        }
+
+        .cell__ph {
+          position   : absolute; inset: 0;
           display    : flex; align-items: center; justify-content: center;
           background : #f0f0f0;
-          transition : background .2s;
-        }
-        .cell:hover .cell__bg { background: #e8e8e8; }
-
-        .cell__media {
-          width: 100%; height: 100%;
-          object-fit: cover; display: block;
         }
 
         .cell__video-badge {
@@ -288,6 +311,7 @@ function GridCell({ item, onClick }: { item: GalleryItem; onClick: () => void })
           background: rgba(0,0,0,0.55);
           width     : 28px; height: 28px;
           display   : flex; align-items: center; justify-content: center;
+          z-index   : 1;
         }
 
         .cell__ov {
@@ -297,10 +321,10 @@ function GridCell({ item, onClick }: { item: GalleryItem; onClick: () => void })
           align-items: center; justify-content: center;
           gap        : 6px; padding: 16px;
           opacity    : 0; transition: opacity .22s ease;
+          z-index    : 2;
         }
         .cell__ov--on { opacity: 1; }
 
-        /* Eurostile Bold — hover title */
         .cell__ov-title {
           font-family   : var(--font-primary);
           font-size     : 12px; font-weight: 700;
@@ -309,7 +333,6 @@ function GridCell({ item, onClick }: { item: GalleryItem; onClick: () => void })
           line-height   : 1.3;
         }
 
-        /* EurostileCnd Bold — hover meta (category · year) */
         .cell__ov-meta {
           font-family   : var(--font-condensed);
           font-size     : 9px; font-weight: 700;
@@ -337,33 +360,22 @@ export default function GalleryPage() {
 
       <main className="page">
 
-        {/* ── HERO ── */}
         <section className="hero">
           <div className="hero__in">
-
-            {/* EurostileCnd Bold — eyebrow overline */}
             <p className="hero__eyebrow">MAKEWAYS PVT. LTD.</p>
-
-            {/* EurostileExt Bold — GALLERY display title
-                Matches FOUNDER / SAYS / PORTFOLIO / CAREER treatment ── */}
             <h1 className="hero__title">GALLERY</h1>
-
-            {/* Eurostile Regular — subtitle body text */}
             <p className="hero__sub">
               A collection of our campaigns, events, awards and behind-the-scenes moments.
             </p>
           </div>
         </section>
 
-        {/* ── COUNT BAR ── */}
         <div className="countbar">
           <div className="countbar__inner">
-            {/* EurostileCnd Bold — label tag */}
             <span className="countbar__tag">IMAGES &amp; VIDEOS</span>
           </div>
         </div>
 
-        {/* ── GRID ── */}
         <div className="grid">
           {galleryItems.map((item, index) => (
             <GridCell key={item.id} item={item} onClick={() => openItem(index)} />
@@ -383,7 +395,6 @@ export default function GalleryPage() {
 
       <Footer />
 
-      {/* NO @import — fonts declared once in globals.css. No Barlow. */}
       <style jsx global>{`
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -394,21 +405,18 @@ export default function GalleryPage() {
       `}</style>
 
       <style jsx>{`
-
         .page {
           padding-top : 106px;
           background  : #fff;
           min-height  : 100vh;
         }
 
-        /* ── HERO ── */
         .hero    { background: #fff; }
         .hero__in {
           max-width : 935px; margin: 0 auto;
           padding   : 48px 20px 40px;
         }
 
-        /* EurostileCnd Bold — eyebrow */
         .hero__eyebrow {
           font-family   : var(--font-condensed);
           font-size     : 10px; font-weight: 700;
@@ -418,7 +426,6 @@ export default function GalleryPage() {
           white-space   : nowrap;
         }
 
-        /* EurostileExt Bold — GALLERY display title */
         .hero__title {
           font-family    : var(--font-extended);
           font-weight    : 700;
@@ -430,7 +437,6 @@ export default function GalleryPage() {
           margin-bottom  : 20px;
         }
 
-        /* Eurostile Regular — subtitle */
         .hero__sub {
           font-family   : var(--font-primary);
           font-size     : 14px; font-weight: 400;
@@ -438,7 +444,6 @@ export default function GalleryPage() {
           max-width     : 480px; letter-spacing: 0.01em;
         }
 
-        /* ── COUNT BAR ── */
         .countbar {
           background    : #fff;
           border-bottom : 1px solid #eee;
@@ -448,7 +453,6 @@ export default function GalleryPage() {
           max-width : 935px; margin: 0 auto;
         }
 
-        /* EurostileCnd Bold — count tag */
         .countbar__tag {
           font-family   : var(--font-condensed);
           font-size     : 13px; font-weight: 700;
@@ -457,7 +461,6 @@ export default function GalleryPage() {
           white-space   : nowrap;
         }
 
-        /* ── GRID ── */
         .grid {
           max-width             : 935px; margin: 0 auto;
           display               : grid;
@@ -466,7 +469,6 @@ export default function GalleryPage() {
           padding-bottom        : 60px;
         }
 
-        /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
           .hero__in { padding: 36px 16px 28px; }
           .page     { padding-top: 80px; }

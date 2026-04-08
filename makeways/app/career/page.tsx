@@ -2,8 +2,9 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Link from 'next/link';  // ← use Link, not <a>, for client-side nav
 
-const ROW1 = ['designer', 'editor', 'content creator', 'social media manager'];
+const ROW1 = ['designer', 'editor', 'ai content creator', 'social media manager'];
 const ROW2 = ['client manager', 'videographer', 'script writer'];
 
 export default function CareerPage() {
@@ -46,22 +47,27 @@ export default function CareerPage() {
             </div>
           </div>
 
+          {/* ← This is the key addition: Link-based nav back to home sections */}
+          <div className="cs-nav-links">
+            <Link href="/#about"     className="cs-nav-link">← Intro</Link>
+            <Link href="/#services"  className="cs-nav-link">What We Do</Link>
+            <Link href="/#portfolio" className="cs-nav-link">Portfolio</Link>
+          </div>
+
         </section>
       </main>
 
       <Footer />
 
       <style jsx>{`
-        /* FIX: padding-top matches exact header height token — no gap, no overlap */
         .cw {
-          padding-top: var(--header-h); /* 82px from globals.css */
+          padding-top: var(--header-h);
           font-family: var(--font-primary);
         }
 
         .cs {
           background: #FF8C00;
           width: 100%;
-          /* fills viewport below header exactly */
           height: calc(100dvh - var(--header-h));
           min-height: 560px;
           box-sizing: border-box;
@@ -72,7 +78,6 @@ export default function CareerPage() {
           overflow: hidden;
         }
 
-        /* ── TOP ── */
         .cs-top {
           display: flex;
           flex-direction: row;
@@ -124,7 +129,6 @@ export default function CareerPage() {
           padding: 0 6px;
         }
 
-        /* ── BOTTOM ── */
         .cs-bottom {
           display: flex;
           flex-direction: row;
@@ -183,7 +187,24 @@ export default function CareerPage() {
           letter-spacing: -8px;
         }
 
-        /* ── 900px ── */
+        /* Quick-nav links at the bottom */
+        .cs-nav-links {
+          display: flex;
+          gap: 24px;
+          flex-shrink: 0;
+        }
+
+        .cs-nav-link {
+          font-weight: 700;
+          font-size: 11px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.65);
+          text-decoration: none;
+          transition: color 0.2s;
+        }
+        .cs-nav-link:hover { color: #fff; }
+
         @media (max-width: 900px) {
           .cw { padding-top: var(--header-h-mobile); }
           .cs {
@@ -192,7 +213,6 @@ export default function CareerPage() {
           }
         }
 
-        /* ── 768px ── */
         @media (max-width: 768px) {
           .cs {
             height: auto;
@@ -215,7 +235,6 @@ export default function CareerPage() {
           .cs-mail  { white-space: normal; word-break: break-all; }
         }
 
-        /* ── 520px ── */
         @media (max-width: 520px) {
           .cs       { padding: 32px 20px 40px; }
           .cs-title { font-size: clamp(40px, 13vw, 60px); }
@@ -224,7 +243,6 @@ export default function CareerPage() {
           .cs-mail  { font-size: 13px; }
         }
 
-        /* ── 360px ── */
         @media (max-width: 360px) {
           .cs       { padding: 24px 16px 32px; }
           .cs-title { font-size: 36px; }

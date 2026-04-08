@@ -2,10 +2,16 @@
 
 /**
  * Header.tsx — MAKEWAYS
+ *
+ * Fix: replaced <a> tags with Next.js <Link> so that clicking
+ * /#about / /#services / /#portfolio from a sub-page does a
+ * client-side navigation instead of a full reload, which lets
+ * useHashScroll() on the home page fire reliably after mount.
  */
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Header.module.css';
 
@@ -135,7 +141,7 @@ export default function Header() {
         <div className={styles.headerInner}>
 
           {/* Logo */}
-          <a href="/" className={styles.logoLink} aria-label="MAKEWAYS — go to home">
+          <Link href="/" className={styles.logoLink} aria-label="MAKEWAYS — go to home">
             <Image
               src="/images/Logo/logo.png"
               alt="MAKEWAYS Logo"
@@ -150,14 +156,14 @@ export default function Header() {
                 objectPosition: 'left center',
               }}
             />
-          </a>
+          </Link>
 
-          {/* Desktop Nav — no circle wrapper, icon shown directly */}
+          {/* Desktop Nav */}
           <nav className={styles.navDesktop} aria-label="Primary navigation">
             {navItems.map((item) => {
               const isActive = activeLabel === item.label;
               return (
-                <a
+                <Link
                   key={item.label}
                   href={item.href}
                   className={[styles.navItem, isActive ? styles.navItemActive : ''].join(' ')}
@@ -167,7 +173,7 @@ export default function Header() {
                     {icons[item.label]}
                   </span>
                   <span className={styles.navLabel}>{item.label}</span>
-                </a>
+                </Link>
               );
             })}
           </nav>
@@ -197,7 +203,7 @@ export default function Header() {
           {navItems.map((item) => {
             const isActive = activeLabel === item.label;
             return (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
                 className={[styles.mobileNavItem, isActive ? styles.mobileNavItemActive : ''].join(' ')}
@@ -211,7 +217,7 @@ export default function Header() {
                   </span>
                 </span>
                 {item.label}
-              </a>
+              </Link>
             );
           })}
         </nav>

@@ -49,7 +49,7 @@ export default function CareerPage() {
 
           {/* ← This is the key addition: Link-based nav back to home sections */}
           <div className="cs-nav-links">
-            <Link href="/#about"     className="cs-nav-link">← Intro</Link>
+            <Link href="/#about"     className="cs-nav-link">Intro</Link>
             <Link href="/#services"  className="cs-nav-link">What We Do</Link>
             <Link href="/#portfolio" className="cs-nav-link">Portfolio</Link>
           </div>

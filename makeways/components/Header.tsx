@@ -1,18 +1,9 @@
 'use client';
 
-/**
- * Header.tsx — MAKEWAYS
- *
- * Fix: replaced <a> tags with Next.js <Link> so that clicking
- * /#about / /#services / /#portfolio from a sub-page does a
- * client-side navigation instead of a full reload, which lets
- * useHashScroll() on the home page fire reliably after mount.
- */
-
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import styles from './Header.module.css';
 
 type NavLabel = 'INTRO' | 'WHAT WE DO' | 'PORTFOLIO' | 'GALLERY' | 'CAREER';
@@ -67,18 +58,11 @@ const icons: Record<NavLabel, React.ReactElement> = {
   ),
 };
 
-const HOME_NAV: { label: NavLabel; href: string }[] = [
-  { label: 'INTRO',      href: '#about'     },
-  { label: 'WHAT WE DO', href: '#services'  },
-  { label: 'PORTFOLIO',  href: '#portfolio' },
-  { label: 'GALLERY',    href: '/gallery'   },
-  { label: 'CAREER',     href: '/career'    },
-];
-
-const AWAY_NAV: { label: NavLabel; href: string }[] = [
-  { label: 'INTRO',      href: '/#about'    },
-  { label: 'WHAT WE DO', href: '/#services' },
-  { label: 'PORTFOLIO',  href: '/#portfolio'},
+// Unified Navigation: Using "/#id" ensures it works from any page
+const NAV_ITEMS: { label: NavLabel; href: string }[] = [
+  { label: 'INTRO',      href: '/#about'     },
+  { label: 'WHAT WE DO', href: '/#services'  },
+  { label: 'PORTFOLIO',  href: '/#portfolio' },
   { label: 'GALLERY',    href: '/gallery'   },
   { label: 'CAREER',     href: '/career'    },
 ];
@@ -91,8 +75,7 @@ function getActiveLabel(pathname: string): NavLabel | null {
 
 export default function Header() {
   const pathname    = usePathname();
-  const isHome      = pathname === '/';
-  const navItems    = isHome ? HOME_NAV : AWAY_NAV;
+  const searchParams = useSearchParams();
   const activeLabel = getActiveLabel(pathname);
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -100,6 +83,19 @@ export default function Header() {
 
   const rafId = useRef<number | null>(null);
 
+  // --- Scroll to Hash Logic ---
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const timer = setTimeout(() => {
+        const el = document.querySelector(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 150); // Delay allows the page to finish rendering after route change
+      return () => clearTimeout(timer);
+    }
+  }, [pathname, searchParams]);
+
+  // --- Header Background Toggle on Scroll ---
   const handleScroll = useCallback(() => {
     if (rafId.current !== null) return;
     rafId.current = requestAnimationFrame(() => {
@@ -117,6 +113,7 @@ export default function Header() {
     };
   }, [handleScroll]);
 
+  // --- UI Effects ---
   useEffect(() => { setMenuOpen(false); }, [pathname]);
 
   useEffect(() => {
@@ -139,8 +136,6 @@ export default function Header() {
         role="banner"
       >
         <div className={styles.headerInner}>
-
-          {/* Logo */}
           <Link href="/" className={styles.logoLink} aria-label="MAKEWAYS — go to home">
             <Image
               src="/images/Logo/logo.png"
@@ -158,9 +153,8 @@ export default function Header() {
             />
           </Link>
 
-          {/* Desktop Nav */}
           <nav className={styles.navDesktop} aria-label="Primary navigation">
-            {navItems.map((item) => {
+            {NAV_ITEMS.map((item) => {
               const isActive = activeLabel === item.label;
               return (
                 <Link
@@ -169,16 +163,13 @@ export default function Header() {
                   className={[styles.navItem, isActive ? styles.navItemActive : ''].join(' ')}
                   aria-current={isActive ? 'page' : undefined}
                 >
-                  <span className={styles.navIcon}>
-                    {icons[item.label]}
-                  </span>
+                  <span className={styles.navIcon}>{icons[item.label]}</span>
                   <span className={styles.navLabel}>{item.label}</span>
                 </Link>
               );
             })}
           </nav>
 
-          {/* Hamburger */}
           <button
             className={[styles.hamburger, menuOpen ? styles.hamburgerOpen : ''].join(' ')}
             onClick={() => setMenuOpen((o) => !o)}
@@ -186,21 +177,17 @@ export default function Header() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
           >
-            <span />
-            <span />
-            <span />
+            <span /><span /><span />
           </button>
-
         </div>
 
-        {/* Mobile Drawer */}
         <nav
           id="mobile-menu"
           className={[styles.mobileMenu, menuOpen ? styles.mobileMenuVisible : ''].join(' ')}
           aria-label="Mobile navigation"
           aria-hidden={!menuOpen}
         >
-          {navItems.map((item) => {
+          {NAV_ITEMS.map((item) => {
             const isActive = activeLabel === item.label;
             return (
               <Link
@@ -212,9 +199,7 @@ export default function Header() {
                 tabIndex={menuOpen ? 0 : -1}
               >
                 <span className={styles.mobileCircle}>
-                  <span className={styles.mobileIcon}>
-                    {icons[item.label]}
-                  </span>
+                  <span className={styles.mobileIcon}>{icons[item.label]}</span>
                 </span>
                 {item.label}
               </Link>
@@ -223,7 +208,6 @@ export default function Header() {
         </nav>
       </header>
 
-      {/* Mobile backdrop */}
       {menuOpen && (
         <div
           className={styles.mobileOverlay}

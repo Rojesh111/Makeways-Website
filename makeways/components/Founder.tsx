@@ -21,7 +21,7 @@ export default function Founder() {
             <div className="scroll-box">
               <p className="quote-text">
                 Bidhan Rajbhandari is the Founder and Managing Director of Makeways Pvt. Ltd.
-                With more than 17 years of experience in advertising, branding, and marketing
+                With more than 20 years of experience in advertising, branding, and marketing
                 strategy, he is widely regarded as one of the most creative and most awarded
                 advertising professionals in Nepal. He has consistently adapted to the evolving
                 marketing landscape from traditional media to digital transformation and
@@ -120,7 +120,7 @@ export default function Founder() {
 
   /* ── EurostileCnd Bold ── */
   .founder-name {
-    font-family    : var(--font-condensed);
+    font-family    : var(--font-extended);
     font-weight    : 700;
     font-size      : clamp(20px, 1.8vw, 28px);
     letter-spacing : 0.1em;

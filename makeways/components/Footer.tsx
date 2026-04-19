@@ -17,7 +17,7 @@ const socials: { name: string; Icon: () => JSX.Element; url: string }[] = [
   { name: 'Instagram', Icon: InstagramIcon, url: 'https://www.instagram.com/makeways_advertising/' },
   { name: 'YouTube',   Icon: YouTubeIcon,   url: 'https://www.youtube.com/@MakewaysAdvertising' },
   { name: 'LinkedIn',  Icon: LinkedInIcon,  url: '#' },
-  { name: 'TikTok',    Icon: TikTokIcon,    url: '#' },
+  { name: 'TikTok',    Icon: TikTokIcon,    url: 'https://www.tiktok.com/@makeways4?_r=1&_t=ZS-95fKscPJE8e' },
 ];
 
 const contactRows: { Icon: () => JSX.Element; text: string; href?: string }[] = [

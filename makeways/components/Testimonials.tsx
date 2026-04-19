@@ -62,8 +62,7 @@ const OUT_MS = 260;
 const IN_MS  = 500;
 
 /* ─────────────────────────────────────────────────────────────────
-   SVG QUOTE MARK — reused in both desktop and mobile
-   Identical path to AboutMakeways, consistent system-wide
+   SVG QUOTE MARK
 ───────────────────────────────────────────────────────────────── */
 function QuoteMark() {
   return (
@@ -84,7 +83,7 @@ function QuoteMark() {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   EDGE ARROW
+   EDGE ARROW (desktop)
 ───────────────────────────────────────────────────────────────── */
 function EdgeArrow({ onClick, dir }: { onClick: () => void; dir: "prev" | "next" }) {
   const [hov, setHov] = useState(false);
@@ -105,8 +104,9 @@ function EdgeArrow({ onClick, dir }: { onClick: () => void; dir: "prev" | "next"
    MAIN COMPONENT
 ───────────────────────────────────────────────────────────────── */
 export default function Testimonials() {
-  const [idx,   setIdx]   = useState(0);
-  const [phase, setPhase] = useState<"idle" | "out" | "in">("idle");
+  const [idx,      setIdx]      = useState(0);
+  const [phase,    setPhase]    = useState<"idle" | "out" | "in">("idle");
+  const [isPaused, setIsPaused] = useState(false);
 
   const pending = useRef<number>(0);
   const timers  = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -147,21 +147,18 @@ export default function Testimonials() {
     return () => window.removeEventListener("keydown", onKey);
   }, [idx, phase]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!isPaused && phase === "idle") next();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [idx, phase, isPaused]);
+
   const animClass = phase === "out" ? "out" : phase === "in" ? "snap" : "idle";
 
   return (
     <>
       <style>{`
-
-        /*
-          NO @font-face here — fonts declared once in globals.css.
-          Font-weight 700 = bold, 400 = regular. No synthetic 900.
-
-          Font family roles:
-            'EurostileExt'  — large display title (SAYS)
-            'EurostileCnd'  — role / overline labels
-            'Eurostile'     — name, quote body
-        */
 
         /* ════════════════════════════════════════════════════
            SECTION SHELL
@@ -175,7 +172,7 @@ export default function Testimonials() {
         }
 
         /* ════════════════════════════════════════════════════
-           EDGE ARROWS
+           DESKTOP EDGE ARROWS
         ════════════════════════════════════════════════════ */
         .tst-edge-arrow {
           position        : absolute;
@@ -211,7 +208,7 @@ export default function Testimonials() {
           transform  : translateY(-50%) scale(1.08);
           box-shadow : 0 4px 16px rgba(244,124,32,0.28);
         }
-        .tst-edge-arrow:active       { transform: translateY(-50%) scale(0.94); box-shadow: none; }
+        .tst-edge-arrow:active        { transform: translateY(-50%) scale(0.94); box-shadow: none; }
         .tst-edge-arrow:focus-visible { outline: 2px solid #f47c20; outline-offset: 3px; }
 
         /* ════════════════════════════════════════════════════
@@ -292,15 +289,7 @@ export default function Testimonials() {
 
         /* ════════════════════════════════════════════════════
            TEXT STYLES
-
-           .tst-name       → Eurostile Bold 700 · orange · prominent
-           .tst-role       → EurostileCnd Bold 700 · dark · overline label
-           .tst-says       → EurostileExt Bold 700 · large display
-           .tst-about      → EurostileCnd Bold 700 · dark · overline label
-           .tst-quote-text → Eurostile Regular 400 · #666666 body
         ════════════════════════════════════════════════════ */
-
-        /* Eurostile Bold — name, orange */
         .tst-name {
           font-family    : var(--font-primary);
           font-weight    : 700;
@@ -311,8 +300,6 @@ export default function Testimonials() {
           color          : #f47c20;
           margin         : 0;
         }
-
-        /* FIX 3 — EurostileCnd Bold for role, tight condensed overline */
         .tst-role {
           font-family    : var(--font-condensed);
           font-weight    : 700;
@@ -323,8 +310,6 @@ export default function Testimonials() {
           color          : #1a1a1a;
           margin         : 6px 0 0;
         }
-
-        /* EurostileExt Bold — SAYS display title */
         .tst-says {
           font-family    : var(--font-extended);
           font-weight    : 700;
@@ -336,8 +321,6 @@ export default function Testimonials() {
           user-select    : none;
           margin         : 6px 0 0 0;
         }
-
-        /* EurostileCnd Bold — ABOUT MAKEWAYS label */
         .tst-about {
           font-family    : var(--font-condensed);
           font-weight    : 700;
@@ -356,15 +339,11 @@ export default function Testimonials() {
           margin-top : clamp(20px, 2.5vw, 32px);
           max-width  : 520px;
         }
-
-        /* Quote mark + text side by side */
         .tst-quote-body {
           display     : flex;
           gap         : clamp(10px, 1.2vw, 16px);
           align-items : flex-start;
         }
-
-        /* FIX 2 — quote text #666666, matching AboutMakeways .about__body */
         .tst-quote-text {
           font-family    : var(--font-primary);
           font-weight    : 400;
@@ -418,6 +397,7 @@ export default function Testimonials() {
         .tst-mobile .tst-says  { font-size: clamp(64px, 20vw, 110px); }
         .tst-mobile .tst-about { font-size: clamp(9px, 2.3vw, 12px); }
 
+        /* ─── Mobile image wrapper — arrows live inside here ─── */
         .tst-mobile-img-wrap {
           position         : relative;
           width            : 100%;
@@ -427,40 +407,53 @@ export default function Testimonials() {
           background-color : #D4D4D0;
         }
 
-        .tst-mobile .tst-quote-wrap { margin-top: clamp(16px, 4vw, 24px); }
-        .tst-mobile .tst-quote-text { font-size: clamp(13px, 3.6vw, 16px); }
-
-        .tst-mobile-nav {
-          display         : flex;
-          align-items     : center;
-          justify-content : center;
-          gap             : clamp(12px, 3vw, 20px);
-          margin-top      : clamp(20px, 5vw, 32px);
+        /* Fix gap: cover + top so faces aren't cropped */
+        .tst-mobile-img-wrap .tst-photo {
+          object-fit      : cover;
+          object-position : top center;
         }
-        .tst-mobile-arrow {
-          width           : 38px;
-          height          : 38px;
+
+        /* ─── Side arrows overlaid on the image ─── */
+        .tst-img-arrow {
+          position        : absolute;
+          top             : 50%;
+          transform       : translateY(-50%);
+          z-index         : 10;
+          width           : 36px;
+          height          : 36px;
           border-radius   : 50%;
-          border          : 1.5px solid #f47c20;
-          background      : transparent;
-          color           : #f47c20;
-          font-size       : 22px;
+          border          : 1.5px solid rgba(255,255,255,0.35);
+          background      : rgba(0,0,0,0.28);
+          color           : #fff;
+          font-size       : 20px;
           display         : flex;
           align-items     : center;
           justify-content : center;
           cursor          : pointer;
-          padding         : 0 0 2px 0;
+          backdrop-filter : blur(4px);
+          padding         : 0 0 1px 0;
           outline         : none;
-          font-family     : var(--font-primary);
-          flex-shrink     : 0;
           transition      :
             background 0.2s ease,
             color      0.2s ease,
             transform  0.15s ease;
         }
-        .tst-mobile-arrow:hover        { background: #f47c20; color: #ffffff; transform: scale(1.08); }
-        .tst-mobile-arrow:active       { transform: scale(0.93); }
-        .tst-mobile-arrow:focus-visible { outline: 2px solid #f47c20; outline-offset: 3px; }
+        .tst-img-arrow--prev { left: 10px; }
+        .tst-img-arrow--next { right: 10px; }
+        .tst-img-arrow:hover        { background: #f47c20; border-color: #f47c20; }
+        .tst-img-arrow:active       { transform: translateY(-50%) scale(0.93); }
+        .tst-img-arrow:focus-visible { outline: 2px solid #f47c20; outline-offset: 3px; }
+
+        .tst-mobile .tst-quote-wrap { margin-top: clamp(16px, 4vw, 24px); }
+        .tst-mobile .tst-quote-text { font-size: clamp(13px, 3.6vw, 16px); }
+
+        /* ─── Dots row (no arrows here anymore) ─── */
+        .tst-mobile-nav {
+          display         : flex;
+          align-items     : center;
+          justify-content : center;
+          margin-top      : clamp(20px, 5vw, 32px);
+        }
 
         /* ════════════════════════════════════════════════════
            BREAKPOINT SWITCH
@@ -480,7 +473,7 @@ export default function Testimonials() {
           .tst-animate--idle,
           .tst-photo,
           .tst-edge-arrow,
-          .tst-mobile-arrow,
+          .tst-img-arrow,
           .tst-dot {
             transition : none !important;
             animation  : none !important;
@@ -493,7 +486,11 @@ export default function Testimonials() {
 
       `}</style>
 
-      <section className="tst-section">
+      <section
+        className="tst-section"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
 
         {/* ════════════════ DESKTOP ════════════════════════ */}
         <div className="tst-desktop">
@@ -514,7 +511,6 @@ export default function Testimonials() {
             <div className="tst-says"  aria-hidden="true">SAYS</div>
             <div className="tst-about">ABOUT MAKEWAYS</div>
 
-            {/* FIX 1 — SVG quote mark replaces &ldquo; / &rdquo; */}
             <div
               className={`tst-quote-wrap tst-animate--${animClass}`}
               style={{ "--tst-delay": "65ms" } as React.CSSProperties}
@@ -567,7 +563,23 @@ export default function Testimonials() {
           <div className="tst-says"  aria-hidden="true">SAYS</div>
           <div className="tst-about">ABOUT MAKEWAYS</div>
 
+          {/* Image with arrows overlaid on sides */}
           <div className="tst-mobile-img-wrap">
+            <button
+              className="tst-img-arrow tst-img-arrow--prev"
+              onClick={prev}
+              aria-label="Previous testimonial"
+            >
+              ‹
+            </button>
+            <button
+              className="tst-img-arrow tst-img-arrow--next"
+              onClick={next}
+              aria-label="Next testimonial"
+            >
+              ›
+            </button>
+
             <div className="tst-photo-stack">
               {DATA.map((item, i) => (
                 <img
@@ -580,7 +592,6 @@ export default function Testimonials() {
             </div>
           </div>
 
-          {/* FIX 1 — SVG quote mark on mobile too */}
           <div
             className={`tst-quote-wrap tst-animate--${animClass}`}
             style={{ "--tst-delay": "65ms" } as React.CSSProperties}
@@ -591,8 +602,8 @@ export default function Testimonials() {
             </div>
           </div>
 
+          {/* Dots only — arrows moved into image */}
           <div className="tst-mobile-nav">
-            <button className="tst-mobile-arrow" onClick={prev} aria-label="Previous testimonial">‹</button>
             <div className="tst-dots">
               {DATA.map((_, i) => (
                 <button
@@ -603,7 +614,6 @@ export default function Testimonials() {
                 />
               ))}
             </div>
-            <button className="tst-mobile-arrow" onClick={next} aria-label="Next testimonial">›</button>
           </div>
         </div>
       </section>

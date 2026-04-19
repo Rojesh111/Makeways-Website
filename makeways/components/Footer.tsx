@@ -14,8 +14,8 @@ const LocationIcon = () => (<svg viewBox="0 0 24 24" fill="none" stroke="current
 
 const socials: { name: string; Icon: () => JSX.Element; url: string }[] = [
   { name: 'Facebook',  Icon: FacebookIcon,  url: 'https://www.facebook.com/profile.php?id=100064005604861' },
-  { name: 'Instagram', Icon: InstagramIcon, url: '#' },
-  { name: 'YouTube',   Icon: YouTubeIcon,   url: '#' },
+  { name: 'Instagram', Icon: InstagramIcon, url: 'https://www.instagram.com/makeways_advertising/' },
+  { name: 'YouTube',   Icon: YouTubeIcon,   url: 'https://www.youtube.com/@MakewaysAdvertising' },
   { name: 'LinkedIn',  Icon: LinkedInIcon,  url: '#' },
   { name: 'TikTok',    Icon: TikTokIcon,    url: '#' },
 ];

@@ -25,29 +25,29 @@ import Footer from '@/components/Footer';
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface PortfolioItem {
-  id        : number;
-  title     : string;
-  client    : string;
-  year      : string;
+  id: number;
+  title: string;
+  client: string;
+  year: string;
   /**
    * For image items: single path or array of paths (multi-image carousel).
    * Leave empty for video-only items.
    */
-  images   ?: string | string[];
-  cover    ?: string;    // explicit thumbnail; falls back to first image or video poster
-  isVideo  ?: boolean;   // mark this item as a video
-  src      ?: string;    // video file path → inline playback in lightbox
-  videoUrl ?: string;    // YouTube / Vimeo / any URL → opens in new tab
+  images?: string | string[];
+  cover?: string;    // explicit thumbnail; falls back to first image or video poster
+  isVideo?: boolean;   // mark this item as a video
+  src?: string;    // video file path → inline playback in lightbox
+  videoUrl?: string;    // YouTube / Vimeo / any URL → opens in new tab
 }
 
 export type PageType = 'static' | 'video' | 'mixed';
 
 interface Props {
-  title    : string;
-  subtitle : string;
-  accent   : string;
-  items    : PortfolioItem[];
-  type    ?: PageType; // default: 'static'
+  title: string;
+  subtitle: string;
+  accent: string;
+  items: PortfolioItem[];
+  type?: PageType; // default: 'static'
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -57,50 +57,63 @@ const toArray = (images?: string | string[]): string[] => {
   return Array.isArray(images) ? images : [images];
 };
 
+/** Extract YouTube video ID from watch or short URL */
+const getYouTubeId = (url: string): string | null => {
+  const match = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+  );
+  return match ? match[1] : null;
+};
+
 // ─── SVG Icons ────────────────────────────────────────────────────────────────
 
 const IconClose = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
   </svg>
 );
 const IconChevL = ({ size = 16 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="15 18 9 12 15 6"/>
+    <polyline points="15 18 9 12 15 6" />
   </svg>
 );
 const IconChevR = ({ size = 16 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="9 18 15 12 9 6"/>
+    <polyline points="9 18 15 12 9 6" />
   </svg>
 );
 const IconPlay = ({ size = 32, color = '#fff' }: { size?: number; color?: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill={color} stroke="none">
-    <polygon points="5 3 19 12 5 21 5 3"/>
+    <polygon points="5 3 19 12 5 21 5 3" />
   </svg>
 );
 const IconExternalLink = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-    <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+    <polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
   </svg>
 );
 const IconMulti = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="white" stroke="none">
-    <rect x="2" y="7" width="10" height="10" rx="1.5"/>
-    <rect x="7" y="2" width="15" height="15" rx="1.5" opacity=".7"/>
+    <rect x="2" y="7" width="10" height="10" rx="1.5" />
+    <rect x="7" y="2" width="15" height="15" rx="1.5" opacity=".7" />
   </svg>
 );
 const IconImgPh = () => (
   <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#555" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3" y="3" width="18" height="18" rx="2"/>
-    <circle cx="8.5" cy="8.5" r="1.5"/>
-    <polyline points="21 15 16 10 5 21"/>
+    <rect x="3" y="3" width="18" height="18" rx="2" />
+    <circle cx="8.5" cy="8.5" r="1.5" />
+    <polyline points="21 15 16 10 5 21" />
   </svg>
 );
 const IconVideoPh = () => (
   <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#555" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-    <polygon points="5 3 19 12 5 21 5 3"/>
+    <polygon points="5 3 19 12 5 21 5 3" />
+  </svg>
+);
+const IconYouTube = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5v-7l6.5 3.5-6.5 3.5z" />
   </svg>
 );
 
@@ -111,11 +124,15 @@ function Lightbox({
 }: {
   item: PortfolioItem; onClose: () => void; onPrev: () => void; onNext: () => void;
 }) {
-  const imgs        = toArray(item.images);
-  const isVid       = !!item.isVideo;
-  const hasInline   = isVid && !!item.src;
+  const imgs = toArray(item.images);
+  const isVid = !!item.isVideo;
+  const hasInline = isVid && !!item.src;
   const hasExternal = isVid && !!item.videoUrl && !item.src;
-  const multi       = !isVid && imgs.length > 1;
+  const multi = !isVid && imgs.length > 1;
+
+  // YouTube detection
+  const ytId = item.videoUrl ? getYouTubeId(item.videoUrl) : null;
+  const isYouTube = hasExternal && !!ytId;
 
   const [slide, setSlide] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -127,13 +144,36 @@ function Lightbox({
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape')     onClose();
-      if (e.key === 'ArrowLeft')  multi ? prevSlide() : onPrev();
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowLeft') multi ? prevSlide() : onPrev();
       if (e.key === 'ArrowRight') multi ? nextSlide() : onNext();
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, [onClose, onPrev, onNext, prevSlide, nextSlide, multi]);
+
+  // ── Fullscreen → open YouTube ──────────────────────────────────────────────
+  // When the YouTube iframe player triggers the browser fullscreen API,
+  // we intercept it: open the video on YouTube in a new tab and exit fullscreen.
+  useEffect(() => {
+    if (!isYouTube || !item.videoUrl) return;
+
+    const handleFullscreenChange = () => {
+      if (document.fullscreenElement) {
+        // Something just went fullscreen — hand off to YouTube
+        window.open(item.videoUrl, '_blank', 'noopener,noreferrer');
+        document.exitFullscreen().catch(() => { });
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    // webkit prefix for Safari
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+    };
+  }, [isYouTube, item.videoUrl]);
 
   const currentSrc = imgs[slide];
 
@@ -151,7 +191,7 @@ function Lightbox({
         {/* ── Media ── */}
         <div className={`lb__media${isVid ? ' lb__media--video' : ''}`}>
 
-          {/* Inline video */}
+          {/* Inline video (local file) */}
           {hasInline && (
             <video
               ref={videoRef}
@@ -163,8 +203,23 @@ function Lightbox({
             />
           )}
 
-          {/* External video — cover + watch button */}
-          {hasExternal && (
+          {/* ── YouTube embed ── */}
+          {isYouTube && (
+            <div className="lb__yt-wrap">
+              <iframe
+                key={item.id}
+                src={`https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&fs=1&color=white`}
+                title={item.title}
+                allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                allowFullScreen
+                className="lb__yt-iframe"
+              />
+              {/* "Open on YouTube" shortcut in caption area — handled below */}
+            </div>
+          )}
+
+          {/* Non-YouTube external video — cover + watch button */}
+          {hasExternal && !isYouTube && (
             <div className="lb__ext">
               {item.cover ? (
                 <div className="lb__ext-cover">
@@ -252,8 +307,25 @@ function Lightbox({
               ))}
             </div>
           )}
-          {multi  && <span className="lb__counter">{slide + 1} / {imgs.length}</span>}
-          {isVid  && <span className="lb__badge">VIDEO</span>}
+          {multi && <span className="lb__counter">{slide + 1} / {imgs.length}</span>}
+
+          {/* YouTube — open on YouTube button in caption */}
+          {isYouTube && (
+            <a
+              href={item.videoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="lb__yt-btn"
+              onClick={e => e.stopPropagation()}
+              title="Open on YouTube"
+            >
+              <IconYouTube />
+              YouTube
+            </a>
+          )}
+
+          {/* Only show VIDEO badge for non-YouTube videos; YouTube button is sufficient */}
+          {isVid && !isYouTube && <span className="lb__badge">VIDEO</span>}
         </div>
       </div>
 
@@ -308,6 +380,16 @@ function Lightbox({
 
         .lb__img-wrap { position: absolute; inset: 0; }
 
+        /* ── YouTube embed ── */
+        .lb__yt-wrap {
+          position: absolute; inset: 0;
+        }
+        .lb__yt-iframe {
+          width: 100%; height: 100%;
+          border: none; display: block;
+          background: #000;
+        }
+
         .lb__slide-arrow {
           position: absolute; top: 50%; transform: translateY(-50%);
           background: rgba(0,0,0,0.45); border: none;
@@ -319,7 +401,7 @@ function Lightbox({
         .lb__slide-arrow--l { left: 10px; }
         .lb__slide-arrow--r { right: 10px; }
 
-        /* External video panel */
+        /* External video panel (non-YouTube) */
         .lb__ext {
           position: absolute; inset: 0;
           display: flex; align-items: center; justify-content: center;
@@ -360,6 +442,7 @@ function Lightbox({
           font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
         }
 
+        /* Caption bar */
         .lb__caption {
           padding: 12px 16px;
           border-top: 3px solid #f47c20;
@@ -392,6 +475,18 @@ function Lightbox({
           font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
           color: #aaa; text-transform: uppercase; white-space: nowrap;
         }
+
+        /* YouTube button in caption */
+        .lb__yt-btn {
+          display: inline-flex; align-items: center; gap: 7px;
+          background: #ff0000; color: #fff; text-decoration: none;
+          padding: 6px 14px; flex-shrink: 0;
+          font-family: 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
+          font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+          text-transform: uppercase; transition: background .2s;
+        }
+        .lb__yt-btn:hover { background: #cc0000; }
+
         .lb__badge {
           background: #f47c20; color: #fff;
           font-family: 'EurostileCnd', 'Eurostile', 'Arial Narrow', Arial, sans-serif;
@@ -416,7 +511,7 @@ function Lightbox({
 function Card({ item, onClick }: { item: PortfolioItem; onClick: () => void }) {
   const [hov, setHov] = useState(false);
 
-  const imgs  = toArray(item.images);
+  const imgs = toArray(item.images);
   const isVid = !!item.isVideo;
   const multi = !isVid && imgs.length > 1;
   const cover = item.cover || (isVid ? '' : imgs[0] || '');

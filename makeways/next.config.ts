@@ -30,6 +30,21 @@ const nextConfig = {
     // 1 year — images are content-hashed so stale cache is never an issue
     minimumCacheTTL: 31_536_000,
 
+    // ── Remote patterns ───────────────────────────────────────────
+    // Allow YouTube thumbnail domains for portfolio video covers
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        pathname: '/vi/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
+        pathname: '/vi/**',
+      },
+    ],
+
     // ── Disable blur placeholder on large hero images ──────────────
     // (you control loading UX via HeroSlider shimmer animation)
     dangerouslyAllowSVG: true,          // allow SVG logo if needed

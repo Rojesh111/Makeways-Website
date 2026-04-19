@@ -5,9 +5,7 @@ import PortfolioCategory from '@/components/PortfolioCategory';
 const items = [
   {
     id     : 1,
-    title  : 'Digital Ad Campaign',
-    client : 'Neta',
-    year   : '2024',
+    title  : 'Neta',
     images : [
       '/images/portfolio/static/neta.jpg',
       '/images/portfolio/static/neta1.jpg',
@@ -19,9 +17,7 @@ const items = [
   },
   {
     id     : 2,
-    title  : 'Digital Ad Campaign',
-    client : 'Gold Star',
-    year   : '2024',
+    title  : 'Gold Star',
     images : [
       '/images/portfolio/static/goldstar.jpg',
       '/images/portfolio/static/goldstar1.jpg',
@@ -33,9 +29,7 @@ const items = [
   },
   {
     id     : 3,
-    title  : 'Acer Laptop Launch Campaign',
-    client : 'Acer Iconia',
-    year   : '2024',
+    title  : 'Acer Iconia',
     images : [
       '/images/portfolio/static/acer.jpg',
       '/images/portfolio/static/Acer Iconia.jpg',
@@ -44,25 +38,19 @@ const items = [
   },
   {
     id     : 4,
-    title  : 'Digital Campaign',
-    client : 'Arna Beer',
-    year   : '2023',
+    title  : 'Arna Beer',
     images : '/images/portfolio/static/ARNA Beer.jpg',
   },
   {
     id     : 5,
-    title  : 'Digital Campaign',
-    client : 'Bip App',
-    year   : '2024',
+    title  : 'Bip App',
     images : [
       '/images/portfolio/static/Bip App.jpg',
     ],
   },
   {
     id     : 6,
-    title  : 'Digital Campaign',
-    client : 'CG Net',
-    year   : '2023',
+    title  : 'CG Net',
     images : [
       '/images/portfolio/static/CG Net.jpg',
       '/images/portfolio/static/CG Net (1).jpg',
@@ -71,9 +59,7 @@ const items = [
   },
   {
     id     : 7,
-    title  : 'Digital Campaign',
-    client : 'Fiat Nepal',
-    year   : '2023',
+    title  : 'Fiat Nepal',
     images : [
       '/images/portfolio/static/fiat.png',
       '/images/portfolio/static/fiat1.jpg',
@@ -81,9 +67,7 @@ const items = [
   },
   {
     id     : 8,
-    title  : 'Digital Campaign',
-    client : 'Hero',
-    year   : '2023',
+    title  : 'Hero',
     images : [
       '/images/portfolio/static/hero.png',
       '/images/portfolio/static/hero1.png',
@@ -91,18 +75,14 @@ const items = [
   },
   {
     id     : 9,
-    title  : 'Digital Campaign',
-    client : 'Himalayan Reserve',
-    year   : '2023',
+    title  : 'Himalayan Reserve',
     images : [
       '/images/portfolio/static/Himalayan Reserve.jpg',
     ],
   },
   {
     id     : 10,
-    title  : 'Digital Campaign',
-    client : 'KIA Motors',
-    year   : '2023',
+    title  : 'KIA Motors',
     images : [
       '/images/portfolio/static/KIA Motors.jpg',
       '/images/portfolio/static/KIA Motors (1).jpg',
@@ -111,27 +91,21 @@ const items = [
   },
   {
     id     : 11,
-    title  : 'Digital Campaign',
-    client : 'Komatsu',
-    year   : '2023',
+    title  : 'Komatsu',
     images : [
       '/images/portfolio/static/KOMATSU.jpg',
     ],
   },
   {
     id     : 12,
-    title  : 'Digital Campaign',
-    client : 'Monalisa',
-    year   : '2023',
+    title  : 'Monalisa',
     images : [
       '/images/portfolio/static/Monalisa.jpg',
     ],
   },
     {
     id     : 13,
-    title  : 'Digital Campaign',
-    client : 'NBank',
-    year   : '2023',
+    title  : 'NBank',
     images : [
       '/images/portfolio/static/nbank.jpg',
       '/images/portfolio/static/nbank (1).jpg',
@@ -144,9 +118,7 @@ const items = [
   },
   {
     id     : 14,
-    title  : 'Digital Campaign',
-    client : 'Padelux',
-    year   : '2023',
+    title  : 'Padelux',
     images : [
       '/images/portfolio/static/padelux.jpg',
       '/images/portfolio/static/padelux1.jpg',
@@ -155,9 +127,7 @@ const items = [
   },
   {
     id     : 15,
-    title  : 'Digital Campaign',
-    client : 'SKODA',
-    year   : '2023',
+    title  : 'SKODA',
     images : [
       '/images/portfolio/static/SKODA.jpg',
       '/images/portfolio/static/SKODA (1).jpg',
@@ -165,18 +135,14 @@ const items = [
   },
   {
     id     : 16,
-    title  : 'Digital Campaign',
-    client : 'Suzuki',
-    year   : '2023',
+    title  : 'Suzuki',
     images : [
       '/images/portfolio/static/Suzuki.jpg',
     ],
   },
     {
     id     : 17,
-    title  : 'Digital Campaign',
-    client : 'Yamaha',
-    year   : '2023',
+    title  : 'Yamaha',
     images : [
       '/images/portfolio/static/yamaha.jpg',
       '/images/portfolio/static/Yamaha Nepal.jpg',

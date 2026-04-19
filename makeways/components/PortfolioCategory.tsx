@@ -27,8 +27,6 @@ import Footer from '@/components/Footer';
 export interface PortfolioItem {
   id: number;
   title: string;
-  client: string;
-  year: string;
   /**
    * For image items: single path or array of paths (multi-image carousel).
    * Leave empty for video-only items.
@@ -293,7 +291,6 @@ function Lightbox({
         <div className="lb__caption">
           <div className="lb__caption-left">
             <h3 className="lb__title">{item.title}</h3>
-            <p className="lb__meta">{item.client} · {item.year}</p>
           </div>
           {multi && (
             <div className="lb__dots">
@@ -559,7 +556,6 @@ function Card({ item, onClick }: { item: PortfolioItem; onClick: () => void }) {
         <div className="card__overlay" style={{ opacity: hov ? 1 : 0 }}>
           <div className="card__overlay-inner">
             <span className="card__label">{item.title}</span>
-            <span className="card__meta-ov">{item.client} · {item.year}</span>
           </div>
         </div>
       </div>

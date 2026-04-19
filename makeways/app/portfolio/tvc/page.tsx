@@ -10,7 +10,7 @@ const items = [
   // 2. For images: src: '/portfolio/tvc/your-image.jpg'
   // 3. For videos: src: '/portfolio/tvc/your-video.mp4', isVideo: true
   // ────────────────────────────────────────────────────────────────────────────
-  { id: 1,  title: 'Brand Campaign',      client: 'CLIENT NAME', year: '2024', isVideo: true,  src: '' },
+  { id: 1,  title: 'Brand Campaign',      client: 'CLIENT NAME', year: '2024', isVideo: true,  src: 'https://www.youtube.com/watch?v=WSdtEuZ9QsE' },
   { id: 2,  title: 'Corporate TVC',       client: 'CLIENT NAME', year: '2024', isVideo: true,  src: '' },
   { id: 3,  title: 'Product Launch',      client: 'CLIENT NAME', year: '2023', isVideo: true,  src: '' },
   { id: 4,  title: 'Festive Campaign',    client: 'CLIENT NAME', year: '2023', isVideo: true,  src: '/images/super.mp4#t=1' },

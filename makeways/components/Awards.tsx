@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 const awards = [
   {
@@ -104,6 +104,7 @@ const awards = [
 ];
 
 const TRANS = "0.4s cubic-bezier(0.4,0,0.2,1)";
+const AUTO_INTERVAL = 3000;
 
 function CertPlaceholder() {
   return (
@@ -126,25 +127,81 @@ export default function Awards() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [fading,      setFading]      = useState(false);
   const [certFailed,  setCertFailed]  = useState(false);
+  const [paused,      setPaused]      = useState(false);
+  const [progress,    setProgress]    = useState(0);
+  const timerRef    = useRef<ReturnType<typeof setInterval> | null>(null);
+  const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const fadingRef   = useRef(false);
 
-  const switchTo = (index: number) => {
-    if (index === activeIndex) return;
-    setFading(true);
-    setCertFailed(false);
-    setTimeout(() => { setActiveIndex(index); setFading(false); }, 380);
-  };
+  const resetTimer = useCallback(() => {
+    if (timerRef.current)    clearInterval(timerRef.current);
+    if (progressRef.current) clearInterval(progressRef.current);
+    setProgress(0);
+  }, []);
 
-  const prev = useCallback(() => switchTo((activeIndex - 1 + awards.length) % awards.length), [activeIndex]);
-  const next = useCallback(() => switchTo((activeIndex + 1) % awards.length), [activeIndex]);
+  const switchTo = useCallback((index: number) => {
+    if (fadingRef.current) return;
+    setActiveIndex((prev) => {
+      if (index === prev) return prev;
+      fadingRef.current = true;
+      setFading(true);
+      setCertFailed(false);
+      resetTimer();
+      setTimeout(() => { setActiveIndex(index); setFading(false); fadingRef.current = false; }, 380);
+      return prev;
+    });
+  }, [resetTimer]);
 
+  const prev = useCallback(() => {
+    setActiveIndex((cur) => {
+      const target = (cur - 1 + awards.length) % awards.length;
+      switchTo(target);
+      return cur;
+    });
+  }, [switchTo]);
+
+  const next = useCallback(() => {
+    setActiveIndex((cur) => {
+      const target = (cur + 1) % awards.length;
+      switchTo(target);
+      return cur;
+    });
+  }, [switchTo]);
+
+  // Auto-slide timer
+  useEffect(() => {
+    if (paused || fading) return;
+    const startTime = Date.now();
+    progressRef.current = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      setProgress(Math.min((elapsed / AUTO_INTERVAL) * 100, 100));
+    }, 30);
+    timerRef.current = setInterval(() => {
+      setProgress(0);
+      setActiveIndex((cur) => {
+        const target = (cur + 1) % awards.length;
+        fadingRef.current = true;
+        setFading(true);
+        setCertFailed(false);
+        setTimeout(() => { setActiveIndex(target); setFading(false); fadingRef.current = false; }, 380);
+        return cur;
+      });
+    }, AUTO_INTERVAL);
+    return () => {
+      if (timerRef.current)    clearInterval(timerRef.current);
+      if (progressRef.current) clearInterval(progressRef.current);
+    };
+  }, [paused, fading, activeIndex]);
+
+  // Keyboard navigation
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft")  prev();
-      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft")  { prev(); resetTimer(); }
+      if (e.key === "ArrowRight") { next(); resetTimer(); }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [prev, next]);
+  }, [prev, next, resetTimer]);
 
   const cur = awards[activeIndex];
 
@@ -184,24 +241,57 @@ export default function Awards() {
 
         /* ── LEFT PANEL ── */
         .aw-left {
-          background : #1a1a1a;
+          background : #FF8C00;
           flex       : 0 0 50%;
           height     : 100%;
           position   : relative;
           overflow   : hidden;
+          display    : flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .aw-left::after {
+          content    : '';
+          position   : absolute;
+          top        : 10%;
+          bottom     : 10%;
+          right      : 0;
+          width      : 1px;
+          background : rgba(0,0,0,0.10);
+          z-index    : 2;
+        }
+        .aw-cert-frame {
+          position       : relative;
+          width          : 100%;
+          height         : 100%;
+          display        : flex;
+          align-items    : center;
+          justify-content: center;
+          padding        : 40px;
+          z-index        : 1;
         }
         .aw-cert-img {
-          width      : 100%;
-          height     : 100%;
-          object-fit : cover;
-          display    : block;
+          max-width    : 100%;
+          max-height   : 100%;
+          width        : auto;
+          height       : auto;
+          aspect-ratio : 4 / 3;
+          object-fit   : contain;
+          display      : block;
+          border-radius: 6px;
         }
-        .aw-vignette {
-          position       : absolute;
-          inset          : 0;
-          background     : linear-gradient(135deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.4) 100%);
-          pointer-events : none;
-          z-index        : 1;
+
+
+        /* ── PROGRESS BAR ── */
+        .aw-progress {
+          position   : absolute;
+          bottom     : 0;
+          left       : 0;
+          height     : 3px;
+          background : linear-gradient(90deg, rgba(0,0,0,0.35), rgba(0,0,0,0.18));
+          z-index    : 12;
+          transition : width 0.03s linear;
+          border-radius: 0 2px 0 0;
         }
 
         /* ── NAV ARROWS ── */
@@ -213,18 +303,18 @@ export default function Awards() {
           width           : 44px;
           height          : 44px;
           border-radius   : 50%;
-          background      : rgba(255,255,255,0.10);
-          border          : 1.5px solid rgba(255,255,255,0.18);
-          color           : #fff;
+          background      : rgba(0,0,0,0.12);
+          border          : 1.5px solid rgba(0,0,0,0.18);
+          color           : rgba(0,0,0,0.6);
           display         : flex;
           align-items     : center;
           justify-content : center;
           cursor          : pointer;
-          transition      : background 0.2s, border-color 0.2s;
+          transition      : background 0.2s, border-color 0.2s, color 0.2s;
           backdrop-filter : blur(6px);
           -webkit-backdrop-filter: blur(6px);
         }
-        .aw-arrow:hover  { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.35); }
+        .aw-arrow:hover  { background: rgba(0,0,0,0.20); border-color: rgba(0,0,0,0.30); color: rgba(0,0,0,0.8); }
         .aw-arrow.left   { left: 18px; }
         .aw-arrow.right  { right: 18px; }
         .aw-arrow svg    { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
@@ -290,7 +380,7 @@ export default function Awards() {
           font-size      : 11px;
           letter-spacing : 0.08em;
           text-transform : uppercase;
-          color          : rgba(0,0,0,0.3);
+          color          : #000000;
           margin-bottom  : 4px;
         }
 
@@ -303,7 +393,7 @@ export default function Awards() {
           white-space    : nowrap;
           overflow       : hidden;
           text-overflow  : clip;
-          color          : rgba(0,0,0,0.35);
+          color          : #000000;
           margin-bottom  : 8px;
         }
 
@@ -314,7 +404,7 @@ export default function Awards() {
           letter-spacing : 0.06em;
           text-transform : uppercase;
           line-height    : 1.25;
-          color          : rgba(0,0,0,0.45);
+          color          : #000000;
           margin-bottom  : 22px;
         }
 
@@ -530,33 +620,40 @@ export default function Awards() {
 
       `}</style>
 
-      <div className="aw-root">
+      <div
+        className="aw-root"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
 
         {/* ══ DESKTOP LEFT ══ */}
         <div className="aw-left">
-          {!certFailed ? (
-            <img
-              key={cur.certificate}
-              src={cur.certificate}
-              alt={`${cur.alt} certificate`}
-              className="aw-cert-img"
-              onError={() => setCertFailed(true)}
-              style={{
-                transition: `opacity ${TRANS}, transform ${TRANS}`,
-                opacity  : fading ? 0 : 1,
-                transform: fading ? "scale(0.98)" : "scale(1)",
-              }}
-            />
-          ) : (
-            <CertPlaceholder />
-          )}
+          <div className="aw-cert-frame">
+            {!certFailed ? (
+              <img
+                key={cur.certificate}
+                src={cur.certificate}
+                alt={`${cur.alt} certificate`}
+                className="aw-cert-img"
+                onError={() => setCertFailed(true)}
+                style={{
+                  transition: `opacity ${TRANS}, transform ${TRANS}`,
+                  opacity  : fading ? 0 : 1,
+                  transform: fading ? "scale(0.96)" : "scale(1)",
+                }}
+              />
+            ) : (
+              <CertPlaceholder />
+            )}
+          </div>
           <div className="aw-vignette" />
+          <div className="aw-progress" style={{ width: `${progress}%` }} />
 
           {/* Desktop nav arrows on image */}
-          <button className="aw-arrow left"  onClick={prev} aria-label="Previous award">
+          <button className="aw-arrow left"  onClick={() => { prev(); resetTimer(); }} aria-label="Previous award">
             <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
-          <button className="aw-arrow right" onClick={next} aria-label="Next award">
+          <button className="aw-arrow right" onClick={() => { next(); resetTimer(); }} aria-label="Next award">
             <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
         </div>
@@ -595,12 +692,15 @@ export default function Awards() {
               <button
                 key={i}
                 className={`aw-dot${i === activeIndex ? " active" : ""}`}
-                onClick={() => switchTo(i)}
+                onClick={() => { switchTo(i); resetTimer(); }}
                 aria-label={`Award ${i + 1}`}
               />
             ))}
           </div>
           <div className="aw-keys">
+            <span className="aw-key">←</span>
+            <span className="aw-key">→</span>
+            Navigate
           </div>
         </div>
 
@@ -628,10 +728,10 @@ export default function Awards() {
           )}
           {/* Mobile nav arrows */}
           <div className="aw-mob-nav">
-            <button className="aw-mob-arrow" onClick={prev} aria-label="Previous award">
+            <button className="aw-mob-arrow" onClick={() => { prev(); resetTimer(); }} aria-label="Previous award">
               <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
-            <button className="aw-mob-arrow" onClick={next} aria-label="Next award">
+            <button className="aw-mob-arrow" onClick={() => { next(); resetTimer(); }} aria-label="Next award">
               <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
             </button>
           </div>
@@ -666,7 +766,7 @@ export default function Awards() {
               <button
                 key={i}
                 className={`aw-dot${i === activeIndex ? " active" : ""}`}
-                onClick={() => switchTo(i)}
+                onClick={() => { switchTo(i); resetTimer(); }}
                 aria-label={`Award ${i + 1}`}
               />
             ))}

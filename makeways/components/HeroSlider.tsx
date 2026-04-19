@@ -197,11 +197,6 @@ export default function HeroSlider() {
         onTouchEnd={onTouchEnd}
       >
         <div className={`hs__shimmer${ready ? ' hs__shimmer--gone' : ''}`} aria-hidden="true" />
-
-        <div className="hs__hint" aria-hidden="true">
-          <kbd>←</kbd><kbd>→</kbd>&nbsp; navigate &nbsp;·&nbsp; <kbd>M</kbd>&nbsp; sound
-        </div>
-
         <div className="hs__track">
           {SLIDES.map((slide, i) => {
             if (!shouldRender(i)) return null;

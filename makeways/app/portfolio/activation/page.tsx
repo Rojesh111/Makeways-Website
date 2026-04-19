@@ -18,23 +18,17 @@ const items = [
   {
     id: 3,
     title: 'JCB 220LC Launching Ceremony',
-    client: 'JCB Nepal',
-    year: '2016',
     images: '/images/activation/JCB.jpg',
   },
 
   {
     id: 5,
     title: 'Digo Paila Walkathon',
-    client: 'Nabil Bank',
-    year: '2023',
     images: '/images/activation/Nabil.jpg',
   },
   {
     id: 6,
     title: 'Hero MotoCorp × CG Motors Launch',
-    client: 'Chaudhary Group / Hero MotoCorp',
-    year: '2023',
     images: '/images/activation/Hero.jpg',
   },
 

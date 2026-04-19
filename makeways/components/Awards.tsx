@@ -445,32 +445,6 @@ export default function Awards() {
         .aw-dot:hover:not(.active) { background: rgba(0,0,0,0.4); }
         .aw-dot:focus-visible      { outline: 2px solid rgba(0,0,0,0.5); outline-offset: 2px; }
 
-        .aw-keys {
-          display        : flex;
-          align-items    : center;
-          gap            : 6px;
-          margin-top     : 16px;
-          opacity        : 0.35;
-          font-family    : var(--font-primary);
-          font-size      : 10px;
-          font-weight    : 700;
-          letter-spacing : 0.08em;
-          text-transform : uppercase;
-          color          : #000;
-          user-select    : none;
-        }
-        .aw-key {
-          display         : inline-flex;
-          align-items     : center;
-          justify-content : center;
-          width           : 20px;
-          height          : 20px;
-          border          : 1.5px solid rgba(0,0,0,0.4);
-          border-radius   : 4px;
-          font-size       : 10px;
-          line-height     : 1;
-        }
-
         /* ── MOBILE ── */
         @media (max-width: 768px) {
           .aw-root          { flex-direction: column; height: auto; min-height: unset; }
@@ -697,11 +671,7 @@ export default function Awards() {
               />
             ))}
           </div>
-          <div className="aw-keys">
-            <span className="aw-key">←</span>
-            <span className="aw-key">→</span>
-            Navigate
-          </div>
+      
         </div>
 
         {/* ══ MOBILE: 1 — Header ══ */}

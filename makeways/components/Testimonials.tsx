@@ -104,9 +104,8 @@ function EdgeArrow({ onClick, dir }: { onClick: () => void; dir: "prev" | "next"
    MAIN COMPONENT
 ───────────────────────────────────────────────────────────────── */
 export default function Testimonials() {
-  const [idx,      setIdx]      = useState(0);
-  const [phase,    setPhase]    = useState<"idle" | "out" | "in">("idle");
-  const [isPaused, setIsPaused] = useState(false);
+  const [idx,   setIdx]   = useState(0);
+  const [phase, setPhase] = useState<"idle" | "out" | "in">("idle");
 
   const pending = useRef<number>(0);
   const timers  = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -146,13 +145,6 @@ export default function Testimonials() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [idx, phase]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isPaused && phase === "idle") next();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [idx, phase, isPaused]);
 
   const animClass = phase === "out" ? "out" : phase === "in" ? "snap" : "idle";
 
@@ -447,7 +439,7 @@ export default function Testimonials() {
         .tst-mobile .tst-quote-wrap { margin-top: clamp(16px, 4vw, 24px); }
         .tst-mobile .tst-quote-text { font-size: clamp(13px, 3.6vw, 16px); }
 
-        /* ─── Dots row (no arrows here anymore) ─── */
+        /* ─── Dots row ─── */
         .tst-mobile-nav {
           display         : flex;
           align-items     : center;
@@ -486,11 +478,7 @@ export default function Testimonials() {
 
       `}</style>
 
-      <section
-        className="tst-section"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
+      <section className="tst-section">
 
         {/* ════════════════ DESKTOP ════════════════════════ */}
         <div className="tst-desktop">
@@ -602,7 +590,7 @@ export default function Testimonials() {
             </div>
           </div>
 
-          {/* Dots only — arrows moved into image */}
+          {/* Dots */}
           <div className="tst-mobile-nav">
             <div className="tst-dots">
               {DATA.map((_, i) => (

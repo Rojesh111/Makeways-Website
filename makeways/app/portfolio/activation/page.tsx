@@ -31,6 +31,16 @@ const items = [
     title: 'Hero MotoCorp × CG Motors Launch',
     images: '/images/activation/Hero.jpg',
   },
+  {
+    id: 8,
+    title: 'Yamaha FZ Street Fighter Ride Out',
+    images: '/images/activation/Yamaha.jpg',
+  },
+  {
+    id: 9,
+    title: 'Miss Nepal — Face of Fascino',
+    images: '/images/activation/fiat.jpg',
+  },
 
 ];
 

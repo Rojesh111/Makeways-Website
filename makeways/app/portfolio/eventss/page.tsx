@@ -8,19 +8,10 @@ const items = [
     title: 'Nepal Super League 2023',
     images: '/images/activation/NSL.jpg',
   },
-  {
-    id: 2,
-    title: 'Yamaha FZ Street Fighter Ride Out',
-    images: '/images/activation/Yamaha.jpg',
-  },
-
+  
   {
     id: 4,
     title: 'Yamaha Dealers Meet — Malaysia',
-    /*
-      If the actual file on disk is "Yamaha 2.jpg", use the encoded form.
-      If it's "Yamaha2.jpg" (no space), remove the %20.
-    */
     images: '/images/activation/Yamaha%202.jpg',
   },
 
@@ -29,11 +20,7 @@ const items = [
     title: 'VR Holdings × LET Aircraft & Etihad Media Trip',
     images: '/images/activation/Eithad.jpg',
   },
-  {
-    id: 8,
-    title: 'Miss Nepal — Face of Fascino',
-    images: '/images/activation/fiat.jpg',
-  },
+  
 
   {
     id: 7,

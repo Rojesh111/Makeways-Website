@@ -13,7 +13,6 @@ type Slide = ImageSlide | VideoSlide;
 const SLIDES: Slide[] = [
   { type: 'video', src: '/Videos/neta2.mp4', alt: 'MAKEWAYS Showreel', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
   { type: 'video', src: '/Videos/nbank.mp4', alt: 'Nabilbank – MAKEWAYS', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
-  { type: 'video', src: '/Videos/PROVISA_TVC_4K.mp4', alt: 'MAKEWAYS Showreel', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
   { type: 'video', src: '/Videos/hulas.mp4', alt: 'Hulas – MAKEWAYS', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
   { type: 'video', src: '/Videos/hulas2.mp4', alt: 'Hulas – MAKEWAYS', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
   { type: 'video', src: '/Videos/padelux.mp4', alt: 'Padelux – MAKEWAYS', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },

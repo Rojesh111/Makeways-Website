@@ -10,7 +10,7 @@ import Footer from '@/components/Footer';
     'EurostileExt'  — GALLERY display title
     'EurostileCnd'  — eyebrow label, countbar tag, lightbox cat badge,
                       cell hover meta, lightbox placeholder label
-    'Eurostile'     — hero subtitle, lightbox title/year, cell hover title
+    'Eurostile'     — hero subtitle, lightbox title, cell hover title
 
   NO @import Google Fonts — fonts declared once in globals.css.
   NO 'Barlow' anywhere — removed entirely.
@@ -27,30 +27,28 @@ interface GalleryItem {
   id       : number;
   title    : string;
   category : string;
-  year     : string;
   isVideo? : boolean;
   src?     : string;
 }
 
 const galleryItems: GalleryItem[] = [
-  { id: 1,  title: 'Brand Film',          category: 'TVC',     year: '2024', isVideo: true,  src: '/Videos/suzuki.mp4#t=1' },
-  { id: 2,  title: 'Gold Award Win',       category: 'AWARDS',  year: '2023',                 src: '/images/awards/award2.jpg' },
-  { id: 3,  title: 'Campaign Visual',      category: 'PRINT',   year: '2024',                 src: '/images/portfolio/static/goldstar.jpg' },
-  { id: 4,  title: 'Social Campaign',      category: 'DIGITAL', year: '2024', isVideo: true,  src: '/Videos/yamaha.mp4#t=1' },
-  { id: 5,  title: 'Brand Activation',     category: 'EVENT',   year: '2023',                 src: '/images/portfolio/static/padelux.jpg' },
-  { id: 6,  title: 'Product TVC',          category: 'TVC',     year: '2024', isVideo: true,  src: '/Videos/padelux.mp4#t=1' },
-  { id: 7,  title: 'OOH Billboard',        category: 'PRINT',   year: '2023',                 src: '/images/portfolio/static/yamaha.jpg' },
-  { id: 8,  title: 'Influencer Series',    category: 'DIGITAL', year: '2024', isVideo: true,  src: '/Videos/neta.mp4#t=1' },
-  { id: 9,  title: 'Live Event Coverage',  category: 'EVENT',   year: '2023',                 src: '/images/activation/JCB.jpg' },
-  { id: 10, title: 'Best Agency Nepal',    category: 'AWARDS',  year: '2022',                 src: '/images/awards/Awards 1.jpg' },
-  { id: 11, title: 'Jingle Campaign',      category: 'TVC',     year: '2023', isVideo: true,  src: '/Videos/hulas.mp4#t=1' },
-  { id: 12, title: 'Magazine Spread',      category: 'PRINT',   year: '2024',                 src: '/images/activation/Yamaha.jpg' },
-  { id: 13, title: 'Motion Graphics',      category: 'DIGITAL', year: '2024', isVideo: true,  src: '/Videos/nbank.mp4#t=1' },
-  { id: 14, title: 'Product Launch',       category: 'EVENT',   year: '2023',                 src: '/images/portfolio/static/himalayan reserve.jpg' },
-  { id: 15, title: 'Creative Excellence',  category: 'AWARDS',  year: '2023',                 src: '/images/awards/Awards 8.jpg' },
-  { id: 16, title: 'Festive Campaign',     category: 'TVC',     year: '2023', isVideo: true,  src: '/Videos/super.mp4#t=1' },
-  { id: 17, title: 'Newspaper Campaign',   category: 'PRINT',   year: '2024',                 src: '/images/portfolio/static/fiat1.jpg' },
-  { id: 18, title: 'Viral Social Post',    category: 'DIGITAL', year: '2024', isVideo: true,  src: '/Videos/hulas2.mp4#t=1' },
+  { id: 1,  title: 'Brand Film',          category: 'TVC',     isVideo: true,  src: '/Videos/suzuki.mp4#t=1' },
+  { id: 2,  title: 'Gold Award Win',       category: 'AWARDS',                  src: '/images/awards/award2.jpg' },
+  { id: 3,  title: 'Campaign Visual',      category: 'PRINT',                   src: '/images/portfolio/static/goldstar.jpg' },
+  { id: 4,  title: 'Social Campaign',      category: 'DIGITAL', isVideo: true,  src: '/Videos/yamaha.mp4#t=1' },
+  { id: 5,  title: 'Brand Activation',     category: 'EVENT',                   src: '/images/portfolio/static/padelux.jpg' },
+  { id: 6,  title: 'Product TVC',          category: 'TVC',     isVideo: true,  src: '/Videos/padelux.mp4#t=1' },
+  { id: 7,  title: 'OOH Billboard',        category: 'PRINT',                   src: '/images/portfolio/static/yamaha.jpg' },
+  { id: 8,  title: 'Influencer Series',    category: 'DIGITAL', isVideo: true,  src: '/Videos/neta.mp4#t=1' },
+  { id: 9,  title: 'Live Event Coverage',  category: 'EVENT',                   src: '/images/activation/JCB.jpg' },
+  { id: 10, title: 'Best Agency Nepal',    category: 'AWARDS',                  src: '/images/awards/Awards 1.jpg' },
+  { id: 11, title: 'Jingle Campaign',      category: 'TVC',                     src: '/images/activation/Yamaha.jpg' },
+  { id: 12, title: 'Motion Graphics',      category: 'DIGITAL', isVideo: true,  src: '/Videos/nbank.mp4#t=1' },
+  { id: 13, title: 'Product Launch',       category: 'EVENT',                   src: '/images/portfolio/static/himalayan reserve.jpg' },
+  { id: 14, title: 'Creative Excellence',  category: 'AWARDS',                  src: '/images/awards/Awards 8.jpg' },
+  { id: 15, title: 'Festive Campaign',     category: 'TVC',     isVideo: true,  src: '/Videos/super.mp4#t=1' },
+  { id: 16, title: 'Newspaper Campaign',   category: 'PRINT',                   src: '/images/portfolio/static/fiat1.jpg' },
+  { id: 17, title: 'Viral Social Post',    category: 'DIGITAL', isVideo: true,  src: '/Videos/hulas2.mp4#t=1' },
 ];
 
 // ─── Lightbox ─────────────────────────────────────────────────────────────────
@@ -121,7 +119,6 @@ function Lightbox({
         <div className="lb__caption">
           <span className="lb__cat">{item.category}</span>
           <h3 className="lb__title">{item.title}</h3>
-          <span className="lb__year">{item.year}</span>
         </div>
       </div>
 
@@ -210,13 +207,6 @@ function Lightbox({
           flex          : 1; margin: 0;
         }
 
-        .lb__year {
-          font-family   : var(--font-primary);
-          font-size     : 10px; font-weight: 400;
-          color         : #999; letter-spacing: 0.06em;
-          flex-shrink   : 0;
-        }
-
         @media (max-width: 600px) {
           .lb__arrow   { width: 36px; height: 36px; }
           .lb__caption { padding: 14px 16px; gap: 10px; }
@@ -280,7 +270,7 @@ function GridCell({ item, onClick }: { item: GalleryItem; onClick: () => void })
 
       <div className={`cell__ov${hov ? ' cell__ov--on' : ''}`}>
         <span className="cell__ov-title">{item.title}</span>
-        <span className="cell__ov-meta">{item.category} · {item.year}</span>
+        <span className="cell__ov-meta">{item.category}</span>
       </div>
 
       <style jsx>{`

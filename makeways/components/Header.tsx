@@ -73,7 +73,7 @@ function getActiveLabel(pathname: string): NavLabel | null {
   return null;
 }
 
-export default function Header() {
+function HeaderContent() {
   const pathname    = usePathname();
   const searchParams = useSearchParams();
   const activeLabel = getActiveLabel(pathname);
@@ -216,5 +216,13 @@ export default function Header() {
         />
       )}
     </>
+  );
+}
+
+export default function Header() {
+  return (
+    <React.Suspense fallback={null}>
+      <HeaderContent />
+    </React.Suspense>
   );
 }

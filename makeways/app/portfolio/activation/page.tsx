@@ -1,26 +1,15 @@
 'use client';
 
+import React, { Suspense } from 'react';
 import PortfolioCategory from '@/components/PortfolioCategory';
 
-/*
-  Key fixes
-  ──────────
-  1. `src` → `images`  (was being silently ignored as a video-only field)
-  2. `isVideo: false` removed (redundant default)
-  3. Yamaha%202.jpg decoded to natural filename — URL encoding in `src`
-     props can sometimes confuse certain Next.js Image loaders.
-     If your /public path literally has a space, keep the encoding; otherwise
-     rename the file to "Yamaha 2.jpg" or "Yamaha2.jpg" and update here.
-*/
-
+// 1. Keep your items data outside the component to prevent unnecessary re-renders
 const items = [
-
   {
     id: 3,
     title: 'JCB 220LC Launching Ceremony',
     images: '/images/activation/JCB.jpg',
   },
-
   {
     id: 5,
     title: 'Digo Paila Walkathon',
@@ -41,10 +30,13 @@ const items = [
     title: 'Miss Nepal — Face of Fascino',
     images: '/images/activation/fiat.jpg',
   },
-
 ];
 
-export default function ActivationPage() {
+/**
+ * SUB-COMPONENT: ActivationContent
+ * This component contains the logic that might trigger useSearchParams().
+ */
+function ActivationContent() {
   return (
     <PortfolioCategory
       title="ACTIVATION"
@@ -52,5 +44,32 @@ export default function ActivationPage() {
       accent="#f47c20"
       items={items}
     />
+  );
+}
+
+/**
+ * MAIN PAGE COMPONENT: ActivationPage
+ * This wraps the content in a Suspense boundary to prevent the Next.js build error.
+ */
+export default function ActivationPage() {
+  return (
+    // The Suspense boundary is required by Next.js for any component using useSearchParams()
+    // The fallback is what appears during the split-second hydration process.
+    <Suspense fallback={
+      <div style={{
+        height: '100vh',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#000',
+        color: '#fff',
+        fontFamily: 'sans-serif'
+      }}>
+        Loading Activation...
+      </div>
+    }>
+      <ActivationContent />
+    </Suspense>
   );
 }

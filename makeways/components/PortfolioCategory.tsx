@@ -646,7 +646,7 @@ export default function PortfolioCategory({
       <main className="page">
         <section className="hero" style={{ '--accent': accent } as React.CSSProperties}>
           <div className="hero__in">
-            <button onClick={() => router.back()} className="hero__back">
+            <button onClick={() => router.push('/#portfolio')} className="hero__back">
               <IconChevL size={14} />
               PORTFOLIO
             </button>

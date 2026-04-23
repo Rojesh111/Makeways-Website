@@ -35,8 +35,9 @@ const MAP_URLS = {
 function SocialBtn({ name, Icon, url }: { name: string; Icon: () => JSX.Element; url: string }) {
   const [hov, setHov] = useState(false);
   return (
-    <a href={url} aria-label={name} className={`sb${hov ? ' hov' : ''}`}
-      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
+      <a href={url} aria-label={name} className={`sb${hov ? ' hov' : ''}`}
+        target="_blank" rel="noopener noreferrer"
+        onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
       <Icon />
       <style jsx>{`
         .sb {

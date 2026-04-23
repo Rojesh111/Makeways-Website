@@ -103,6 +103,37 @@ function AudioCard({
   const [loaded, setLoaded] = useState(false);
   const bars = useRef(generateBars(item.title, 48)).current;
 
+  // ── FIX: reliable duration detection ──────────────────────────────────────
+  // Tries to get duration as early as possible using multiple strategies:
+  // 1. readyState check on mount (covers cached/already-loaded files)
+  // 2. durationchange event (fires whenever duration becomes known)
+  // 3. loadedmetadata event (standard fallback)
+  const trySetDuration = (audio: HTMLAudioElement) => {
+    if (audio.duration && isFinite(audio.duration) && audio.duration > 0) {
+      setDuration(audio.duration);
+      setLoaded(true);
+    }
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    // Strategy 1: metadata may already be available (cached files)
+    if (audio.readyState >= 1) {
+      trySetDuration(audio);
+    }
+
+    // Strategy 2: durationchange fires any time duration becomes known
+    const handleDurationChange = () => trySetDuration(audio);
+    audio.addEventListener('durationchange', handleDurationChange);
+
+    return () => {
+      audio.removeEventListener('durationchange', handleDurationChange);
+    };
+  }, []);
+  // ── END FIX ───────────────────────────────────────────────────────────────
+
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -120,10 +151,7 @@ function AudioCard({
 
   const handleLoadedMetadata = () => {
     const audio = audioRef.current;
-    if (audio) {
-      setDuration(audio.duration);
-      setLoaded(true);
-    }
+    if (audio) trySetDuration(audio);
   };
 
   const handleEnded = () => {
@@ -151,6 +179,7 @@ function AudioCard({
         preload="metadata"
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
+        onDurationChange={handleLoadedMetadata}
         onEnded={handleEnded}
       />
 

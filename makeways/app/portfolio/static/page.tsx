@@ -61,6 +61,7 @@ const items = [
     id     : 7,
     title  : 'Fiat Nepal',
     images : [
+      '/images/portfolio/static/fiat.webp',
       '/images/portfolio/static/fiat1.webp',
     ],
   },

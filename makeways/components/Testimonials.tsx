@@ -19,42 +19,42 @@ const DATA: Testimonial[] = [
     name: "NIRVANA CHAUDHARY",
     role: "MD - CHAUDHARY GROUP",
     quote: "Our association with Makeways goes beyond a typical client - agency relationship. Their strategic thinking and creativity make them one of the finest agencies in Nepal and my first choice.",
-    image: "/images/testimonial/NIRVANACHAUDHARY.png",
+    image: "/images/testimonial/NIRVANACHAUDHARY.webp",
   },
   {
     id: 2,
     name: "HIMANSHU GOLCHA",
     role: "EXECUTIVE DIRECTOR - HULAS STEEL",
     quote: "Our experience working with Makeways has been extremely rewarding. What I appreciate about Makeways is their ability to combine creativity with results-driven campaigns.",
-    image: "/images/testimonial/HIMANSHUGOLCHA.png",
+    image: "/images/testimonial/HIMANSHUGOLCHA.webp",
   },
   {
     id: 3,
     name: "MALVIKA SUBBA",
     role: "MISS NEPAL / MEDIA PERSON",
     quote: "Working with Makeways has been a smooth and collaborative experience. They are attentive to detail, responsive to feedback, and committed to delivering top-notch event solutions.",
-    image: "/images/testimonial/MalvikaSubba.png",
+    image: "/images/testimonial/MalvikaSubba.webp",
   },
   {
     id: 4,
     name: "BHUSAN DAHAL",
     role: "MEDIA LEADER",
     quote: "What I admire about Makeways is their storytelling approach. Their campaigns are not just visually appealing but also culturally relevant and emotionally engaging.",
-    image: "/images/testimonial/BHUSANDAHAL.png",
+    image: "/images/testimonial/BHUSANDAHAL.webp",
   },
   {
     id: 5,
     name: "SUDIP THAPA",
     role: "PRESIDENT - ADVERTISING ASSOCIATION OF NEPAL",
     quote: "Over the years, I have observed many campaigns from Makeways that have contributed positively to Nepal's advertising standards. Their work is thoughtful, well-executed, and impactful.",
-    image: "/images/testimonial/SUDIPTHAPA.png",
+    image: "/images/testimonial/SUDIPTHAPA.webp",
   },
   {
     id: 6,
     name: "IRAJ SHRESTHA",
     role: "SALES & MARKETING HEAD - GOLDSTAR SHOES",
     quote: "Makeways stands out because they approach branding with clarity and purpose. Their ideas are not only creative but also aligned with long-term brand positioning.",
-    image: "/images/testimonial/IRAJSHRESTHA.png",
+    image: "/images/testimonial/IRAJSHRESTHA.webp",
   },
 ];
 
@@ -530,6 +530,7 @@ export default function Testimonials() {
                   key={item.id}
                   src={item.image}
                   alt={item.name}
+                  loading={i === 0 ? "eager" : "lazy"}
                   className={`tst-photo${i === idx ? " tst-photo--active" : ""}`}
                 />
               ))}
@@ -574,6 +575,7 @@ export default function Testimonials() {
                   key={item.id}
                   src={item.image}
                   alt={item.name}
+                  loading={i === 0 ? "eager" : "lazy"}
                   className={`tst-photo${i === idx ? " tst-photo--active" : ""}`}
                 />
               ))}

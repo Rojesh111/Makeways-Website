@@ -138,7 +138,7 @@ function HeaderContent() {
         <div className={styles.headerInner}>
           <Link href="/" className={styles.logoLink} aria-label="MAKEWAYS — go to home">
             <Image
-              src="/images/Logo/logo.png"
+              src="/images/Logo/logo.webp"
               alt="MAKEWAYS Logo"
               width={190}
               height={60}

@@ -8,27 +8,27 @@ const items = [
   {
     id: 3,
     title: 'JCB 220LC Launching Ceremony',
-    images: '/images/activation/JCB.jpg',
+    images: '/images/activation/JCB.webp',
   },
   {
     id: 5,
     title: 'Digo Paila Walkathon',
-    images: '/images/activation/Nabil.jpg',
+    images: '/images/activation/Nabil.webp',
   },
   {
     id: 6,
     title: 'Hero MotoCorp × CG Motors Launch',
-    images: '/images/activation/Hero.jpg',
+    images: '/images/activation/Hero.webp',
   },
   {
     id: 8,
     title: 'Yamaha FZ Street Fighter Ride Out',
-    images: '/images/activation/Yamaha.jpg',
+    images: '/images/activation/Yamaha.webp',
   },
   {
     id: 9,
     title: 'Miss Nepal — Face of Fascino',
-    images: '/images/activation/fiat.jpg',
+    images: '/images/activation/fiat.webp',
   },
 ];
 

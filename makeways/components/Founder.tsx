@@ -7,7 +7,7 @@ export default function Founder() {
         <h1 className="founder-title">FOUNDER</h1>
 
         <div className="founder-photo">
-          <img src="/images/team/BIDHAN.png" alt="Bidhan Rajbhandari" />
+          <img src="/images/team/BIDHAN.webp" alt="Bidhan Rajbhandari" />
         </div>
 
         <div className="founder-info">

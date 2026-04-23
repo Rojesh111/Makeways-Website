@@ -6,17 +6,17 @@ const CRITY_DESC = "Makeways Ad Agency won 19 awards out of 24 nominations at th
 const AAN_DESC = "We are proud and humbled to be the first-ever recipients of the 'Aan Samman' — an honour presented by the Advertising Association of Nepal for Creative Excellence and for setting new milestones in the advertising industry. It was a privilege to share the stage with some of the biggest names in the industry — CocaCola, Ncell, CG, Dabur, JGI, NIC Asia, and more. We Makeways.";
 
 const awards = [
-  { id: 1,  certificate: "/images/awards/award2.jpg",          name: "12th Crity Awards", desc: CRITY_DESC },
-  { id: 2,  certificate: "/images/awards/Awards 8.jpg",        name: "12th Crity Awards", desc: CRITY_DESC },
-  { id: 3,  certificate: "/images/awards/Awards 9.jpg",        name: "12th Crity Awards", desc: CRITY_DESC },
-  { id: 4,  certificate: "/images/awards/Awards_4.jpg",        name: "12th Crity Awards", desc: CRITY_DESC },
-  { id: 5,  certificate: "/images/awards/Awards 5.jpg",        name: "12th Crity Awards", desc: CRITY_DESC },
-  { id: 6,  certificate: "/images/awards/Awards 10.jpg",       name: "12th Crity Awards", desc: CRITY_DESC },
-  { id: 7,  certificate: "/images/awards/Awards_Critty 2.jpg", name: "12th Crity Awards", desc: CRITY_DESC },
-  { id: 8,  certificate: "/images/awards/Awards_Critty3.jpg",  name: "12th Crity Awards", desc: CRITY_DESC },
-  { id: 9,  certificate: "/images/awards/Awards 1.jpg",        name: "Aan Samman — AAN",  desc: AAN_DESC },
-  { id: 10, certificate: "/images/awards/Awards_BRB.jpg",      name: "Aan Samman — AAN",  desc: AAN_DESC },
-  { id: 11, certificate: "/images/awards/Award_ANN.jpg",       name: "Aan Samman — AAN",  desc: AAN_DESC },
+  { id: 1,  certificate: "/images/awards/award2.webp",          name: "12th Crity Awards", desc: CRITY_DESC },
+  { id: 2,  certificate: "/images/awards/Awards 8.webp",        name: "12th Crity Awards", desc: CRITY_DESC },
+  { id: 3,  certificate: "/images/awards/Awards 9.webp",        name: "12th Crity Awards", desc: CRITY_DESC },
+  { id: 4,  certificate: "/images/awards/Awards_4.webp",        name: "12th Crity Awards", desc: CRITY_DESC },
+  { id: 5,  certificate: "/images/awards/Awards 5.webp",        name: "12th Crity Awards", desc: CRITY_DESC },
+  { id: 6,  certificate: "/images/awards/Awards 10.webp",       name: "12th Crity Awards", desc: CRITY_DESC },
+  { id: 7,  certificate: "/images/awards/Awards_Critty 2.webp", name: "12th Crity Awards", desc: CRITY_DESC },
+  { id: 8,  certificate: "/images/awards/Awards_Critty3.webp",  name: "12th Crity Awards", desc: CRITY_DESC },
+  { id: 9,  certificate: "/images/awards/Awards 1.webp",        name: "Aan Samman — AAN",  desc: AAN_DESC },
+  { id: 10, certificate: "/images/awards/Awards_BRB.webp",      name: "Aan Samman — AAN",  desc: AAN_DESC },
+  { id: 11, certificate: "/images/awards/Award_ANN.webp",       name: "Aan Samman — AAN",  desc: AAN_DESC },
 ];
 
 const TRANS = "0.4s cubic-bezier(0.4,0,0.2,1)";

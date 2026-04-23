@@ -11,26 +11,30 @@ interface GalleryItem {
   category: string;
   isVideo?: boolean;
   src?: string;
+  ytId?: string; // YouTube video ID for video items
 }
 
+const ytThumb = (id: string) => `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+const ytEmbed = (id: string) => `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+
 const galleryItems: GalleryItem[] = [
-  { id: 1, title: 'Brand Film', category: 'TVC', isVideo: true, src: '/Videos/suzuki.mp4#t=1' },
+  { id: 1, title: 'Brand Film', category: 'TVC', isVideo: true, ytId: 'q5KYvPgPk6U' },
   { id: 2, title: 'Gold Award Win', category: 'AWARDS', src: '/images/awards/award2.jpg' },
   { id: 3, title: 'Campaign Visual', category: 'PRINT', src: '/images/portfolio/static/goldstar.jpg' },
-  { id: 4, title: 'Social Campaign', category: 'DIGITAL', isVideo: true, src: '/Videos/yamaha.mp4#t=1' },
+  { id: 4, title: 'Social Campaign', category: 'DIGITAL', isVideo: true, ytId: 'X9ODmfPV8G4' },
   { id: 5, title: 'Brand Activation', category: 'EVENT', src: '/images/portfolio/static/padelux.jpg' },
-  { id: 6, title: 'Product TVC', category: 'TVC', isVideo: true, src: '/Videos/padelux.mp4#t=1' },
+  { id: 6, title: 'Product TVC', category: 'TVC', isVideo: true, ytId: 'e8tvp4WzUiw' },
   { id: 7, title: 'OOH Billboard', category: 'PRINT', src: '/images/portfolio/static/yamaha.jpg' },
-  { id: 8, title: 'Influencer Series', category: 'DIGITAL', isVideo: true, src: '/Videos/neta.mp4#t=1' },
+  { id: 8, title: 'Influencer Series', category: 'DIGITAL', isVideo: true, ytId: '49f6uU2f9Ks' },
   { id: 9, title: 'Live Event Coverage', category: 'EVENT', src: '/images/activation/JCB.jpg' },
   { id: 10, title: 'Best Agency Nepal', category: 'AWARDS', src: '/images/awards/Awards 1.jpg' },
   { id: 11, title: 'Jingle Campaign', category: 'TVC', src: '/images/activation/Yamaha.jpg' },
-  { id: 12, title: 'Motion Graphics', category: 'DIGITAL', isVideo: true, src: '/Videos/nbank.mp4#t=1' },
+  { id: 12, title: 'Motion Graphics', category: 'DIGITAL', isVideo: true, ytId: 'WSdtEuZ9QsE' },
   { id: 13, title: 'Product Launch', category: 'EVENT', src: '/images/portfolio/static/himalayan reserve.jpg' },
   { id: 14, title: 'Creative Excellence', category: 'AWARDS', src: '/images/awards/Awards 8.jpg' },
-  { id: 15, title: 'Festive Campaign', category: 'TVC', isVideo: true, src: '/Videos/super.mp4#t=1' },
+  { id: 15, title: 'Festive Campaign', category: 'TVC', isVideo: true, ytId: 'b6OR_L1tSr8' },
   { id: 16, title: 'Newspaper Campaign', category: 'PRINT', src: '/images/portfolio/static/fiat1.jpg' },
-  { id: 17, title: 'Viral Social Post', category: 'DIGITAL', isVideo: true, src: '/Videos/hulas2.mp4#t=1' },
+  { id: 17, title: 'Viral Social Post', category: 'DIGITAL', isVideo: true, ytId: 'KaOppBbAPwc' },
 ];
 
 function Lightbox({ item, onClose, onPrev, onNext }: {
@@ -50,12 +54,17 @@ function Lightbox({ item, onClose, onPrev, onNext }: {
           </svg>
         </button>
         <div className="lb__media">
-          {item.src ? (
-            item.isVideo ? (
-              <video src={item.src} controls style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#000' }} />
-            ) : (
-              <Image src={item.src} alt={item.title} fill sizes="(max-width: 860px) 100vw, 860px" style={{ objectFit: 'contain' }} priority />
-            )
+          {/* ── YouTube embed ── */}
+          {item.isVideo && item.ytId ? (
+            <iframe
+              src={ytEmbed(item.ytId)}
+              allow="autoplay; fullscreen"
+              allowFullScreen
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
+              title={item.title}
+            />
+          ) : item.src ? (
+            <Image src={item.src} alt={item.title} fill sizes="(max-width: 860px) 100vw, 860px" style={{ objectFit: 'contain' }} priority />
           ) : (
             <div className="lb__ph">
               {item.isVideo ? (
@@ -88,7 +97,7 @@ function Lightbox({ item, onClose, onPrev, onNext }: {
         .lb__arrow:hover{background:#FF8C00}
         .lb__arrow--prev{left:16px}
         .lb__arrow--next{right:16px}
-        .lb__media{position:relative;width:100%;aspect-ratio:16/9;background:#f0f0f0;overflow:hidden}
+        .lb__media{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden}
         .lb__ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#bbb;font-family:var(--font-condensed);font-size:9px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase}
         .lb__caption{padding:18px 24px;display:flex;align-items:center;gap:16px;border-top:3px solid #FF8C00;background:#fff}
         .lb__cat{font-family:var(--font-condensed);font-size:9px;font-weight:700;letter-spacing:0.12em;color:#fff;background:#f47c20;padding:4px 10px;text-transform:uppercase;flex-shrink:0;white-space:nowrap}
@@ -99,18 +108,24 @@ function Lightbox({ item, onClose, onPrev, onNext }: {
   );
 }
 
-function GridCell({ item, onClick }: { item: GalleryItem; onClick: () => void }) {
+function GridCell({ item, index, onClick }: { item: GalleryItem; index: number; onClick: () => void }) {
   const [hov, setHov] = useState(false);
+
+  // Thumbnail source: YouTube thumb for video items, src for images, null for placeholders
+  const thumbSrc = item.isVideo && item.ytId ? ytThumb(item.ytId) : item.src ?? null;
+
   return (
     <div className="cell" onClick={onClick} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
-      {item.src && (
-        item.isVideo ? (
-          <video src={item.src} muted playsInline className="cell__media" />
-        ) : (
-          <Image src={item.src} alt={item.title} fill sizes="(max-width: 480px) 50vw, (max-width: 935px) 33vw, 311px" style={{ objectFit: 'cover' }} />
-        )
-      )}
-      {!item.src && (
+      {thumbSrc ? (
+        <Image
+          src={thumbSrc}
+          alt={item.title}
+          fill
+          sizes="(max-width: 480px) 50vw, (max-width: 935px) 33vw, 311px"
+          style={{ objectFit: 'cover' }}
+          loading={index < 6 ? 'eager' : 'lazy'}
+        />
+      ) : (
         <div className="cell__ph">
           {item.isVideo
             ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccc" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3" /></svg>
@@ -129,7 +144,6 @@ function GridCell({ item, onClick }: { item: GalleryItem; onClick: () => void })
       </div>
       <style jsx>{`
         .cell{position:relative;aspect-ratio:1/1;background:#f5f5f5;cursor:pointer;overflow:hidden}
-        .cell__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
         .cell__ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#f0f0f0}
         .cell__video-badge{position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.55);width:28px;height:28px;display:flex;align-items:center;justify-content:center;z-index:1}
         .cell__ov{position:absolute;inset:0;background:rgba(0,0,0,0.72);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:16px;opacity:0;transition:opacity .22s ease;z-index:2}
@@ -166,7 +180,7 @@ function GalleryInner() {
         </div>
         <div className="grid">
           {galleryItems.map((item, index) => (
-            <GridCell key={item.id} item={item} onClick={() => openItem(index)} />
+            <GridCell key={item.id} item={item} index={index} onClick={() => openItem(index)} />
           ))}
         </div>
       </main>

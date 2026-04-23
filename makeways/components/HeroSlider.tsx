@@ -18,7 +18,7 @@ const SLIDES: Slide[] = [
   { type: 'video', src: '/Videos/padelux.mp4', alt: 'Padelux – MAKEWAYS', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
   { type: 'video', src: '/Videos/neta.mp4', alt: 'Neta EV – MAKEWAYS', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
   { type: 'video', src: '/Videos/super.mp4', alt: 'NSL League – MAKEWAYS', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
-  { type: 'video', src: '/Videos/NETA_U_Timeline.mp4', alt: 'MAKEWAYS Showreel', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
+  { type: 'video', src: '/Videos/NETA_V_The Pure EV.mp4', alt: 'MAKEWAYS Showreel', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
   { type: 'video', src: '/Videos/suzuki.mp4', alt: 'Suzuki – MAKEWAYS', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
   { type: 'video', src: '/Videos/yamaha.mp4', alt: 'Yamaha – MAKEWAYS', bg: '#0a0a0a', caption: { eyebrow: '', headline: '', sub: '' } },
 ];

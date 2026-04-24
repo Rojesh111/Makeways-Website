@@ -6,43 +6,42 @@ interface Service {
   id: number;
   title: string;
   description: string;
-  details: string[];
   row: number;
 }
 
 const services: Service[] = [
-  { id: 1, title: 'Integrated Campaign',  description: 'Seamless brand storytelling across every channel — TV, digital, print, and beyond unified under one powerful strategy',       details: ['Multi-channel planning', 'Unified brand messaging', 'Cross-platform execution', 'Campaign ROI tracking'],       row: 1 },
-  { id: 2, title: 'Brand Strategy',       description: 'We define who you are, what you stand for, and how the world sees you turning brand into competitive advantage',             details: ['Brand identity & positioning', 'Market & competitor analysis', 'Brand architecture', 'Tone of voice'],          row: 1 },
-  { id: 3, title: 'A/V Productions',      description: 'Cinematic quality video and audio content that commands attention and moves audiences to action',                              details: ['TVC & commercial production', 'Corporate & documentary video', 'Post-production & editing', 'Sound design'],    row: 1 },
-  { id: 4, title: 'Events & Activations', description: 'Live brand experiences that create genuine emotional connections and lasting memories with your audience',                     details: ['Brand activation events', 'Product launches', 'Experiential marketing', 'End-to-end production'],               row: 1 },
-  { id: 5, title: 'Digital Marketing',    description: 'Data-driven digital strategies that grow your presence, engage your audience, and convert at scale',                           details: ['Social media management', 'SEO & paid media', 'Content strategy', 'Analytics & reporting'],                   row: 2 },
-  { id: 6, title: 'Influencer Campaign',  description: "Authentic creator partnerships that extend your brand's reach and build trust through genuine voices",                         details: ['Influencer identification', 'Campaign strategy', 'Content collaboration', 'Performance measurement'],           row: 2 },
-  { id: 7, title: 'Media Release',        description: 'Strategic PR and media buying that keeps your brand prominent, credible, and in the conversation',                             details: ['Press release writing', 'Media buying & planning', 'PR strategy', 'Crisis communications'],                   row: 2 },
-  { id: 8, title: 'Design & Fabrication', description: 'Bold visual craft from concept to physical production that makes your brand impossible to ignore',                         details: ['Graphic & print design', 'Exhibition & booth design', 'Signage & wayfinding', 'Physical fabrication'],        row: 2 },
-  { id: 9, title: 'OOH',                  description: 'Out-of-home advertising at scale billboards, transit, and digital screens that dominate the landscape',                      details: ['Billboard & transit ads', 'DOOH strategy', 'Site selection & booking', 'Creative adaptation'],                row: 2 },
+  { id: 1, title: 'Integrated Campaign', description: 'Seamless brand storytelling across every channel — TV, digital, print, and beyond unified under one powerful strategy', row: 1 },
+  { id: 2, title: 'Brand Strategy', description: 'We define who you are, what you stand for, and how the world sees you turning brand into competitive advantage', row: 1 },
+  { id: 3, title: 'A/V Productions', description: 'Cinematic quality video and audio content that commands attention and moves audiences to action', row: 1 },
+  { id: 4, title: 'Events & Activations', description: 'Live brand experiences that create genuine emotional connections and lasting memories with your audience', row: 1 },
+  { id: 5, title: 'Digital Marketing', description: 'Data-driven digital strategies that grow your presence, engage your audience, and convert at scale', row: 2 },
+  { id: 6, title: 'Influencer Campaign', description: "Authentic creator partnerships that extend your brand's reach and build trust through genuine voices", row: 2 },
+  { id: 7, title: 'Media Release', description: 'Strategic PR and media buying that keeps your brand prominent, credible, and in the conversation', row: 2 },
+  { id: 8, title: 'Design & Fabrication', description: 'Bold visual craft from concept to physical production that makes your brand impossible to ignore', row: 2 },
+  { id: 9, title: 'OOH', description: 'Out-of-home advertising at scale billboards, transit, and digital screens that dominate the landscape', row: 2 },
 ];
 
 const icons: Record<number, React.ReactNode> = {
-  1: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>,
-  2: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>,
-  3: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>,
-  4: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
-  5: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>,
-  6: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>,
-  7: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
-  8: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>,
-  9: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>,
+  1: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" /></svg>,
+  2: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg>,
+  3: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7" /><rect x="1" y="5" width="15" height="14" rx="2" /></svg>,
+  4: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></svg>,
+  5: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg>,
+  6: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg>,
+  7: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>,
+  8: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>,
+  9: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="1" /><path d="M16 8h4l3 3v5h-7V8z" /><circle cx="5.5" cy="18.5" r="2.5" /><circle cx="18.5" cy="18.5" r="2.5" /></svg>,
 };
 
 export default function Services() {
   const [isMobile, setIsMobile] = useState(false);
   const [activeId, setActiveId] = useState<number | null>(null);
-  const [openId,   setOpenId]   = useState<number | null>(null);
-  const sectionRef              = useRef<HTMLElement>(null);
+  const [openId, setOpenId] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const active = services.find(s => s.id === activeId) ?? null;
-  const row1   = services.filter(s => s.row === 1);
-  const row2   = services.filter(s => s.row === 2);
+  const row1 = services.filter(s => s.row === 1);
+  const row2 = services.filter(s => s.row === 2);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -92,15 +91,6 @@ export default function Services() {
                       <h3 className="mob-sheet__title">{s.title}</h3>
                       {/* Body: Eurostile 400 · 16px · lh 1.6 · ls 0.01em */}
                       <p className="mob-sheet__desc">{s.description}</p>
-                      <div className="mob-sheet__rule" aria-hidden="true" />
-                      <ul className="mob-sheet__list">
-                        {s.details.map((d, i) => (
-                          <li key={i}>
-                            <span className="mob-sheet__dot" aria-hidden="true" />
-                            <span>{d}</span>
-                          </li>
-                        ))}
-                      </ul>
                     </div>
                   )}
                 </div>
@@ -195,8 +185,6 @@ export default function Services() {
         }
         .svc__heading--fade { color: #9a9a9a; }
 
-
-
         /* ── Desktop layout ── */
         .svc-wrap { display: flex; flex-direction: column; align-items: center; }
         .svc-row  { display: flex; max-width: 960px; width: 100%; padding: 4px 0 24px; }
@@ -278,17 +266,17 @@ export default function Services() {
         .svc-strip--on { height: 120px; opacity: 1; margin-bottom: 32px; }
 
         .strip {
-          display               : grid;
-          grid-template-columns : 1fr 280px;
-          gap                   : 0 28px;
-          align-items           : center;
-          height                : 120px;
-          background            : #f47c20;
-          border-radius         : 8px;
-          padding               : 20px 28px;
-          box-sizing            : border-box;
-          box-shadow            : 0 8px 32px rgba(244, 124, 32, 0.35);
-          animation             : stripIn 0.32s cubic-bezier(0.4, 0, 0.2, 1) both;
+          display         : flex;
+          flex-direction  : column;
+          justify-content : center;
+          gap             : 8px;
+          height          : 120px;
+          background      : #f47c20;
+          border-radius   : 8px;
+          padding         : 20px 28px;
+          box-sizing      : border-box;
+          box-shadow      : 0 8px 32px rgba(244, 124, 32, 0.35);
+          animation       : stripIn 0.32s cubic-bezier(0.4, 0, 0.2, 1) both;
         }
         @keyframes stripIn {
           from { opacity: 0; transform: translateY(-10px) scaleY(0.92); }
@@ -319,32 +307,6 @@ export default function Services() {
           color          : rgba(255, 255, 255, 0.92);
           display        : block;
         }
-
-        /* Strip tags — Eurostile 400 · 10–12px · ls 0.05em */
-        .strip__tags {
-          display               : grid;
-          grid-template-columns : 1fr 1fr;
-          gap                   : 5px;
-          align-content         : center;
-        }
-        .strip__tag {
-          font-family    : var(--font-primary);
-          font-weight    : 400;
-          font-size      : clamp(10px, 0.75vw, 12px);
-          line-height    : 1.5;
-          letter-spacing : 0.05em;
-          text-transform : uppercase;
-          color          : #ffffff;
-          border         : 1px solid rgba(255, 255, 255, 0.5);
-          border-radius  : 3px;
-          padding        : 5px 8px;
-          white-space    : nowrap;
-          overflow       : hidden;
-          text-overflow  : ellipsis;
-          display        : block;
-          transition     : background 0.18s ease, border-color 0.18s ease;
-        }
-        .strip__tag:hover { background: rgba(255,255,255,0.2); border-color: #ffffff; }
 
         /* ── Mobile grid ── */
         .mob-grid {
@@ -452,40 +414,6 @@ export default function Services() {
           margin         : 0 0 16px;
           display        : block;
         }
-        .mob-sheet__rule {
-          height     : 1px;
-          background : rgba(255, 255, 255, 0.3);
-          margin     : 0 0 14px;
-        }
-
-        /* Sheet list — Eurostile 400 · 13–14px · ls 0.02em */
-        .mob-sheet__list {
-          list-style     : none;
-          padding        : 0;
-          margin         : 0;
-          display        : flex;
-          flex-direction : column;
-          gap            : 10px;
-        }
-        .mob-sheet__list li {
-          display        : flex;
-          align-items    : center;
-          gap            : 10px;
-          font-family    : var(--font-primary);
-          font-weight    : 400;
-          font-size      : clamp(13px, 3vw, 14px);
-          line-height    : 1.5;
-          letter-spacing : 0.02em;
-          color          : #ffffff;
-        }
-        .mob-sheet__dot {
-          display       : block;
-          width         : 5px;
-          height        : 5px;
-          border-radius : 50%;
-          background    : rgba(255, 255, 255, 0.7);
-          flex-shrink   : 0;
-        }
 
         /* ── Responsive ── */
         @media (min-width: 768px) and (max-width: 1100px) {
@@ -495,8 +423,7 @@ export default function Services() {
           .svc-ring                 { width: 76px; height: 76px; }
           .svc-row--4,
           .svc-row--5               { max-width: 780px; }
-          .strip                    { grid-template-columns: 1fr; height: auto; min-height: 90px; }
-          .strip__tags              { display: none; }
+          .strip                    { height: auto; min-height: 90px; }
           .svc-strip--on            { height: auto; min-height: 90px; }
         }
         @media (max-width: 767px) {
@@ -524,11 +451,6 @@ function StripInner({ s }: { s: Service }) {
       <div className="strip__body">
         <span className="strip__title">{s.title}</span>
         <span className="strip__desc">{s.description}</span>
-      </div>
-      <div className="strip__tags">
-        {s.details.map((d, i) => (
-          <span key={i} className="strip__tag">{d}</span>
-        ))}
       </div>
     </div>
   );

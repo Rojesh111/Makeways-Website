@@ -21,9 +21,8 @@ const items = [
     images : [
       '/images/portfolio/static/goldstar.webp',
       '/images/portfolio/static/goldstar1.webp',
-      '/images/portfolio/static/Goldstar Shoes (1).webp',
+      '/images/portfolio/static/Goldstar Shoes.webp',
       '/images/portfolio/static/Goldstar Shoes Series.webp',
-      '/images/portfolio/static/Goldstar Shoes Series (1).webp',
       '/images/portfolio/static/Goldstar Shoes Series (2).webp',
     ],
   },
@@ -53,7 +52,6 @@ const items = [
     title  : 'CG Net',
     images : [
       '/images/portfolio/static/CG Net.webp',
-      '/images/portfolio/static/CG Net (1).webp',
       '/images/portfolio/static/CG Net (2).webp',
     ],
   },
@@ -121,7 +119,7 @@ const items = [
     title  : 'Padelux',
     images : [
       '/images/portfolio/static/padelux.webp',
-      '/images/portfolio/static/padelux1webp',
+      '/images/portfolio/static/padelux1. webp',
       '/images/portfolio/static/PADelux Sanitary Pad.webp',
     ],
   },
@@ -148,7 +146,7 @@ const items = [
       '/images/portfolio/static/Yamaha Nepal.webp',
       '/images/portfolio/static/Yamaha Nepal (1).webp',
       '/images/portfolio/static/Yamaha Nepal (2).webp',
-      '/images/portfolio/static/Yamaha Nepal (3).webp',
+      '/images/portfolio/static/Yamaha Fascino.webp',
       '/images/portfolio/static/Yamaha Nepal (4).webp',
       '/images/portfolio/static/Yamaha Nepal- 2013.webp',
       '/images/portfolio/static/Yamaha Nepal - 2013.webp',

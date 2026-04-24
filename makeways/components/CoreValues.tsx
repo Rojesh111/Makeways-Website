@@ -14,7 +14,7 @@ const values: Value[] = [
     id: 1,
     title: 'Creatively Led',
     description:
-      "Creativity is the oxygen we breathe. We're always evolving, and our creative, entrepreneurial spirit uniquely empowers us to offer our clients fresh & friendly ideas to add value in their sectors and at large",
+      "Creativity is at the core of who we are. It fuels everything we do. As we continue to evolve, our entrepreneurial mindset and creative agility enable us to deliver fresh, approachable ideas that create meaningful value for our clients across their respective sectors.",
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M9 18h6" /><path d="M10 22h4" />
@@ -26,7 +26,7 @@ const values: Value[] = [
     id: 2,
     title: 'Strategically Driven',
     description:
-      'Our creative eyes are always looking and breaking down the campaigns of companies who experience the results of a flourishing marketing strategy put into kinetic motion to build business in both profile and profit',
+      'We apply a strategic, analytical lens to continuously observe and deconstruct brand campaigns. By examining how well-orchestrated marketing strategies are activated and scaled, we uncover the drivers behind measurable business outcomes.',
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
@@ -37,7 +37,7 @@ const values: Value[] = [
     id: 3,
     title: 'Insightfully Social',
     description:
-      'Businesses come in all shapes and sizes. We infuse the latest trends and social insights to connect and build seamless relationships with your target group available every day, built on a rock-solid foundation',
+      'Every business is unique in its scale and character. We combine emerging trends with deep social insights to foster seamless connections with your target audience building lasting relationships on a strong strategic foundation.',
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
@@ -48,7 +48,7 @@ const values: Value[] = [
     id: 4,
     title: 'Quality Obsessed',
     description:
-      "What sets us apart is our obsession with quality both in the work we carry out and in the care with which we serve our clients. At MAKEWAYS, we take our work too seriously without taking ourselves seriously",
+      "What sets us apart is our obsession with quality both in the work we carry out and in the care with which we serve our clients. At MAKEWAYS, we take our work too seriously without taking ourselves seriously.",
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />

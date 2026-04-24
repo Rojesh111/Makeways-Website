@@ -10,15 +10,15 @@ interface Service {
 }
 
 const services: Service[] = [
-  { id: 1, title: 'Integrated Campaign', description: 'Seamless brand storytelling across every channel — TV, digital, print, and beyond unified under one powerful strategy', row: 1 },
-  { id: 2, title: 'Brand Strategy', description: 'We define who you are, what you stand for, and how the world sees you turning brand into competitive advantage', row: 1 },
-  { id: 3, title: 'A/V Productions', description: 'Cinematic quality video and audio content that commands attention and moves audiences to action', row: 1 },
-  { id: 4, title: 'Events & Activations', description: 'Live brand experiences that create genuine emotional connections and lasting memories with your audience', row: 1 },
-  { id: 5, title: 'Digital Marketing', description: 'Data-driven digital strategies that grow your presence, engage your audience, and convert at scale', row: 2 },
-  { id: 6, title: 'Influencer Campaign', description: "Authentic creator partnerships that extend your brand's reach and build trust through genuine voices", row: 2 },
-  { id: 7, title: 'Media Release', description: 'Strategic PR and media buying that keeps your brand prominent, credible, and in the conversation', row: 2 },
-  { id: 8, title: 'Design & Fabrication', description: 'Bold visual craft from concept to physical production that makes your brand impossible to ignore', row: 2 },
-  { id: 9, title: 'OOH', description: 'Out-of-home advertising at scale billboards, transit, and digital screens that dominate the landscape', row: 2 },
+  { id: 1, title: 'Integrated Campaign', description: 'Seamless brand storytelling across every channel — TV, digital, print, and beyond unified under one powerful strategy.', row: 1 },
+  { id: 2, title: 'Brand Strategy', description: 'We define who you are, what you stand for, and how the world sees you turning brand into competitive advantage.', row: 1 },
+  { id: 3, title: 'A/V Productions', description: 'Cinematic quality video and audio content that commands attention and moves audiences to action.', row: 1 },
+  { id: 4, title: 'Events & Activations', description: 'Live brand experiences that create genuine emotional connections and lasting memories with your audience.', row: 1 },
+  { id: 5, title: 'Digital Marketing', description: 'Data-driven digital strategies that grow your presence, engage your audience, and convert at scale.', row: 2 },
+  { id: 6, title: 'Influencer Campaign', description: "Authentic creator partnerships that extend your brand's reach and build trust through genuine voices.", row: 2 },
+  { id: 7, title: 'Media Release', description: 'Strategic PR and media buying that keeps your brand prominent, credible, and in the conversation.', row: 2 },
+  { id: 8, title: 'Design & Fabrication', description: 'Bold visual craft from concept to physical production that makes your brand impossible to ignore.', row: 2 },
+  { id: 9, title: 'OOH', description: 'Out-of-home advertising at scale billboards, transit, and digital screens that dominate the landscape.', row: 2 },
 ];
 
 const icons: Record<number, React.ReactNode> = {

@@ -28,81 +28,6 @@ const items = [
   },
   {
     id     : 3,
-    title  : 'Acer Iconia',
-    images : [
-      '/images/portfolio/static/acer.webp',
-      '/images/portfolio/static/Acer Iconia.webp',
-      '/images/portfolio/static/Acer Iconia (1).webp',
-    ],
-  },
-  {
-    id     : 4,
-    title  : 'Arna Beer',
-    images : '/images/portfolio/static/ARNA Beer.webp',
-  },
-  {
-    id     : 5,
-    title  : 'Bip App',
-    images : [
-      '/images/portfolio/static/Bip App.webp',
-    ],
-  },
-  {
-    id     : 6,
-    title  : 'CG Net',
-    images : [
-      '/images/portfolio/static/CG NET.webp',
-      '/images/portfolio/static/CG NET (2).webp',
-    ],
-  },
-  {
-    id     : 7,
-    title  : 'Fiat Nepal',
-    images : [
-      '/images/portfolio/static/fiat.webp',
-      '/images/portfolio/static/fiat1.webp',
-    ],
-  },
-  {
-    id     : 8,
-    title  : 'Hero',
-    images : [
-      '/images/portfolio/static/hero.webp',
-      '/images/portfolio/static/hero1.webp',
-    ],
-  },
-  {
-    id     : 9,
-    title  : 'Himalayan Reserve',
-    images : [
-      '/images/portfolio/static/himalayan reserve.webp',
-    ],
-  },
-  {
-    id     : 10,
-    title  : 'KIA Motors',
-    images : [
-      '/images/portfolio/static/KIA Motors.webp',
-      '/images/portfolio/static/KIA Motors (1).webp',
-      '/images/portfolio/static/KIA Sportage.webp',
-    ],
-  },
-  {
-    id     : 11,
-    title  : 'Komatsu',
-    images : [
-      '/images/portfolio/static/KOMATSU.webp',
-    ],
-  },
-  {
-    id     : 12,
-    title  : 'Monalisa',
-    images : [
-      '/images/portfolio/static/Monalisa.webp',
-    ],
-  },
-    {
-    id     : 13,
     title  : 'NBank',
     images : [
       '/images/portfolio/static/nBank.webp',
@@ -115,7 +40,7 @@ const items = [
     ],
   },
   {
-    id     : 14,
+    id     : 4,
     title  : 'Padelux',
     images : [
       '/images/portfolio/static/padelux.webp',
@@ -124,22 +49,15 @@ const items = [
     ],
   },
   {
-    id     : 15,
-    title  : 'SKODA',
+    id     : 5,
+    title  : 'Hero',
     images : [
-      '/images/portfolio/static/SKODA.webp',
-      '/images/portfolio/static/SKODA (1).webp',
+      '/images/portfolio/static/hero.webp',
+      '/images/portfolio/static/hero1.webp',
     ],
   },
   {
-    id     : 16,
-    title  : 'Suzuki',
-    images : [
-      '/images/portfolio/static/Suzuki.webp',
-    ],
-  },
-    {
-    id     : 17,
+    id     : 6,
     title  : 'Yamaha',
     images : [
       '/images/portfolio/static/yamaha.webp',
@@ -159,6 +77,89 @@ const items = [
       '/images/portfolio/static/Yamaha - Miss Nepal Series (2).webp',
       '/images/portfolio/static/Yamaha Ray ZR.webp',
 
+    ],
+  },
+  {
+    id     : 7,
+    title  : 'Suzuki',
+    images : [
+      '/images/portfolio/static/Suzuki.webp',
+    ],
+  },
+  {
+    id     : 8,
+    title  : 'CG Net',
+    images : [
+      '/images/portfolio/static/CG NET.webp',
+      '/images/portfolio/static/CG NET (2).webp',
+    ],
+  },
+  {
+    id     : 9,
+    title  : 'Acer Iconia',
+    images : [
+      '/images/portfolio/static/acer.webp',
+      '/images/portfolio/static/Acer Iconia.webp',
+      '/images/portfolio/static/Acer Iconia (1).webp',
+    ],
+  },
+  {
+    id     : 10,
+    title  : 'Arna Beer',
+    images : '/images/portfolio/static/ARNA Beer.webp',
+  },
+  {
+    id     : 11,
+    title  : 'Bip App',
+    images : [
+      '/images/portfolio/static/Bip App.webp',
+    ],
+  },
+  {
+    id     : 12,
+    title  : 'Fiat Nepal',
+    images : [
+      '/images/portfolio/static/fiat.webp',
+      '/images/portfolio/static/fiat1.webp',
+    ],
+  },
+
+  {
+    id     : 13,
+    title  : 'Himalayan Reserve',
+    images : [
+      '/images/portfolio/static/himalayan reserve.webp',
+    ],
+  },
+  {
+    id     : 14,
+    title  : 'KIA Motors',
+    images : [
+      '/images/portfolio/static/KIA Motors.webp',
+      '/images/portfolio/static/KIA Motors (1).webp',
+      '/images/portfolio/static/KIA Sportage.webp',
+    ],
+  },
+  {
+    id     : 15,
+    title  : 'Komatsu',
+    images : [
+      '/images/portfolio/static/KOMATSU.webp',
+    ],
+  },
+  {
+    id     : 16,
+    title  : 'Monalisa',
+    images : [
+      '/images/portfolio/static/Monalisa.webp',
+    ],
+  },
+  {
+    id     : 17,
+    title  : 'SKODA',
+    images : [
+      '/images/portfolio/static/SKODA.webp',
+      '/images/portfolio/static/SKODA (1).webp',
     ],
   },
 ];

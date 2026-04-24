@@ -86,7 +86,7 @@ export default function AboutMakeways(): ReactElement {
                 </svg>
                 <p>
                   Guided by strategic thinking and creative precision, we help brands connect
-                  meaningfully with their audiences translating intent into measurable results
+                  meaningfully with their audiences translating intent into measurable results.
                 </p>
               </div>
             </blockquote>

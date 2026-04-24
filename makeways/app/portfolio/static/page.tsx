@@ -51,8 +51,8 @@ const items = [
     id     : 6,
     title  : 'CG Net',
     images : [
-      '/images/portfolio/static/CG Net.webp',
-      '/images/portfolio/static/CG Net (2).webp',
+      '/images/portfolio/static/CG NET.webp',
+      '/images/portfolio/static/CG NET (2).webp',
     ],
   },
   {
@@ -75,7 +75,7 @@ const items = [
     id     : 9,
     title  : 'Himalayan Reserve',
     images : [
-      '/images/portfolio/static/Himalayan Reserve.webp',
+      '/images/portfolio/static/himalayan reserve.webp',
     ],
   },
   {
@@ -105,9 +105,9 @@ const items = [
     id     : 13,
     title  : 'NBank',
     images : [
-      '/images/portfolio/static/nbank.webp',
-      '/images/portfolio/static/nbank (1).webp',
-      '/images/portfolio/static/nbank (2).webp',
+      '/images/portfolio/static/nBank.webp',
+      '/images/portfolio/static/nBank (1).webp',
+      '/images/portfolio/static/nBank (2).webp',
       '/images/portfolio/static/nBank- Influencer Campaign - I am nGen.webp',
       '/images/portfolio/static/nBank- Influencer Campaign - I am nGen (1).webp',
       '/images/portfolio/static/nBank- Influencer Campaign - I am nGen (3).webp',

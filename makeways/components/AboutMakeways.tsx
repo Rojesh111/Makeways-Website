@@ -51,17 +51,15 @@ export default function AboutMakeways(): ReactElement {
                 className="about__lead animate"
                 style={{ '--delay': '0.1s' } as React.CSSProperties}
               >
-                Makeways Pvt Ltd is an independent, full-service advertising agency based in
-                Kathmandu, Nepal, established in 2013. We deliver cutting-edge marcom solutions
-                through a wide range of professional services.
+                Makeways Pvt. Ltd. is an independent, full-service advertising agency based in Kathmandu, Nepal, established in 2013. 
+                The company delivers innovative marketing communications solutions through a comprehensive suite of professional services.
               </p>
 
               <p
                 className="about__body animate"
                 style={{ '--delay': '0.2s' } as React.CSSProperties}
               >
-                We continuously explore new disciplines and refine our offerings to stay ahead of
-                ever changing trends and platforms.
+                Committed to staying ahead in a dynamic and evolving landscape, Makeways continuously explores emerging disciplines and refines its offerings to remain relevant across changing trends and platforms.
               </p>
             </div>
 

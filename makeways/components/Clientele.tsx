@@ -7,29 +7,28 @@ const CARD_W   = 180;
 const CARD_GAP = 16;
 
 const clients = [
-  { id: 1,  name: 'Yamaha',          logo: '/images/Clientele/Yamaha.png' },
-  { id: 2,  name: 'JCB',             logo: '/images/Clientele/JCB.png' },
-  { id: 4,  name: 'BMW',             logo: '/images/Clientele/BMW.png' },
-  { id: 5,  name: 'Epson',           logo: '/images/Clientele/Epson.png' },
-  { id: 6,  name: 'Acer',            logo: '/images/Clientele/acer.png' },
-  { id: 7,  name: 'Save the Children', logo: '/images/Clientele/save_the_children.png' },
-  { id: 8,  name: 'Toshiba',         logo: '/images/Clientele/Toshiba.png' },
-  { id: 9,  name: 'Skoda',           logo: '/images/Clientele/skoda.png' },
-  { id: 10, name: 'CG',              logo: '/images/Clientele/cg.png' },
-  { id: 11, name: 'Nabil Bank',      logo: '/images/Clientele/nbank.png' },
-  { id: 12, name: 'Hulas Steel',     logo: '/images/Clientele/Hulas_Steel.png' },
-  { id: 13, name: 'British Embassy', logo: '/images/Clientele/British_Embassy.png' },
-  { id: 14, name: 'CGNET',           logo: '/images/Clientele/CG_net.png' },
-  { id: 15, name: 'Forthing',        logo: '/images/Clientele/Forthing.png' },
-  { id: 16, name: 'Goldstar',        logo: '/images/Clientele/Goldstar.png' },
-  { id: 17, name: 'Hero',            logo: '/images/Clientele/Hero.png' },
-  { id: 18, name: 'LG',              logo: '/images/Clientele/LG.png' },
-  { id: 19, name: 'Neta',            logo: '/images/Clientele/Neta.png' },
-  { id: 20, name: 'Padelux',         logo: '/images/Clientele/Padelux.png' },
-  { id: 21, name: 'Yeti Airlines',   logo: '/images/Clientele/Yeti_Airlines.png' },
-  { id: 22, name: 'Czech',           logo: '/images/Clientele/Czech.png' },
-  { id: 23, name: 'Nepal Care',      logo: '/images/Clientele/CNepal.png' },
-  { id: 24, name: 'Nabil Bank',      logo: '/images/Clientele/Nabil_Bank.png' },
+  { id: 1,  name: 'Goldstar',          logo: '/images/Clientele/Goldstar.png' },
+  { id: 2,  name: 'CG',             logo: '/images/Clientele/CG.png' },
+  { id: 3,  name: 'BMW',             logo: '/images/Clientele/BMW.png' },
+  { id: 4,  name: 'Hero',           logo: '/images/Clientele/Hero.png' },
+  { id: 5,  name: 'nbank',            logo: '/images/Clientele/nbank.png' },
+  { id: 6,  name: 'Nabil Bank', logo: '/images/Clientele/Nabil_Bank.png' },
+  { id: 7,  name: 'British Embassy',         logo: '/images/Clientele/British_Embassy.png' },
+  { id: 8,  name: 'Yeti Airlines',           logo: '/images/Clientele/Yeti_Airlines.png' },
+  { id: 9, name: 'LG',              logo: '/images/Clientele/LG.png' },
+  { id: 10, name: 'Yamaha',      logo: '/images/Clientele/Yamaha.png' },
+  { id: 11, name: 'Hulas Steel',     logo: '/images/Clientele/Hulas_Steel.png' },
+  { id: 12, name: 'Czech', logo: '/images/Clientele/czech.jpeg' },
+  { id: 13, name: 'CGNET',           logo: '/images/Clientele/CG_net.png' },
+  { id: 14, name: 'Epson',        logo: '/images/Clientele/Epson.png' },
+  { id: 15, name: 'Toshiba',        logo: '/images/Clientele/Toshiba.png' },
+  { id: 16, name: 'Forthing',            logo: '/images/Clientele/Forthing.png' },
+  { id: 17, name: 'JCB',              logo: '/images/Clientele/JCB.png' },
+  { id: 18, name: 'Neta',            logo: '/images/Clientele/Neta.png' },
+  { id: 19, name: 'Padelux',         logo: '/images/Clientele/Padelux.png' },
+  { id: 20, name: 'Skoda',   logo: '/images/Clientele/Skoda.png' },
+  { id: 21, name: 'Nepal Care',      logo: '/images/Clientele/CNepal.png' },
+  { id: 22, name: 'Save the Children',      logo: '/images/Clientele/Save_the_Children.png' },
 ];
 
 const row1Base = clients.slice(0, 6);
@@ -417,7 +416,7 @@ export default function Clientele() {
         /* ── Inner layout ── */
         .inner {
           max-width : 1100px;
-          margin    : 0 auto;
+          margin    : 0 auto 0 65px;
           padding   : 0 48px;
           position  : relative;
           z-index   : 2;
@@ -425,10 +424,10 @@ export default function Clientele() {
         .header-row {
           display        : flex;
           align-items    : flex-end;
-          justify-content: space-between;
+          justify-content: flex-start;
           margin-bottom  : 48px;
           flex-wrap      : wrap;
-          gap            : 32px;
+          gap            : 80px;
         }
         .title-block { display: flex; flex-direction: column; gap: 10px; }
         .title {

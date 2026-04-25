@@ -16,7 +16,7 @@ const socials: { name: string; Icon: () => JSX.Element; url: string }[] = [
   { name: 'Facebook',  Icon: FacebookIcon,  url: 'https://www.facebook.com/profile.php?id=100064005604861' },
   { name: 'Instagram', Icon: InstagramIcon, url: 'https://www.instagram.com/makeways_advertising/' },
   { name: 'YouTube',   Icon: YouTubeIcon,   url: 'https://www.youtube.com/@MakewaysAdvertising' },
-  { name: 'LinkedIn',  Icon: LinkedInIcon,  url: '#' },
+  { name: 'LinkedIn',  Icon: LinkedInIcon,  url: 'https://www.linkedin.com/in/makeways-advertising-643151402/' },
   { name: 'TikTok',    Icon: TikTokIcon,    url: 'https://www.tiktok.com/@makeways4?_r=1&_t=ZS-95fKscPJE8e' },
 ];
 
